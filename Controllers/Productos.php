@@ -33,6 +33,24 @@
 					$btnEdit = '';
 					$btnDelete = '';
 
+					//fecha vencimiento
+					// Calcula la diferencia en días entre la fecha de vencimiento y la fecha actual
+					$diferencia_dias = strtotime($arrData[$i]['fecha_v']) - strtotime(date("Y-m-d"));
+					$dias_para_vencer = floor($diferencia_dias / (60 * 60 * 24));
+
+					// Aplica estilos según la diferencia en días
+					if ($dias_para_vencer <= 0) {
+						// Producto vencido
+						$arrData[$i]['fecha_v'] = "<span class='badge badge-danger'>" . $arrData[$i]['fecha_v'] . "</span>";
+					} elseif ($dias_para_vencer <= 10) {
+						// Faltan menos de 10 días para vencer
+						$arrData[$i]['fecha_v'] = "<span class='badge badge-warning'>" . $arrData[$i]['fecha_v'] . "</span>";
+					} else {
+						// Más de 10 días para vencer
+						$arrData[$i]['fecha_v'] = '<span class="badge badge-success">' . $arrData[$i]['fecha_v'] . '</span>';
+					}
+
+					//stado
 					if($arrData[$i]['status'] == 1)
 					{
 						$arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';

@@ -25,6 +25,7 @@
 							p.descripcion,
 							p.categoriaid,
 							c.nombre as categoria,
+							p.fecha_v,
 							p.precio,
 							p.stock,
 							p.status 

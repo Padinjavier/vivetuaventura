@@ -29,6 +29,7 @@
                           <th>Nombre</th>
                           <th>Stock</th>
                           <th>Precio</th>
+                          <th>Fecha vencimiento</th>
                           <th>Estado</th>
                           <th>Acciones</th>
                         </tr>

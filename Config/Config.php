@@ -1,5 +1,5 @@
 <?php 
-	const BASE_URL = "http://localhost/ecommerce";
+	const BASE_URL = "http://localhost/ecommercecompleto";
 	//const BASE_URL = "https://tecomsis.com";
 
 	//Zona horaria
@@ -7,9 +7,9 @@
 
 	//Datos de conexión a Base de Datos
 	const DB_HOST = "localhost";
-	const DB_NAME = "tienda";
+	const DB_NAME = "tiendafinal";
 	const DB_USER = "root";
-	const DB_PASSWORD = "";
+	const DB_PASSWORD = "javier20";
 	const DB_CHARSET = "utf8";
 
 	//Para envío de correo

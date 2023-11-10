@@ -22,6 +22,7 @@ tableProductos = $('#tableProductos').dataTable( {
         {"data":"nombre"},
         {"data":"stock"},
         {"data":"precio"},
+        {"data":"fecha_v"},
         {"data":"status"},
         {"data":"options"}
     ],
