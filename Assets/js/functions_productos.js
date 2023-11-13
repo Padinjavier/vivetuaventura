@@ -81,8 +81,9 @@ window.addEventListener('load', function() {
             let intCodigo = document.querySelector('#txtCodigo').value;
             let strPrecio = document.querySelector('#txtPrecio').value;
             let intStock = document.querySelector('#txtStock').value;
+            let strfecha = document.querySelector('#txtfecha').value;
             let intStatus = document.querySelector('#listStatus').value;
-            if(strNombre == '' || intCodigo == '' || strPrecio == '' || intStock == '' )
+            if(strNombre == '' || intCodigo == '' || strPrecio == '' || intStock == ''|| strfecha == '' )
             {
                 swal("Atención", "Todos los campos son obligatorios." , "error");
                 return false;
@@ -118,8 +119,9 @@ window.addEventListener('load', function() {
                             rowTable.cells[1].textContent = intCodigo;
                             rowTable.cells[2].textContent = strNombre;
                             rowTable.cells[3].textContent = intStock;
-                            rowTable.cells[4].textContent = smony+strPrecio;
-                            rowTable.cells[5].innerHTML =  htmlStatus;
+                            rowTable.cells[4].textContent = strfecha;//agregamos fecha
+                            rowTable.cells[5].textContent = smony+strPrecio;
+                            rowTable.cells[6].innerHTML =  htmlStatus;
                             rowTable = ""; 
                         }
                     }else{
@@ -322,12 +324,15 @@ function fntEditInfo(element,idProducto){
                 document.querySelector("#txtCodigo").value = objProducto.codigo;
                 document.querySelector("#txtPrecio").value = objProducto.precio;
                 document.querySelector("#txtStock").value = objProducto.stock;
+                document.querySelector("#txtfecha").value = objProducto.fecha_v;//agregamos fecha
                 document.querySelector("#listCategoria").value = objProducto.categoriaid;
                 document.querySelector("#listStatus").value = objProducto.status;
                 tinymce.activeEditor.setContent(objProducto.descripcion); 
                 $('#listCategoria').selectpicker('render');
                 $('#listStatus').selectpicker('render');
                 fntBarcode();
+
+
 
                 if(objProducto.images.length > 0){
                     let objProductos = objProducto.images;

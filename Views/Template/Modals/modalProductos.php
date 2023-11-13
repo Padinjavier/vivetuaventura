@@ -45,6 +45,11 @@
                             <label class="control-label">Stock <span class="required">*</span></label>
                             <input class="form-control" id="txtStock" name="txtStock" type="text" required="">
                         </div>
+                        <!-- //agregamos fecha -->
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Fecha vencimiento <span class="required">*</span></label>
+                            <input class="form-control" id="txtfecha" name="txtfecha" type="date" required="">
+                        </div>
                     </div>
 
                     <div class="row">

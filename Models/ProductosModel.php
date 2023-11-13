@@ -9,6 +9,7 @@
 		private $intCategoriaId;
 		private $intPrecio;
 		private $intStock;
+		private $strfecha;
 		private $intStatus;
 		private $strRuta;
 		private $strImagen;
@@ -37,13 +38,14 @@
 			return $request;
 		}	
 
-		public function insertProducto(string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $ruta, int $status){
+		public function insertProducto(string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock,string $strfecha, string $ruta, int $status){
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
 			$this->intCodigo = $codigo;
 			$this->intCategoriaId = $categoriaid;
 			$this->strPrecio = $precio;
 			$this->intStock = $stock;
+			$this->strfecha = $strfecha;
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
 			$return = 0;
@@ -57,15 +59,17 @@
 														descripcion,
 														precio,
 														stock,
+														fecha_v,
 														ruta,
 														status) 
-								  VALUES(?,?,?,?,?,?,?,?)";
+								  VALUES(?,?,?,?,?,?,?,?,?)";
 	        	$arrData = array($this->intCategoriaId,
         						$this->intCodigo,
         						$this->strNombre,
         						$this->strDescripcion,
         						$this->strPrecio,
         						$this->intStock,
+        						$this->strfecha,
         						$this->strRuta,
         						$this->intStatus);
 	        	$request_insert = $this->insert($query_insert,$arrData);
