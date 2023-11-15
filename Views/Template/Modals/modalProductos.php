@@ -144,6 +144,10 @@
               <td id="celStock"></td>
             </tr>
             <tr>
+              <td>Fecha vencimiento:</td>
+              <td id="celFecha_v"></td>
+            </tr>
+            <tr>
               <td>Categoría:</td>
               <td id="celCategoria"></td>
             </tr>

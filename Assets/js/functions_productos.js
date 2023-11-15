@@ -279,6 +279,7 @@ function fntViewInfo(idProducto){
                 document.querySelector("#celNombre").innerHTML = objProducto.nombre;
                 document.querySelector("#celPrecio").innerHTML = objProducto.precio;
                 document.querySelector("#celStock").innerHTML = objProducto.stock;
+                document.querySelector("#celFecha_v").innerHTML = objProducto.fecha_v;
                 document.querySelector("#celCategoria").innerHTML = objProducto.categoria;
                 document.querySelector("#celStatus").innerHTML = estadoProducto;
                 document.querySelector("#celDescripcion").innerHTML = objProducto.descripcion;
@@ -437,8 +438,8 @@ function openModal()
     document.querySelector('#btnText').innerHTML ="Guardar";
     document.querySelector('#titleModal').innerHTML = "Nuevo Producto";
     document.querySelector("#formProductos").reset();
-    document.querySelector("#divBarCode").classList.add("notblock");
-    document.querySelector("#containerGallery").classList.add("notblock");
+    document.querySelector("#divBarCode").classList.add("show");//con error
+    document.querySelector("#containerGallery").classList.add("show");//con error
     document.querySelector("#containerImages").innerHTML = "";
     $('#modalFormProductos').modal('show');
 

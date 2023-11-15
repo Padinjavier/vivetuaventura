@@ -130,6 +130,8 @@
 							p.descripcion,
 							p.precio,
 							p.stock,
+							-- para ver fecha
+							p.fecha_v,
 							p.categoriaid,
 							c.nombre as categoria,
 							p.status
