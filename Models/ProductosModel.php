@@ -26,9 +26,9 @@
 							p.descripcion,
 							p.categoriaid,
 							c.nombre as categoria,
-							p.fecha_v,
 							p.precio,
 							p.stock,
+							p.fecha_v,
 							p.status 
 					FROM producto p 
 					INNER JOIN categoria c
@@ -80,7 +80,7 @@
 	        return $return;
 		}
 
-		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $ruta, int $status){
+		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $strfecha, string $ruta, int $status){
 			$this->intIdProducto = $idproducto;
 			$this->strNombre = $nombre;
 			$this->strDescripcion = $descripcion;
@@ -88,6 +88,7 @@
 			$this->intCategoriaId = $categoriaid;
 			$this->strPrecio = $precio;
 			$this->intStock = $stock;
+			$this->strfecha = $strfecha;
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
 			$return = 0;
@@ -102,6 +103,7 @@
 							descripcion=?,
 							precio=?,
 							stock=?,
+							fecha_v=?,
 							ruta=?,
 							status=? 
 						WHERE idproducto = $this->intIdProducto ";
@@ -111,6 +113,7 @@
         						$this->strDescripcion,
         						$this->strPrecio,
         						$this->intStock,
+								$this->strfecha,
         						$this->strRuta,
         						$this->intStatus);
 
@@ -130,7 +133,6 @@
 							p.descripcion,
 							p.precio,
 							p.stock,
-							-- para ver fecha
 							p.fecha_v,
 							p.categoriaid,
 							c.nombre as categoria,

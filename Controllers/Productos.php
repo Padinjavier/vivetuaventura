@@ -77,7 +77,7 @@
 
 		public function setProducto(){
 			if($_POST){
-				if(empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) || empty($_POST['txtfecha']) ||empty($_POST['txtPrecio']) || empty($_POST['listStatus']) )
+				if(empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) ||empty($_POST['txtPrecio']) || empty($_POST['txtfecha'])  || empty($_POST['listStatus']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{

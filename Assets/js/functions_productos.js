@@ -116,11 +116,33 @@ window.addEventListener('load', function() {
                            htmlStatus = intStatus == 1 ? 
                             '<span class="badge badge-success">Activo</span>' : 
                             '<span class="badge badge-danger">Inactivo</span>';
+                                           
+                         
+                            // Convierte la cadena de fecha a objeto Date
+                            var fechaVencimiento = new Date(strfecha);
+                            // Obtiene la fecha actual
+                            var fechaActual = new Date();
+                            // Calcula la diferencia en milisegundos entre la fecha de vencimiento y la fecha actual
+                            var diferenciaMilisegundos = fechaVencimiento - fechaActual;
+                            // Calcula la diferencia en días
+                            var diasParaVencer = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24));
+                            // Aplica estilos según la diferencia en días
+                            var fechaConEstilo;
+                            if (diasParaVencer <= 0) {
+                                // Producto vencido
+                                fechaConEstilo = '<span class="badge badge-danger">' + strfecha + '</span>';
+                            } else if (diasParaVencer <= 10) {
+                                // Faltan menos de 10 días para vencer
+                                fechaConEstilo = '<span class="badge badge-warning">' + strfecha + '</span>';
+                            } else {
+                                // Más de 10 días para vencer
+                                fechaConEstilo = '<span class="badge badge-success">' + strfecha + '</span>';
+                            }
                             rowTable.cells[1].textContent = intCodigo;
                             rowTable.cells[2].textContent = strNombre;
                             rowTable.cells[3].textContent = intStock;
-                            rowTable.cells[4].textContent = strfecha;//agregamos fecha
-                            rowTable.cells[5].textContent = smony+strPrecio;
+                            rowTable.cells[4].textContent = smony+strPrecio;
+                            rowTable.cells[5].innerHTML = fechaConEstilo;
                             rowTable.cells[6].innerHTML =  htmlStatus;
                             rowTable = ""; 
                         }
