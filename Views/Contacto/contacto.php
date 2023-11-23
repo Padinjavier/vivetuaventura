@@ -42,7 +42,7 @@ $idpagina = $data['page']['idpost'];
 					</div>
 
 					<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
-						Eviar
+						Enviar
 					</button>
 				</form>
 			</div>
@@ -83,7 +83,7 @@ $idpagina = $data['page']['idpost'];
 
 				<div class="flex-w w-full">
 					<span class="fs-18 cl5 txt-center size-211">
-						<span class="lnr lnr-envelope"></span>
+						<span class="lnr lnr-envelope" ></span>
 					</span>
 
 					<div class="size-212 p-t-2">
@@ -95,17 +95,20 @@ $idpagina = $data['page']['idpost'];
 							<a class="" href="mailto:<?= EMAIL_EMPRESA ?>"><?= EMAIL_EMPRESA ?>
 						</p>
 					</div>
+					
 				</div>
 			</div>
+			
 		</div>
 	</div>
+	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.3781525051195!2d-76.3842605!3d-12.947637199999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x910ff72ca9c0da91%3A0x884405cf652f2943!2sBODEGA%20CHAMORRO!5e0!3m2!1ses!2spe!4v1700662393327!5m2!1ses!2spe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>	
 <?php 
 		echo $data['page']['contenido'];
 	}else{
 ?>
 <div>
-	<div class="container-fluid py-5 text-center" >
+	<div class="container-fluid py-5 text-center">
 		<img src="<?= media() ?>/images/construction.png" alt="En construcción">
 		<h3>Estamos trabajando para usted.</h3>
 	</div>

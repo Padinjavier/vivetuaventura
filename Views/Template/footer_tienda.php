@@ -2,8 +2,11 @@
 		$catFotter = getCatFooter();
 	 ?>
 	<!-- Footer -->
+	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.3781525051195!2d-76.3842605!3d-12.947637199999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x910ff72ca9c0da91%3A0x884405cf652f2943!2sBODEGA%20CHAMORRO!5e0!3m2!1ses!2spe!4v1700662393327!5m2!1ses!2spe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
 	<footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
+
 			<div class="row">
 				<div class="col-sm-6 col-lg-4 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
@@ -24,7 +27,7 @@
 
 				<div class="col-sm-6 col-lg-4 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Cotacto
+						Contacto
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
@@ -106,7 +109,7 @@
 	<script src="<?= media() ?>/tienda/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
 	<script src="<?= media() ?>/tienda/vendor/slick/slick.min.js"></script>
-	<script src="<?= media() ?>/tienda/js/slick-custom.js"></script>
+	<!-- <script src="<?= media() ?>/tienda/js/slick-custom.js"></script> -->
 <!--===============================================================================================-->
 	<script src="<?= media() ?>/tienda/vendor/parallax100/parallax100.js"></script>
 <!--===============================================================================================-->
