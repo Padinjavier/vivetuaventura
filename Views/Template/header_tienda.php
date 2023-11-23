@@ -5,6 +5,7 @@
 			$cantCarrito += $product['cantidad'];
 		}
 	}
+	
 	$tituloPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['titulo'] : "";
 	$infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['contenido'] : "";
  ?>
@@ -147,6 +148,7 @@
 						<ul class="main-menu">
 							<li class="active-menu">
 								<a href="<?= base_url(); ?>">Inicio</a>
+
 							</li>
 
 							<li>

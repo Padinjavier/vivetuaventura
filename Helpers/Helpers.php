@@ -5,6 +5,7 @@
     require 'Libraries/phpmailer/PHPMailer.php';
     require 'Libraries/phpmailer/SMTP.php';
 
+
 	//Retorla la url del proyecto
 	function base_url()
 	{
@@ -387,6 +388,7 @@
         return $request;
     }
 
+    
     function getPageRout(string $ruta){
         require_once("Libraries/Core/Mysql.php");
         $con = new Mysql();
