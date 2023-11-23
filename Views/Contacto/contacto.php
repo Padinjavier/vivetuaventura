@@ -42,7 +42,7 @@ $idpagina = $data['page']['idpost'];
 					</div>
 
 					<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
-						Enviar
+						Eviar
 					</button>
 				</form>
 			</div>
@@ -83,7 +83,7 @@ $idpagina = $data['page']['idpost'];
 
 				<div class="flex-w w-full">
 					<span class="fs-18 cl5 txt-center size-211">
-						<span class="lnr lnr-envelope" ></span>
+						<span class="lnr lnr-envelope"></span>
 					</span>
 
 					<div class="size-212 p-t-2">
@@ -94,16 +94,9 @@ $idpagina = $data['page']['idpost'];
 						<p class="stext-115 cl1 size-213 p-t-18">
 							<a class="" href="mailto:<?= EMAIL_EMPRESA ?>"><?= EMAIL_EMPRESA ?>
 						</p>
-						<?php 
-							get_current_user();
-							$username = get_current_user();
-							echo $username;
-						?>
 					</div>
-					
 				</div>
 			</div>
-			
 		</div>
 	</div>
 </section>	
@@ -112,7 +105,7 @@ $idpagina = $data['page']['idpost'];
 	}else{
 ?>
 <div>
-	<div class="container-fluid py-5 text-center">
+	<div class="container-fluid py-5 text-center" >
 		<img src="<?= media() ?>/images/construction.png" alt="En construcción">
 		<h3>Estamos trabajando para usted.</h3>
 	</div>

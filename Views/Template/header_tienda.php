@@ -5,7 +5,6 @@
 			$cantCarrito += $product['cantidad'];
 		}
 	}
-	
 	$tituloPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['titulo'] : "";
 	$infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['contenido'] : "";
  ?>
@@ -140,7 +139,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="<?= base_url(); ?>" class="logo">
-						<img src="<?= media() ?>/tienda/images/logoChamorro.png" alt="Tienda Virtual">
+						<img src="<?= media() ?>/tienda/images/logo.png" alt="Tienda Virtual">
 					</a>
 
 					<!-- Menu desktop -->
@@ -148,7 +147,6 @@
 						<ul class="main-menu">
 							<li class="active-menu">
 								<a href="<?= base_url(); ?>">Inicio</a>
-
 							</li>
 
 							<li>
@@ -192,7 +190,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="<?= base_url(); ?>"><img src="<?= media() ?>/tienda/images/logoChamorro.png" alt="Tienda Virtual"></a>
+				<a href="<?= base_url(); ?>"><img src="<?= media() ?>/tienda/images/logo.png" alt="Tienda Virtual"></a>
 			</div>
 
 			<!-- Icon header -->

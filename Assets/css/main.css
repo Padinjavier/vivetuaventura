@@ -5,6 +5,13 @@
  * ================================*/
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,400i,700);
 @import url(https://fonts.googleapis.com/css?family=Niconne);
+
+@import url(https://fonts.googleapis.com/css2?family=Agbalumo&display=swap);
+
+@import url(https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap);
+
+@import url(https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap);
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -38,8 +45,12 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* --font-family-sans-serif: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; */
+  /* --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; */
+  
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+
 }
 
 *,
@@ -50,7 +61,13 @@
 }
 
 html {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
+  /* font-family: 'Agbalumo', sans-serif; */
+  /* font-family: 'Shadows Into Light', cursive; */
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 300;
+
+
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -62,7 +79,12 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; */
+  /* font-family: 'Agbalumo', sans-serif; */
+  /* font-family: 'Shadows Into Light', cursive; */
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 300;
+
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
@@ -6248,7 +6270,8 @@ a.close.disabled {
   background-color: #FFF;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
+  /* borde */
+  border-radius: 1rem;
   outline: 0;
 }
 
@@ -6282,8 +6305,9 @@ a.close.disabled {
           justify-content: space-between;
   padding: 1rem 1rem;
   border-bottom: 1px solid #dee2e6;
-  border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem;
+  /* bordes */
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
 .modal-header .close {
@@ -14922,7 +14946,7 @@ be a descendant of the grid when it is being dragged.
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #009688;
+  background-color: #F75858;
   z-index: 1030;
   padding-right: 15px;
 }
@@ -14959,7 +14983,8 @@ be a descendant of the grid when it is being dragged.
             flex: 0 0 auto;
     display: block;
     width: 230px;
-    background-color: #007d71;
+    /* cambio */
+    background-color: #F75858;
   }
 }
 
@@ -14993,7 +15018,8 @@ be a descendant of the grid when it is being dragged.
 
 .app-sidebar__toggle:focus, .app-sidebar__toggle:hover {
   color: #fff;
-  background-color: #00635a;
+  /* cambio */
+  background-color: #F75858;
   text-decoration: none;
 }
 
@@ -15539,6 +15565,7 @@ be a descendant of the grid when it is being dragged.
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  border-radius: 20px;
 }
 
 @media print {

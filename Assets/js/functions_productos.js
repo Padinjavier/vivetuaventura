@@ -111,6 +111,8 @@ window.addEventListener('load', function() {
                         document.querySelector("#containerGallery").classList.remove("notblock");
 
                         if(rowTable == ""){
+                            // agregado para ocultar fomrulario
+                            $('#modalFormProductos').modal('hide');
                             tableProductos.api().ajax.reload();
                         }else{
                            htmlStatus = intStatus == 1 ? 
@@ -144,7 +146,9 @@ window.addEventListener('load', function() {
                             rowTable.cells[4].textContent = smony+strPrecio;
                             rowTable.cells[5].innerHTML = fechaConEstilo;
                             rowTable.cells[6].innerHTML =  htmlStatus;
-                            rowTable = ""; 
+                            rowTable = "";
+                            // agregado para ocultar fomrulario
+                            $('#modalFormProductos').modal('hide');
                         }
                     }else{
                         swal("Error", objData.msg , "error");

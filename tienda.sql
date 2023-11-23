@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-11-2023 a las 03:04:05
--- Versión del servidor: 10.10.2-MariaDB
+-- Tiempo de generación: 08-11-2023 a las 13:25:18
+-- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tiendafinal`
+-- Base de datos: `tienda`
 --
 
 -- --------------------------------------------------------
@@ -29,15 +29,15 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
-  `idcategoria` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) NOT NULL,
-  `descripcion` text NOT NULL,
-  `portada` varchar(100) NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT current_timestamp(),
-  `ruta` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
+  `idcategoria` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `portada` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -45,9 +45,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 
 INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `datecreated`, `ruta`, `status`) VALUES
 (1, 'Hombre', 'Artículos de moda', 'img_125e45445bd33723d025d7f815ca29f7.jpg', '2021-08-20 03:04:04', 'hombre', 1),
-(2, 'Gaseosa', 'bebida gasificada', 'img_0a061d7ef1c4e023b824c1a14340cb76.jpg', '2021-08-21 00:47:10', 'gaseosa', 1),
-(3, 'Galleta', 'galleta 6x pack', 'portada_categoria.png', '2023-11-08 22:52:36', 'galleta', 1),
-(4, 'ss', 'fff', 'img_cc7d26084d5893794aafa18573fd6e85.jpg', '2023-11-13 08:35:25', 'ss', 0);
+(2, 'Audio y Videojuegos', 'Lo mejor en tecnología', 'img_78678a3fe95890d155115d5301e0761d.jpg', '2021-08-21 00:47:10', 'audio-y-videojuegos', 1);
 
 -- --------------------------------------------------------
 
@@ -57,14 +55,14 @@ INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `dat
 
 DROP TABLE IF EXISTS `contacto`;
 CREATE TABLE IF NOT EXISTS `contacto` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `mensaje` text NOT NULL,
-  `ip` varchar(15) NOT NULL,
-  `dispositivo` varchar(25) NOT NULL,
-  `useragent` text NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT current_timestamp(),
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(200) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `email` varchar(200) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `mensaje` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `ip` varchar(15) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `dispositivo` varchar(25) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `useragent` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
@@ -83,22 +81,15 @@ INSERT INTO `contacto` (`id`, `nombre`, `email`, `mensaje`, `ip`, `dispositivo`,
 
 DROP TABLE IF EXISTS `detalle_pedido`;
 CREATE TABLE IF NOT EXISTS `detalle_pedido` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `pedidoid` bigint(20) NOT NULL,
-  `productoid` bigint(20) NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `pedidoid` bigint NOT NULL,
+  `productoid` bigint NOT NULL,
   `precio` decimal(11,2) NOT NULL,
-  `cantidad` int(11) NOT NULL,
+  `cantidad` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pedidoid` (`pedidoid`),
   KEY `productoid` (`productoid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
---
--- Volcado de datos para la tabla `detalle_pedido`
---
-
-INSERT INTO `detalle_pedido` (`id`, `pedidoid`, `productoid`, `precio`, `cantidad`) VALUES
-(4, 3, 11, '2.50', 1);
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -108,12 +99,12 @@ INSERT INTO `detalle_pedido` (`id`, `pedidoid`, `productoid`, `precio`, `cantida
 
 DROP TABLE IF EXISTS `detalle_temp`;
 CREATE TABLE IF NOT EXISTS `detalle_temp` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `personaid` bigint(20) NOT NULL,
-  `productoid` bigint(20) NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `personaid` bigint NOT NULL,
+  `productoid` bigint NOT NULL,
   `precio` decimal(11,2) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `transaccionid` varchar(255) NOT NULL,
+  `cantidad` int NOT NULL,
+  `transaccionid` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `productoid` (`productoid`),
   KEY `personaid` (`personaid`)
@@ -127,12 +118,12 @@ CREATE TABLE IF NOT EXISTS `detalle_temp` (
 
 DROP TABLE IF EXISTS `imagen`;
 CREATE TABLE IF NOT EXISTS `imagen` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `productoid` bigint(20) NOT NULL,
-  `img` varchar(100) NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `productoid` bigint NOT NULL,
+  `img` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `productoid` (`productoid`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `imagen`
@@ -146,12 +137,7 @@ INSERT INTO `imagen` (`id`, `productoid`, `img`) VALUES
 (12, 2, 'pro_bb8108451aa8a21610931110c19fb369.jpg'),
 (13, 3, 'pro_2b1a81cfe27f85486abbf5a7f8860cd9.jpg'),
 (14, 3, 'pro_ff9d29decc4d30b32e6f54f470140448.jpg'),
-(15, 3, 'pro_05785de7b5aad5b8db5d41c1408eb0cc.jpg'),
-(17, 10, 'pro_0b4d61139aaa6a28e022f1e615fe0f17.jpg'),
-(18, 19, 'pro_9a1de76f11ddb287263ef48cfd71b0a1.jpg'),
-(19, 20, 'pro_2b81a3a13eae388efa502edb3d6b3273.jpg'),
-(20, 22, 'pro_8fe9ccbe89eb22626cf5cc85ea8edc57.jpg'),
-(25, 24, 'pro_4909de454090d31ce6b648eb4bb74b52.jpg');
+(15, 3, 'pro_05785de7b5aad5b8db5d41c1408eb0cc.jpg');
 
 -- --------------------------------------------------------
 
@@ -161,10 +147,10 @@ INSERT INTO `imagen` (`id`, `productoid`, `img`) VALUES
 
 DROP TABLE IF EXISTS `modulo`;
 CREATE TABLE IF NOT EXISTS `modulo` (
-  `idmodulo` bigint(20) NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(50) NOT NULL,
-  `descripcion` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
+  `idmodulo` bigint NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idmodulo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
@@ -191,28 +177,21 @@ INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 
 DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE IF NOT EXISTS `pedido` (
-  `idpedido` bigint(20) NOT NULL AUTO_INCREMENT,
-  `referenciacobro` varchar(255) DEFAULT NULL,
-  `idtransaccionpaypal` varchar(255) DEFAULT NULL,
-  `datospaypal` text DEFAULT NULL,
-  `personaid` bigint(20) NOT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
-  `costo_envio` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `idpedido` bigint NOT NULL AUTO_INCREMENT,
+  `referenciacobro` varchar(255) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `idtransaccionpaypal` varchar(255) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datospaypal` text COLLATE utf8mb4_swedish_ci,
+  `personaid` bigint NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `costo_envio` decimal(10,2) NOT NULL DEFAULT '0.00',
   `monto` decimal(11,2) NOT NULL,
-  `tipopagoid` bigint(20) NOT NULL,
-  `direccion_envio` text NOT NULL,
-  `status` varchar(100) DEFAULT NULL,
+  `tipopagoid` bigint NOT NULL,
+  `direccion_envio` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`idpedido`),
   KEY `personaid` (`personaid`),
   KEY `tipopagoid` (`tipopagoid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
---
--- Volcado de datos para la tabla `pedido`
---
-
-INSERT INTO `pedido` (`idpedido`, `referenciacobro`, `idtransaccionpaypal`, `datospaypal`, `personaid`, `fecha`, `costo_envio`, `monto`, `tipopagoid`, `direccion_envio`, `status`) VALUES
-(3, NULL, NULL, NULL, 22, '2023-11-15 00:50:52', '5.00', '7.50', 2, '123, aaaa', 'Pendiente');
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -222,13 +201,13 @@ INSERT INTO `pedido` (`idpedido`, `referenciacobro`, `idtransaccionpaypal`, `dat
 
 DROP TABLE IF EXISTS `permisos`;
 CREATE TABLE IF NOT EXISTS `permisos` (
-  `idpermiso` bigint(20) NOT NULL AUTO_INCREMENT,
-  `rolid` bigint(20) NOT NULL,
-  `moduloid` bigint(20) NOT NULL,
-  `r` int(11) NOT NULL DEFAULT 0,
-  `w` int(11) NOT NULL DEFAULT 0,
-  `u` int(11) NOT NULL DEFAULT 0,
-  `d` int(11) NOT NULL DEFAULT 0,
+  `idpermiso` bigint NOT NULL AUTO_INCREMENT,
+  `rolid` bigint NOT NULL,
+  `moduloid` bigint NOT NULL,
+  `r` int NOT NULL DEFAULT '0',
+  `w` int NOT NULL DEFAULT '0',
+  `u` int NOT NULL DEFAULT '0',
+  `d` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`idpermiso`),
   KEY `rolid` (`rolid`),
   KEY `moduloid` (`moduloid`)
@@ -284,31 +263,30 @@ INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VA
 
 DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
-  `idpersona` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identificacion` varchar(30) DEFAULT NULL,
-  `nombres` varchar(80) NOT NULL,
-  `apellidos` varchar(100) NOT NULL,
-  `telefono` bigint(20) NOT NULL,
-  `email_user` varchar(100) NOT NULL,
-  `password` varchar(75) NOT NULL,
-  `nit` varchar(20) DEFAULT NULL,
-  `nombrefiscal` varchar(80) DEFAULT NULL,
-  `direccionfiscal` varchar(100) DEFAULT NULL,
-  `token` varchar(100) DEFAULT NULL,
-  `rolid` bigint(20) NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT current_timestamp(),
-  `status` int(11) NOT NULL DEFAULT 1,
+  `idpersona` bigint NOT NULL AUTO_INCREMENT,
+  `identificacion` varchar(30) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `nombres` varchar(80) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `apellidos` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `telefono` bigint NOT NULL,
+  `email_user` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `password` varchar(75) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `nit` varchar(20) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `nombrefiscal` varchar(80) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `direccionfiscal` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `token` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `rolid` bigint NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idpersona`),
   KEY `rolid` (`rolid`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `persona`
 --
 
 INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `nit`, `nombrefiscal`, `direccionfiscal`, `token`, `rolid`, `datecreated`, `status`) VALUES
-(5, '40771775', 'Pedro', 'Coronado', 944416945, 'netpedrocr@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '12', '2023', 'Ica', 'e37dafa9bb38ddb46f80-938c44ec128fb4f26f8d-48e555fbf73419dc25db-f360a4f692317e380044', 1, '2023-10-24 21:52:15', 1),
-(22, '74199531', 'Xavi', 'Padin Flores', 917189300, 'xavi@xavi.com', '6c9efbcfaaec55a45765043f54b1e64d26075503134f61f6aa0c918a798d9376', NULL, NULL, NULL, NULL, 1, '2023-11-10 03:11:09', 1);
+(5, '40771775', 'Pedro', 'Coronado', 944416945, 'netpedrocr@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '12', '2023', 'Ica', 'e37dafa9bb38ddb46f80-938c44ec128fb4f26f8d-48e555fbf73419dc25db-f360a4f692317e380044', 1, '2023-10-24 21:52:15', 1);
 
 -- --------------------------------------------------------
 
@@ -318,13 +296,13 @@ INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `t
 
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE IF NOT EXISTS `post` (
-  `idpost` bigint(20) NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(255) NOT NULL,
-  `contenido` text NOT NULL,
-  `portada` varchar(100) DEFAULT NULL,
-  `datecreate` datetime NOT NULL DEFAULT current_timestamp(),
-  `ruta` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
+  `idpost` bigint NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `contenido` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `portada` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datecreate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idpost`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
@@ -351,51 +329,29 @@ INSERT INTO `post` (`idpost`, `titulo`, `contenido`, `portada`, `datecreate`, `r
 
 DROP TABLE IF EXISTS `producto`;
 CREATE TABLE IF NOT EXISTS `producto` (
-  `idproducto` bigint(20) NOT NULL AUTO_INCREMENT,
-  `categoriaid` bigint(20) NOT NULL,
-  `codigo` varchar(30) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `descripcion` text NOT NULL,
+  `idproducto` bigint NOT NULL AUTO_INCREMENT,
+  `categoriaid` bigint NOT NULL,
+  `codigo` varchar(30) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_swedish_ci NOT NULL,
   `precio` decimal(11,2) NOT NULL,
-  `stock` int(11) NOT NULL,
-  `fecha_v` varchar(50) NOT NULL DEFAULT '',
-  `imagen` varchar(100) DEFAULT NULL,
-  `datecreated` datetime NOT NULL DEFAULT current_timestamp(),
-  `ruta` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
+  `stock` int NOT NULL,
+  `imagen` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idproducto`),
   KEY `categoriaid` (`categoriaid`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `fecha_v`, `imagen`, `datecreated`, `ruta`, `status`) VALUES
-(1, 1, '2417984565', 'Chaqueta Azul', '<p>a</p>', '100.00', 50, '2023-12-30', NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 1),
-(2, 1, '456879878', 'Reloj', '<p>b</p>', '200.00', 100, '2023-10-03', NULL, '2021-08-20 03:14:10', 'reloj', 1),
-(3, 2, '4658798787', 'Bocina JBL Flip 5', 'c', '300.00', 100, '2023-11-16', NULL, '2021-08-21 00:48:21', 'bocina-jbl-flip-5', 1),
-(4, 1, '113333', 'dd', 'd', '2.50', 5, '2023-11-10', NULL, '2023-11-08 23:22:14', 'dd', 0),
-(5, 2, '77517310047085', '20', '<p>er</p>', '2.50', 5, '2023-11-14', NULL, '2023-11-13 09:34:33', '20', 0),
-(6, 2, '77517310047', '12', '<p>hola</p>', '12.50', 14, '2023-11-25', NULL, '2023-11-13 09:36:04', '12', 0),
-(7, 2, '77517310047083', 'qqq', '<p>qq</p>', '2.50', 5, '2023-12-02', NULL, '2023-11-13 12:49:18', 'qqq', 0),
-(8, 1, '7751731005', 'zz', '<p>zz</p>', '2.50', 14, '2023-11-15', NULL, '2023-11-13 12:57:42', 'zz', 0),
-(9, 1, '7751731007', 'dd', '<p>wwwwwwwwwwwwww</p>', '2.50', 14, '2023-11-24', NULL, '2023-11-13 13:02:05', 'dd', 0),
-(10, 1, '1234567888', '12', '<p>xxx</p>', '12.50', 14, '2023-11-24', NULL, '2023-11-13 13:09:25', '12', 0),
-(11, 1, '7751731047466', 'xxxx', '<p>ass</p>', '92.50', 1, '2024-01-01', NULL, '2023-11-13 14:24:47', 'xxxx', 0),
-(12, 1, '7751731047888', 'qqqqqqqqq', '<p>qqqqqqqqqqqqq</p>', '12.00', 12, '2023-11-06', NULL, '2023-11-19 20:11:44', 'qqqqqqqqq', 0),
-(13, 1, '123232122312', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '<p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>', '12.00', 12, '2023-11-14', NULL, '2023-11-19 20:16:47', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 0),
-(14, 1, '43434343', 'bbbbbbbbbbbbbbbb', '<p>bbbbbbbbbbbbbbbb</p>', '12.00', 12, '2023-10-31', NULL, '2023-11-19 20:25:36', 'bbbbbbbbbbbbbbbb', 0),
-(15, 1, '1221212121', '12211212', '<p>12122121aaaaaa</p>', '2121.00', 211212, '2023-11-20', NULL, '2023-11-19 20:26:35', '12211212', 0),
-(16, 1, '111111111111', 'aaaaaaaaaaaa', '<p>aaaaaaaaaaaaaaa</p>', '1111.00', 11, '2023-11-14', NULL, '2023-11-19 20:29:18', 'aaaaaaaaaaaa', 0),
-(17, 1, '111111', '111111111111111111111111111111', '<p>111111111111111</p>', '1.00', 1, '2023-11-21', NULL, '2023-11-19 20:30:05', '111111111111111111111111111111', 0),
-(18, 1, '222222', '22222222222222222222', '<p>222222222222222</p>', '22.00', 22, '2023-11-21', NULL, '2023-11-19 20:31:19', '22222222222222222222', 0),
-(19, 1, '12345654', 'inka kola', '<p>gaseosa</p>', '2.50', 12, '2023-11-18', NULL, '2023-11-19 20:40:44', 'inka-kola', 0),
-(20, 1, '775173104733', 'nuevo', '<p>aaa</p>', '23.00', 23, '2023-11-02', NULL, '2023-11-19 20:49:42', 'nuevo', 0),
-(21, 1, '12121211', 'qwqwqw', '<p>qwqwq</p>', '78.00', 78, '2023-11-20', NULL, '2023-11-19 20:50:59', 'qwqwqw', 0),
-(22, 1, '111111111111111112', 'seeee', '<p>eeee</p>', '3.00', 3, '2023-11-14', NULL, '2023-11-19 21:19:24', 'seeee', 0),
-(23, 1, '1234567', 'aassa', '<p>12</p>', '12.00', 12, '2023-11-21', NULL, '2023-11-19 21:33:52', 'aassa', 0),
-(24, 1, '1234523676767', '23', '<p>23</p>', '23.00', 23, '2023-11-16', NULL, '2023-11-19 21:44:32', '23', 0);
+INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `imagen`, `datecreated`, `ruta`, `status`) VALUES
+(1, 1, '2417984565', 'Chaqueta Azul', '<p><strong style=\"margin: 0px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">Lorem Ipsum</strong><span style=\"color: #000000; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</span></p>', '100.00', 50, NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 1),
+(2, 1, '456879878', 'Reloj', '<p><strong style=\"margin: 0px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">Lorem Ipsum</strong><span style=\"color: #000000; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</span></p>', '200.00', 100, NULL, '2021-08-20 03:14:10', 'reloj', 1),
+(3, 2, '4658798787', 'Bocina JBL Flip 5', '<p>Wireless Bluetooth streaming. 24 hours of playtime. IPX7 waterproof. JBL Connect plus. High-capacity battery. Connector type: 3.5 millimeter stereo. Power Source Type: Battery Powered.</p>', '300.00', 100, NULL, '2021-08-21 00:48:21', 'bocina-jbl-flip-5', 1);
 
 -- --------------------------------------------------------
 
@@ -405,12 +361,12 @@ INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descri
 
 DROP TABLE IF EXISTS `reembolso`;
 CREATE TABLE IF NOT EXISTS `reembolso` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `pedidoid` bigint(20) NOT NULL,
-  `idtransaccion` varchar(255) NOT NULL,
-  `datosreembolso` text NOT NULL,
-  `observacion` text NOT NULL,
-  `status` varchar(150) NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `pedidoid` bigint NOT NULL,
+  `idtransaccion` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datosreembolso` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `observacion` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` varchar(150) COLLATE utf8mb4_swedish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pedidoid` (`pedidoid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
@@ -423,12 +379,12 @@ CREATE TABLE IF NOT EXISTS `reembolso` (
 
 DROP TABLE IF EXISTS `rol`;
 CREATE TABLE IF NOT EXISTS `rol` (
-  `idrol` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nombrerol` varchar(50) NOT NULL,
-  `descripcion` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
+  `idrol` bigint NOT NULL AUTO_INCREMENT,
+  `nombrerol` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idrol`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `rol`
@@ -439,9 +395,7 @@ INSERT INTO `rol` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
 (2, 'Supervisor', 'Supervisor de tiendas', 1),
 (3, 'Cliente', 'Clientes en general', 1),
 (4, 'Vendedor', 'Operador de tienda', 1),
-(5, 'Vendedor2', 'Vendedor2', 0),
-(6, 'ss', 'xx', 1),
-(7, '20', 'df', 1);
+(5, 'Vendedor2', 'Vendedor2', 0);
 
 -- --------------------------------------------------------
 
@@ -451,10 +405,10 @@ INSERT INTO `rol` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
 
 DROP TABLE IF EXISTS `suscripciones`;
 CREATE TABLE IF NOT EXISTS `suscripciones` (
-  `idsuscripcion` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT current_timestamp(),
+  `idsuscripcion` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(200) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `email` varchar(200) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idsuscripcion`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
@@ -473,9 +427,9 @@ INSERT INTO `suscripciones` (`idsuscripcion`, `nombre`, `email`, `datecreated`) 
 
 DROP TABLE IF EXISTS `tipopago`;
 CREATE TABLE IF NOT EXISTS `tipopago` (
-  `idtipopago` bigint(20) NOT NULL AUTO_INCREMENT,
-  `tipopago` varchar(100) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
+  `idtipopago` bigint NOT NULL AUTO_INCREMENT,
+  `tipopago` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idtipopago`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 

@@ -1,5 +1,4 @@
 <?php 
-
 	const BASE_URL = "http://localhost/ecommercecompleto";
 	//const BASE_URL = "https://tecomsis.com";
 
@@ -35,22 +34,22 @@
 	//const SECRET = "";
 
 	//Datos envio de correo
-	const NOMBRE_REMITENTE = "Market Chamorro";
+	const NOMBRE_REMITENTE = "Tienda Virtual";
 	const EMAIL_REMITENTE = "no-reply@tecomsis.com";
-	const NOMBRE_EMPESA = "Market Chamorro";
-	const WEB_EMPRESA = "www.system32.com";
+	const NOMBRE_EMPESA = "Tienda Virtual";
+	const WEB_EMPRESA = "www.tecomsis.com";
 
-	const DESCRIPCION = "Un negocio familiar que ofrece variedad de productos, calidad y a buen precio.";
+	const DESCRIPCION = "Una tienda especializada en moda de avanzada para hombre y mujeres.";
 	const SHAREDHASH = "TiendaVirtual";
 
 	//Datos Empresa
-	const DIRECCION = "Av. Arequipa 600, Quilmaná 15712";
-	const TELEMPRESA = "+(51)928378072";
-	const WHATSAPP = "954149814";
-	const EMAIL_EMPRESA = "chamorrochavezjorge@gmail.com";
-	const EMAIL_PEDIDOS = "chamorrochavezjorge@gmail.com"; 
-	const EMAIL_SUSCRIPCION = "chamorrochavezjorge@gmail.com";
-	const EMAIL_CONTACTO = "chamorrochavezjorge@gmail.com";
+	const DIRECCION = "Cañete";
+	const TELEMPRESA = "+(056)215487";
+	const WHATSAPP = "962452145";
+	const EMAIL_EMPRESA = "info@tecomsis.com";
+	const EMAIL_PEDIDOS = "info@tecomsis.com"; 
+	const EMAIL_SUSCRIPCION = "info@tecomsis.com";
+	const EMAIL_CONTACTO = "info@tecomsis.com";
 
 	const CAT_SLIDER = "1,2,3";
 	const CAT_BANNER = "4,5,6";
@@ -99,7 +98,7 @@
 	const PROBUSCAR = 4;
 
 	//REDES SOCIALES
-	const FACEBOOK = "https://m.facebook.com/Bodega-Chamorro-104727252150683/";
+	const FACEBOOK = "https://www.facebook.com/tecomsis";
 	const INSTAGRAM = "https://www.instagram.com/tecomsis/";
 	
 
