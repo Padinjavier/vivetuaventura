@@ -4,7 +4,7 @@
 	$computer_name = $parts[1];
 	$computer_name = gethostname();
 
-	$expected_namexavi = "DESKTOP-XAVI661";//xavi
+	$expected_namexavi = "DESKTOP-XAVI661";//jpadin
 	$expected_namenetis = "DESKTOP-";//netis
 	$expected_namealex = "DESKTOP-Q3PK5AH";//ahuasasquiche
 
