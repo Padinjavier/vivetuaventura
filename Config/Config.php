@@ -6,7 +6,7 @@
 
 	$expected_namexavi = "DESKTOP-XAVI661";//xavi
 	$expected_namenetis = "DESKTOP-";//netis
-	$expected_namealex = "DESKTOP-";//alex
+	$expected_namealex = "DESKTOP-Q3PK5AH";//ahuasasquiche
 
 	if ($computer_name == $expected_namexavi) {
 
@@ -24,7 +24,7 @@
 	}
 	if ($computer_name == $expected_namealex) {
 
-		define('BASE_URL', 'http://localhost/chamorro/ecommercecompleto');
+		define('BASE_URL', 'http://localhost/Proyecto/ecommercecompleto');
 		
 		define('DB_NAME', 'tiendafinal');
 		define('DB_PASSWORD', '');
