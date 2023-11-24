@@ -6,7 +6,7 @@
 
 	$expected_namexavi = "DESKTOP-XAVI661";//jpadin
 	$expected_namenetis = "DESKTOP-";//jluyo
-	// prueba alex
+	// prueba alex adios
 	$expected_namealex = "DESKTOP-Q3PK5AH";//ahuasasquiche
 
 	if ($computer_name == $expected_namexavi) {
