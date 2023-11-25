@@ -4,33 +4,35 @@
 	$computer_name = $parts[1];
 	$computer_name = gethostname();
 
+	$nameserver ="charlie.icaserver.net";//server
 	$expected_namexavi = "DESKTOP-XAVI661";//xavi
 	$expected_namexavit = "DESKTOP-Q9HP1U1";//xavi
 	$expected_namenetis = "DESKTOP-";//netis
 	$expected_namealex = "DESKTOP-Q3PK5AH";//ahuasasquiche
 
-	if ($computer_name == $expected_namexavi || $computer_name == $expected_namexavit) {
+	if ($computer_name == $nameserver) {
+		define('BASE_URL', 'https://system32.shop');
+		define('DB_NAME', 'system32_ecommerce');
+		define('DB_USER', 'system32_xavi');
+		define('DB_PASSWORD', 'xavi661xavi');
+	}
 
+	if ($computer_name == $expected_namexavi || $computer_name == $expected_namexavit) {
 		define('BASE_URL', 'http://localhost/ecommercecompleto');
-		
 		define('DB_NAME', 'tiendafinal');
 		define('DB_PASSWORD', 'javier20');
 	}
 	if ($computer_name == $expected_namenetis) {
-
 		define('BASE_URL', 'http://localhost/chamorro/ecommercecompleto');
-		
 		define('DB_NAME', 'tiendafinal');
 		define('DB_PASSWORD', '');
 	}
 	if ($computer_name == $expected_namealex) {
-
 		define('BASE_URL', 'http://localhost/Proyecto/ecommercecompleto');
-		
 		define('DB_NAME', 'tiendafinal');
 		define('DB_PASSWORD', '');
 	}
-	// carpeta
+
 	//Zona horaria
 	date_default_timezone_set('America/Lima');
 	const DB_HOST = "localhost";
@@ -38,6 +40,20 @@
 	const DB_USER = "root";
 	// contraseña
 	const DB_CHARSET = "utf8";
+
+
+
+
+	// const BASE_URL = "https://system32.shop";
+	// //const BASE_URL = "https://tecomsis.com";
+	// //Zona horaria
+	// date_default_timezone_set('America/Lima');
+	// //Datos de conexión a Base de Datos
+	// const DB_HOST = "localhost";
+	// const DB_NAME = "system32_ecommerce";
+	// const DB_USER = "system32_xavi";
+	// const DB_PASSWORD = "xavi661xavi";
+	// const DB_CHARSET = "utf8";
 
 	//Para envío de correo
 	const ENVIRONMENT = 1; // Local: 0, Produccón: 1;
