@@ -4,13 +4,12 @@
 	$computer_name = $parts[1];
 	$computer_name = gethostname();
 
-	$expected_namexavi = "DESKTOP-XAVI661";//jpadin
-	$expected_namenetis = "DESKTOP-";//jluyo
-	// prueba alex adios
-	// prueba alex holaa
+	$expected_namexavi = "DESKTOP-XAVI661";//xavi
+	$expected_namexavit = "DESKTOP-Q9HP1U1";//xavi
+	$expected_namenetis = "DESKTOP-";//netis
 	$expected_namealex = "DESKTOP-Q3PK5AH";//ahuasasquiche
 
-	if ($computer_name == $expected_namexavi) {
+	if ($computer_name == $expected_namexavi || $computer_name == $expected_namexavit) {
 
 		define('BASE_URL', 'http://localhost/ecommercecompleto');
 		
