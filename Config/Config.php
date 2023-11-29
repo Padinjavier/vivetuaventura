@@ -1,15 +1,41 @@
 <?php 
-	const BASE_URL = "http://localhost/chamorro/ecommercecompleto";
-	//const BASE_URL = "https://tecomsis.com";
+	$server_info = php_uname();
+	$parts = explode(" ", $server_info);
+	$computer_name = $parts[1];
+	$computer_name = gethostname();
 
+	$expected_namexavi = "DESKTOP-XAVI661";//xavi
+	$expected_namenetis = "DESKTOP-";//netis
+	$expected_namealex = "DESKTOP-";//alex
+
+	if ($computer_name == $expected_namexavi) {
+
+		define('BASE_URL', 'http://localhost/ecommercecompleto');
+		
+		define('DB_NAME', 'tiendafinal');
+		define('DB_PASSWORD', 'javier20');
+	}
+	if ($computer_name == $expected_namenetis) {
+
+		define('BASE_URL', 'http://localhost/chamorro/ecommercecompleto');
+		
+		define('DB_NAME', 'tiendafinal');
+		define('DB_PASSWORD', '');
+	}
+	if ($computer_name == $expected_namealex) {
+
+		define('BASE_URL', 'http://localhost/chamorro/ecommercecompleto');
+		
+		define('DB_NAME', 'tiendafinal');
+		define('DB_PASSWORD', '');
+	}
+	// carpeta
 	//Zona horaria
 	date_default_timezone_set('America/Lima');
-
-	//Datos de conexión a Base de Datos
 	const DB_HOST = "localhost";
-	const DB_NAME = "tiendafinal";
+	// nombre base de datos
 	const DB_USER = "root";
-	const DB_PASSWORD = "";
+	// contraseña
 	const DB_CHARSET = "utf8";
 
 	//Para envío de correo
