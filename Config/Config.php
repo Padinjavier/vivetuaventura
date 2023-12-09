@@ -115,6 +115,7 @@
 	const MSUSCRIPTORES = 7;
 	const MDCONTACTOS = 8;
 	const MDPAGINAS = 9;
+	const MPROVEEDORES = 10;
 
 	//Páginas
 	const PINICIO = 1;
