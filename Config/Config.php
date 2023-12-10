@@ -3,7 +3,7 @@
 	$parts = explode(" ", $server_info);
 	$computer_name = $parts[1];
 	$computer_name = gethostname();
-// hola
+
 	$nameserver ="charlie.icaserver.net";//server
 	$expected_namexavi = "DESKTOP-XAVI661";//xavi
 	$expected_namexavit = "DESKTOP-Q9HP1U1";//xavi
