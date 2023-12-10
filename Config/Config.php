@@ -9,7 +9,6 @@
 	$expected_namexavit = "DESKTOP-Q9HP1U1";//xavi
 	$expected_namenetis = "DESKTOP-";//netis
 	$expected_namealex = "DESKTOP-Q3PK5AH";//ahuasasquiche
-
 	if ($computer_name == $nameserver) {
 		define('BASE_URL', 'https://system32.shop');
 		define('DB_NAME', 'system32_ecommerce');
