@@ -52,6 +52,9 @@
             </a>
             <ul class="treeview-menu">
                 <?php if(!empty($_SESSION['permisos'][4]['r'])){ ?>
+                <li><a class="treeview-item" href="<?= base_url(); ?>/proveedores"><i class="icon fa fa-circle-o"></i> Proveedores</a></li>
+                <?php } ?>
+                <?php if(!empty($_SESSION['permisos'][6]['r'])){ ?>
                 <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i> Productos</a></li>
                 <?php } ?>
                 <?php if(!empty($_SESSION['permisos'][6]['r'])){ ?>

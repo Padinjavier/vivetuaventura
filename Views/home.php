@@ -145,6 +145,26 @@
 					Ver más
 				</a>
 			</div>
+
+
+
+			<script src="https://checkout.culqi.com/js/v4"></script>
+  <script>
+    Culqi.publicKey = 'Apk_test_80012ab94f994cdf';
+  </script>
+<script>
+  Culqi.settings({
+    title: 'Culqi Store',
+    currency: 'PEN',  // Este parámetro es requerido para realizar pagos yape
+    amount: 1000,  // Este parámetro es requerido para realizar pagos yape
+    order: 'ord_live_0CjjdWhFpEAZlxlz', // Este parámetro es requerido para realizar pagos con pagoEfectivo, billeteras y Cuotéalo
+    xculqirsaid: 'pk_test_80012ab94f994cdf',
+    rsapublickey: 'Inserta aquí tu llave pública RSA',
+  });
+</script>
+
+
+
 		</div>
 
 		<div class="container text-center p-t-80">
