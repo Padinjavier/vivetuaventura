@@ -72,7 +72,6 @@ tableProductos = $('#tableProductos').dataTable( {
     "iDisplayLength": 10,
     "order":[[0,"desc"]]  
 });
-// console.log("aaaaaaaaaaaaaaa");
 window.addEventListener('load', function() {
     if(document.querySelector("#formProductos")){
         let formProductos = document.querySelector("#formProductos");
@@ -177,6 +176,7 @@ window.addEventListener('load', function() {
         fntInputFile();
        }
     }
+
     fntInputFile();
     fntCategorias();
 }, false);

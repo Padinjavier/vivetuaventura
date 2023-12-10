@@ -158,7 +158,7 @@
 							</li>
 							
 							<li>
-								<a href="<?= base_url(); ?>/nosotros">Nosotros</a>
+								<a href="<?= base_url(); ?>/nosotros">Nosotro</a>
 							</li>
 
 							<li>
