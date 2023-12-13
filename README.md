@@ -32,4 +32,4 @@ Este proyecto está licenciado bajo la Licencia XYZ - ver el archivo `LICENSE.md
 ## Contacto
 
 Tu Nombre - [@tu_twitter](https://twitter.com/tu_twitter)
-Email de Proyecto - email@example.com
+Email de Proyecto - javierpadin661@gmail.com
