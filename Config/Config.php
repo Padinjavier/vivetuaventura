@@ -134,11 +134,11 @@
 
 	const STATUS = array('Completo','Aprobado','Cancelado','Reembolsado','Pendiente','Entregado');
 
-	//Productos por página
-	const CANTPORDHOME = 8;
-	const PROPORPAGINA = 4;
-	const PROCATEGORIA = 4;
-	const PROBUSCAR = 4;
+	//Productos por página cantidad
+	const CANTPORDHOME = 10;
+	const PROPORPAGINA = 20;
+	const PROCATEGORIA = 20;
+	const PROBUSCAR = 20;
 
 	//REDES SOCIALES
 	const FACEBOOK = "https://m.facebook.com/Bodega-Chamorro-104727252150683/";

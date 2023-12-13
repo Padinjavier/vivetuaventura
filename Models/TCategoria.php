@@ -22,7 +22,8 @@ trait TCategoria{
 				FROM producto p 
 				INNER JOIN categoria c
 				ON p.categoriaid = c.idcategoria
-				WHERE c.status = 1
+				-- AND p.status = 1 para que solo se muestren los productos existentes
+				WHERE c.status = 1 AND p.status = 1
 				GROUP BY p.categoriaid, c.idcategoria";
 		$request = $this->con->select_all($sql);
 		if(count($request) > 0){
