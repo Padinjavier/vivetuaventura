@@ -184,21 +184,28 @@ if(document.querySelector("#formRegister")){
     }
 }
 
-if(document.querySelector(".methodpago")){
-
-	let optmetodo = document.querySelectorAll(".methodpago");
-    optmetodo.forEach(function(optmetodo) {
-        optmetodo.addEventListener('click', function(){
-        	if(this.value == "Paypal"){
-        		document.querySelector("#divpaypal").classList.remove("notblock");
-        		document.querySelector("#divtipopago").classList.add("notblock");
-        	}else{
-        		document.querySelector("#divpaypal").classList.add("notblock");
-        		document.querySelector("#divtipopago").classList.remove("notblock");
-        	}
-        });
+if (document.querySelector(".methodpago")) {
+  let optmetodo = document.querySelectorAll(".methodpago");
+  optmetodo.forEach(function (optmetodo) {
+    optmetodo.addEventListener("click", function () {
+      if (this.value == "Paypal") {
+        document.querySelector("#divpaypal").classList.remove("notblock");
+        document.querySelector("#divculqi").classList.add("notblock");
+        document.querySelector("#divtipopago").classList.add("notblock");
+      } else if (this.value == "culqi") {
+          document.querySelector("#divpaypal").classList.add("notblock");
+          document.querySelector("#divculqi").classList.remove("notblock");
+          document.querySelector("#divtipopago").classList.add("notblock");
+        } else {
+          document.querySelector("#divpaypal").classList.add("notblock");
+          document.querySelector("#divculqi").classList.add("notblock");
+          document.querySelector("#divtipopago").classList.remove("notblock");
+        
+      }
     });
+  });
 }
+
 
 function fntdelItem(element){
 	//Option 1 = Modal

@@ -37,7 +37,9 @@
 							p.nombrefiscal,
 							p.direccionfiscal,
 							r.idrol,r.nombrerol,
-							p.status 
+							p.status , 
+							p.direccion,
+							p.ciudad
 					FROM persona p
 					INNER JOIN rol r
 					ON p.rolid = r.idrol
