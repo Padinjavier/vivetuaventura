@@ -7,7 +7,7 @@
 	$nameserver ="charlie.icaserver.net";//server
 	$expected_namexavi = "DESKTOP-XAVI661";//xavi
 	$expected_namexavit = "DESKTOP-Q9HP1U1";//xavi
-	$expected_namenetis = "DESKTOP-";//netis
+	$expected_namenetis = "LAPTOP-G6SV21MJ";//netis
 	$expected_namealex = "DESKTOP-Q3PK5AH";//ahuasasquiche
 
 	if ($computer_name == $nameserver) {
