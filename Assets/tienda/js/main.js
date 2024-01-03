@@ -276,3 +276,46 @@ $(document).ready(function () {
     }
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    var diaButton = document.querySelector('.mode_color_dia');
+    var nocheButton = document.querySelector('.mode_color_noche');
+
+    // Función para alternar los modos y guardar la preferencia
+    function toggleMode(isNightMode) {
+        if (isNightMode) {
+            // Modo noche activado
+            diaButton.style.display = 'block'; // Muestra botón del día
+            nocheButton.style.display = 'none'; // Oculta botón de la noche
+            document.documentElement.classList.add('modo-noche');
+        } else {
+            // Modo día activado
+            diaButton.style.display = 'none'; // Oculta botón del día
+            nocheButton.style.display = 'block'; // Muestra botón de la noche
+            document.documentElement.classList.remove('modo-noche');
+        }
+        localStorage.setItem('modoPreferido', isNightMode ? 'noche' : 'dia');
+    }
+
+    diaButton.addEventListener('click', function() {
+      console.log("Botón día clickeado");
+      toggleMode(false); // Cambia a modo noche
+  });
+  
+  nocheButton.addEventListener('click', function() {
+      console.log("Botón noche clickeado");
+      toggleMode(true); // Cambia a modo día
+  });
+  
+
+    // Verifica la preferencia guardada
+    var modoGuardado = localStorage.getItem('modoPreferido');
+    if (modoGuardado) {
+        toggleMode(modoGuardado === 'noche');
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        toggleMode(true);
+    } else {
+        toggleMode(false);
+    }
+});

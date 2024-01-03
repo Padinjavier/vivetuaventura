@@ -139,6 +139,16 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 								Iniciar Sesión
 							</a>
 						<?php } ?>
+						<div class="flex-c-m trans-04 p-lr-25">
+					<button class="mode_color_dia botondianoche">
+						<i class="far fa-sun"></i>
+						Dia
+              		</button>
+					<button class="mode_color_noche botondianoche">
+						<i class="fas fa-moon"></i>
+						Noche
+              		</button>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -260,6 +270,14 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 								Iniciar Sesión
 							</a>
 						<?php } ?>
+						<button class="mode_color_dia botondianoche">
+						<i class="far fa-sun"></i>
+						Dia
+              		</button>
+					<button class="mode_color_noche botondianoche">
+						<i class="fas fa-moon"></i>
+						Noche
+              		</button>
 					</div>
 				</li>
 			</ul>

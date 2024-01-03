@@ -98,6 +98,33 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 
+/* roots */
+/* modo dia modo noche */
+
+.mode_color_noche {
+  display: none;
+}
+
+:root {
+  /* Modo día */
+  --color-fondo: #ffffff;  /* Color de fondo para el modo día */
+  --color-texto: #ff0000;     /* Color de texto para el modo día */
+  /* Otros colores y estilos para el modo día */
+}
+
+.modo-noche {
+  /* Modo noche */
+  --color-fondo: #222;     /* Color de fondo para el modo noche */
+  --color-texto: #0008ff;  /* Color de texto para el modo noche */
+  /* Otros colores y estilos para el modo noche */
+}
+
+.botondianoche{
+  color: var(--color-texto);
+}
+
+
+
 /*//////////////////////////////////////////////////////////////////
 [ RS PLUGIN ]*/
 
