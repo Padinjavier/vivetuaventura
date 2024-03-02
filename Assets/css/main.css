@@ -2642,8 +2642,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #FFF;
-  background-color: #009688;
-  border-color: #009688;
+  background-color: var(--HEADER);
+  border-color: var(--HEADER);
 }
 
 .btn-primary:hover {
@@ -15921,7 +15921,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .material-half-bg .cover {
-  background-color: #009688;
+  background-color: var(--HEADER);
   height: 50vh;
 }
 
