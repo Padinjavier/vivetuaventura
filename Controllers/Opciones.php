@@ -33,5 +33,38 @@ class Opciones extends Controllers
         die();
     }
 
+    public function setOpciones(){
+        if($_POST){
+            if(empty($_POST['selectIdioma']) || empty($_POST['selectTema']) || empty($_POST['selectMoneda']) )
+            {
+                $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+            }else{
+                
+                $intIdioma = intval($_POST['selectIdioma']);
+                $intTema = strClean($_POST['selectTema']);
+                $intMoneda = strClean($_POST['selectMoneda']);
+                $request_producto = "";
+                $idpersona= $_SESSION['userData']['idpersona'];
+
+                        $request_producto = $this->model->updateOpciones($idpersona,
+                                                                    $intIdioma, 
+                                                                    $intTema, 
+                                                                    $intMoneda);
+                    
+                
+                if($request_producto > 0 )
+                {
+                    $arrResponse = array("status" => false, "msg" => 'Datos Actualizados correctamente.');	
+                    // $arrResponse = array('status' => true, 'idproducto' => $idpersona, 'msg' => 'Datos Actualizados correctamente.');
+                    
+                }else {
+                    $arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');	
+                }
+            }
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
+
 }
 ?>

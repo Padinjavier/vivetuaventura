@@ -25,55 +25,81 @@ document.addEventListener('DOMContentLoaded', function(){
         "order":[[0,"desc"]]  
     });
 
+}, false);
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    fntEditOpciones();
+});
 
+// Función para cargar las opciones guardadas en los selectores
+function fntEditOpciones() {
+    // Crear una solicitud AJAX para obtener las opciones guardadas
+    let request = new XMLHttpRequest();
+    let ajaxUrl = base_url + '/Opciones/getOpciones';
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+                  
+            if (objData != null) {
+                document.querySelector("#selectIdioma").value = objData[0].idioma;
+                $('#selectIdioma').selectpicker('render');
+                document.querySelector("#selectTema").value = objData[0].tema;
+                $('#selectTema').selectpicker('render');
+                document.querySelector("#selectMoneda").value = objData[0].formato_moneda;
+                $('#selectMoneda').selectpicker('render');
+                $('#modalFormUsuario').modal('show');
+            } else {
+                swal("Error", objData.msg, "error");
+            }
+            
+        }
+    };
+}
 
+function guardarOpciones() {
+    // Obtener los valores de los selectores
+    let idioma = document.getElementById("selectIdioma").value;
+    let tema = document.getElementById("selectTema").value;
+    let moneda = document.getElementById("selectMoneda").value;
+    // Crear un objeto FormData con los datos del formulario
+    let formData = new FormData();
+    formData.append("selectIdioma", idioma);
+    formData.append("selectTema", tema);
+    formData.append("selectMoneda", moneda);
 
-
-
-
-
-
-
-
-    if(document.querySelector("#formDataOpciones")){
-    console.log("2222")
-
-        let formDataOpciones = document.querySelector("#formDataOpciones");
-        formDataOpciones.onsubmit = function(e) {
-            e.preventDefault();
-            let selectIdioma = document.querySelector('#selectIdioma').value;
-            let selectTema = document.querySelector('#selectTema').value;
-            let selectMoneda = document.querySelector('#selectMoneda').value;
-           
-            divLoading.style.display = "flex";
-            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Opciones/putOpciones'; // Ruta del controlador y método para procesar los datos
-            let formData = new FormData(formDataOpciones);
-            // Agrega los valores de los selectores al FormData
-            formData.append('idioma', selectIdioma);
-            formData.append('tema', selectTema);
-            formData.append('moneda', selectMoneda);
-
-            request.open("POST", ajaxUrl, true);
-            request.send(formData);
-            request.onreadystatechange = function(){
-                if(request.readyState != 4 ) return; 
-                if(request.status == 200){
-                    let objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
-                        // Aquí puedes realizar acciones adicionales si la respuesta es exitosa
-                        swal("Éxito", objData.msg , "success");
-                    }else{
-                        swal("Error", objData.msg , "error");
+    // Crear y enviar la solicitud AJAX
+    let request = new XMLHttpRequest();
+    request.open("POST", base_url + "/Opciones/setOpciones", true);
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let response = JSON.parse(request.responseText);
+            if (response != null) {
+                // Datos guardados correctamente
+                // swal("Éxito", response.msg, "success");
+                swal({
+                    title: "",
+                    text: response.msg,
+                    type: "success",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: false,
+                }, function(isConfirm) {
+                    if (isConfirm) {
+                        location.reload();
                     }
-                }
-                divLoading.style.display = "none";
-                return false;
+                });
+            } else {
+                // Error al guardar los datos
+                swal("Error", response.msg, "error");
             }
         }
-    }
-}, false);
+    };
+    request.send(formData);
+    // Devolver false para prevenir el comportamiento predeterminado del evento click
+    return false;
+}
+
+
