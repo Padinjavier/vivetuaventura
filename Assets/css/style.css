@@ -1,3 +1,19 @@
+    /* Estilo para los selectores */
+    .form-selecttty {
+        width: 100%;
+        /* Ancho completo del selector */
+        margin-bottom: 15px;
+        /* Espacio entre los selectores */
+        border-radius: 5px;
+        /* Bordes redondeados */
+        border: 1px solid #ccc;
+        /* Borde del selector */
+        padding: 8px;
+        /* Relleno interno */
+    }
+
+    /* Estilos adicionales según sea necesario */
+
 .app-sidebar__user-avatar {
     width: 48px;
     background: gray;
