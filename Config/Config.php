@@ -3,8 +3,10 @@ $server_info = php_uname();
 $parts = explode(" ", $server_info);
 $computer_name = $parts[1];
 $computer_name = gethostname();
-
-const BASE_URL = 'http://localhost/ecommercecompleto';
+$ip = $_SERVER['SERVER_ADDR'];
+$link = 'http://' . $ip . '/ecommercecompleto';
+define('BASE_URL', $link);
+// const BASE_URL = 'http://localhost/ecommercecompleto';
 
 //Zona horaria
 date_default_timezone_set('America/Lima');

@@ -14,3 +14,5 @@ xdebug.log_level=7
 xdebug.profiler_output_name=trace.%H.%t.%p.cgrind
 xdebug.use_compression=false
 
+En todos los directorios DE APACHE 
+Require local   ----  Require all granted
