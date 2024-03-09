@@ -16,3 +16,64 @@ xdebug.use_compression=false
 
 En todos los directorios DE APACHE 
 Require local   ----  Require all granted
+
+
+
+https://github.com/Carlos007007/SRCB-V2.git
+
+
+
+const toggleTheme = () => {
+    darkMode = !darkMode;
+    darkMode ? addTheme(darkTheme) : addTheme(lightTheme);
+    $textState.textContent = darkMode ? 'DAYMODE' : 'NIGHTMODE';
+    rotateImage();
+}
+
+const addTheme = (theme) => {
+    const styles = document.documentElement.style;
+    const customStyles = Object.keys(theme);
+    for (const style of customStyles) {
+        styles.setProperty(style, theme[style]);
+    }
+}
+
+const lightTheme = {
+    '--color-fondo1': 'linear-gradient(180deg, #24cfd4 0%, #c22ce7 100%)',
+    '--color-fondo2': 'linear-gradient(180deg, #c22ce7 0%, #24cfd4 100%)',
+    '--color-light-blue': '#00B4D8',
+    '--color-button': '#d86004',
+    '--color-gray': '#C4C4C4',
+    '--color-wite': '#ffffff',
+    '--perfil1': '#a20bcf',
+    '--perfil2': 'rgb(63, 91, 249)',
+    '--color-info': '#ffffff',
+    '--color-icon': '#000000',
+    '--color-aro': '#6874e5',
+    '--color-sombra': 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50))',
+};
+
+const darkTheme = {
+    '--color-fondo1': 'linear-gradient(180deg, #234fad 0%, #610445 100%)',
+    '--color-fondo2': 'linear-gradient(180deg, #610445 0%, #234fad 100%)',
+    '--color-light-blue': '#0e00d8',
+    '--color-button': '#10ec98',
+    '--color-gray': '#ffffff',
+    '--color-wite': '#ffffff',
+    '--perfil1': '#2ed9f0',
+    '--perfil2': '#0cd105',
+    '--color-info': '#817e7e',
+    '--color-icon': '#ffffff',
+    '--color-aro': '#68d9e5',
+    '--color-sombra': 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50))',
+};
+
+const $state = document.getElementById('aa');
+const $textState = document.querySelector('.bubbly-button');
+let darkMode =
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+$textState.textContent = darkMode ? 'DAYMODE' : 'NIGHTMODE';
+
+$state.addEventListener('click', () => {
+    toggleTheme();
+});

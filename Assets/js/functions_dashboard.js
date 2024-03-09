@@ -92,3 +92,32 @@ function fntSearchVAnio(){
         }
     }
 }
+document.addEventListener('DOMContentLoaded', function(){
+    fntEditOpciones();
+},false);
+function fntEditOpciones() {
+    // Crear una solicitud AJAX para obtener las opciones guardadas
+    let request = new XMLHttpRequest();
+    let ajaxUrl = base_url + '/Opciones/getOpciones';
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+                  
+            if (objData != null) {
+                let uu = objData[0].tema;
+                if (uu == 1) {
+                    console.log("dia");
+                } else if (uu == 2) {
+                    console.log("noche");
+                } else {
+                    console.log("tarde xd");
+                }
+            } else {
+                swal("Error", objData.msg, "error");
+            }
+            
+        }
+    };
+}

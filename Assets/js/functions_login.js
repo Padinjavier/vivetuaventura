@@ -156,3 +156,30 @@ document.addEventListener('DOMContentLoaded', function(){
 	}
 
 }, false);
+
+
+function fntEditOpciones() {
+    // Crear una solicitud AJAX para obtener las opciones guardadas
+    let request = new XMLHttpRequest();
+    let ajaxUrl = base_url + '/Opciones/getOpciones';
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+                  
+            if (objData != null) {
+                document.querySelector("#selectIdioma").value = objData[0].idioma;
+                $('#selectIdioma').selectpicker('render');
+                document.querySelector("#selectTema").value = objData[0].tema;
+                $('#selectTema').selectpicker('render');
+                document.querySelector("#selectMoneda").value = objData[0].formato_moneda;
+                $('#selectMoneda').selectpicker('render');
+                $('#modalFormUsuario').modal('show');
+            } else {
+                swal("Error", objData.msg, "error");
+            }
+            
+        }
+    };
+}
