@@ -20,7 +20,7 @@
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="tablePaginas">
+                    <table class="table table-hover table-bordered w-100" id="tablePaginas">
                       <thead>
                         <tr>
                           <th>ID</th>

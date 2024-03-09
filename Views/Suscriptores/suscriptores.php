@@ -16,7 +16,7 @@
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="tableSuscriptores">
+                    <table class="table table-hover table-bordered w-100" id="tableSuscriptores">
                       <thead>
                         <tr>
                           <th>ID</th>
