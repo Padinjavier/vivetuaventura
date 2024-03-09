@@ -62,7 +62,7 @@ class Pedidos extends Controllers{
 				if($_SESSION['permisosMod']['u']){
 					$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idpedido'].')" title="Editar pedido"><i class="fas fa-pencil-alt"></i></button>';
 				}
-				$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+				$arrData[$i]['options'] = '<div class="text-center"  style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 			}
 			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 		}

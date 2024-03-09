@@ -33,7 +33,7 @@
 					if($_SESSION['permisosMod']['r']){
 						$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['id'].')" title="Ver mensaje"><i class="far fa-eye"></i></button>';
 					}
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.'</div>';
+					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.'</div>';
 				}
 				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 			}
