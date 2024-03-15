@@ -18,7 +18,10 @@
 			for ($i=0; $i < count($arrSlider) ; $i++) { 
 				$ruta = $arrSlider[$i]['ruta'];
 			 ?>
-				<div class="item-slick1" style="background-image: url(<?= $arrSlider[$i]['portada'] ?>);">
+				<div class="item-slick1" style="background-image: url(<?= $arrSlider[$i]['portada'] ?>); 
+				background-position: right;
+    background-size: contain;
+	background-repeat: no-repeat;">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -94,7 +97,7 @@
 				</h3>
 			</div>
 			<hr>
-			<div class="row isotope-grid">
+			<div class="row isotope-grid" style="background-color: white;">
 			<?php 
 				for ($p=0; $p < count($arrProductos) ; $p++) {
 					$rutaProducto = $arrProductos[$p]['ruta']; 
@@ -104,7 +107,8 @@
 						$portada = media().'/images/uploads/product.png';
 					}
 			 ?>
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+				<!-- <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 p-r-20 p-l-20 isotope-item women" style="border: 1px solid #9b9b9b;"> -->
+				<div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 p-r-20 p-l-20 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
@@ -145,28 +149,7 @@
 					Ver más
 				</a>
 			</div>
-
-
-
-			<script src="https://checkout.culqi.com/js/v4"></script>
-  <script>
-    Culqi.publicKey = 'Apk_test_80012ab94f994cdf';
-  </script>
-<script>
-  Culqi.settings({
-    title: 'Culqi Store',
-    currency: 'PEN',  // Este parámetro es requerido para realizar pagos yape
-    amount: 1000,  // Este parámetro es requerido para realizar pagos yape
-    order: 'ord_live_0CjjdWhFpEAZlxlz', // Este parámetro es requerido para realizar pagos con pagoEfectivo, billeteras y Cuotéalo
-    xculqirsaid: 'pk_test_80012ab94f994cdf',
-    rsapublickey: 'Inserta aquí tu llave pública RSA',
-  });
-</script>
-
-
-
 		</div>
-
 		<div class="container text-center p-t-80">
 			<hr>
 			<?= $contentPage ?>

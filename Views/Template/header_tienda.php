@@ -284,7 +284,7 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="<?= base_url(); ?>">Inicio</a>
+					<a href="<?= base_url(); ?>/home">Inicio</a>
 				</li>
 
 				<li>

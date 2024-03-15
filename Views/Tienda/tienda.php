@@ -57,7 +57,8 @@ $arrProductos = $data['productos'];
 						$portada = media().'/images/uploads/product.png';
 					}
 			 ?>
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+			 <!-- realizar esto para todos los listados de productos -->
+				<div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 p-r-20 p-l-20 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
