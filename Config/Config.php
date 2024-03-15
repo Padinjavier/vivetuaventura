@@ -4,9 +4,9 @@ $parts = explode(" ", $server_info);
 $computer_name = $parts[1];
 $computer_name = gethostname();
 $ip = $_SERVER['SERVER_ADDR'];
-$link = 'http://' . $ip . '/ecommercecompleto';
+$link = 'http://' . $ip . '/gsm';
 define('BASE_URL', $link);
-// const BASE_URL = 'http://localhost/ecommercecompleto';
+// const BASE_URL = 'http://localhost/gsm';
 
 //Zona horaria
 date_default_timezone_set('America/Lima');
