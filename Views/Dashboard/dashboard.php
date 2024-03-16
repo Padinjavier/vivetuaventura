@@ -1,5 +1,6 @@
 <?php
 headerAdmin($data);
+chat($data);
 // Configurar la zona horaria
 date_default_timezone_set('America/Lima');
 // Obtener el nombre del día de la semana en español
@@ -53,11 +54,11 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
       </div>
     </div>
   </div>
-  <div class="row isotope-grid justify-content-center">
+  <div class="row isotope-grid justify-content-around">
     <?php if (!empty ($_SESSION['permisos'][2]['r'])) { ?>
-      <div class="col-md-6 col-lg-3" style="width: fit-content;">
+      <div class="m-2">
         <a href="<?= base_url() ?>/usuarios" class="linkw">
-          <div class="widget-small primary coloured-icon" style="display: flex;
+          <div class="widget-small primary coloured-icon shadow p-2 pt-3 pb-4" style="display: flex;
     flex-direction: column;
     align-items: center;
     width: fit-content;"><i class="icon fa fa-users fa-3x"></i>
@@ -72,9 +73,9 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
       </div>
     <?php } ?>
     <?php if (!empty ($_SESSION['permisos'][3]['r'])) { ?>
-      <div class="col-md-6 col-lg-3 " style="width: fit-content;">
+      <div class=" m-2">
         <a href="<?= base_url() ?>/clientes" class="linkw">
-          <div class="widget-small info coloured-icon" style="display: flex;
+          <div class="widget-small info coloured-icon shadow  p-2 pt-3 pb-4" style="display: flex;
     flex-direction: column;
     align-items: center;
     width: fit-content;"><i class="icon fa fa-user fa-3x"></i>
@@ -89,9 +90,9 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
       </div>
     <?php } ?>
     <?php if (!empty ($_SESSION['permisos'][4]['r'])) { ?>
-      <div class="col-md-6 col-lg-3" style="width: fit-content;">
+      <div class="m-2">
         <a href="<?= base_url() ?>/productos" class="linkw">
-          <div class="widget-small warning coloured-icon" style="display: flex;
+          <div class="widget-small warning coloured-icon shadow p-2 pt-3 pb-4" style="display: flex;
     flex-direction: column;
     align-items: center;
     width: fit-content;"><i class="icon fa fa fa-archive fa-3x"></i>
@@ -106,9 +107,9 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
       </div>
     <?php } ?>
     <?php if (!empty ($_SESSION['permisos'][5]['r'])) { ?>
-      <div class="col-md-6 col-lg-3" style="width: fit-content;">
+      <div class="m-2">
         <a href="<?= base_url() ?>/pedidos" class="linkw">
-          <div class="widget-small danger coloured-icon" style="display: flex;
+          <div class="widget-small danger coloured-icon shadow p-2 pt-3 pb-4" style="display: flex;
     flex-direction: column;
     align-items: center;
     width: fit-content;"><i class="icon fa fa-shopping-cart fa-3x"></i>
