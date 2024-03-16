@@ -56,7 +56,7 @@
   --green: #868d94;
   --teal: #868d94;
   --cyan: #868d94;
-  --white: #868d94;
+  --white: rgb(255, 255, 255);
   --gray: #868d94;
   --gray-dark: #868d94;
   --primary: var(--HEADER);
@@ -15561,7 +15561,7 @@ be a descendant of the grid when it is being dragged.
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: var(--HEADER);
+  background-color: var(--white);
   z-index: 1030;
   padding-right: 15px;
 }

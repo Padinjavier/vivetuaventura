@@ -1,6 +1,22 @@
-<?php headerAdmin($data); ?>
-    <main class="app-content">
-      <div class="app-title">
+<?php 
+headerAdmin($data); 
+// Configurar la zona horaria
+date_default_timezone_set('America/Lima');
+// Obtener el nombre del día de la semana en español
+$dias = DiasSemana();
+$nombre_dia = $dias[date('w')];
+// Obtener el día del mes
+$dia_mes = date('d');
+// Obtener el mes en español utilizando la función Meses()
+$meses = Meses();
+$mes = $meses[date('n') - 1]; // Restamos 1 porque los meses en PHP son indexados desde 0
+// Obtener el año
+$anio = date('Y');
+// Formatear la fecha en el formato deseado
+$fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
+?>
+    <main class="app-content bg-white">
+      <!-- <div class="app-title">
         <div>
           <h1><i class="fa fa-dashboard"></i><?= $data['page_title'] ?></h1>
         </div>
@@ -8,13 +24,61 @@
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
           <li class="breadcrumb-item"><a href="<?= base_url(); ?>/dashboard">Dashboard</a></li>
         </ul>
+      </div> -->
+      
+
+      <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-3">
+        <p class="text-right"><?= $fecha_formateada ?></p>
       </div>
-      <div class="row">
+    </div>
+    <div class="col-12">
+    <div class="mb-3">
+  <p class="font-weight-bold">Bienvenida, <span class="text-primary"><?= $_SESSION['userData']['nombres']; ?></span></p>
+</div>
+
+    </div>
+    <div class="col-12">
+      <div class="mb-3 mr-4">
+        <p>Que tengas un bonito día de trabajo, recuerda realizar los registros correctamente y estar al pendiente de la bandeja de entrada de solicitudes de reembolso.</p>
+      </div>
+    </div>
+    <div class="col-12 mb-4 mt-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <i class="fas fa-bell mr-2"></i>
+          Bandeja de entrada
+        </div>
+      </div>
+    </div>
+    <div class="col-12  mb-4">
+      <div class="mb-3">
+        <p class="font-weight-bold">Mis servicios</p>
+      </div>
+    </div>
+  </div>
+</div>
+      
+
+
+
+
+
+
+
+
+
+      <div class="row isotope-grid justify-content-center" >
         <?php if(!empty($_SESSION['permisos'][2]['r'])){ ?>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" style="width: fit-content;">
           <a href="<?= base_url() ?>/usuarios" class="linkw">
-            <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-              <div class="info">
+            <div class="widget-small primary coloured-icon" style="display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;"><i class="icon fa fa-users fa-3x"></i>
+              <div class="info text-center p-0">
                 <h4>Usuarios</h4>
                 <p><b><?= $data['usuarios'] ?></b></p>
               </div>
@@ -23,10 +87,13 @@
         </div>
         <?php } ?>
         <?php if(!empty($_SESSION['permisos'][3]['r'])){ ?>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3 " style="width: fit-content;">
           <a href="<?= base_url() ?>/clientes" class="linkw">
-            <div class="widget-small info coloured-icon"><i class="icon fa fa-user fa-3x"></i>
-              <div class="info">
+            <div class="widget-small info coloured-icon" style="display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;"><i class="icon fa fa-user fa-3x"></i>
+              <div class="info text-center p-0">
                 <h4>Clientes</h4>
                 <p><b><?= $data['clientes'] ?></b></p>
               </div>
@@ -35,10 +102,13 @@
         </div>
         <?php } ?>
         <?php if(!empty($_SESSION['permisos'][4]['r']) ){ ?>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" style="width: fit-content;">
           <a href="<?= base_url() ?>/productos" class="linkw">
-            <div class="widget-small warning coloured-icon"><i class="icon fa fa fa-archive fa-3x"></i>
-              <div class="info">
+            <div class="widget-small warning coloured-icon" style="display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;"><i class="icon fa fa fa-archive fa-3x"></i>
+              <div class="info text-center p-0">
                 <h4>Productos</h4>
                 <p><b><?= $data['productos'] ?></b></p>
               </div>
@@ -47,10 +117,13 @@
         </div>
         <?php } ?>
         <?php if(!empty($_SESSION['permisos'][5]['r'])){ ?>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" style="width: fit-content;">
           <a href="<?= base_url() ?>/pedidos" class="linkw">
-            <div class="widget-small danger coloured-icon"><i class="icon fa fa-shopping-cart fa-3x"></i>
-              <div class="info">
+            <div class="widget-small danger coloured-icon" style="display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;"><i class="icon fa fa-shopping-cart fa-3x"></i>
+              <div class="info text-center p-0">
                 <h4>Pedidos</h4>
                 <p><b><?= $data['pedidos'] ?></b></p>
               </div>

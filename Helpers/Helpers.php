@@ -372,6 +372,18 @@
         return $meses;
     }
 
+    function DiasSemana(){
+        $dias = array("Domingo", 
+                      "Lunes", 
+                      "Martes", 
+                      "Miércoles", 
+                      "Jueves", 
+                      "Viernes", 
+                      "Sábado");
+        return $dias;
+    }
+
+    
     function getCatFooter(){
         require_once ("Models/CategoriasModel.php");
         $objCategoria = new CategoriasModel();
