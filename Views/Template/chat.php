@@ -1,26 +1,23 @@
-<!-- Icono de mensaje hhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
-
 <!-- Icono de mensaje -->
 <div id="chat-icon" class="d-flex justify-content-center align-items-center">
   <i class="fas fa-comment fa-2x"></i>
 </div>
 
 
-<!-- panel chat chat -->
-<section id="chat" class="" style="">
-  <div class="container py-5">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-8 col-lg-6 col-xl-4">
+<!-- chat chat -->
+<section id="chat" class="" style=" display: none; width: 100%; max-width:600px;">
+  <div class="container py-3">
+  <div class="row">
+      <div class="col-md-12">
         <div class="card" id="chat1" style="border-radius: 15px;">
           <div
             class="bg-primary card-header d-flex justify-content-between align-items-center p-3 text-white border-bottom-0"
-            style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
-            <i class="fas fa-angle-left"></i>
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;" >
+            <i class="fas fa-angle-left" id="back-to-chat-panel"></i>
             <p class="mb-0 fw-bold">Live chat</p>
-            <i class="fas fa-times"></i>
+            <i class="fas fa-times" id="close-chat"></i>
           </div>
-          <div class="card-body">
-
+          <div class="card-body" style="max-height: -webkit-fill-available; overflow-y: auto;">
             <div class="d-flex flex-row justify-content-start mb-4">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar 1"
                 style="width: 45px; height: 100%;">
@@ -30,7 +27,6 @@
                   below.</p>
               </div>
             </div>
-
             <div class="d-flex flex-row justify-content-end mb-4">
               <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
                 <p class="small mb-0">Thank you, I really like your product.</p>
@@ -38,7 +34,6 @@
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp" alt="avatar 1"
                 style="width: 45px; height: 100%;">
             </div>
-
             <div class="d-flex flex-row justify-content-start mb-4">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar 1"
                 style="width: 45px; height: 100%;">
@@ -52,26 +47,21 @@
                 </div>
               </div>
             </div>
-
             <div class="d-flex flex-row justify-content-start mb-4">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="avatar 1"
                 style="width: 45px; height: 100%;">
               <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                <p class="small mb-0">...</p>
+                <p class="small mb-0 www" id="">...</p>
               </div>
             </div>
-
             <div class="form-outline">
               <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
               <label class="form-label" for="textAreaExample">Type your message</label>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
 </section>
 
@@ -83,19 +73,14 @@
 
 
 
-<section id="chat-panel" class="" style=" display: none; width: 100%; max-width:600px;">
-  <div class="container py-3">
-
-    <div class="row">
+<section id="chat-panel" class="h-75" style="display: none; width: 100%; max-width:600px;">
+  <div class="container py-3 h-100">
+    <div class="row h-100">
       <div class="col-md-12">
-
-        <div class="card" id="chat3" style="border-radius: 15px;">
-          <div class="card-body">
-
-            <div class="row">
+        <div class="card h-100" id="chat3" style="border-radius: 15px; overflow: hidden;">
+          <div class="card-body h-100">
+            <div class="row h-100">
               <div class="w-100">
-
-
                 <div class="input-group rounded mb-3">
                   <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" />
@@ -103,14 +88,13 @@
                     <i class="fas fa-search"></i>
                   </span>
                 </div>
-
-                <div data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
-                  <ul class="list-unstyled mb-0" style="max-height: -webkit-fill-available; overflow-y: auto;">
+                <div data-mdb-perfect-scrollbar="true" style="position: relative; height: 100%;">
+                  <ul class="list-unstyled mb-0" style="max-height: 100%; height:390px; overflow-y: auto;">
                     <?php
                     for ($i = 0; $i < 100; $i++) {
                       ?>
                       <li class="p-2 border-bottom">
-                        <a href="#!" class="d-flex justify-content-between">
+                        <a href="#!" id="<?php echo $i; ?>" class="d-flex justify-content-between">
                           <div class="d-flex flex-row">
                             <div>
                               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
@@ -124,7 +108,9 @@
                           </div>
                           <div class="pt-1">
                             <p class="small text-muted mb-1">Just now</p>
-                            <span class="badge bg-danger rounded-pill float-end">3</span>
+                            <span class="badge bg-danger rounded-pill float-end">
+                              <?php echo $i; ?>
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -157,6 +143,8 @@
 
 
 
+
+
 <style>
   /* Estilo del icono de mensaje */
   #chat-icon {
@@ -170,7 +158,7 @@
     height: 50px;
     text-align: center;
     cursor: pointer;
-    z-index: 101;
+    z-index: 100;
   }
 
   /*chat */
@@ -178,14 +166,26 @@
     display: none;
     position: fixed;
     bottom: 0;
-    /* left: 0; */
     right: 0;
     background-color: #fff;
     border: 1px solid #ddd;
     overflow-y: scroll;
     /* width: 100%; */
     max-height: calc(100vh - 50px);
-    z-index: 100;
+    z-index: 99;
+    /* Altura máxima */
+  }
+  #chat{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    overflow-y: scroll;
+    /* width: 100%; */
+    max-height: calc(100vh - 50px);
+    z-index: 101;
     /* Altura máxima */
   }
 </style>
@@ -205,23 +205,62 @@
     }
   }
 
+  // Función para mostrar chat-panel y ocultar chat
+  function showChatPanel() {
+    document.getElementById('chat-panel').style.display = 'block';
+    document.getElementById('chat').style.display = 'none';
+    // Bloquear scroll
+    document.body.style.overflow = 'hidden';
+  }
+
   // Llama a la función cuando se hace clic en el icono de mensaje
   document.getElementById('chat-icon').addEventListener('click', toggleChatPanel);
 
-  // Cierra el panel de chat al hacer clic en el icono de "x"
-  document.querySelector('#chat-panel .fas.fa-times').addEventListener('click', function () {
-    toggleChatPanel();
+  // Cierra todas las ventanas al hacer clic en el icono de "x"
+  document.getElementById('close-chat').addEventListener('click', function () {
+    document.getElementById('chat-panel').style.display = 'none';
+    document.getElementById('chat').style.display = 'none';
+    // Desbloquear scroll
+    document.body.style.overflow = '';
   });
 
-  // Bloquear scroll en el panel de chat abierto
-  document.getElementById('chat-panel').addEventListener('touchmove', function (e) {
-    if (document.getElementById('chat-panel').style.display === 'block') {
-      e.preventDefault();
-    }
+  // Muestra chat-panel y oculta chat al hacer clic en el icono de "atras"
+  document.getElementById('back-to-chat-panel').addEventListener('click', function () {
+    showChatPanel();
   });
-  document.getElementById('chat-panel').addEventListener('wheel', function (e) {
-    if (document.getElementById('chat-panel').style.display === 'block') {
-      e.preventDefault();
-    }
+
+
+
+
+  function abrirChat(id) {
+    // Oculta chat-panel y muestra chat
+    document.getElementById('chat-panel').style.display = 'none';
+    document.getElementById('chat').style.display = 'block';
+
+    // Aumenta el valor del $id en el párrafo dentro del div
+    var paragraph = document.querySelector('#chat p.www');
+    var currentValue = paragraph.innerHTML;
+    var newValue = currentValue + id;
+    paragraph.innerHTML = newValue;
+
+    // Bloquear scroll en el panel de chat abierto
+    document.getElementById('chat-panel').addEventListener('touchmove', function (e) {
+      if (document.getElementById('chat-panel').style.display === 'block') {
+        e.preventDefault();
+      }
+    });
+  }
+
+  // Agregar evento de clic a cada elemento <a> dentro del bucle PHP
+  document.querySelectorAll('#chat-panel a').forEach(item => {
+    item.addEventListener('click', function () {
+      // Obtener el id del elemento <a>
+      var id = this.id;
+      // Llamar a la función abrirChat() con el id como argumento
+      abrirChat(id);
+    });
   });
+
+
+
 </script>

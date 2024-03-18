@@ -150,3 +150,50 @@ $state.addEventListener('click', () => {
 
     </div>
 </section> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
+  // Función para mostrar/ocultar el panel de chat y bloquear/desbloquear el scroll
+  function toggleChatPanel() {
+    var chatPanel = document.getElementById('chat-panel');
+    if (chatPanel.style.display === 'none') {
+      chatPanel.style.display = 'block';
+      // Bloquear scroll
+      document.body.style.overflow = 'hidden';
+    } else {
+      chatPanel.style.display = 'none';
+      // Desbloquear scroll
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Llama a la función cuando se hace clic en el icono de mensaje
+  document.getElementById('chat-icon').addEventListener('click', toggleChatPanel);
+
+  // Cierra el panel de chat al hacer clic en el icono de "x"
+  document.querySelector('#chat-panel .fas.fa-times').addEventListener('click', function () {
+    toggleChatPanel();
+  });
+
+  // Bloquear scroll en el panel de chat abierto
+  document.getElementById('chat-panel').addEventListener('touchmove', function (e) {
+    if (document.getElementById('chat-panel').style.display === 'block') {
+      e.preventDefault();
+    }
+  });
+  document.getElementById('chat-panel').addEventListener('wheel', function (e) {
+    if (document.getElementById('chat-panel').style.display === 'block') {
+      e.preventDefault();
+    }
+  });
+</script> -->
