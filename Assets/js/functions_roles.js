@@ -79,6 +79,7 @@ function openModal(){
     document.querySelector('#titleModal').innerHTML = "Nuevo Rol";
     document.querySelector("#formRol").reset();
 	$('#modalFormRol').modal('show');
+    clocemenu();
 }
 
 window.addEventListener('load', function() {

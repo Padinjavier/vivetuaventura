@@ -278,4 +278,5 @@ function openModal()
     document.querySelector("#formCategoria").reset();
     $('#modalFormCategorias').modal('show');
     removePhoto();
+    clocemenu();
 }

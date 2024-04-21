@@ -468,5 +468,6 @@ function openModal()
     document.querySelector("#containerGallery").classList.add("show");//con error
     document.querySelector("#containerImages").innerHTML = "";
     $('#modalFormProductos').modal('show');
+    clocemenu();
 
 }

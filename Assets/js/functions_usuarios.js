@@ -374,8 +374,10 @@ function openModal()
     document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector("#formUsuario").reset();
     $('#modalFormUsuario').modal('show');
+    clocemenu();
 }
 
 function openModalPerfil(){
     $('#modalFormPerfil').modal('show');
+    clocemenu();
 }

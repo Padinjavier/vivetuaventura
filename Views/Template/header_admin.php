@@ -19,7 +19,7 @@
   <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css">
 </head>
 
-<body class="app sidebar-mini">
+<body class="app sidebar-mini  sidenav-toggled">
   <div id="divLoading">
     <div>
       <img src="<?= media(); ?>/images/loading.svg" alt="Loading">
