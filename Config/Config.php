@@ -4,7 +4,7 @@ $parts = explode(" ", $server_info);
 $computer_name = $parts[1];
 $computer_name = gethostname();
 $ip = $_SERVER['SERVER_ADDR'];
-$link = 'http://' . $ip . '/gsm';
+$link = 'http://' . $ip . '/agencia';
 define('BASE_URL', $link);
 // const BASE_URL = 'http://localhost/gsm';
 
