@@ -288,7 +288,7 @@ function fntViewUsuario(idpersona){
 
 function fntEditUsuario(element,idpersona){
     rowTable = element.parentNode.parentNode.parentNode; 
-    document.querySelector('#titleModal').innerHTML ="Actualizar Usuario";
+    document.querySelector('#titleModal').innerHTML ="Actualizar empleado";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
@@ -327,7 +327,7 @@ function fntEditUsuario(element,idpersona){
 
 function fntDelUsuario(idpersona){
     swal({
-        title: "Eliminar Usuario",
+        title: "Eliminar Empleado",
         text: "¿Realmente quiere eliminar el Usuario?",
         type: "warning",
         showCancelButton: true,
@@ -371,13 +371,10 @@ function openModal()
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
-    document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector("#formUsuario").reset();
     $('#modalFormUsuario').modal('show');
-    clocemenu();
 }
 
 function openModalPerfil(){
     $('#modalFormPerfil').modal('show');
-    clocemenu();
 }

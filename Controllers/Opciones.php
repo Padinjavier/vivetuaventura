@@ -9,7 +9,7 @@ class Opciones extends Controllers
 			header('Location: ' . base_url() . '/login');
 			die();
 		}
-		getPermisos(MUSUARIOS);
+		getPermisos(MEMPLEADO);
 	}
 
 	public function Opciones()

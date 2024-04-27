@@ -12,7 +12,7 @@ define('BASE_URL', $link);
 date_default_timezone_set('America/Lima');
 //Datos de conexión a Base de Datos
 const DB_HOST = "localhost";
-const DB_NAME = "gsm";
+const DB_NAME = "agencia";
 const DB_USER = "root";
 const DB_PASSWORD = "javier20";
 const DB_CHARSET = "utf8";
@@ -69,7 +69,7 @@ const COSTOENVIO = 5;
 
 //Módulos
 const MDASHBOARD = 1;
-const MUSUARIOS = 2;
+const MEMPLEADO = 2;
 const MCLIENTES = 3;
 const MPRODUCTOS = 4;
 const MPEDIDOS = 5;

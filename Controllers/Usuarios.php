@@ -10,7 +10,7 @@
 				header('Location: '.base_url().'/login');
 				die();
 			}
-			getPermisos(MUSUARIOS);
+			getPermisos(MEMPLEADO);
 		}
 
 		public function Usuarios()
@@ -18,9 +18,9 @@
 			if(empty($_SESSION['permisosMod']['r'])){
 				header("Location:".base_url().'/dashboard');
 			}
-			$data['page_tag'] = "Usuarios";
-			$data['page_title'] = "USUARIOS <small>Tienda Virtual</small>";
-			$data['page_name'] = "usuarios";
+			$data['page_tag'] = "Empleados";
+			$data['page_title'] = "EMPLEADOS <small> </small>";
+			$data['page_name'] = "empleado";
 			$data['page_functions_js'] = "functions_usuarios.js";
 			$this->views->getView($this,"usuarios",$data);
 		}
