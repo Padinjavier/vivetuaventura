@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
                 "titleAttr":"Esportar a CSV",
-                "className": "btn btn-info"
+                "className": "btn btn-info d-none"
             }
         ],
         "resonsieve":"true",

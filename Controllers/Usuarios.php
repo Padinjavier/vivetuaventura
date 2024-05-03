@@ -55,6 +55,9 @@
 																				$intTipoId, 
 																				$intStatus );
 						}
+						if($_SESSION['permisosMod']['w']){
+							$request_user = $this->model->insertopciones($strIdentificacion);
+						}
 					}else{
 						$option = 2;
 						$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);

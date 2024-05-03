@@ -65,12 +65,12 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="listRolid">Tipo usuario</label>
+              <label for="listRolid">Roles</label>
               <select class="form-control" data-live-search="true" id="listRolid" name="listRolid" required>
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="listStatus">Status</label>
+              <label for="listStatus">Estado</label>
               <select class="form-control selectpicker" id="listStatus" name="listStatus" required>
                 <option value="1">Activo</option>
                 <option value="2">Inactivo</option>
@@ -79,7 +79,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtPassword">Password</label>
+              <label for="txtPassword">Contraseña</label>
               <input type="password" class="form-control" id="txtPassword" name="txtPassword">
             </div>
           </div>

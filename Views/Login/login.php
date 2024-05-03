@@ -33,7 +33,7 @@
         <div class="row justify-content-around align-items-center mb-4">
           <div class="text-start">
             <h4 class="m-7 text-primary">¡Bienvenido de nuevo!</h4>
-            <p class="m-0">Logéate para acceder a MJ</p>
+            <p class="m-0">Logéate para acceder a la Agencia</p>
           </div>
           <img src="<?= media(); ?>/images/logologin.png" alt="">
         </div>
