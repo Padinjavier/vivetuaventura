@@ -50,52 +50,18 @@
         						$this->intTipoId,
         						$this->intStatus);
 	        	$request_insert = $this->insert($query_insert,$arrData);
-	        	$return = $request_insert;
+
+
+				// $request_insert  = id persona 
+				$query_insertop  = "INSERT INTO opciones(personaid, idioma, tema, formato_moneda) VALUES(?,?,?,?)";
+					$arrDataop = array($request_insert , 1, 1, 1); // Valores iniciales: 1 para idioma, tema y formato_moneda
+					$request_insertop = $this->insert($query_insertop, $arrDataop);
+	        	$return = $request_insertop;
 			}else{
 				$return = -1;
 			}
 	        return $return;
 		}
-
-
-		
-
-		public function insertopciones(string $identificacion){
-			$this->strIdentificacion = $identificacion;
-			$return = 0;
-		
-			// Buscar al usuario por identificación para obtener su ID
-			$sql_user = "SELECT idpersona FROM persona WHERE identificacion = '{$this->strIdentificacion}'";
-			$result_user = $this->select($sql_user);
-		
-			if($result_user){
-				$id_persona = $result_user['idpersona'];
-		
-				// Verificar si ya existen opciones para este usuario
-				$sql_check = "SELECT * FROM opciones WHERE personaid = '{$id_persona}'";
-				$request_check = $this->select_all($sql_check);
-		
-				if(empty($request_check)){
-					// Insertar opciones para el usuario
-					$query_insert  = "INSERT INTO opciones(personaid, idioma, tema, formato_moneda) VALUES(?,?,?,?)";
-					$arrData = array($id_persona, 1, 1, 1); // Valores iniciales: 1 para idioma, tema y formato_moneda
-					$request_insert = $this->insert($query_insert, $arrData);
-					$return = $request_insert;
-				} else {
-					// Opciones ya existen para este usuario
-					$return = -1;
-				}
-			} else {
-				// Usuario no encontrado
-				$return = "user_not_found";
-			}
-		
-			return $return;
-		}
-		
-
-
-
 		
 		public function selectUsuarios()
 		{

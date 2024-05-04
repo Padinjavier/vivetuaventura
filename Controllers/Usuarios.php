@@ -40,6 +40,7 @@
 					$intTipoId = intval(strClean($_POST['listRolid']));
 					$intStatus = intval(strClean($_POST['listStatus']));
 					$request_user = "";
+					$request_opc = "";
 					if($idUsuario == 0)
 					{
 						$option = 1;
@@ -54,12 +55,7 @@
 																				$strPassword, 
 																				$intTipoId, 
 																				$intStatus );
-
-							$request_user = $this->model->insertopciones($strIdentificacion);
 						}
-						// if($_SESSION['permisosMod']['w']){
-						// 	$request_user = $this->model->insertopciones($strIdentificacion);
-						// }
 					}else{
 						$option = 2;
 						$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
@@ -74,7 +70,6 @@
 																		$intTipoId, 
 																		$intStatus);
 						}
-
 					}
 
 					if($request_user > 0 )
