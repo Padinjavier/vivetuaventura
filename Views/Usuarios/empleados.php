@@ -21,7 +21,7 @@
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered w-100" id="tableUsuarios">
+                    <table class="table table-hover table-bordered w-100" id="tableEmpleados">
                       <thead>
                         <tr>
                           <th>ID</th>
