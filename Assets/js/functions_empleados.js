@@ -308,7 +308,7 @@ function fntEditUsuario(element,idpersona){
 
             if(objData.status)
             {
-                document.querySelector("#idUsuario").value = objData.data.idpersona;
+                document.querySelector("#idEmpleado").value = objData.data.idpersona;
                 document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
                 document.querySelector("#txtNombre").value = objData.data.nombres;
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
@@ -346,7 +346,7 @@ function fntDelUsuario(idpersona){
         {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             let ajaxUrl = base_url+'/Usuarios/delUsuario';
-            let strData = "idUsuario="+idpersona;
+            let strData = "idEmpleado="+idpersona;
             request.open("POST",ajaxUrl,true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
@@ -372,7 +372,7 @@ function fntDelUsuario(idpersona){
 function openModal()
 {
     rowTable = "";
-    document.querySelector('#idUsuario').value ="";
+    document.querySelector('#idEmpleado').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
