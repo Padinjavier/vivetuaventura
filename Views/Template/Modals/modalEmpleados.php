@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="modalFormUsuario" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalFormEmpleado" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
         <form id="formUsuario" name="formUsuario" class="form-horizontal">
-          <input type="hidden" id="idUsuario" name="idUsuario" value="">
+          <input type="hidden" id="idEmpleado" name="idEmpleado" value="">
           <p class="text-primary">Todos los campos son obligatorios.</p>
 
           <div class="form-row">
@@ -125,11 +125,11 @@
               <td id="celTelefono">Larry</td>
             </tr>
             <tr>
-              <td>Email (Usuario):</td>
+              <td>Email (Empleado):</td>
               <td id="celEmail">Larry</td>
             </tr>
             <tr>
-              <td>Tipo Usuario:</td>
+              <td>Tipo Empleado:</td>
               <td id="celTipoUsuario">Larry</td>
             </tr>
             <tr>
