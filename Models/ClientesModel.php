@@ -40,7 +40,7 @@ class ClientesModel extends Mysql
 
 		if(empty($request))
 		{
-			$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,rolid,nit,nombrefiscal,direccionfiscal) 
+			$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,nit,nombrefiscal,direccionfiscal,rolid) 
 							  VALUES(?,?,?,?,?,?,?,?,?,?)";
         	$arrData = array($this->strIdentificacion,
     						$this->strNombre,
@@ -48,10 +48,10 @@ class ClientesModel extends Mysql
     						$this->intTelefono,
     						$this->strEmail,
     						$this->strPassword,
-    						$this->intTipoId,
     						$this->strNit,
     						$this->strNomFiscal,
-    						$this->strDirFiscal);
+    						$this->strDirFiscal,
+    						$this->intTipoId);
         	$request_insert = $this->insert($query_insert,$arrData);
         	$return = $request_insert;
 		}else{

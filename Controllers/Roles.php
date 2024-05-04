@@ -48,9 +48,16 @@
 						$btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrol'].')" title="Permisos"><i class="fas fa-key"></i></button>';
 						$btnEdit = '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrol'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
 					}
-					if($_SESSION['permisosMod']['d']){
-						$btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>
-					</div>';
+					if($arrData[$i]['nombrerol'] == 'Cliente'){
+						if($_SESSION['permisosMod']['d']){
+							$btnDelete = '<button class="btn btn-secondary btn-sm btnDelRol" onClick="" title="Eliminar desactivado"><i class="far fa-trash-alt"></i></button>
+						</div>';
+						}
+					}else{
+						if($_SESSION['permisosMod']['d']){
+							$btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>
+						</div>';
+						}
 					}
 					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 				}

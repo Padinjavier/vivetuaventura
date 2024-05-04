@@ -42,7 +42,7 @@ class Clientes extends Controllers{
 				$strNit = strClean($_POST['txtNit']);
 				$strNomFiscal = strClean($_POST['txtNombreFiscal']);
 				$strDirFiscal = strClean($_POST['txtDirFiscal']);
-				$intTipoId = 7;
+				$intTipoId = 3;
 				$request_user = "";
 				if($idUsuario == 0)
 				{

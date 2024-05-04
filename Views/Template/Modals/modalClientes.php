@@ -18,6 +18,28 @@
                   <label for="txtIdentificacion">Identificación <span class="required">*</span></label>
                   <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
                 </div>
+                <script>
+                var txtIdentificacion = document.getElementById("txtIdentificacion");
+
+                txtIdentificacion.addEventListener("input", function () {
+                  var dni = txtIdentificacion.value;
+
+                  // Verificar si el valor tiene 8 dígitos
+                  if (dni.length === 8 && !isNaN(dni)) {
+                    fetch(
+                      "https://apiperu.dev/api/dni/" +
+                      dni +
+                      "?api_token=a2d7af3b9a3b5d071e82a1ef543ccea9dbdab217e4f5d3a4177702b37a3b258b"
+                    )
+                      .then((res) => res.json())
+                      .then((data) => {
+                        document.getElementById("txtNombre").value = data.data.nombres;
+                        document.getElementById("txtPassword").value = dni;
+                        document.getElementById("txtApellido").value = data.data.apellido_paterno + " " + data.data.apellido_materno;
+                      });
+                  }
+                });
+              </script>
                 <div class="form-group col-md-4">
                   <label for="txtNombre">Nombres <span class="required">*</span></label>
                   <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
