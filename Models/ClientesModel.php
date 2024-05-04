@@ -55,7 +55,7 @@ class ClientesModel extends Mysql
         	$request_insert = $this->insert($query_insert,$arrData);
         	$return = $request_insert;
 		}else{
-			$return = "exist";
+			$return = -1;
 		}
         return $return;
 	}
@@ -124,7 +124,7 @@ class ClientesModel extends Mysql
 			}
 			$request = $this->update($sql,$arrData);
 		}else{
-			$request = "exist";
+			$request = -1;
 		}
 		return $request;
 	}

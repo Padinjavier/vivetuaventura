@@ -83,7 +83,7 @@
 					$return = $request_insert;
 				} else {
 					// Opciones ya existen para este usuario
-					$return = "exist";
+					$return = -1;
 				}
 			} else {
 				// Usuario no encontrado
@@ -165,7 +165,7 @@
 				}
 				$request = $this->update($sql,$arrData);
 			}else{
-				$request = "exist";
+				$request = -1;
 			}
 			return $request;
 		

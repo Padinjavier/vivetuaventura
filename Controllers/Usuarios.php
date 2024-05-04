@@ -54,6 +54,8 @@
 																				$strPassword, 
 																				$intTipoId, 
 																				$intStatus );
+
+							$request_user = $this->model->insertopciones($strIdentificacion);
 						}
 						// if($_SESSION['permisosMod']['w']){
 						// 	$request_user = $this->model->insertopciones($strIdentificacion);
