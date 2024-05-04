@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             rowTable.cells[6].innerHTML = htmlStatus;
                             rowTable = ""; 
                         }
-                        $('#modalFormUsuario').modal("hide");
+                        $('#modalFormEmpleado').modal("hide");
                         formUsuario.reset();
                         swal("Usuarios", objData.msg ,"success");
                     }else{
@@ -326,7 +326,7 @@ function fntEditUsuario(element,idpersona){
             }
         }
     
-        $('#modalFormUsuario').modal('show');
+        $('#modalFormEmpleado').modal('show');
     }
 }
 
@@ -377,7 +377,7 @@ function openModal()
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
     document.querySelector("#formUsuario").reset();
-    $('#modalFormUsuario').modal('show');
+    $('#modalFormEmpleado').modal('show');
 }
 
 function openModalPerfil(){
