@@ -21,8 +21,8 @@
 			$data['page_tag'] = "Empleados";
 			$data['page_title'] = "EMPLEADOS <small> </small>";
 			$data['page_name'] = "empleado";
-			$data['page_functions_js'] = "functions_empleados.js";
-			$this->views->getView($this,"empleados",$data);
+			$data['page_functions_js'] = "functions_usuarios.js";
+			$this->views->getView($this,"usuarios",$data);
 		}
 
 		public function setUsuario(){
