@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     let objData = JSON.parse(request.responseText);
                     
                     
+                    console.log(objData)
 
                     
                     if(objData.status)
@@ -119,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 return false;
             }
         }
-
     }
     //Actualizar Perfil
     if(document.querySelector("#formPerfil")){
