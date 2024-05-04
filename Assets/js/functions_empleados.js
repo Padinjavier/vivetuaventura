@@ -1,9 +1,9 @@
-let tableUsuarios;
+let tableEmpleados;
 let rowTable = ""; 
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
 
-    tableUsuarios = $('#tableUsuarios').dataTable( {
+    tableEmpleados = $('#tableEmpleados').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     if(objData.status)
                     {
                         if(rowTable == ""){
-                            tableUsuarios.api().ajax.reload();
+                            tableEmpleados.api().ajax.reload();
                         }else{
                             htmlStatus = intStatus == 1 ? 
                             '<span class="badge badge-success">Activo</span>' : 
@@ -356,7 +356,7 @@ function fntDelUsuario(idpersona){
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableUsuarios.api().ajax.reload();
+                        tableEmpleados.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }
