@@ -1,9 +1,9 @@
-let tableEmpleados;
+let tableUsuarios;
 let rowTable = ""; 
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
 
-    tableEmpleados = $('#tableEmpleados').dataTable( {
+    tableUsuarios = $('#tableUsuarios').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
@@ -90,13 +90,12 @@ document.addEventListener('DOMContentLoaded', function(){
                     let objData = JSON.parse(request.responseText);
                     
                     
-                    console.log(objData)
 
                     
                     if(objData.status)
                     {
                         if(rowTable == ""){
-                            tableEmpleados.api().ajax.reload();
+                            tableUsuarios.api().ajax.reload();
                         }else{
                             htmlStatus = intStatus == 1 ? 
                             '<span class="badge badge-success">Activo</span>' : 
@@ -120,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 return false;
             }
         }
+
     }
     //Actualizar Perfil
     if(document.querySelector("#formPerfil")){
@@ -356,7 +356,7 @@ function fntDelUsuario(idpersona){
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableEmpleados.api().ajax.reload();
+                        tableUsuarios.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }

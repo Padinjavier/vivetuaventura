@@ -1,6 +1,6 @@
 <?php 
     headerAdmin($data); 
-    getModal('modalUsuarios',$data);
+    getModal('modalEmpleados',$data);
 ?>
   <main class="app-content">    
       <div class="app-title">
@@ -21,7 +21,7 @@
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered w-100" id="tableEmpleados">
+                    <table class="table table-hover table-bordered w-100" id="tableUsuarios">
                       <thead>
                         <tr>
                           <th>ID</th>
