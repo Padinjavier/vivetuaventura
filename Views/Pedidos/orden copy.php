@@ -1,24 +1,4 @@
 <?php headerAdmin($data); ?>
-<!-- <style>
-  @page {
-    size: 80mm 297mm; /* Tamaño de página en milímetros */
-}
-@media print {
-    /* Estilos para la impresión */
-    body {
-        font-size: 10pt;
-    }
-    /* Otros estilos de impresión */
-}
-
-
-
-
-</style> -->
-
-
-
-
 <main class="app-content">
   <div class="app-title">
     <div>
@@ -122,11 +102,10 @@
               </table>
             </div>
           </div>
-          
-        </section>
-        <div class="row d-print-none mt-2">
+          <div class="row d-print-none mt-2">
             <div class="col-12 text-right"><a class="btn btn-primary" href="javascript:window.print('#sPedido');" ><i class="fa fa-print"></i> Imprimir</a></div>
           </div>
+        </section>
         <?php } ?>
       </div>
     </div>

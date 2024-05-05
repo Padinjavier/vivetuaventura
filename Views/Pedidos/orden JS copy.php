@@ -1,5 +1,5 @@
 <?php headerAdmin($data); ?>
-<!-- <style>
+<style>
   @page {
     size: 80mm 297mm; /* Tamaño de página en milímetros */
 }
@@ -14,8 +14,23 @@
 
 
 
-</style> -->
+</style>
 
+<script>
+function imprimirPedido() {
+    var ventanaImpresion = window.open('', '_blank');
+    ventanaImpresion.document.write('<html><head><title>Impresión</title>');
+    ventanaImpresion.document.write('<link rel="shortcut icon" href="<?= media(); ?>/images/favicon.ico">');
+    ventanaImpresion.document.write('</head><body>');
+    ventanaImpresion.document.write('<style>@page { size: 80mm 297mm; }</style>'); // Establecer tamaño de página
+    ventanaImpresion.document.write(document.getElementById('sPedido').innerHTML);
+    ventanaImpresion.document.write('</body></html>');
+    ventanaImpresion.document.close();
+    ventanaImpresion.print();
+}
+
+
+</script>
 
 
 
@@ -126,6 +141,7 @@
         </section>
         <div class="row d-print-none mt-2">
             <div class="col-12 text-right"><a class="btn btn-primary" href="javascript:window.print('#sPedido');" ><i class="fa fa-print"></i> Imprimir</a></div>
+            <div class="col-12 text-right"><a class="btn btn-primary" onclick="imprimirPedido()" ><i class="fa fa-print"></i> Imprimir JS</a></div>
           </div>
         <?php } ?>
       </div>
