@@ -1,23 +1,4 @@
 <?php headerAdmin($data); ?>
-<!-- <style>
-  @page {
-    size: 80mm 297mm; /* Tamaño de página en milímetros */
-}
-@media print {
-    /* Estilos para la impresión */
-    body {
-        font-size: 10pt;
-    }
-    /* Otros estilos de impresión */
-}
-
-
-
-
-</style> -->
-
-
-
 
 <main class="app-content">
   <div class="app-title">
