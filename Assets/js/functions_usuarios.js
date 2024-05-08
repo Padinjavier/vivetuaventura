@@ -1,9 +1,9 @@
-let tableUsuarios;
+let tableEmpleados;
 let rowTable = ""; 
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
 
-    tableUsuarios = $('#tableUsuarios').dataTable( {
+    tableEmpleados = $('#tableEmpleados').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     if(objData.status)
                     {
                         if(rowTable == ""){
-                            tableUsuarios.api().ajax.reload();
+                            tableEmpleados.api().ajax.reload();
                         }else{
                             htmlStatus = intStatus == 1 ? 
                             '<span class="badge badge-success">Activo</span>' : 
@@ -277,7 +277,7 @@ function fntViewUsuario(idpersona){
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
+                document.querySelector("#celTipoEmpleado").innerHTML = objData.data.nombrerol;
                 document.querySelector("#celEstado").innerHTML = estadoUsuario;
                 document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
                 $('#modalViewUser').modal('show');
@@ -355,7 +355,7 @@ function fntDelUsuario(idpersona){
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableUsuarios.api().ajax.reload();
+                        tableEmpleados.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }
