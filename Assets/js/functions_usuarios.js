@@ -53,9 +53,9 @@ document.addEventListener('DOMContentLoaded', function(){
         "order":[[0,"desc"]]  
     });
 
-    if(document.querySelector("#formUsuario")){
-        let formUsuario = document.querySelector("#formUsuario");
-        formUsuario.onsubmit = function(e) {
+    if(document.querySelector("#formEmpleado")){
+        let formEmpleado = document.querySelector("#formEmpleado");
+        formEmpleado.onsubmit = function(e) {
             e.preventDefault();
             let strIdentificacion = document.querySelector('#txtIdentificacion').value;
             let strNombre = document.querySelector('#txtNombre').value;
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function(){
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             let ajaxUrl = base_url+'/Usuarios/setUsuario'; 
-            let formData = new FormData(formUsuario);
+            let formData = new FormData(formEmpleado);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
             request.onreadystatechange = function(){
@@ -108,8 +108,8 @@ document.addEventListener('DOMContentLoaded', function(){
                             rowTable.cells[6].innerHTML = htmlStatus;
                             rowTable = ""; 
                         }
-                        $('#modalFormUsuario').modal("hide");
-                        formUsuario.reset();
+                        $('#modalFormEmpleado').modal("hide");
+                        formEmpleado.reset();
                         swal("Usuarios", objData.msg ,"success");
                     }else{
                         swal("Error", objData.msg , "error");
@@ -308,7 +308,7 @@ function fntEditUsuario(element,idpersona){
 
             if(objData.status)
             {
-                document.querySelector("#idUsuario").value = objData.data.idpersona;
+                document.querySelector("#idEmpleado").value = objData.data.idpersona;
                 document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
                 document.querySelector("#txtNombre").value = objData.data.nombres;
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
@@ -326,7 +326,7 @@ function fntEditUsuario(element,idpersona){
             }
         }
     
-        $('#modalFormUsuario').modal('show');
+        $('#modalFormEmpleado').modal('show');
     }
 }
 
@@ -346,6 +346,7 @@ function fntDelUsuario(idpersona){
         {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             let ajaxUrl = base_url+'/Usuarios/delUsuario';
+            // ?????????????  idUsuario ?? idEmpleado
             let strData = "idUsuario="+idpersona;
             request.open("POST",ajaxUrl,true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -372,12 +373,12 @@ function fntDelUsuario(idpersona){
 function openModal()
 {
     rowTable = "";
-    document.querySelector('#idUsuario').value ="";
+    document.querySelector('#idEmpleado').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
-    document.querySelector("#formUsuario").reset();
-    $('#modalFormUsuario').modal('show');
+    document.querySelector("#formEmpleado").reset();
+    $('#modalFormEmpleado').modal('show');
 }
 
 function openModalPerfil(){
