@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         }
                         $('#modalFormEmpleado').modal("hide");
                         formEmpleado.reset();
-                        swal("Usuarios", objData.msg ,"success");
+                        swal("Empleados", objData.msg ,"success");
                     }else{
                         swal("Error", objData.msg , "error");
                     }
