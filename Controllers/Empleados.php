@@ -1,6 +1,6 @@
 <?php 
 
-	class Usuarios extends Controllers{
+	class Empleados extends Controllers{
 		public function __construct()
 		{
 			parent::__construct();
@@ -13,7 +13,7 @@
 			getPermisos(MEMPLEADO);
 		}
 
-		public function Usuarios()
+		public function Empleados()
 		{
 			if(empty($_SESSION['permisosMod']['r'])){
 				header("Location:".base_url().'/dashboard');

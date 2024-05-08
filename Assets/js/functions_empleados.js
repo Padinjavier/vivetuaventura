@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Usuarios/getUsuarios",
+            "url": " "+base_url+"/Empleados/getUsuarios",
             "dataSrc":""
         },
         "columns":[
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function(){
             } 
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Usuarios/setUsuario'; 
+            let ajaxUrl = base_url+'/Empleados/setUsuario'; 
             let formData = new FormData(formEmpleado);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function(){
             } 
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Usuarios/putPerfil'; 
+            let ajaxUrl = base_url+'/Empleados/putPerfil'; 
             let formData = new FormData(formPerfil);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Usuarios/putDFical'; 
+            let ajaxUrl = base_url+'/Empleados/putDFical'; 
             let formData = new FormData(formDataFiscal);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
@@ -259,7 +259,7 @@ function fntRolesUsuario(){
 
 function fntViewUsuario(idpersona){
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
+    let ajaxUrl = base_url+'/Empleados/getUsuario/'+idpersona;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -295,7 +295,7 @@ function fntEditUsuario(element,idpersona){
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
+    let ajaxUrl = base_url+'/Empleados/getUsuario/'+idpersona;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -342,7 +342,7 @@ function fntDelUsuario(idpersona){
         if (isConfirm) 
         {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Usuarios/delUsuario';
+            let ajaxUrl = base_url+'/Empleados/delUsuario';
             // ?????????????  idUsuario ?? idEmpleado
             let strData = "idEmpleado="+idpersona;
             request.open("POST",ajaxUrl,true);

@@ -1,6 +1,6 @@
 <?php 
 
-	class UsuariosModel extends Mysql
+	class EmpleadosModel extends Mysql
 	{
 		private $intIdUsuario;
 		private $strIdentificacion;

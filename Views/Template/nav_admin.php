@@ -41,7 +41,7 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i>
+                    <li><a class="treeview-item" href="<?= base_url(); ?>/empleados"><i class="icon fa fa-circle-o"></i>
                             Empleados</a></li>
                     <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i>
                             Roles</a></li>
