@@ -75,7 +75,7 @@
 					if($request_user > 0 )
 					{
 						if($option == 1){
-							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente. ');
+							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente. ' . $request_user);
 						}else{
 							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 						}
@@ -160,7 +160,7 @@
 					$requestDelete = $this->model->deleteUsuario($intIdpersona);
 					if($requestDelete)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario ');
+						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario '. $intIdpersona);
 					}else{
 						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
 					}
