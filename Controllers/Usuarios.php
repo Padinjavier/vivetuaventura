@@ -31,7 +31,7 @@
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{ 
-					$idUsuario = intval($_POST['idUsuario']);
+					$idUsuario = intval($_POST['idEmpleado']);
 					$strIdentificacion = strClean($_POST['txtIdentificacion']);
 					$strNombre = ucwords(strClean($_POST['txtNombre']));
 					$strApellido = ucwords(strClean($_POST['txtApellido']));
@@ -156,11 +156,11 @@
 		{
 			if($_POST){
 				if($_SESSION['permisosMod']['d']){
-					$intIdpersona = intval($_POST['idUsuario']);
+					$intIdpersona = intval($_POST['idEmpleado']);
 					$requestDelete = $this->model->deleteUsuario($intIdpersona);
 					if($requestDelete)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
+						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario '. $intIdpersona);
 					}else{
 						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
 					}

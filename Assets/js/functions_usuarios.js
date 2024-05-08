@@ -89,9 +89,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 if(request.readyState == 4 && request.status == 200){
                     let objData = JSON.parse(request.responseText);
                     
-                    
-
-                    
                     if(objData.status)
                     {
                         if(rowTable == ""){
@@ -347,8 +344,9 @@ function fntDelUsuario(idpersona){
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             let ajaxUrl = base_url+'/Usuarios/delUsuario';
             // ?????????????  idUsuario ?? idEmpleado
-            let strData = "idUsuario="+idpersona;
+            let strData = "idEmpleado="+idpersona;
             request.open("POST",ajaxUrl,true);
+            console.log(strData)
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
             request.onreadystatechange = function(){

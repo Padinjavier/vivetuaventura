@@ -10,7 +10,8 @@
       </div>
       <div class="modal-body">
         <form id="formEmpleado" name="formEmpleado" class="form-horizontal">
-          <input type="hidden" id="idEmpleado" name="idUsuario" value="">
+          <!-- name idEmpleado es en PHP js con POST no con id # -->
+          <input type="hidden" id="idEmpleado" name="idEmpleado" value="">
           <p class="text-primary">Todos los campos son obligatorios.</p>
 
           <div class="form-row">
@@ -125,12 +126,12 @@
               <td id="celTelefono">Larry</td>
             </tr>
             <tr>
-              <td>Email (Usuario):</td>
+              <td>Email (Empleado):</td>
               <td id="celEmail">Larry</td>
             </tr>
             <tr>
-              <td>Tipo Usuario:</td>
-              <td id="celTipoUsuario">Larry</td>
+              <td>Tipo Empleado:</td>
+              <td id="celTipoEmpleado">Larry</td>
             </tr>
             <tr>
               <td>Estado:</td>
