@@ -69,7 +69,7 @@ const COSTOENVIO = 5;
 
 //Módulos
 const MDASHBOARD = 1;
-const MEMPLEADO = 2;
+const MEMPLEADOS = 2;
 const MCLIENTES = 3;
 const MPRODUCTOS = 4;
 const MPEDIDOS = 5;
@@ -78,6 +78,7 @@ const MSUSCRIPTORES = 7;
 const MDCONTACTOS = 8;
 const MDPAGINAS = 9;
 const MDOPCIONES = 10;
+const MUSUARIOS = 11;
 
 //Páginas
 const PINICIO = 1;

@@ -1,16 +1,16 @@
-let tableEmpleados;
+let tableUsuarios;
 let rowTable = ""; 
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
 
-    tableEmpleados = $('#tableEmpleados').dataTable( {
+    tableUsuarios = $('#tableUsuarios').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Empleados/getEmpleados",
+            "url": " "+base_url+"/Usuarios/getUsuarios",
             "dataSrc":""
         },
         "columns":[
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
                 "titleAttr":"Esportar a CSV",
-                "className": "btn btn-info d-none"
+                "className": "btn btn-info"
             }
         ],
         "resonsieve":"true",
@@ -53,20 +53,20 @@ document.addEventListener('DOMContentLoaded', function(){
         "order":[[0,"desc"]]  
     });
 
-    if(document.querySelector("#formEmpleado")){
-        let formEmpleado = document.querySelector("#formEmpleado");
-        formEmpleado.onsubmit = function(e) {
+    if(document.querySelector("#formUsuario")){
+        let formUsuario = document.querySelector("#formUsuario");
+        formUsuario.onsubmit = function(e) {
             e.preventDefault();
             let strIdentificacion = document.querySelector('#txtIdentificacion').value;
             let strNombre = document.querySelector('#txtNombre').value;
             let strApellido = document.querySelector('#txtApellido').value;
             let strEmail = document.querySelector('#txtEmail').value;
             let intTelefono = document.querySelector('#txtTelefono').value;
-            let intTipoempleado = document.querySelector('#listRolid').value;
+            let intTipousuario = document.querySelector('#listRolid').value;
             let strPassword = document.querySelector('#txtPassword').value;
             let intStatus = document.querySelector('#listStatus').value;
 
-            if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || intTipoempleado == '')
+            if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || intTipousuario == '')
             {
                 swal("Atención", "Todos los campos son obligatorios." , "error");
                 return false;
@@ -81,19 +81,17 @@ document.addEventListener('DOMContentLoaded', function(){
             } 
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Empleados/setEmpleado'; 
-            let formData = new FormData(formEmpleado);
+            let ajaxUrl = base_url+'/Usuarios/setUsuario'; 
+            let formData = new FormData(formUsuario);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    console.log(request.responseText)
                     let objData = JSON.parse(request.responseText);
-                    
                     if(objData.status)
                     {
                         if(rowTable == ""){
-                            tableEmpleados.api().ajax.reload();
+                            tableUsuarios.api().ajax.reload();
                         }else{
                             htmlStatus = intStatus == 1 ? 
                             '<span class="badge badge-success">Activo</span>' : 
@@ -106,9 +104,9 @@ document.addEventListener('DOMContentLoaded', function(){
                             rowTable.cells[6].innerHTML = htmlStatus;
                             rowTable = ""; 
                         }
-                        $('#modalFormEmpleado').modal("hide");
-                        formEmpleado.reset();
-                        swal("Empleados", objData.msg ,"success");
+                        $('#modalFormUsuario').modal("hide");
+                        formUsuario.reset();
+                        swal("Usuarios", objData.msg ,"success");
                     }else{
                         swal("Error", objData.msg , "error");
                     }
@@ -117,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 return false;
             }
         }
-
     }
     //Actualizar Perfil
     if(document.querySelector("#formPerfil")){
@@ -158,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function(){
             } 
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Empleados/putPerfil'; 
+            let ajaxUrl = base_url+'/Usuarios/putPerfil'; 
             let formData = new FormData(formPerfil);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
@@ -205,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Empleados/putDFical'; 
+            let ajaxUrl = base_url+'/Usuarios/putDFical'; 
             let formData = new FormData(formDataFiscal);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
@@ -240,10 +237,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 window.addEventListener('load', function() {
-        fntRolesEmpleado();
+        fntRolesUsuario();
 }, false);
 
-function fntRolesEmpleado(){
+function fntRolesUsuario(){
     if(document.querySelector('#listRolid')){
         let ajaxUrl = base_url+'/Roles/getSelectRoles';
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -258,9 +255,9 @@ function fntRolesEmpleado(){
     }
 }
 
-function fntViewEmpleado(idpersona){
+function fntViewUsuario(idpersona){
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Empleados/getEmpleado/'+idpersona;
+    let ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -269,7 +266,7 @@ function fntViewEmpleado(idpersona){
 
             if(objData.status)
             {
-               let estadoEmpleado = objData.data.status == 1 ? 
+               let estadoUsuario = objData.data.status == 1 ? 
                 '<span class="badge badge-success">Activo</span>' : 
                 '<span class="badge badge-danger">Inactivo</span>';
 
@@ -278,8 +275,8 @@ function fntViewEmpleado(idpersona){
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celTipoEmpleado").innerHTML = objData.data.nombrerol;
-                document.querySelector("#celEstado").innerHTML = estadoEmpleado;
+                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
+                document.querySelector("#celEstado").innerHTML = estadoUsuario;
                 document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
                 $('#modalViewUser').modal('show');
             }else{
@@ -289,14 +286,14 @@ function fntViewEmpleado(idpersona){
     }
 }
 
-function fntEditEmpleado(element,idpersona){
+function fntEditUsuario(element,idpersona){
     rowTable = element.parentNode.parentNode.parentNode; 
-    document.querySelector('#titleModal').innerHTML ="Actualizar empleado";
+    document.querySelector('#titleModal').innerHTML ="Actualizar Usuario";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Empleados/getEmpleado/'+idpersona;
+    let ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -306,7 +303,7 @@ function fntEditEmpleado(element,idpersona){
 
             if(objData.status)
             {
-                document.querySelector("#idEmpleado").value = objData.data.idpersona;
+                document.querySelector("#idUsuario").value = objData.data.idpersona;
                 document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
                 document.querySelector("#txtNombre").value = objData.data.nombres;
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
@@ -324,14 +321,14 @@ function fntEditEmpleado(element,idpersona){
             }
         }
     
-        $('#modalFormEmpleado').modal('show');
+        $('#modalFormUsuario').modal('show');
     }
 }
 
-function fntDelEmpleado(idpersona){
+function fntDelUsuario(idpersona){
     swal({
-        title: "Eliminar Empleado",
-        text: "¿Realmente quiere eliminar al Empleado?",
+        title: "Eliminar Usuario",
+        text: "¿Realmente quiere eliminar el Usuario?",
         type: "warning",
         showCancelButton: true,
         confirmButtonText: "Si, eliminar!",
@@ -343,11 +340,9 @@ function fntDelEmpleado(idpersona){
         if (isConfirm) 
         {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Empleados/delEmpleado';
-            // cuando es post es los name de los imput
-            let strData = "idEmpleado="+idpersona;
+            let ajaxUrl = base_url+'/Usuarios/delUsuario';
+            let strData = "idUsuario="+idpersona;
             request.open("POST",ajaxUrl,true);
-            console.log(strData)
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
             request.onreadystatechange = function(){
@@ -356,7 +351,7 @@ function fntDelEmpleado(idpersona){
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableEmpleados.api().ajax.reload();
+                        tableUsuarios.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }
@@ -372,12 +367,13 @@ function fntDelEmpleado(idpersona){
 function openModal()
 {
     rowTable = "";
-    document.querySelector('#idEmpleado').value ="";
+    document.querySelector('#idUsuario').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
-    document.querySelector("#formEmpleado").reset();
-    $('#modalFormEmpleado').modal('show');
+    document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
+    document.querySelector("#formUsuario").reset();
+    $('#modalFormUsuario').modal('show');
 }
 
 function openModalPerfil(){

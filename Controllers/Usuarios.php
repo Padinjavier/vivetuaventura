@@ -1,6 +1,6 @@
 <?php 
 
-	class Empleados extends Controllers{
+	class Usuarios extends Controllers{
 		public function __construct()
 		{
 			parent::__construct();
@@ -10,28 +10,28 @@
 				header('Location: '.base_url().'/login');
 				die();
 			}
-			getPermisos(MEMPLEADOS);
+			getPermisos(MUSUARIOS);
 		}
 
-		public function Empleados()
+		public function Usuarios()
 		{
 			if(empty($_SESSION['permisosMod']['r'])){
 				header("Location:".base_url().'/dashboard');
 			}
-			$data['page_tag'] = "Empleados";
-			$data['page_title'] = "EMPLEADOS <small> </small>";
-			$data['page_name'] = "empleado";
-			$data['page_functions_js'] = "functions_empleados.js";
-			$this->views->getView($this,"empleados",$data);
+			$data['page_tag'] = "Usuarios";
+			$data['page_title'] = "USUARIOS <small>Tienda Virtual</small>";
+			$data['page_name'] = "usuarios";
+			$data['page_functions_js'] = "functions_usuarios.js";
+			$this->views->getView($this,"usuarios",$data);
 		}
 
-		public function setEmpleado(){
+		public function setUsuario(){
 			if($_POST){			
 				if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{ 
-					$idEmpleado = intval($_POST['idEmpleado']);
+					$idUsuario = intval($_POST['idUsuario']);
 					$strIdentificacion = strClean($_POST['txtIdentificacion']);
 					$strNombre = ucwords(strClean($_POST['txtNombre']));
 					$strApellido = ucwords(strClean($_POST['txtApellido']));
@@ -40,14 +40,13 @@
 					$intTipoId = intval(strClean($_POST['listRolid']));
 					$intStatus = intval(strClean($_POST['listStatus']));
 					$request_user = "";
-					$request_opc = "";
-					if($idEmpleado == 0)
+					if($idUsuario == 0)
 					{
 						$option = 1;
 						$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256",$_POST['txtPassword']);
 
 						if($_SESSION['permisosMod']['w']){
-							$request_user = $this->model->insertEmpleado($strIdentificacion,
+							$request_user = $this->model->insertUsuario($strIdentificacion,
 																				$strNombre, 
 																				$strApellido, 
 																				$intTelefono, 
@@ -60,7 +59,7 @@
 						$option = 2;
 						$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
 						if($_SESSION['permisosMod']['u']){
-							$request_user = $this->model->updateEmpleado($idEmpleado,
+							$request_user = $this->model->updateUsuario($idUsuario,
 																		$strIdentificacion, 
 																		$strNombre,
 																		$strApellido, 
@@ -70,16 +69,17 @@
 																		$intTipoId, 
 																		$intStatus);
 						}
+
 					}
 
 					if($request_user > 0 )
 					{
 						if($option == 1){
-							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente. ' . $request_user);
+							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
 						}else{
 							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 						}
-					}else if($request_user == -1){
+					}else if($request_user == 'exist'){
 						$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
 					}else{
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
@@ -90,10 +90,10 @@
 			die();
 		}
 
-		public function getEmpleados()
+		public function getUsuarios()
 		{
 			if($_SESSION['permisosMod']['r']){
-				$arrData = $this->model->selectEmpleados();
+				$arrData = $this->model->selectUsuarios();
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = '';
 					$btnEdit = '';
@@ -107,12 +107,12 @@
 					}
 
 					if($_SESSION['permisosMod']['r']){
-						$btnView = '<button class="btn btn-info btn-sm btnViewEmpleado" onClick="fntViewEmpleado('.$arrData[$i]['idpersona'].')" title="Ver Empleado"><i class="far fa-eye"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
 					}
 					if($_SESSION['permisosMod']['u']){
 						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrol'] == 1) ||
 							($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1) ){
-							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditEmpleado" onClick="fntEditEmpleado(this,'.$arrData[$i]['idpersona'].')" title="Editar Empleado"><i class="fas fa-pencil-alt"></i></button>';
+							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
 						}else{
 							$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 						}
@@ -122,7 +122,7 @@
 							($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1) and
 							($_SESSION['userData']['idpersona'] != $arrData[$i]['idpersona'] )
 							 ){
-							$btnDelete = '<button class="btn btn-danger btn-sm btnDelEmpleado" onClick="fntDelEmpleado('.$arrData[$i]['idpersona'].')" title="Eliminar Empleado"><i class="far fa-trash-alt"></i></button>';
+							$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
 						}else{
 							$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
 						}
@@ -134,12 +134,12 @@
 			die();
 		}
 
-		public function getEmpleado($idpersona){
+		public function getUsuario($idpersona){
 			if($_SESSION['permisosMod']['r']){
-				$idEmpleado = intval($idpersona);
-				if($idEmpleado > 0)
+				$idusuario = intval($idpersona);
+				if($idusuario > 0)
 				{
-					$arrData = $this->model->selectEmpleado($idEmpleado);
+					$arrData = $this->model->selectUsuario($idusuario);
 					if(empty($arrData))
 					{
 						$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
@@ -152,17 +152,17 @@
 			die();
 		}
 
-		public function delEmpleado()
+		public function delUsuario()
 		{
 			if($_POST){
 				if($_SESSION['permisosMod']['d']){
-					$intIdpersona = intval($_POST['idEmpleado']);
-					$requestDelete = $this->model->deleteEmpleado($intIdpersona);
+					$intIdpersona = intval($_POST['idUsuario']);
+					$requestDelete = $this->model->deleteUsuario($intIdpersona);
 					if($requestDelete)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado al Empleado '. $intIdpersona);
+						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
 					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar al Empleado.');
+						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
 					}
 					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 				}
@@ -172,9 +172,9 @@
 
 		public function perfil(){
 			$data['page_tag'] = "Perfil";
-			$data['page_title'] = "Perfil de empleado";
+			$data['page_title'] = "Perfil de usuario";
 			$data['page_name'] = "perfil";
-			$data['page_functions_js'] = "functions_empleados.js";
+			$data['page_functions_js'] = "functions_usuarios.js";
 			$this->views->getView($this,"perfil",$data);
 		}
 
@@ -184,7 +184,7 @@
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{
-					$idEmpleado = $_SESSION['idUser'];
+					$idUsuario = $_SESSION['idUser'];
 					$strIdentificacion = strClean($_POST['txtIdentificacion']);
 					$strNombre = strClean($_POST['txtNombre']);
 					$strApellido = strClean($_POST['txtApellido']);
@@ -193,7 +193,7 @@
 					if(!empty($_POST['txtPassword'])){
 						$strPassword = hash("SHA256",$_POST['txtPassword']);
 					}
-					$request_user = $this->model->updatePerfil($idEmpleado,
+					$request_user = $this->model->updatePerfil($idUsuario,
 																$strIdentificacion, 
 																$strNombre,
 																$strApellido, 
@@ -218,11 +218,11 @@
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{
-					$idEmpleado = $_SESSION['idUser'];
+					$idUsuario = $_SESSION['idUser'];
 					$strNit = strClean($_POST['txtNit']);
 					$strNomFiscal = strClean($_POST['txtNombreFiscal']);
 					$strDirFiscal = strClean($_POST['txtDirFiscal']);
-					$request_datafiscal = $this->model->updateDataFiscal($idEmpleado,
+					$request_datafiscal = $this->model->updateDataFiscal($idUsuario,
 																		$strNit,
 																		$strNomFiscal, 
 																		$strDirFiscal);

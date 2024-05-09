@@ -1,8 +1,8 @@
 <?php 
 
-	class EmpleadosModel extends Mysql
+	class UsuariosModel extends Mysql
 	{
-		private $intIdEmpleado;
+		private $intIdUsuario;
 		private $strIdentificacion;
 		private $strNombre;
 		private $strApellido;
@@ -21,7 +21,7 @@
 			parent::__construct();
 		}	
 
-		public function insertEmpleado(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
+		public function insertUsuario(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
 
 			$this->strIdentificacion = $identificacion;
 			$this->strNombre = $nombre;
@@ -50,19 +50,14 @@
         						$this->intTipoId,
         						$this->intStatus);
 	        	$request_insert = $this->insert($query_insert,$arrData);
-
-
-				$query_insertop  = "INSERT INTO opciones(personaid, idioma, tema, formato_moneda) VALUES(?,?,?,?)";
-					$arrDataop = array($request_insert , 1, 1, 1); 
-					$request_insertop = $this->insert($query_insertop, $arrDataop);
-	        	$return = $request_insertop;
+	        	$return = $request_insert;
 			}else{
-				$return = -1;
+				$return = "exist";
 			}
 	        return $return;
 		}
-		
-		public function selectEmpleados()
+
+		public function selectUsuarios()
 		{
 			$whereAdmin = "";
 			if($_SESSION['idUser'] != 1 ){
@@ -76,20 +71,20 @@
 					$request = $this->select_all($sql);
 					return $request;
 		}
-		public function selectEmpleado(int $idpersona){
-			$this->intIdEmpleado = $idpersona;
+		public function selectUsuario(int $idpersona){
+			$this->intIdUsuario = $idpersona;
 			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrol,r.nombrerol,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro 
 					FROM persona p
 					INNER JOIN rol r
 					ON p.rolid = r.idrol
-					WHERE p.idpersona = $this->intIdEmpleado";
+					WHERE p.idpersona = $this->intIdUsuario";
 			$request = $this->select($sql);
 			return $request;
 		}
 
-		public function updateEmpleado(int $idEmpleado, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
+		public function updateUsuario(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
 
-			$this->intIdEmpleado = $idEmpleado;
+			$this->intIdUsuario = $idUsuario;
 			$this->strIdentificacion = $identificacion;
 			$this->strNombre = $nombre;
 			$this->strApellido = $apellido;
@@ -99,8 +94,8 @@
 			$this->intTipoId = $tipoid;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM persona WHERE (email_user = '{$this->strEmail}' AND idpersona != $this->intIdEmpleado)
-										  OR (identificacion = '{$this->strIdentificacion}' AND idpersona != $this->intIdEmpleado) ";
+			$sql = "SELECT * FROM persona WHERE (email_user = '{$this->strEmail}' AND idpersona != $this->intIdUsuario)
+										  OR (identificacion = '{$this->strIdentificacion}' AND idpersona != $this->intIdUsuario) ";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
@@ -108,7 +103,7 @@
 				if($this->strPassword  != "")
 				{
 					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, password=?, rolid=?, status=? 
-							WHERE idpersona = $this->intIdEmpleado ";
+							WHERE idpersona = $this->intIdUsuario ";
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
 	        						$this->strApellido,
@@ -119,7 +114,7 @@
 	        						$this->intStatus);
 				}else{
 					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, rolid=?, status=? 
-							WHERE idpersona = $this->intIdEmpleado ";
+							WHERE idpersona = $this->intIdUsuario ";
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
 	        						$this->strApellido,
@@ -130,22 +125,22 @@
 				}
 				$request = $this->update($sql,$arrData);
 			}else{
-				$request = -1;
+				$request = "exist";
 			}
 			return $request;
 		
 		}
-		public function deleteEmpleado(int $intIdpersona)
+		public function deleteUsuario(int $intIdpersona)
 		{
-			$this->intIdEmpleado = $intIdpersona;
-			$sql = "UPDATE persona SET status = ? WHERE idpersona = $this->intIdEmpleado ";
+			$this->intIdUsuario = $intIdpersona;
+			$sql = "UPDATE persona SET status = ? WHERE idpersona = $this->intIdUsuario ";
 			$arrData = array(0);
 			$request = $this->update($sql,$arrData);
 			return $request;
 		}
 
-		public function updatePerfil(int $idEmpleado, string $identificacion, string $nombre, string $apellido, int $telefono, string $password){
-			$this->intIdEmpleado = $idEmpleado;
+		public function updatePerfil(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $password){
+			$this->intIdUsuario = $idUsuario;
 			$this->strIdentificacion = $identificacion;
 			$this->strNombre = $nombre;
 			$this->strApellido = $apellido;
@@ -155,7 +150,7 @@
 			if($this->strPassword != "")
 			{
 				$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, password=? 
-						WHERE idpersona = $this->intIdEmpleado ";
+						WHERE idpersona = $this->intIdUsuario ";
 				$arrData = array($this->strIdentificacion,
 								$this->strNombre,
 								$this->strApellido,
@@ -163,7 +158,7 @@
 								$this->strPassword);
 			}else{
 				$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=? 
-						WHERE idpersona = $this->intIdEmpleado ";
+						WHERE idpersona = $this->intIdUsuario ";
 				$arrData = array($this->strIdentificacion,
 								$this->strNombre,
 								$this->strApellido,
@@ -173,13 +168,13 @@
 		    return $request;
 		}
 
-		public function updateDataFiscal(int $idEmpleado, string $strNit, string $strNomFiscal, string $strDirFiscal){
-			$this->intIdEmpleado = $idEmpleado;
+		public function updateDataFiscal(int $idUsuario, string $strNit, string $strNomFiscal, string $strDirFiscal){
+			$this->intIdUsuario = $idUsuario;
 			$this->strNit = $strNit;
 			$this->strNomFiscal = $strNomFiscal;
 			$this->strDirFiscal = $strDirFiscal;
 			$sql = "UPDATE persona SET nit=?, nombrefiscal=?, direccionfiscal=? 
-						WHERE idpersona = $this->intIdEmpleado ";
+						WHERE idpersona = $this->intIdUsuario ";
 			$arrData = array($this->strNit,
 							$this->strNomFiscal,
 							$this->strDirFiscal);
