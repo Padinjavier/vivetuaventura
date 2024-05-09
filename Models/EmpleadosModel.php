@@ -21,14 +21,13 @@
 			parent::__construct();
 		}	
 
-		public function insertEmpleado(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
+		public function insertEmpleado(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, int $tipoid, int $status){
 
 			$this->strIdentificacion = $identificacion;
 			$this->strNombre = $nombre;
 			$this->strApellido = $apellido;
 			$this->intTelefono = $telefono;
 			$this->strEmail = $email;
-			$this->strPassword = $password;
 			$this->intTipoId = $tipoid;
 			$this->intStatus = $status;
 			$return = 0;
@@ -39,14 +38,13 @@
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,rolid,status) 
-								  VALUES(?,?,?,?,?,?,?,?)";
+				$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,rolid,status) 
+								  VALUES(?,?,?,?,?,?,?)";
 	        	$arrData = array($this->strIdentificacion,
         						$this->strNombre,
         						$this->strApellido,
         						$this->intTelefono,
         						$this->strEmail,
-        						$this->strPassword,
         						$this->intTipoId,
         						$this->intStatus);
 	        	$request_insert = $this->insert($query_insert,$arrData);

@@ -35,7 +35,7 @@
                       .then((res) => res.json())
                       .then((data) => {
                         document.getElementById("txtNombre").value = data.data.nombres;
-                        document.getElementById("txtPassword").value = dni;
+                        // document.getElementById("txtPassword").value = dni;
                         document.getElementById("txtApellido").value = data.data.apellido_paterno + " " + data.data.apellido_materno;
                       });
                   }
@@ -80,8 +80,8 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="txtPassword">Contraseña</label>
-              <input type="password" class="form-control" id="txtPassword" name="txtPassword">
+              <!-- <label for="txtPassword">Contraseña</label> -->
+              <!-- <input type="password" class="form-control" id="txtPassword" name="txtPassword"> -->
             </div>
           </div>
           <div class="tile-footer">

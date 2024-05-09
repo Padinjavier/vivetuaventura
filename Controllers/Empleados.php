@@ -44,21 +44,17 @@
 					if($idEmpleado == 0)
 					{
 						$option = 1;
-						$strPassword =  empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256",$_POST['txtPassword']);
-
 						if($_SESSION['permisosMod']['w']){
 							$request_user = $this->model->insertEmpleado($strIdentificacion,
 																				$strNombre, 
 																				$strApellido, 
 																				$intTelefono, 
 																				$strEmail,
-																				$strPassword, 
 																				$intTipoId, 
 																				$intStatus );
 						}
 					}else{
 						$option = 2;
-						$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
 						if($_SESSION['permisosMod']['u']){
 							$request_user = $this->model->updateEmpleado($idEmpleado,
 																		$strIdentificacion, 
@@ -66,7 +62,6 @@
 																		$strApellido, 
 																		$intTelefono, 
 																		$strEmail,
-																		$strPassword, 
 																		$intTipoId, 
 																		$intStatus);
 						}
@@ -178,39 +173,6 @@
 			$this->views->getView($this,"perfil",$data);
 		}
 
-		public function putPerfil(){
-			if($_POST){
-				if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) )
-				{
-					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-				}else{
-					$idEmpleado = $_SESSION['idUser'];
-					$strIdentificacion = strClean($_POST['txtIdentificacion']);
-					$strNombre = strClean($_POST['txtNombre']);
-					$strApellido = strClean($_POST['txtApellido']);
-					$intTelefono = intval(strClean($_POST['txtTelefono']));
-					$strPassword = "";
-					if(!empty($_POST['txtPassword'])){
-						$strPassword = hash("SHA256",$_POST['txtPassword']);
-					}
-					$request_user = $this->model->updatePerfil($idEmpleado,
-																$strIdentificacion, 
-																$strNombre,
-																$strApellido, 
-																$intTelefono, 
-																$strPassword);
-					if($request_user)
-					{
-						sessionUser($_SESSION['idUser']);
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
-					}else{
-						$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
-					}
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-			die();
-		}
 
 		public function putDFical(){
 			if($_POST){
