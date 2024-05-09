@@ -76,7 +76,7 @@
 		}
 		public function selectEmpleado(int $idpersona){
 			$this->intIdEmpleado = $idpersona;
-			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrol,r.nombrerol,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro 
+			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrol,r.nombrerol,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y | %h:%i:%s %p')			as fechaRegistro 
 					FROM persona p
 					INNER JOIN rol r
 					ON p.rolid = r.idrol
