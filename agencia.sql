@@ -338,9 +338,9 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idmodulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.modulo: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.modulo: ~11 rows (aproximadamente)
 DELETE FROM `modulo`;
 INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 	(1, 'Dashboard', 'Dashboard', 1),
@@ -352,7 +352,8 @@ INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 	(7, 'Suscriptores', 'Suscriptores del sitio web', 1),
 	(8, 'Contactos', 'Mensajes del formulario contacto', 1),
 	(9, 'Páginas', 'Páginas del sitio web', 1),
-	(10, 'Opciones', 'opciones de pagina', 1);
+	(10, 'Opciones', 'opciones de pagina', 1),
+	(11, 'Usuarios', 'usuario', 1);
 
 -- Volcando estructura para tabla agencia.opciones
 CREATE TABLE IF NOT EXISTS `opciones` (
@@ -366,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `opciones` (
   CONSTRAINT `FK_opciones_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- Volcando datos para la tabla agencia.opciones: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.opciones: ~2 rows (aproximadamente)
 DELETE FROM `opciones`;
 INSERT INTO `opciones` (`id`, `personaid`, `idioma`, `tema`, `formato_moneda`) VALUES
 	(1, 22, 2, 2, 1),
@@ -424,11 +425,11 @@ CREATE TABLE IF NOT EXISTS `permisos` (
   PRIMARY KEY (`idpermiso`),
   KEY `rolid` (`rolid`),
   KEY `moduloid` (`moduloid`),
-  CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`rolid`) REFERENCES `rol_empleado` (`idrol`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `permisos_ibfk_2` FOREIGN KEY (`moduloid`) REFERENCES `modulo` (`idmodulo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.permisos: ~41 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.permisos: ~37 rows (aproximadamente)
 DELETE FROM `permisos`;
 INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VALUES
 	(21, 3, 1, 0, 0, 0, 0),
@@ -466,7 +467,8 @@ INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VA
 	(179, 2, 6, 1, 1, 1, 1),
 	(180, 2, 7, 1, 1, 1, 1),
 	(181, 2, 8, 1, 1, 1, 1),
-	(182, 2, 9, 1, 1, 1, 1);
+	(182, 2, 9, 1, 1, 1, 1),
+	(206, 1, 11, 1, 1, 1, 1);
 
 -- Volcando estructura para tabla agencia.persona
 CREATE TABLE IF NOT EXISTS `persona` (
@@ -488,10 +490,10 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `ciudad` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`idpersona`),
   KEY `rolid` (`rolid`),
-  CONSTRAINT `FK_persona_rol` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrol`)
+  CONSTRAINT `FK_persona_rol` FOREIGN KEY (`rolid`) REFERENCES `rol_empleado` (`idrol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.persona: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.persona: ~5 rows (aproximadamente)
 DELETE FROM `persona`;
 INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `nit`, `nombrefiscal`, `direccionfiscal`, `token`, `rolid`, `datecreated`, `status`, `direccion`, `ciudad`) VALUES
 	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', 'NAME tributo javier', 'ADDRES tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222'),
@@ -757,34 +759,34 @@ CREATE TABLE IF NOT EXISTS `rol_empleado` (
   `nombrerol` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idrol`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.rol_empleado: ~1 rows (aproximadamente)
-DELETE FROM `rol_empleado`;
-INSERT INTO `rol_empleado` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
-	(2, 'Guia', 'guiaaa', 1),
-	(3, 'Cliente', 'ggg', 1),
-	(11, 'gg', 'ggg', 1);
-
--- Volcando estructura para tabla agencia.rol_usuario
-CREATE TABLE IF NOT EXISTS `rol_usuario` (
-  `idrol` bigint NOT NULL AUTO_INCREMENT,
-  `nombrerol` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idrol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.rol_usuario: ~5 rows (aproximadamente)
-DELETE FROM `rol_usuario`;
-INSERT INTO `rol_usuario` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
+-- Volcando datos para la tabla agencia.rol_empleado: ~6 rows (aproximadamente)
+DELETE FROM `rol_empleado`;
+INSERT INTO `rol_empleado` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
 	(1, 'Administrador', 'Acceso a todo el sistema', 1),
 	(2, 'Supervisor', 'Supervisor de tiendas', 1),
 	(3, 'Cliente', 'Clientes en general', 1),
 	(4, 'Vendedor', 'Operador de tienda', 1),
 	(8, 'Guia', 'Encargado de guiar a los clientes en sus actividades', 1),
 	(9, 'ññññ', 'ñññññ', 1);
+
+-- Volcando estructura para tabla agencia.rol_empleadoee
+CREATE TABLE IF NOT EXISTS `rol_empleadoee` (
+  `idrol` bigint NOT NULL AUTO_INCREMENT,
+  `nombrerol` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idrol`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla agencia.rol_empleadoee: ~3 rows (aproximadamente)
+DELETE FROM `rol_empleadoee`;
+INSERT INTO `rol_empleadoee` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
+	(2, 'Guia', 'guiaaa', 1),
+	(3, 'Cliente', 'ggg', 1),
+	(11, 'gg', 'ggg', 1);
 
 -- Volcando estructura para tabla agencia.suscripciones
 CREATE TABLE IF NOT EXISTS `suscripciones` (

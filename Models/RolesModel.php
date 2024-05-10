@@ -19,7 +19,7 @@
 				$whereAdmin = " and idrol != 1 ";
 			}
 			//EXTRAE ROLES
-			$sql = "SELECT * FROM rol_empleado WHERE status != 0".$whereAdmin;
+			$sql = "SELECT * FROM rol WHERE status != 0".$whereAdmin;
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -28,7 +28,7 @@
 		{
 			//BUSCAR ROLE
 			$this->intIdrol = $idrol;
-			$sql = "SELECT * FROM rol_empleado WHERE idrol = $this->intIdrol";
+			$sql = "SELECT * FROM rol WHERE idrol = $this->intIdrol";
 			$request = $this->select($sql);
 			return $request;
 		}
@@ -40,12 +40,12 @@
 			$this->strDescripcion = $descripcion;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM rol_empleado WHERE nombrerol = '{$this->strRol}' ";
+			$sql = "SELECT * FROM rol WHERE nombrerol = '{$this->strRol}' ";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO rol_empleado(nombrerol,descripcion,status) VALUES(?,?,?)";
+				$query_insert  = "INSERT INTO rol(nombrerol,descripcion,status) VALUES(?,?,?)";
 	        	$arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
@@ -61,12 +61,12 @@
 			$this->strDescripcion = $descripcion;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM rol_empleado WHERE nombrerol = '$this->strRol' AND idrol != $this->intIdrol";
+			$sql = "SELECT * FROM rol WHERE nombrerol = '$this->strRol' AND idrol != $this->intIdrol";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$sql = "UPDATE rol_empleado SET nombrerol = ?, descripcion = ?, status = ? WHERE idrol = $this->intIdrol ";
+				$sql = "UPDATE rol SET nombrerol = ?, descripcion = ?, status = ? WHERE idrol = $this->intIdrol ";
 				$arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
 				$request = $this->update($sql,$arrData);
 			}else{
@@ -82,7 +82,7 @@
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{
-				$sql = "UPDATE rol_empleado SET status = ? WHERE idrol = $this->intIdrol ";
+				$sql = "UPDATE rol SET status = ? WHERE idrol = $this->intIdrol ";
 				$arrData = array(0);
 				$request = $this->update($sql,$arrData);
 				if($request)
