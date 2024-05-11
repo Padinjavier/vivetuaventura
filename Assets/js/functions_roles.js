@@ -102,13 +102,11 @@ function fntEditRol(idrol){
 
     request.onreadystatechange = function(){
         if(request.readyState == 4 && request.status == 200){
-            console.log(request.responseText)
-            
+            console.log((request))
+            console.log((request.responseText))
             var objData = JSON.parse(request.responseText);
-            console.log(request.responseText)
             if(objData.status)
             {
-                console.log(objData.data)
                 document.querySelector("#idRol").value = objData.data.idrolusuario;
                 document.querySelector("#txtNombre").value = objData.data.nombrerolusuario;
                 document.querySelector("#txtDescripcion").value = objData.data.descripcion;
@@ -150,21 +148,25 @@ function fntDelRol(idrol){
         {
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Roles/delRol/';
-            var strData = "idrol="+idrol;
+            var strData = "idrolusuario="+idrol;
             request.open("POST",ajaxUrl,true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
+                    console.log((request))
+                    console.log((request.responseText))
                     var objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableRoles.api().ajax.reload(function(){
-                            fntEditRol();
-                            fntDelRol();
-                            fntPermisos();
-                        });
+                        tableRoles.api().ajax.reload();
+                        //ver de que es esto porque funciona en main pero al cambiar surguio error 
+                        // tableRoles.api().ajax.reload(function(){
+                        //     fntEditRol();
+                        //     fntDelRol();
+                        //     fntPermisos();
+                        // });
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }

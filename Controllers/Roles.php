@@ -143,7 +143,7 @@
 		{
 			if($_POST){
 				if($_SESSION['permisosMod']['d']){
-					$intIdrol = intval($_POST['idrol']);
+					$intIdrol = intval($_POST['idrolusuario']);
 					$requestDelete = $this->model->deleteRol($intIdrol);
 					if($requestDelete == 'ok')
 					{

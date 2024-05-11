@@ -46,7 +46,7 @@
 		{
 			if($_POST)
 			{
-				$intIdrol = intval($_POST['idrolusuario']);
+				$intIdrol = intval($_POST['idrol']);
 				$modulos = $_POST['modulos'];
 
 				$this->model->deletePermisos($intIdrol);
