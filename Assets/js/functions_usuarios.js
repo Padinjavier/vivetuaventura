@@ -275,7 +275,7 @@ function fntViewUsuario(idpersona){
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
+                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerolusuario;
                 document.querySelector("#celEstado").innerHTML = estadoUsuario;
                 document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
                 $('#modalViewUser').modal('show');
@@ -309,7 +309,7 @@ function fntEditUsuario(element,idpersona){
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
                 document.querySelector("#txtTelefono").value = objData.data.telefono;
                 document.querySelector("#txtEmail").value = objData.data.email_user;
-                document.querySelector("#listRolid").value =objData.data.idrol;
+                document.querySelector("#listRolid").value =objData.data.idrolusuario;
                 $('#listRolid').selectpicker('render');
 
                 if(objData.data.status == 1){
