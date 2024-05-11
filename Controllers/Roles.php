@@ -45,17 +45,17 @@
 					}
 
 					if($_SESSION['permisosMod']['u']){
-						$btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrol'].')" title="Permisos"><i class="fas fa-key"></i></button>';
-						$btnEdit = '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrol'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+						$btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrolusuario'].')" title="Permisos"><i class="fas fa-key"></i></button>';
+						$btnEdit = '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrolusuario'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
 					}
-					if($arrData[$i]['nombrerol'] == 'Cliente'){
+					if($arrData[$i]['nombrerolusuario'] == 'Cliente'){
 						if($_SESSION['permisosMod']['d']){
 							$btnDelete = '<button class="btn btn-secondary btn-sm btnDelRol" onClick="" title="Eliminar desactivado"><i class="far fa-trash-alt"></i></button>
 						</div>';
 						}
 					}else{
 						if($_SESSION['permisosMod']['d']){
-							$btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>
+							$btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrolusuario'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>
 						</div>';
 						}
 					}
@@ -73,7 +73,7 @@
 			if(count($arrData) > 0 ){
 				for ($i=0; $i < count($arrData); $i++) { 
 					if($arrData[$i]['status'] == 1 ){
-					$htmlOptions .= '<option value="'.$arrData[$i]['idrol'].'">'.$arrData[$i]['nombrerol'].'</option>';
+					$htmlOptions .= '<option value="'.$arrData[$i]['idrolusuario'].'">'.$arrData[$i]['nombrerol'].'</option>';
 					}
 				}
 			}

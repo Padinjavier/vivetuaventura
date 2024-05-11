@@ -29,7 +29,7 @@ class Pedidos extends Controllers{
 	public function getPedidos(){
 		if($_SESSION['permisosMod']['r']){
 			$idpersona = "";
-			if( $_SESSION['userData']['idrol'] == RCLIENTES ){
+			if( $_SESSION['userData']['idrolusuario'] == RCLIENTES ){
 				$idpersona = $_SESSION['userData']['idpersona'];
 			}
 			$arrData = $this->model->selectPedidos($idpersona);
@@ -77,7 +77,7 @@ class Pedidos extends Controllers{
 			header("Location:".base_url().'/dashboard');
 		}
 		$idpersona = "";
-		if( $_SESSION['userData']['idrol'] == RCLIENTES ){
+		if( $_SESSION['userData']['idrolusuario'] == RCLIENTES ){
 			$idpersona = $_SESSION['userData']['idpersona'];
 		}
 		
@@ -93,7 +93,7 @@ class Pedidos extends Controllers{
 			header("Location:".base_url().'/dashboard');
 		}
 		$idpersona = "";
-		if( $_SESSION['userData']['idrol'] == RCLIENTES ){
+		if( $_SESSION['userData']['idrolusuario'] == RCLIENTES ){
 			$idpersona = $_SESSION['userData']['idpersona'];
 		}
 		$requestTransaccion = $this->model->selectTransPaypal($transaccion,$idpersona);	
@@ -106,7 +106,7 @@ class Pedidos extends Controllers{
 	}
 
 	public function getTransaccion(string $transaccion){
-		if($_SESSION['permisosMod']['r'] and $_SESSION['userData']['idrol'] != RCLIENTES){
+		if($_SESSION['permisosMod']['r'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
 			if($transaccion == ""){
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			}else{
@@ -126,7 +126,7 @@ class Pedidos extends Controllers{
 
 	public function setReembolso(){
 		if($_POST){
-			if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrol'] != RCLIENTES){
+			if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
 				//dep($_POST);
 				$transaccion = strClean($_POST['idtransaccion']);
 				$observacion = strClean($_POST['observacion']);
@@ -145,7 +145,7 @@ class Pedidos extends Controllers{
 	}
 
 	public function getPedido(string $pedido){
-		if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrol'] != RCLIENTES){
+		if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
 			if($pedido == ""){
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			}else{
@@ -165,7 +165,7 @@ class Pedidos extends Controllers{
 
 	public function setPedido(){
 		if($_POST){
-			if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrol'] != RCLIENTES){
+			if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
 
 				$idpedido = !empty($_POST['idpedido']) ? intval($_POST['idpedido']) : "";
 				$estado = !empty($_POST['listEstado']) ? strClean($_POST['listEstado']) : "";

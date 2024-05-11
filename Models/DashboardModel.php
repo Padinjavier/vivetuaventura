@@ -25,7 +25,7 @@
 			return $total;
 		}
 		public function cantPedidos(){
-			$rolid = $_SESSION['userData']['idrol'];
+			$rolid = $_SESSION['userData']['idrolusuario'];
 			$idUser = $_SESSION['userData']['idpersona'];
 			$where = "";
 			if($rolid == RCLIENTES ){
@@ -38,7 +38,7 @@
 			return $total;
 		}
 		public function lastOrders(){
-			$rolid = $_SESSION['userData']['idrol'];
+			$rolid = $_SESSION['userData']['idrolusuario'];
 			$idUser = $_SESSION['userData']['idpersona'];
 			$where = "";
 			if($rolid == RCLIENTES ){
@@ -67,7 +67,7 @@
 			return $arrData;
 		}
 		public function selectVentasMes(int $anio, int $mes){
-			$rolid = $_SESSION['userData']['idrol'];
+			$rolid = $_SESSION['userData']['idrolusuario'];
 			$idUser = $_SESSION['userData']['idpersona'];
 			$where = "";
 			if($rolid == RCLIENTES ){

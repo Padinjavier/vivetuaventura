@@ -36,13 +36,13 @@
 							p.nit,
 							p.nombrefiscal,
 							p.direccionfiscal,
-							r.idrol,r.nombrerol,
+							r.idrolusuario,r.nombrerolusuario,
 							p.status , 
 							p.direccion,
 							p.ciudad
 					FROM persona p
-					INNER JOIN rol r
-					ON p.rolid = r.idrol
+					INNER JOIN rol_usuario r
+					ON p.rolid = r.idrolusuario
 					WHERE p.idpersona = $this->intIdUsuario";
 			$request = $this->select($sql);
 			$_SESSION['userData'] = $request;

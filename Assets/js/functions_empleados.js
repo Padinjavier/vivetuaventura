@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
             {"data":"apellidos"},
             {"data":"email_user"},
             {"data":"telefono"},
-            {"data":"nombrerol"},
+            {"data":"nombrerolusuario"},
             {"data":"status"},
             {"data":"options"}
         ],

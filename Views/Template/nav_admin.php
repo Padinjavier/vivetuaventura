@@ -13,7 +13,7 @@
                 <?= $_SESSION['userData']['nombres']; ?>
             </p>
             <p class="app-sidebar__user-designation">
-                <?= $_SESSION['userData']['nombrerol']; ?>
+                <?= $_SESSION['userData']['nombrerolusuario']; ?>
             </p>
         </div>
     </div>

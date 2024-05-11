@@ -157,8 +157,8 @@ require_once ($view_chat);
         require_once ("Models/PermisosModel.php");
         $objPermisos = new PermisosModel();
         if(!empty($_SESSION['userData'])){
-            $idrol = $_SESSION['userData']['idrol'];
-            $arrPermisos = $objPermisos->permisosModulo($idrol);
+            $idrolusuario = $_SESSION['userData']['idrolusuario'];
+            $arrPermisos = $objPermisos->permisosModulo($idrolusuario);
             $permisos = '';
             $permisosMod = '';
             if(count($arrPermisos) > 0 ){

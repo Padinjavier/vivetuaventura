@@ -63,20 +63,20 @@
 			if($_SESSION['idUser'] != 1 ){
 				$whereAdmin = " and p.idpersona != 1 ";
 			}
-			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.status,r.idrol,r.nombrerol 
+			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.status,r.idrolusuario,r.nombrerolusuario 
 					FROM persona p 
-					INNER JOIN rol r
-					ON p.rolid = r.idrol
+					INNER JOIN rol_usuario r
+					ON p.rolid = r.idrolusuario
 					WHERE p.status != 0 ".$whereAdmin;
 					$request = $this->select_all($sql);
 					return $request;
 		}
 		public function selectUsuario(int $idpersona){
 			$this->intIdUsuario = $idpersona;
-			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrol,r.nombrerol,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro 
+			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrolusuario,r.nombrerolusuario,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro 
 					FROM persona p
-					INNER JOIN rol r
-					ON p.rolid = r.idrol
+					INNER JOIN rol_usuario r
+					ON p.rolid = r.idrolusuario
 					WHERE p.idpersona = $this->intIdUsuario";
 			$request = $this->select($sql);
 			return $request;

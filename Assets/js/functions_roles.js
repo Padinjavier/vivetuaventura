@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function(){
             "dataSrc":""
         },
         "columns":[
-            {"data":"idrol"},
-            {"data":"nombrerol"},
+            {"data":"idrolusuario"},
+            {"data":"nombrerolusuario"},
             {"data":"descripcion"},
             {"data":"status"},
             {"data":"options"}

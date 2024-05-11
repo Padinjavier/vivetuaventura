@@ -37,7 +37,7 @@
 			//dep($data['ventasMDia']);exit;
 			$data['ventasAnio'] = $this->model->selectVentasAnio($anio);
 			//dep($data['ventasAnio']);exit;
-			if( $_SESSION['userData']['idrol'] == RCLIENTES ){
+			if( $_SESSION['userData']['idrolusuario'] == RCLIENTES ){
 				$this->views->getView($this,"dashboardCliente",$data);
 			}else{
 				$this->views->getView($this,"dashboard",$data);
