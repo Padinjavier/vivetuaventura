@@ -11,7 +11,7 @@ getModal('modalPerfil', $data);
                         <?= $_SESSION['userData']['nombres'] . ' ' . $_SESSION['userData']['apellidos']; ?>
                     </h4>
                     <p>
-                        <?= $_SESSION['userData']['nombrerol']; ?>
+                        <?= $_SESSION['userData']['nombrerolusuario']; ?>
                     </p>
                 </div>
                 <div class="cover-image"></div>
