@@ -102,12 +102,15 @@ function fntEditRol(idrol){
 
     request.onreadystatechange = function(){
         if(request.readyState == 4 && request.status == 200){
+            console.log(request.responseText)
             
             var objData = JSON.parse(request.responseText);
+            console.log(request.responseText)
             if(objData.status)
             {
-                document.querySelector("#idRol").value = objData.data.idrol;
-                document.querySelector("#txtNombre").value = objData.data.nombrerol;
+                console.log(objData.data)
+                document.querySelector("#idRol").value = objData.data.idrolusuario;
+                document.querySelector("#txtNombre").value = objData.data.nombrerolusuario;
                 document.querySelector("#txtDescripcion").value = objData.data.descripcion;
 
                 if(objData.data.status == 1)

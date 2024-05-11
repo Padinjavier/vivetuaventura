@@ -28,7 +28,7 @@
 		{
 			//BUSCAR ROLE
 			$this->intIdrol = $idrol;
-			$sql = "SELECT * FROM rol_usuario WHERE idrol = $this->intIdrol";
+			$sql = "SELECT * FROM rol_usuario WHERE idrolusuario = $this->intIdrol";
 			$request = $this->select($sql);
 			return $request;
 		}
@@ -40,12 +40,12 @@
 			$this->strDescripcion = $descripcion;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM rol_usuario WHERE nombrerol = '{$this->strRol}' ";
+			$sql = "SELECT * FROM rol_usuario WHERE nombrerolusuario = '{$this->strRol}' ";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO rol_usuario(nombrerol,descripcion,status) VALUES(?,?,?)";
+				$query_insert  = "INSERT INTO rol_usuario(nombrerolusuario,descripcion,status) VALUES(?,?,?)";
 	        	$arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
@@ -61,12 +61,12 @@
 			$this->strDescripcion = $descripcion;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM rol_usuario WHERE nombrerol = '$this->strRol' AND idrol != $this->intIdrol";
+			$sql = "SELECT * FROM rol_usuario WHERE nombrerolusuario = '$this->strRol' AND idrolusuario != $this->intIdrol";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$sql = "UPDATE rol_usuario SET nombrerol = ?, descripcion = ?, status = ? WHERE idrol = $this->intIdrol ";
+				$sql = "UPDATE rol_usuario SET nombrerolusuario = ?, descripcion = ?, status = ? WHERE idrolusuario = $this->intIdrol ";
 				$arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
 				$request = $this->update($sql,$arrData);
 			}else{
@@ -82,7 +82,7 @@
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{
-				$sql = "UPDATE rol SET status = ? WHERE idrol = $this->intIdrol ";
+				$sql = "UPDATE rol_usuario SET status = ? WHERE idrolusuario = $this->intIdrol ";
 				$arrData = array(0);
 				$request = $this->update($sql,$arrData);
 				if($request)

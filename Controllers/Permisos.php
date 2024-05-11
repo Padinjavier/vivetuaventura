@@ -15,7 +15,7 @@
 				$arrPermisosRol = $this->model->selectPermisosRol($rolid);
 				$arrRol = $this->model->getRol($rolid);
 				$arrPermisos = array('r' => 0, 'w' => 0, 'u' => 0, 'd' => 0);
-				$arrPermisoRol = array('idrol' => $rolid, 'rol' => $arrRol['nombrerol']);
+				$arrPermisoRol = array('idrolusuario' => $rolid, 'rol' => $arrRol['nombrerolusuario']);
 
 				if(empty($arrPermisosRol))
 				{
@@ -46,7 +46,7 @@
 		{
 			if($_POST)
 			{
-				$intIdrol = intval($_POST['idrol']);
+				$intIdrol = intval($_POST['idrolusuario']);
 				$modulos = $_POST['modulos'];
 
 				$this->model->deletePermisos($intIdrol);

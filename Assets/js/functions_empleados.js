@@ -279,7 +279,7 @@ function fntViewEmpleado(idpersona){
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celTipoEmpleado").innerHTML = objData.data.nombrerol;
+                document.querySelector("#celTipoEmpleado").innerHTML = objData.data.nombrerolusuario;
                 document.querySelector("#celEstado").innerHTML = estadoEmpleado;
                 document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
                 $('#modalViewUser').modal('show');
@@ -307,13 +307,16 @@ function fntEditEmpleado(element,idpersona){
 
             if(objData.status)
             {
+                console.log(objData.data)
+
+
                 document.querySelector("#idEmpleado").value = objData.data.idpersona;
                 document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
                 document.querySelector("#txtNombre").value = objData.data.nombres;
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
                 document.querySelector("#txtTelefono").value = objData.data.telefono;
                 document.querySelector("#txtEmail").value = objData.data.email_user;
-                document.querySelector("#listRolid").value =objData.data.idrol;
+                document.querySelector("#listRolid").value =objData.data.idrolusuario;
                 $('#listRolid').selectpicker('render');
 
                 if(objData.data.status == 1){

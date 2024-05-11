@@ -73,7 +73,7 @@
 
 		public function getRol(int $idrol){
 			$this->intRolid = $idrol;
-			$sql = "SELECT * FROM rol WHERE idrol = $this->intRolid";
+			$sql = "SELECT * FROM rol_usuario WHERE idrolusuario = $this->intRolid";
 			$request = $this->select($sql);
 			return $request;
 		}
