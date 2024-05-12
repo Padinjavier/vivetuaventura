@@ -1,6 +1,6 @@
 <?php 
 
-	class Roles extends Controllers{
+	class RolesUsuarios extends Controllers{
 		public function __construct()
 		{
 			parent::__construct();
@@ -11,20 +11,20 @@
 				header('Location: '.base_url().'/login');
 				die();
 			}
-			getPermisos(MEMPLEADOS);
+			getPermisos(MUSUARIOS);
 		}
 
-		public function Roles()
+		public function RolesUsuarios()
 		{
 			if(empty($_SESSION['permisosMod']['r'])){
 				header("Location:".base_url().'/dashboard');
 			}
 			$data['page_id'] = 3;
-			$data['page_tag'] = "Roles Usuario";
+			$data['page_tag'] = "Permisos Usuario";
 			$data['page_name'] = "rol_usuario";
-			$data['page_title'] = "Roles Usuario <small> Tienda Virtual</small>";
+			$data['page_title'] = "Permisos Usuario";
 			$data['page_functions_js'] = "functions_rolesusuario.js";
-			$this->views->getView($this,"roles",$data);
+			$this->views->getView($this,"rolesusuarios",$data);
 		}
 
 		public function getRoles()
@@ -45,8 +45,8 @@
 					}
 
 					if($_SESSION['permisosMod']['u']){
-						$btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrolusuario'].')" title="Permisos"><i class="fas fa-key"></i></button>';
-						$btnEdit = '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrolusuario'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+						$btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisosUsuario('.$arrData[$i]['idrolusuario'].')" title="Permisos"><i class="fas fa-key"></i></button>';
+						$btnEdit = '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRolUsuario('.$arrData[$i]['idrolusuario'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
 					}
 					if($arrData[$i]['nombrerolusuario'] == 'Cliente'){
 						if($_SESSION['permisosMod']['d']){
@@ -55,7 +55,7 @@
 						}
 					}else{
 						if($_SESSION['permisosMod']['d']){
-							$btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrolusuario'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>
+							$btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRolUsuario('.$arrData[$i]['idrolusuario'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>
 						</div>';
 						}
 					}
@@ -101,7 +101,7 @@
 		}
 
 		public function setRol(){
-				$intIdrol = intval($_POST['idRol']);
+				$intIdrol = intval($_POST['idRolUsuario']);
 				$strRol =  strClean($_POST['txtNombre']);
 				$strDescipcion = strClean($_POST['txtDescripcion']);
 				$intStatus = intval($_POST['listStatus']);

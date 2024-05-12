@@ -1,6 +1,6 @@
 <?php 
 
-	class RolesModel extends Mysql
+	class RolesUsuariosModel extends Mysql
 	{
 		public $intIdrol;
 		public $strRol;
