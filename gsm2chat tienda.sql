@@ -15,11 +15,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Volcando estructura de base de datos para agencia
-CREATE DATABASE IF NOT EXISTS `agencia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `agencia`;
+-- Volcando estructura de base de datos para gsm
+CREATE DATABASE IF NOT EXISTS `gsm` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `gsm`;
 
--- Volcando estructura para tabla agencia.categoria
+-- Volcando estructura para tabla gsm.categoria
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` bigint NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -29,25 +29,24 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.categoria: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.categoria: ~11 rows (aproximadamente)
 DELETE FROM `categoria`;
 INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `datecreated`, `ruta`, `status`) VALUES
 	(1, 'Embutidos', 'Productos o derivados cárnicos.', 'img_083c06d74a24b56e649059fd8a3b2416.jpg', '2021-08-20 03:04:04', 'embutidos', 1),
 	(2, 'Bebidas', 'Gaseosa, refresco, fresco o soda', 'img_90165900d66f0ad48275beb8fe1f3f14.jpg', '2021-08-21 00:47:10', 'bebidas', 1),
 	(3, 'Dulces', 'Productos dulces peruanos', 'img_350eae9b69dd03a7713ebd84b9bcb5f7.jpg', '2023-11-08 22:52:36', 'dulces', 1),
-	(4, 'ss', 'fff', 'img_cc7d26084d5893794aafa18573fd6e85.jpg', '2023-11-13 08:35:25', 'ss', 0),
+	(4, 'Recreo', 'e', '', '2023-11-13 08:35:25', 'recreo', 1),
 	(5, 'Cuidado personal', 'Productos de higiene personal', 'img_57bfd177ac746208efa98657cec3970b.jpg', '2023-11-23 01:15:09', 'cuidado-personal', 1),
 	(6, 'Lácteos', 'Lacteos', 'img_e3490ef3cb0f50ab8a431fcf41384313.jpg', '2023-11-29 08:43:42', 'lacteos', 1),
 	(7, 'Bebidas Alcoholicas', 'Tragos', 'img_856b9f33b2e9a7ec1d92444aad6542cf.jpg', '2023-11-29 08:45:44', 'bebidas-alcoholicas', 1),
 	(8, 'Limpieza', 'Limpieza', 'portada_categoria.png', '2023-11-29 09:34:39', 'limpieza', 1),
 	(9, 'Snack', 'Aperitivos', 'portada_categoria.png', '2023-11-29 09:48:31', 'snack', 1),
 	(10, 'Abarrotes', 'Fideos, azucares', 'portada_categoria.png', '2023-11-29 10:19:15', 'abarrotes', 1),
-	(11, 'Golosinas', 'Caramelos, Chicles, otros', 'portada_categoria.png', '2023-11-29 11:55:23', 'golosinas', 1),
-	(12, 'ddd', 'dd', 'portada_categoria.png', '2024-03-28 09:41:54', 'ddd', 1);
+	(11, 'Golosinas', 'Caramelos, Chicles, otros', 'portada_categoria.png', '2023-11-29 11:55:23', 'golosinas', 1);
 
--- Volcando estructura para tabla agencia.contacto
+-- Volcando estructura para tabla gsm.contacto
 CREATE TABLE IF NOT EXISTS `contacto` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -60,12 +59,12 @@ CREATE TABLE IF NOT EXISTS `contacto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.contacto: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.contacto: ~0 rows (aproximadamente)
 DELETE FROM `contacto`;
 INSERT INTO `contacto` (`id`, `nombre`, `email`, `mensaje`, `ip`, `dispositivo`, `useragent`, `datecreated`) VALUES
 	(1, 'Fernando Herrera', 'toolsfordeveloper@gmail.com', 'Mensaje del primer suscriptor!', '127.0.0.1', 'PC', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0', '2021-08-20 04:06:18');
 
--- Volcando estructura para tabla agencia.detalle_pedido
+-- Volcando estructura para tabla gsm.detalle_pedido
 CREATE TABLE IF NOT EXISTS `detalle_pedido` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `pedidoid` bigint NOT NULL,
@@ -77,14 +76,26 @@ CREATE TABLE IF NOT EXISTS `detalle_pedido` (
   KEY `productoid` (`productoid`),
   CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`pedidoid`) REFERENCES `pedido` (`idpedido`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`productoid`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.detalle_pedido: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.detalle_pedido: ~13 rows (aproximadamente)
 DELETE FROM `detalle_pedido`;
 INSERT INTO `detalle_pedido` (`id`, `pedidoid`, `productoid`, `precio`, `cantidad`) VALUES
-	(1, 3, 22, 12.00, 3);
+	(4, 3, 11, 2.50, 1),
+	(5, 4, 167, 1.50, 1),
+	(6, 4, 166, 10.50, 1),
+	(8, 6, 169, 1.50, 2),
+	(9, 7, 169, 1.50, 1),
+	(10, 8, 169, 1.50, 1),
+	(11, 8, 168, 1.50, 2),
+	(12, 8, 167, 1.50, 2),
+	(13, 9, 167, 1.50, 1),
+	(14, 10, 164, 15.90, 1),
+	(15, 11, 167, 1.50, 1),
+	(16, 12, 168, 1.50, 1),
+	(17, 13, 167, 1.50, 1);
 
--- Volcando estructura para tabla agencia.detalle_temp
+-- Volcando estructura para tabla gsm.detalle_temp
 CREATE TABLE IF NOT EXISTS `detalle_temp` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `personaid` bigint NOT NULL,
@@ -97,72 +108,52 @@ CREATE TABLE IF NOT EXISTS `detalle_temp` (
   KEY `personaid` (`personaid`),
   CONSTRAINT `detalle_temp_ibfk_1` FOREIGN KEY (`productoid`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_detalle_temp_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.detalle_temp: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.detalle_temp: ~0 rows (aproximadamente)
 DELETE FROM `detalle_temp`;
-INSERT INTO `detalle_temp` (`id`, `personaid`, `productoid`, `precio`, `cantidad`, `transaccionid`) VALUES
-	(1, 22, 22, 21.00, 3, '1');
 
--- Volcando estructura para tabla agencia.horario
+-- Volcando estructura para tabla gsm.horario
 CREATE TABLE IF NOT EXISTS `horario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_persona` bigint NOT NULL,
-  `HORAS` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `Lunes` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `Martes` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `Miercoles` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `Jueves` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `Viernes` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT '0',
+  `HORAS` varchar(50) DEFAULT NULL,
+  `Lunes` varchar(50) DEFAULT NULL,
+  `Martes` varchar(50) DEFAULT NULL,
+  `Miercoles` varchar(50) DEFAULT NULL,
+  `Jueves` varchar(50) DEFAULT NULL,
+  `Viernes` varchar(50) DEFAULT NULL,
+  `status` varchar(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `id_persona` (`id_persona`),
-  CONSTRAINT `FK_horario_persona` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+  KEY `id_persona` (`id_persona`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla agencia.horario: ~38 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.horario: 19 rows
 DELETE FROM `horario`;
+/*!40000 ALTER TABLE `horario` DISABLE KEYS */;
 INSERT INTO `horario` (`id`, `id_persona`, `HORAS`, `Lunes`, `Martes`, `Miercoles`, `Jueves`, `Viernes`, `status`) VALUES
-	(1, 23, '08:00 am - 08:45 am', '', '', '', '', '', '1'),
-	(2, 23, '08:45 am - 09:30 am', '', NULL, NULL, NULL, NULL, '1'),
-	(3, 23, '09:30 am - 10:15 am', NULL, NULL, NULL, NULL, NULL, '1'),
-	(4, 23, '10:15 am - 11:00 am', NULL, NULL, NULL, NULL, NULL, '1'),
-	(5, 23, '11:00 am - 11:45 am', NULL, NULL, NULL, NULL, NULL, '1'),
-	(6, 23, '11:45 am - 12:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(7, 23, '12:30 pm - 01:15 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(8, 23, '01:15 pm - 02:00 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(9, 23, '02:00 pm - 02:45 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(10, 23, '02:45 pm - 03:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(11, 23, '03:30 pm - 04:15 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(12, 23, '04:15 pm - 05:00 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(13, 23, '05:00 pm - 05:45 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(14, 23, '05:45 pm - 06:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(15, 23, '06:30 pm - 07:15 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(16, 23, '07:15 pm - 08:00 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(17, 23, '08:00 pm - 08:45 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(18, 23, '08:45 pm - 09:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(19, 23, '09:30 pm - 10:15 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(20, 22, '08:00 am - 08:45 am', 'aaaaaaaa', 'xxxxxxxxx', NULL, NULL, NULL, '1'),
-	(21, 22, '08:45 am - 09:30 am', 'ddd', NULL, NULL, NULL, NULL, '1'),
-	(22, 22, '09:30 am - 10:15 am', NULL, NULL, NULL, NULL, NULL, '1'),
-	(23, 22, '10:15 am - 11:00 am', NULL, NULL, NULL, NULL, NULL, '1'),
-	(24, 22, '11:00 am - 11:45 am', NULL, NULL, NULL, NULL, NULL, '1'),
-	(25, 22, '11:45 am - 12:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(26, 22, '12:30 pm - 01:15 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(27, 22, '01:15 pm - 02:00 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(28, 22, '02:00 pm - 02:45 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(29, 22, '02:45 pm - 03:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(30, 22, '03:30 pm - 04:15 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(31, 22, '04:15 pm - 05:00 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(32, 22, '05:00 pm - 05:45 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(33, 22, '05:45 pm - 06:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(34, 22, '06:30 pm - 07:15 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(35, 22, '07:15 pm - 08:00 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(36, 22, '08:00 pm - 08:45 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(37, 22, '08:45 pm - 09:30 pm', NULL, NULL, NULL, NULL, NULL, '1'),
-	(38, 22, '09:30 pm - 10:15 pm', NULL, NULL, NULL, NULL, NULL, '1');
+	(1, 22, '08:00 am - 08:45 am', 'eeee', 'dddd', '222', 'bbbb', 'aaaa', '1'),
+	(2, 22, '08:45 am - 09:30 am', '111', '222', '333', '444', '5555', '1'),
+	(3, 22, '09:30 am - 10:15 am', '1', '2', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(4, 22, '10:15 am - 11:00 am', 'Matemáticas', 'Matemáticas', '333', 'Matemáticas', 'Matemáticas', '1'),
+	(5, 22, '11:00 am - 11:45 am', 'Matemáticas', 'Matemáticas', 'Matemáticas', '444', 'Matemáticas', '1'),
+	(6, 22, '11:45 am - 12:30 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '555', '1'),
+	(7, 22, '12:30 pm - 01:15 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(8, 22, '01:15 pm - 02:00 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(9, 22, '02:00 pm - 02:45 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(10, 22, '02:45 pm - 03:30 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(11, 22, '03:30 pm - 04:15 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(12, 22, '04:15 pm - 05:00 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(13, 22, '05:00 pm - 05:45 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(14, 22, '05:45 pm - 06:30 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(15, 22, '06:30 pm - 07:15 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(16, 22, '07:15 pm - 08:00 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(17, 22, '08:00 pm - 08:45 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(18, 22, '08:45 pm - 09:30 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1'),
+	(19, 22, '09:30 pm - 10:15 pm', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', 'Matemáticas', '1');
+/*!40000 ALTER TABLE `horario` ENABLE KEYS */;
 
--- Volcando estructura para tabla agencia.imagen
+-- Volcando estructura para tabla gsm.imagen
 CREATE TABLE IF NOT EXISTS `imagen` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `productoid` bigint NOT NULL,
@@ -172,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `imagen` (
   CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`productoid`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.imagen: ~155 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.imagen: ~155 rows (aproximadamente)
 DELETE FROM `imagen`;
 INSERT INTO `imagen` (`id`, `productoid`, `img`) VALUES
 	(1, 1, 'pro_1018ac4efefe93878b7468ce72c630a3.jpg'),
@@ -331,20 +322,40 @@ INSERT INTO `imagen` (`id`, `productoid`, `img`) VALUES
 	(195, 168, 'pro_f3664e92a4c0d7bbcdd9df685b0cbc77.jpg'),
 	(196, 169, 'pro_8df83db6fbd144a502a8c22ba64b5264.jpg');
 
--- Volcando estructura para tabla agencia.modulo
+-- Volcando estructura para tabla gsm.mensajes
+CREATE TABLE IF NOT EXISTS `mensajes` (
+  `idmensaje` bigint NOT NULL AUTO_INCREMENT,
+  `id_emisor` bigint NOT NULL,
+  `id_receptor` bigint NOT NULL,
+  `mensaje` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `fecha_envio` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `leido` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idmensaje`),
+  KEY `id_emisor` (`id_emisor`),
+  KEY `id_receptor` (`id_receptor`),
+  CONSTRAINT `fk_emisor` FOREIGN KEY (`id_emisor`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_receptor` FOREIGN KEY (`id_receptor`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla gsm.mensajes: ~0 rows (aproximadamente)
+DELETE FROM `mensajes`;
+INSERT INTO `mensajes` (`idmensaje`, `id_emisor`, `id_receptor`, `mensaje`, `fecha_envio`, `leido`) VALUES
+	(1, 22, 24, 'eeeeeeeeeeeeeeeeee', '2024-03-16 16:40:51', 0);
+
+-- Volcando estructura para tabla gsm.modulo
 CREATE TABLE IF NOT EXISTS `modulo` (
   `idmodulo` bigint NOT NULL AUTO_INCREMENT,
   `titulo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idmodulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.modulo: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.modulo: ~10 rows (aproximadamente)
 DELETE FROM `modulo`;
 INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 	(1, 'Dashboard', 'Dashboard', 1),
-	(2, 'Empleado', 'Usuarios del sistema', 1),
+	(2, 'Usuarios', 'Usuarios del sistema', 1),
 	(3, 'Clientes', 'Clientes de tienda', 1),
 	(4, 'Productos', 'Todos los productos', 1),
 	(5, 'Pedidos', 'Pedidos', 1),
@@ -352,10 +363,9 @@ INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 	(7, 'Suscriptores', 'Suscriptores del sitio web', 1),
 	(8, 'Contactos', 'Mensajes del formulario contacto', 1),
 	(9, 'Páginas', 'Páginas del sitio web', 1),
-	(10, 'Opciones', 'opciones de pagina', 1),
-	(11, 'Usuarios', 'usuario', 1);
+	(10, 'Opciones', 'opciones de pagina', 1);
 
--- Volcando estructura para tabla agencia.opciones
+-- Volcando estructura para tabla gsm.opciones
 CREATE TABLE IF NOT EXISTS `opciones` (
   `id` int NOT NULL AUTO_INCREMENT,
   `personaid` bigint DEFAULT NULL,
@@ -365,15 +375,15 @@ CREATE TABLE IF NOT EXISTS `opciones` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `idpersona` (`personaid`) USING BTREE,
   CONSTRAINT `FK_opciones_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla agencia.opciones: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.opciones: ~2 rows (aproximadamente)
 DELETE FROM `opciones`;
 INSERT INTO `opciones` (`id`, `personaid`, `idioma`, `tema`, `formato_moneda`) VALUES
-	(1, 22, 2, 2, 1),
+	(1, 22, 1, 3, 2),
 	(2, 24, 3, 3, 3);
 
--- Volcando estructura para tabla agencia.pedido
+-- Volcando estructura para tabla gsm.pedido
 CREATE TABLE IF NOT EXISTS `pedido` (
   `idpedido` bigint NOT NULL AUTO_INCREMENT,
   `referenciacobro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
@@ -386,34 +396,28 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `tipopagoid` bigint NOT NULL,
   `direccion_envio` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `producto_id` bigint DEFAULT NULL,
-  `reembolso` bigint DEFAULT NULL,
   PRIMARY KEY (`idpedido`),
   KEY `personaid` (`personaid`),
   KEY `tipopagoid` (`tipopagoid`),
-  KEY `FK_pedido_producto` (`producto_id`),
-  KEY `FK_pedido_reembolso` (`reembolso`),
   CONSTRAINT `FK_pedido_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`),
-  CONSTRAINT `FK_pedido_producto` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`idproducto`),
-  CONSTRAINT `FK_pedido_reembolso` FOREIGN KEY (`reembolso`) REFERENCES `reembolso` (`id`),
   CONSTRAINT `FK_pedido_tipopago` FOREIGN KEY (`tipopagoid`) REFERENCES `tipopago` (`idtipopago`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.pedido: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.pedido: ~10 rows (aproximadamente)
 DELETE FROM `pedido`;
-INSERT INTO `pedido` (`idpedido`, `referenciacobro`, `idtransaccionpaypal`, `datospaypal`, `personaid`, `fecha`, `costo_envio`, `monto`, `tipopagoid`, `direccion_envio`, `status`, `producto_id`, `reembolso`) VALUES
-	(3, '12', NULL, NULL, 22, '2023-11-15 00:50:52', 5.00, 7.50, 2, '123, aaaa', 'Pendiente', NULL, NULL),
-	(4, NULL, NULL, NULL, 22, '2023-12-06 13:30:58', 5.00, 17.00, 2, 'AV. Lima 123, Quilmana', 'Pendiente', NULL, NULL),
-	(6, NULL, NULL, NULL, 28, '2023-12-06 17:28:13', 5.00, 8.00, 2, 'Jr. Agusto B. Leguía N453, Quilmana - Cañete', 'Pendiente', NULL, NULL),
-	(7, 'completa', NULL, NULL, 28, '2023-12-06 17:40:11', 5.00, 6.50, 2, 'Jr. Agusto B. Leguia N 403, Quilmana', 'Completo', NULL, NULL),
-	(8, NULL, NULL, NULL, 28, '2023-12-06 18:10:32', 5.00, 12.50, 2, 'Jr. Agusto B. Leguia N 403, quimana', 'Pendiente', NULL, NULL),
-	(9, NULL, NULL, NULL, 22, '2023-12-12 23:07:35', 5.00, 6.50, 3, 'ewe, weew', 'Pendiente', NULL, NULL),
-	(10, NULL, NULL, NULL, 22, '2023-12-16 10:42:04', 5.00, 20.90, 2, '123, e', 'Pendiente', NULL, NULL),
-	(11, NULL, NULL, NULL, 22, '2023-12-19 10:07:54', 5.00, 6.50, 2, 'f, f', 'Pendiente', NULL, NULL),
-	(12, NULL, NULL, NULL, 22, '2023-12-22 00:38:17', 5.00, 6.50, 2, '111111f, 2222', 'Pendiente', NULL, NULL),
-	(13, '12', NULL, NULL, 22, '2023-12-23 23:18:52', 5.00, 6.50, 2, '111111v, 2222', 'Entregado', NULL, NULL);
+INSERT INTO `pedido` (`idpedido`, `referenciacobro`, `idtransaccionpaypal`, `datospaypal`, `personaid`, `fecha`, `costo_envio`, `monto`, `tipopagoid`, `direccion_envio`, `status`) VALUES
+	(3, NULL, NULL, NULL, 22, '2023-11-15 00:50:52', 5.00, 7.50, 2, '123, aaaa', 'Pendiente'),
+	(4, NULL, NULL, NULL, 22, '2023-12-06 13:30:58', 5.00, 17.00, 2, 'AV. Lima 123, Quilmana', 'Pendiente'),
+	(6, NULL, NULL, NULL, 28, '2023-12-06 17:28:13', 5.00, 8.00, 2, 'Jr. Agusto B. Leguía N453, Quilmana - Cañete', 'Pendiente'),
+	(7, 'completa', NULL, NULL, 28, '2023-12-06 17:40:11', 5.00, 6.50, 2, 'Jr. Agusto B. Leguia N 403, Quilmana', 'Completo'),
+	(8, NULL, NULL, NULL, 28, '2023-12-06 18:10:32', 5.00, 12.50, 2, 'Jr. Agusto B. Leguia N 403, quimana', 'Pendiente'),
+	(9, NULL, NULL, NULL, 22, '2023-12-12 23:07:35', 5.00, 6.50, 3, 'ewe, weew', 'Pendiente'),
+	(10, NULL, NULL, NULL, 22, '2023-12-16 10:42:04', 5.00, 20.90, 2, '123, e', 'Pendiente'),
+	(11, NULL, NULL, NULL, 22, '2023-12-19 10:07:54', 5.00, 6.50, 2, 'f, f', 'Pendiente'),
+	(12, NULL, NULL, NULL, 22, '2023-12-22 00:38:17', 5.00, 6.50, 2, '111111f, 2222', 'Pendiente'),
+	(13, NULL, NULL, NULL, 22, '2023-12-23 23:18:52', 5.00, 6.50, 2, '111111v, 2222', 'Pendiente');
 
--- Volcando estructura para tabla agencia.permisos
+-- Volcando estructura para tabla gsm.permisos
 CREATE TABLE IF NOT EXISTS `permisos` (
   `idpermiso` bigint NOT NULL AUTO_INCREMENT,
   `rolid` bigint NOT NULL,
@@ -425,11 +429,11 @@ CREATE TABLE IF NOT EXISTS `permisos` (
   PRIMARY KEY (`idpermiso`),
   KEY `rolid` (`rolid`),
   KEY `moduloid` (`moduloid`),
-  CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrolusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`rolid`) REFERENCES `rol` (`idrol`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `permisos_ibfk_2` FOREIGN KEY (`moduloid`) REFERENCES `modulo` (`idmodulo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=318 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=183 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.permisos: ~103 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.permisos: ~36 rows (aproximadamente)
 DELETE FROM `permisos`;
 INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VALUES
 	(21, 3, 1, 0, 0, 0, 0),
@@ -467,76 +471,9 @@ INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VA
 	(179, 2, 6, 1, 1, 1, 1),
 	(180, 2, 7, 1, 1, 1, 1),
 	(181, 2, 8, 1, 1, 1, 1),
-	(182, 2, 9, 1, 1, 1, 1),
-	(206, 1, 11, 1, 1, 1, 1),
-	(219, 10, 1, 1, 0, 0, 0),
-	(220, 10, 2, 0, 1, 0, 0),
-	(221, 10, 3, 0, 0, 1, 0),
-	(222, 10, 4, 0, 0, 0, 1),
-	(223, 10, 5, 0, 0, 1, 0),
-	(224, 10, 6, 0, 1, 0, 0),
-	(225, 10, 7, 1, 0, 0, 0),
-	(226, 10, 8, 0, 1, 0, 0),
-	(227, 10, 9, 0, 0, 1, 0),
-	(228, 10, 10, 0, 0, 0, 1),
-	(229, 10, 11, 0, 0, 1, 0),
-	(241, 12, 1, 1, 1, 1, 1),
-	(242, 12, 2, 1, 1, 1, 1),
-	(243, 12, 3, 1, 1, 1, 1),
-	(244, 12, 4, 1, 1, 1, 1),
-	(245, 12, 5, 1, 1, 1, 1),
-	(246, 12, 6, 1, 1, 1, 1),
-	(247, 12, 7, 1, 1, 1, 1),
-	(248, 12, 8, 1, 1, 1, 1),
-	(249, 12, 9, 1, 1, 1, 1),
-	(250, 12, 10, 1, 1, 1, 1),
-	(251, 12, 11, 1, 1, 1, 1),
-	(274, 18, 1, 1, 0, 0, 0),
-	(275, 18, 2, 0, 1, 0, 0),
-	(276, 18, 3, 0, 0, 0, 0),
-	(277, 18, 4, 0, 0, 0, 0),
-	(278, 18, 5, 0, 0, 0, 0),
-	(279, 18, 6, 0, 0, 0, 0),
-	(280, 18, 7, 0, 0, 0, 0),
-	(281, 18, 8, 0, 0, 0, 0),
-	(282, 18, 9, 0, 0, 0, 0),
-	(283, 18, 10, 0, 0, 0, 0),
-	(284, 18, 11, 0, 0, 0, 0),
-	(285, 17, 1, 1, 1, 1, 1),
-	(286, 17, 2, 1, 1, 1, 0),
-	(287, 17, 3, 1, 1, 1, 0),
-	(288, 17, 4, 1, 0, 0, 0),
-	(289, 17, 5, 1, 0, 0, 0),
-	(290, 17, 6, 0, 0, 0, 0),
-	(291, 17, 7, 0, 0, 0, 0),
-	(292, 17, 8, 0, 0, 0, 0),
-	(293, 17, 9, 0, 0, 0, 0),
-	(294, 17, 10, 0, 0, 0, 0),
-	(295, 17, 11, 0, 0, 0, 0),
-	(296, 9, 1, 0, 1, 0, 0),
-	(297, 9, 2, 0, 1, 0, 0),
-	(298, 9, 3, 0, 1, 0, 0),
-	(299, 9, 4, 0, 0, 0, 0),
-	(300, 9, 5, 0, 0, 0, 0),
-	(301, 9, 6, 0, 0, 0, 0),
-	(302, 9, 7, 0, 0, 0, 0),
-	(303, 9, 8, 0, 0, 0, 0),
-	(304, 9, 9, 0, 0, 0, 0),
-	(305, 9, 10, 0, 0, 0, 0),
-	(306, 9, 11, 0, 0, 0, 0),
-	(307, 8, 1, 0, 0, 0, 0),
-	(308, 8, 2, 0, 0, 0, 0),
-	(309, 8, 3, 0, 0, 0, 0),
-	(310, 8, 4, 0, 0, 0, 0),
-	(311, 8, 5, 0, 0, 0, 0),
-	(312, 8, 6, 0, 0, 0, 0),
-	(313, 8, 7, 0, 0, 0, 0),
-	(314, 8, 8, 0, 0, 0, 0),
-	(315, 8, 9, 0, 0, 0, 0),
-	(316, 8, 10, 0, 0, 0, 0),
-	(317, 8, 11, 0, 0, 0, 0);
+	(182, 2, 9, 1, 1, 1, 1);
 
--- Volcando estructura para tabla agencia.persona
+-- Volcando estructura para tabla gsm.persona
 CREATE TABLE IF NOT EXISTS `persona` (
   `idpersona` bigint NOT NULL AUTO_INCREMENT,
   `identificacion` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
@@ -554,26 +491,21 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `status` int NOT NULL DEFAULT '1',
   `direccion` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   `ciudad` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `rolidempleado` bigint NOT NULL,
   PRIMARY KEY (`idpersona`),
   KEY `rolid` (`rolid`),
-  KEY `rolidempleado` (`rolidempleado`),
-  CONSTRAINT `FK_persona_rol` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrolusuario`),
-  CONSTRAINT `fk_rol_empleado` FOREIGN KEY (`rolidempleado`) REFERENCES `rol_empleado` (`idrol`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+  CONSTRAINT `FK_persona_rol` FOREIGN KEY (`rolid`) REFERENCES `rol` (`idrol`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.persona: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.persona: ~5 rows (aproximadamente)
 DELETE FROM `persona`;
-INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `nit`, `nombrefiscal`, `direccionfiscal`, `token`, `rolid`, `datecreated`, `status`, `direccion`, `ciudad`, `rolidempleado`) VALUES
-	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', 'NAME tributo javier', 'ADDRES tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222', 1),
-	(23, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', NULL, NULL, NULL, NULL, 2, '2023-11-29 10:57:56', 1, NULL, NULL, 1),
-	(24, '6464646', 'Juan Manuel', 'Llocya Castro', 918313532, 'jllocya@system32.shop', 'ec3cb4904c5e4aea4a1b6f3df400730bd52b4983324e8efc0e841df47382e49e', 'sssssss', 'sssss', 'sssssssssss', NULL, 3, '2023-11-29 11:03:25', 1, NULL, NULL, 1),
-	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', NULL, NULL, NULL, NULL, 3, '2023-12-06 17:27:31', 1, NULL, NULL, 1),
-	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 917189300, '2002010167@undc.edu.pe', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, '1111', NULL, 2, '2023-12-16 10:41:03', 0, 'Av Lima', 'Quilmana', 1),
-	(52, '46464', 'Fdgdfgdfg', 'Dfgdfgdfg', 46464, 'javierpadin66661@gmail.com', 'a6a844403fcbbe219d93eab24e6f0c432d6d3f1d92052e6c14ff25ac155ae383', '464646', '4646', '4646', NULL, 3, '2024-05-11 10:04:54', 0, NULL, NULL, 1),
-	(53, '75485555', 'Fddf', 'Dfdfdf', 918313532, 'javierererpadin661@gmail.com', '82f231898694e893389f7fc7f0d4b2ae1ddfb69ed2d59295603593c8529db673', NULL, NULL, NULL, NULL, 2, '2024-05-11 14:36:32', 0, NULL, NULL, 1);
+INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `nit`, `nombrefiscal`, `direccionfiscal`, `token`, `rolid`, `datecreated`, `status`, `direccion`, `ciudad`) VALUES
+	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', '12345', 'gg', 'kkkkkkkkkkk', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222'),
+	(23, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@system32.shop', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL, NULL, NULL, NULL, 1, '2023-11-29 10:57:56', 1, NULL, NULL),
+	(24, 'JUAN LLOCYA', 'Juan Manuel', 'Llocya Castro', 918313532, 'jllocya@system32.shop', 'ec3cb4904c5e4aea4a1b6f3df400730bd52b4983324e8efc0e841df47382e49e', NULL, NULL, NULL, NULL, 2, '2023-11-29 11:03:25', 1, NULL, NULL),
+	(28, '72014145', 'Alex', 'Huasasquiche', 946454566, 'alex.huasasquiche@gmail.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'www', 'w', 'w3', NULL, 3, '2023-12-06 17:27:31', 1, NULL, NULL),
+	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 917189300, '2002010167@undc.edu.pe', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, '1111', NULL, 1, '2023-12-16 10:41:03', 1, 'Av Lima', 'Quilmana');
 
--- Volcando estructura para tabla agencia.post
+-- Volcando estructura para tabla gsm.post
 CREATE TABLE IF NOT EXISTS `post` (
   `idpost` bigint NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -585,20 +517,21 @@ CREATE TABLE IF NOT EXISTS `post` (
   PRIMARY KEY (`idpost`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.post: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.post: ~9 rows (aproximadamente)
 DELETE FROM `post`;
 INSERT INTO `post` (`idpost`, `titulo`, `contenido`, `portada`, `datecreate`, `ruta`, `status`) VALUES
-	(1, 'Inicio', '<div class="p-t-80"> <h3 class="ltext-103 cl5">Nuestras marcas</h3> </div> <div> <p>Trabajamos con las mejores marcas del mundo ...</p> </div> <div class="row"> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="https://grandesmarcas.cl/wp-content/uploads/2016/06/logo-Costa.jpg" alt="" width="161" height="162" /></div> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="https://www.latinspots.com/files/notas/Gnota_37359.jpg" alt="" width="159" height="89" /></div> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="https://image.slidesharecdn.com/u912337-130617160604-phpapp02/85/identidad-de-marca-san-fernando-1-320.jpg?cb=1666230012" alt="" width="160" height="113" /></div> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="data:image/png;base64,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" alt="" width="162" height="162" /></div> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="data:image/jpeg;base64,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" alt="" width="162" height="162" /></div> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="https://www.businessempresarial.com.pe/wp-content/uploads/2021/02/sedal.png" alt="" width="154" height="154" /></div> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Lay%27s_logo_2019.svg/1200px-Lay%27s_logo_2019.svg.png" alt="" width="150" height="141" /></div> <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 isotope-item women"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQNvn25xMPqBhLW_df4IdRlStlbzZJ-7AM2ek8ZMTnfH1zmN17winsZ2dflAvzF2xlI0A&amp;usqp=CAU" alt="" width="152" height="130" /></div> </div>', '', '2021-07-20 02:40:15', 'inicio', 1),
-	(2, 'Tienda', '<p>Contenido p&aacute;gina!</p>', '', '2021-08-06 01:21:27', 'tienda', 0),
+	(1, 'Inicio', '<div class="p-t-80"> <h3 class="ltext-103 cl5">Nuestras marcas</h3> </div> <div> <p>Trabajamos con las mejores marcas del mundo ...</p> </div> <div class="row"> <div class="col-md-3"><img src="https://grandesmarcas.cl/wp-content/uploads/2016/06/logo-Costa.jpg" alt="" width="155" height="155" /></div> <div class="col-md-3"><img src="https://www.latinspots.com/files/notas/Gnota_37359.jpg" alt="" width="159" height="89" /></div> <div class="col-md-3"><img src="https://image.slidesharecdn.com/u912337-130617160604-phpapp02/85/identidad-de-marca-san-fernando-1-320.jpg?cb=1666230012" alt="" width="160" height="113" /></div> <div class="col-md-3"><img src="data:image/png;base64,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" alt="" width="162" height="162" /></div> <div class="col-md-3"><img src="data:image/jpeg;base64,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" alt="" width="162" height="162" /></div> <div class="col-md-3"><img src="https://www.businessempresarial.com.pe/wp-content/uploads/2021/02/sedal.png" alt="" width="149" height="149" /></div> <div class="col-md-3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Lay%27s_logo_2019.svg/1200px-Lay%27s_logo_2019.svg.png" alt="" width="150" height="141" /></div> <div class="col-md-3"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQNvn25xMPqBhLW_df4IdRlStlbzZJ-7AM2ek8ZMTnfH1zmN17winsZ2dflAvzF2xlI0A&amp;usqp=CAU" alt="" width="183" height="157" /></div> </div>', '', '2021-07-20 02:40:15', 'inicio', 1),
+	(2, 'Tienda', '<p>Contenido p&aacute;gina!</p>', '', '2021-08-06 01:21:27', 'tienda', 1),
 	(3, 'Carrito', '<p>Contenido p&aacute;gina!</p>', '', '2021-08-06 01:21:52', 'carrito', 1),
 	(4, 'Nosotros', '<section class="bg0 p-t-75 p-b-120"> <div class="container"> <div class="row p-b-148"> <div class="col-md-7 col-lg-8"> <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md"> <h3 class="mtext-111 cl2 p-b-16">Historia</h3> <p>Esta negocio familiar naci&oacute; como un emprendimiento con la finalidad de poder abastecer a la poblaci&oacute;n de Quilman&aacute;. Nos dedicamos a ofrecer productos comestibles de alta calidad a precios accesibles. Trabajamos estrechamente con proveedores locales para garantizar la frescura de nuestros productos, desde frutas y verduras hasta productos b&aacute;sicos y art&iacute;culos de limpieza. Nuestra selecci&oacute;n est&aacute; cuidadosamente elegida para satisfacer las necesidades de nuestros clientes.</p> <p>Contamos con una atenci&oacute;n personalizada, nuestro equipo, encabezado por Ra&uacute;l Ch&aacute;vez, te recibir&aacute; con una sonrisa amigable. Martha Flores, la persona encargada de caja, est&aacute; siempre dispuesta a ayudarte a encontrar lo que necesitas o a ofrecerte recomendaciones basadas en nuestro conocimiento local.</p> <p>Estamos ubicados en Av. Arequipa 600, y esperamos que puedas disfrutar de la calidad, la accesibilidad y el sentido de comunidad que el market ofrece a diario. &iexcl;Bienvenido al Market Chamorro!</p> </div> </div> <div class="col-11 col-md-5 col-lg-4 m-lr-auto"> <div class="how-bor1 "> <div class="hov-img0"><img src="https://www.toppropiedades.cl/imagenes/b_c169u435coeb4457.jpg" alt="IMG" width="500" height="333" /></div> </div> </div> </div> <div class="row"> <div class="order-md-2 col-md-7 col-lg-8 p-b-30"> <div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md"> <h2 class="mtext-111 cl2 p-b-16"><span style="color: #236fa1;">Nuestra Misi&oacute;n</span></h2> <div class="bor16 p-l-29 p-b-9 m-t-22">En Market Chamorro, nuestra misi&oacute;n es ser el principal proveedor de productos comestibles de alta calidad a precios accesibles para la comunidad de Quilman&aacute;. Nacimos como un emprendimiento con la firme convicci&oacute;n de abastecer las necesidades esenciales de nuestra poblaci&oacute;n, contribuyendo as&iacute; al bienestar y la prosperidad de cada hogar en nuestro querido pueblo.</div> </div> </div> <div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30"> <div class="how-bor2"> <div class="hov-img0"><img src="https://equipment21.com/wp-content/uploads/diferencias-entre-bodega-y-minimarket.jpg" alt="" width="493" height="286" /></div> </div> </div> </div> </div> </section>', 'fototienda.jpg', '2021-08-09 03:09:44', 'nosotros', 1),
 	(5, 'Contacto', '<div class="map"><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.685802352331!2d-90.73646108521129!3d14.559951589828378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85890e74b3771e19%3A0x68ec9eeea79fd9a7!2sEl%20Arco%20de%20Santa%20Catalina!5e0!3m2!1ses!2sgt!4v1624005005655!5m2!1ses!2sgt" width="100%" height="600" allowfullscreen="allowfullscreen" loading="lazy"></iframe></div>', 'tiendachamorro.jpg', '2021-08-09 03:11:08', 'contacto', 1),
 	(6, 'Preguntas frecuentes', '<ol> <li><strong>&iquest;Cu&aacute;l es el tiempo de entrega de los producto? </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt! Quae doloribus deserunt qui fugit illo nobis ipsum, accusamus eius perferendis beatae culpa molestias!</li> <li><strong>&iquest;C&oacute;mo es la forma de env&iacute;o de los productos?</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur.</li> <li><strong>&iquest;Cu&aacute;l es el tiempo m&aacute;ximo para solicitar un reembolso?</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt!</li> </ol> <p>&nbsp;</p> <p>Otras preguntas</p> <ul> <li><strong>&iquest;Qu&eacute; formas de pago aceptan? </strong><span style="color: #666666; font-family: Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt! Quae doloribus deserunt qui fugit illo nobis ipsum, accusamus eius perferendis beatae culpa molestias!</span></li> </ul>', '', '2021-08-11 01:24:19', 'preguntas-frecuentes', 1),
 	(7, 'Términos y Condiciones', '<p>A continuaci&oacute;n se describen los t&eacute;rmino y condiciones de la Tienda Virtual!</p> <ol> <li>Pol&iacute;tica uno</li> <li>Termino dos</li> <li>Condici&oacute;n tres</li> </ol> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt! Quae doloribus deserunt qui fugit illo nobis ipsum, accusamus eius perferendis beatae culpa molestias!</p>', '', '2021-08-11 01:51:06', 'terminos-y-condiciones', 1),
 	(8, 'Sucursaless', '<section class="py-5 text-center"> <div class="container"> <p>Visitanos y obten los mejores precios del mercado, cualquier art&iacute;culo que necestas para vivir mejor</p> <a class="btn btn-info" href="../../tienda">VER PRODUCTOS</a></div> </section> <div class="py-5 bg-light"> <div class="container"> <div class="row"> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s1.jpg" alt="Tienda Uno" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s2.jpg" alt="Sucural dos" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s3.jpg" alt="Sucural tres" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> </div> </div> </div>', 'chamorroproductos.jpg', '2021-08-11 02:26:45', 'sucursales', 2),
-	(9, 'Not Found', '<h1>Error 404: P&aacute;gina no encontrada</h1> <p>No se encuentra la p&aacute;gina que ha solicitado.</p>', '', '2021-08-12 02:30:49', 'not-found', 1);
+	(9, 'Not Found', '<h1>Error 404: P&aacute;gina no encontrada</h1> <p>No se encuentra la p&aacute;gina que ha solicitado.</p>', '', '2021-08-12 02:30:49', 'not-found', 1),
+	(10, 'xavi', '<p>qye guapo es xavi</p>', '', '2024-03-09 14:36:14', 'xavi', 0);
 
--- Volcando estructura para tabla agencia.producto
+-- Volcando estructura para tabla gsm.producto
 CREATE TABLE IF NOT EXISTS `producto` (
   `idproducto` bigint NOT NULL AUTO_INCREMENT,
   `categoriaid` bigint NOT NULL,
@@ -617,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
   CONSTRAINT `FK_producto_categoria` FOREIGN KEY (`categoriaid`) REFERENCES `categoria` (`idcategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.producto: ~169 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.producto: ~169 rows (aproximadamente)
 DELETE FROM `producto`;
 INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `fecha_v`, `imagen`, `datecreated`, `ruta`, `status`) VALUES
 	(1, 1, '2417984565', 'Chaqueta Azul', '<p>a</p>', 100.00, 50, '2023-12-30', NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 0),
@@ -790,7 +723,7 @@ INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descri
 	(168, 11, '89554458855', 'Caramelos Halls Menta', '<p>Cada paquete contiene 9 caramelos que proporcionan un alivio instant&aacute;neo y una explosi&oacute;n de sabor a Menta. Perfectos para llevar en el bolsillo o en el bolso, estos caramelos son ideales para refrescar tu aliento en cualquier momento del d&iacute;a.</p>', 1.50, 38, '2025-02-13', NULL, '2023-11-29 12:44:57', 'caramelos-halls-menta', 1),
 	(169, 11, '89544855652', 'Caramelos Halls Azul', '<p>Cada paquete contiene 9 caramelos que proporcionan un alivio instant&aacute;neo y una explosi&oacute;n de sabor a Azul. Perfectos para llevar en el bolsillo o en el bolso, estos caramelos son ideales para refrescar tu aliento en cualquier momento del d&iacute;a.</p>', 1.50, 39, '2023-12-12', NULL, '2023-11-29 12:51:02', 'caramelos-halls-azul', 1);
 
--- Volcando estructura para tabla agencia.reembolso
+-- Volcando estructura para tabla gsm.reembolso
 CREATE TABLE IF NOT EXISTS `reembolso` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `pedidoid` bigint NOT NULL,
@@ -803,52 +736,27 @@ CREATE TABLE IF NOT EXISTS `reembolso` (
   CONSTRAINT `FK_reembolso_pedido` FOREIGN KEY (`pedidoid`) REFERENCES `pedido` (`idpedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.reembolso: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.reembolso: ~0 rows (aproximadamente)
 DELETE FROM `reembolso`;
 
--- Volcando estructura para tabla agencia.rol_empleado
-CREATE TABLE IF NOT EXISTS `rol_empleado` (
+-- Volcando estructura para tabla gsm.rol
+CREATE TABLE IF NOT EXISTS `rol` (
   `idrol` bigint NOT NULL AUTO_INCREMENT,
   `nombrerol` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idrol`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+  PRIMARY KEY (`idrol`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.rol_empleado: ~1 rows (aproximadamente)
-DELETE FROM `rol_empleado`;
-INSERT INTO `rol_empleado` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
-	(1, 'Guia', 'guiaaa', 1);
-
--- Volcando estructura para tabla agencia.rol_usuario
-CREATE TABLE IF NOT EXISTS `rol_usuario` (
-  `idrolusuario` bigint NOT NULL AUTO_INCREMENT,
-  `nombrerolusuario` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idrolusuario`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.rol_usuario: ~15 rows (aproximadamente)
-DELETE FROM `rol_usuario`;
-INSERT INTO `rol_usuario` (`idrolusuario`, `nombrerolusuario`, `descripcion`, `status`) VALUES
+-- Volcando datos para la tabla gsm.rol: ~4 rows (aproximadamente)
+DELETE FROM `rol`;
+INSERT INTO `rol` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
 	(1, 'Administrador', 'Acceso a todo el sistema', 1),
 	(2, 'Supervisor', 'Supervisor de tiendas', 1),
 	(3, 'Cliente', 'Clientes en general', 1),
-	(4, 'Vendedor', 'Operador de tienda', 1),
-	(8, 'Guia', 'Encargado de guiar a los clientes en sus actividades', 1),
-	(9, 'ññññ', 'ñññññ', 1),
-	(10, 'aaaaaaa', 'aaaaaa', 0),
-	(11, '111', '111', 0),
-	(12, '22', '222', 0),
-	(14, 'iiiiiiii', 'iiiiiiiiiiiiiiiii', 0),
-	(15, 'ooooooooo', 'oooooooooo', 0),
-	(16, 'BBBBB', 'BBBBBB', 0),
-	(17, 'VVVVVVVVV', 'VVVVVVVVVVV', 0),
-	(18, 'llll5', 'llllllll', 0),
-	(19, 'mmmmmmm', 'mmmmmmmm', 1);
+	(4, 'Vendedor', 'Operador de tienda', 1);
 
--- Volcando estructura para tabla agencia.suscripciones
+-- Volcando estructura para tabla gsm.suscripciones
 CREATE TABLE IF NOT EXISTS `suscripciones` (
   `idsuscripcion` bigint NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -857,7 +765,7 @@ CREATE TABLE IF NOT EXISTS `suscripciones` (
   PRIMARY KEY (`idsuscripcion`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.suscripciones: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.suscripciones: ~4 rows (aproximadamente)
 DELETE FROM `suscripciones`;
 INSERT INTO `suscripciones` (`idsuscripcion`, `nombre`, `email`, `datecreated`) VALUES
 	(2, 'Juan', 'juan@info.com', '2023-10-29 20:42:27'),
@@ -865,7 +773,7 @@ INSERT INTO `suscripciones` (`idsuscripcion`, `nombre`, `email`, `datecreated`) 
 	(5, 'Javier Padin Flores', 'javier@gmail.com', '2023-12-06 17:21:27'),
 	(6, 'Javier Padin Flores', 'javierfff@gmail.com', '2023-12-23 23:25:01');
 
--- Volcando estructura para tabla agencia.tipopago
+-- Volcando estructura para tabla gsm.tipopago
 CREATE TABLE IF NOT EXISTS `tipopago` (
   `idtipopago` bigint NOT NULL AUTO_INCREMENT,
   `tipopago` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -873,7 +781,7 @@ CREATE TABLE IF NOT EXISTS `tipopago` (
   PRIMARY KEY (`idtipopago`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.tipopago: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla gsm.tipopago: ~5 rows (aproximadamente)
 DELETE FROM `tipopago`;
 INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
 	(1, 'PayPal', 1),
