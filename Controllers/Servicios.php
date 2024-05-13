@@ -1,5 +1,5 @@
 <?php
-	class Categorias extends Controllers{
+	class Servicios extends Controllers{
 		public function __construct()
 		{
 			parent::__construct();
@@ -10,62 +10,62 @@
 				header('Location: '.base_url().'/login');
 				die();
 			}
-			getPermisos(MCATEGORIAS);
+			getPermisos(MSERVICIOS);
 		}
 
-		public function Categorias()
+		public function Servicios()
 		{
 			if(empty($_SESSION['permisosMod']['r'])){
 				header("Location:".base_url().'/dashboard');
 			}
-			$data['page_tag'] = "Categorias";
-			$data['page_title'] = "CATEGORIAS <small>Tienda Virtual</small>";
-			$data['page_name'] = "categorias";
-			$data['page_functions_js'] = "functions_categorias.js";
-			$this->views->getView($this,"categorias",$data);
+			$data['page_tag'] = "Servicios";
+			$data['page_title'] = "SERVICIOS";
+			$data['page_name'] = "servicios";
+			$data['page_functions_js'] = "functions_servicios.js";
+			$this->views->getView($this,"servicios",$data);
 		}
 
-		public function setCategoria(){
+		public function setServicio(){
 			if($_POST){
 				if(empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{
 					
-					$intIdcategoria = intval($_POST['idCategoria']);
-					$strCategoria =  strClean($_POST['txtNombre']);
+					$intIdservicio = intval($_POST['idServicio']);
+					$strServicio =  strClean($_POST['txtNombre']);
 					$strDescipcion = strClean($_POST['txtDescripcion']);
 					$intStatus = intval($_POST['listStatus']);
 
-					$ruta = strtolower(clear_cadena($strCategoria));
+					$ruta = strtolower(clear_cadena($strServicio));
 					$ruta = str_replace(" ","-",$ruta);
 
 					$foto   	 	= $_FILES['foto'];
 					$nombre_foto 	= $foto['name'];
 					$type 		 	= $foto['type'];
 					$url_temp    	= $foto['tmp_name'];
-					$imgPortada 	= 'portada_categoria.png';
+					$imgPortada 	= 'portada_servicio.png';
 					$request_cateria = "";
 					if($nombre_foto != ''){
 						$imgPortada = 'img_'.md5(date('d-m-Y H:i:s')).'.jpg';
 					}
 
-					if($intIdcategoria == 0)
+					if($intIdservicio == 0)
 					{
 						//Crear
 						if($_SESSION['permisosMod']['w']){
-							$request_cateria = $this->model->inserCategoria($strCategoria, $strDescipcion,$imgPortada,$ruta,$intStatus);
+							$request_cateria = $this->model->inserServicio($strServicio, $strDescipcion,$imgPortada,$ruta,$intStatus);
 							$option = 1;
 						}
 					}else{
 						//Actualizar
 						if($_SESSION['permisosMod']['u']){
 							if($nombre_foto == ''){
-								if($_POST['foto_actual'] != 'portada_categoria.png' && $_POST['foto_remove'] == 0 ){
+								if($_POST['foto_actual'] != 'portada_servicio.png' && $_POST['foto_remove'] == 0 ){
 									$imgPortada = $_POST['foto_actual'];
 								}
 							}
-							$request_cateria = $this->model->updateCategoria($intIdcategoria,$strCategoria, $strDescipcion,$imgPortada,$ruta,$intStatus);
+							$request_cateria = $this->model->updateServicio($intIdservicio,$strServicio, $strDescipcion,$imgPortada,$ruta,$intStatus);
 							$option = 2;
 						}
 					}
@@ -79,13 +79,13 @@
 							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 							if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }
 
-							if(($nombre_foto == '' && $_POST['foto_remove'] == 1 && $_POST['foto_actual'] != 'portada_categoria.png')
-								|| ($nombre_foto != '' && $_POST['foto_actual'] != 'portada_categoria.png')){
+							if(($nombre_foto == '' && $_POST['foto_remove'] == 1 && $_POST['foto_actual'] != 'portada_servicio.png')
+								|| ($nombre_foto != '' && $_POST['foto_actual'] != 'portada_servicio.png')){
 								deleteFile($_POST['foto_actual']);
 							}
 						}
 					}else if($request_cateria == 'exist'){
-						$arrResponse = array('status' => false, 'msg' => '¡Atención! La categoría ya existe.');
+						$arrResponse = array('status' => false, 'msg' => '¡Atención! Servicio ya existe.');
 					}else{
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
@@ -95,10 +95,10 @@
 			die();
 		}
 
-		public function getCategorias()
+		public function getServicios()
 		{
 			if($_SESSION['permisosMod']['r']){
-				$arrData = $this->model->selectCategorias();
+				$arrData = $this->model->selectServicios();
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = '';
 					$btnEdit = '';
@@ -112,13 +112,13 @@
 					}
 
 					if($_SESSION['permisosMod']['r']){
-						$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idcategoria'].')" title="Ver categoría"><i class="far fa-eye"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idservicio'].')" title="Ver servicio"><i class="far fa-eye"></i></button>';
 					}
 					if($_SESSION['permisosMod']['u']){
-						$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idcategoria'].')" title="Editar categoría"><i class="fas fa-pencil-alt"></i></button>';
+						$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idservicio'].')" title="Editar servicio"><i class="fas fa-pencil-alt"></i></button>';
 					}
 					if($_SESSION['permisosMod']['d']){	
-						$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idcategoria'].')" title="Eliminar categoría"><i class="far fa-trash-alt"></i></button>';
+						$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idservicio'].')" title="Eliminar servicio"><i class="far fa-trash-alt"></i></button>';
 					}
 					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 				}
@@ -127,13 +127,13 @@
 			die();
 		}
 
-		public function getCategoria($idcategoria)
+		public function getServicio($idservicio)
 		{
 			if($_SESSION['permisosMod']['r']){
-				$intIdcategoria = intval($idcategoria);
-				if($intIdcategoria > 0)
+				$intIdservicio = intval($idservicio);
+				if($intIdservicio > 0)
 				{
-					$arrData = $this->model->selectCategoria($intIdcategoria);
+					$arrData = $this->model->selectServicio($intIdservicio);
 					if(empty($arrData))
 					{
 						$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
@@ -147,19 +147,19 @@
 			die();
 		}
 
-		public function delCategoria()
+		public function delServicio()
 		{
 			if($_POST){
 				if($_SESSION['permisosMod']['d']){
-					$intIdcategoria = intval($_POST['idCategoria']);
-					$requestDelete = $this->model->deleteCategoria($intIdcategoria);
+					$intIdservicio = intval($_POST['idservicio']);
+					$requestDelete = $this->model->deleteServicio($intIdservicio);
 					if($requestDelete == 'ok')
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la categoría');
+						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el servicio');
 					}else if($requestDelete == 'exist'){
-						$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar una categoría con productos asociados.');
+						$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar el servicio con productos asociados.');
 					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la categoría.');
+						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el servicio.');
 					}
 					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 				}
@@ -169,11 +169,11 @@
 
 		public function getSelectCategorias(){
 			$htmlOptions = "";
-			$arrData = $this->model->selectCategorias();
+			$arrData = $this->model->selectServicios();
 			if(count($arrData) > 0 ){
 				for ($i=0; $i < count($arrData); $i++) { 
 					if($arrData[$i]['status'] == 1 ){
-					$htmlOptions .= '<option value="'.$arrData[$i]['idcategoria'].'">'.$arrData[$i]['nombre'].'</option>';
+					$htmlOptions .= '<option value="'.$arrData[$i]['idservicio'].'">'.$arrData[$i]['nombre'].'</option>';
 					}
 				}
 			}

@@ -85,11 +85,11 @@
                     <?php } ?>
                     <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
                         <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i>
-                                Deportes</a></li>
+                                Salida</a></li>
                     <?php } ?>
                     <?php if (!empty($_SESSION['permisos'][8]['r'])) { ?>
-                        <li><a class="treeview-item" href="<?= base_url(); ?>/categorias"><i class="icon fa fa-circle-o"></i>
-                                Salida</a></li>
+                        <li><a class="treeview-item" href="<?= base_url(); ?>/servicios"><i class="icon fa fa-circle-o"></i>
+                                Servicios</a></li>
                     <?php } ?>
                 </ul>
             </li>

@@ -1,20 +1,20 @@
-let tableCategorias;
+let tableServicios;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
 
-    tableCategorias = $('#tableCategorias').dataTable( {
+    tableServicios = $('#tableServicios').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Categorias/getCategorias",
+            "url": " "+base_url+"/Servicios/getServicios",
             "dataSrc":""
         },
         "columns":[
-            {"data":"idcategoria"},
+            {"data":"idservicio"},
             {"data":"nombre"},
             {"data":"descripcion"},
             {"data":"status"},
@@ -95,9 +95,9 @@ document.addEventListener('DOMContentLoaded', function(){
 	    }
 	}
 
-	//NUEVA CATEGORIA
-    let formCategoria = document.querySelector("#formCategoria");
-    formCategoria.onsubmit = function(e) {
+	//NUEVO SERVICIO
+    let formServicio = document.querySelector("#formServicio");
+    formServicio.onsubmit = function(e) {
         e.preventDefault();
         let strNombre = document.querySelector('#txtNombre').value;
         let strDescripcion = document.querySelector('#txtDescripcion').value;
@@ -109,18 +109,17 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         divLoading.style.display = "flex";
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        let ajaxUrl = base_url+'/Categorias/setCategoria'; 
-        let formData = new FormData(formCategoria);
+        let ajaxUrl = base_url+'/Servicios/setServicio'; 
+        let formData = new FormData(formServicio);
         request.open("POST",ajaxUrl,true);
         request.send(formData);
         request.onreadystatechange = function(){
            if(request.readyState == 4 && request.status == 200){
-                
                 let objData = JSON.parse(request.responseText);
                 if(objData.status)
                 {
                     if(rowTable == ""){
-                        tableCategorias.api().ajax.reload();
+                        tableServicios.api().ajax.reload();
                     }else{
                         htmlStatus = intStatus == 1 ? 
                             '<span class="badge badge-success">Activo</span>' : 
@@ -131,9 +130,9 @@ document.addEventListener('DOMContentLoaded', function(){
                         rowTable = "";
                     }
 
-                    $('#modalFormCategorias').modal("hide");
-                    formCategoria.reset();
-                    swal("Categoria", objData.msg ,"success");
+                    $('#modalFormServicios').modal("hide");
+                    formServicio.reset();
+                    swal("Servicio", objData.msg ,"success");
                     removePhoto();
                 }else{
                     swal("Error", objData.msg , "error");
@@ -146,9 +145,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
 }, false);
 
-function fntViewInfo(idcategoria){
+function fntViewInfo(idservicio){
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
+    let ajaxUrl = base_url+'/Servicios/getServicio/'+idservicio;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -159,12 +158,12 @@ function fntViewInfo(idcategoria){
                 let estado = objData.data.status == 1 ? 
                 '<span class="badge badge-success">Activo</span>' : 
                 '<span class="badge badge-danger">Inactivo</span>';
-                document.querySelector("#celId").innerHTML = objData.data.idcategoria;
+                document.querySelector("#celId").innerHTML = objData.data.idservicio;
                 document.querySelector("#celNombre").innerHTML = objData.data.nombre;
                 document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;
                 document.querySelector("#celEstado").innerHTML = estado;
-                document.querySelector("#imgCategoria").innerHTML = '<img src="'+objData.data.url_portada+'"></img>';
-                $('#modalViewCategoria').modal('show');
+                document.querySelector("#imgServicio").innerHTML = '<img src="'+objData.data.url_portada+'"></img>';
+                $('#modalViewServicio').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
             }
@@ -172,14 +171,14 @@ function fntViewInfo(idcategoria){
     }
 }
 
-function fntEditInfo(element,idcategoria){
+function fntEditInfo(element,idservicio){
     rowTable = element.parentNode.parentNode.parentNode;
-    document.querySelector('#titleModal').innerHTML ="Actualizar Categoría";
+    document.querySelector('#titleModal').innerHTML ="Actualizar Servicio";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
+    let ajaxUrl = base_url+'/Servicios/getServicio/'+idservicio;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -187,7 +186,7 @@ function fntEditInfo(element,idcategoria){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                document.querySelector("#idCategoria").value = objData.data.idcategoria;
+                document.querySelector("#idServicio").value = objData.data.idservicio;
                 document.querySelector("#txtNombre").value = objData.data.nombre;
                 document.querySelector("#txtDescripcion").value = objData.data.descripcion;
                 document.querySelector('#foto_actual').value = objData.data.portada;
@@ -206,13 +205,13 @@ function fntEditInfo(element,idcategoria){
                     document.querySelector('.prevPhoto div').innerHTML = "<img id='img' src="+objData.data.url_portada+">";
                 }
 
-                if(objData.data.portada == 'portada_categoria.png'){
+                if(objData.data.portada == 'portada_servicio.png'){
                     document.querySelector('.delPhoto').classList.add("notBlock");
                 }else{
                     document.querySelector('.delPhoto').classList.remove("notBlock");
                 }
 
-                $('#modalFormCategorias').modal('show');
+                $('#modalFormServicios').modal('show');
 
             }else{
                 swal("Error", objData.msg , "error");
@@ -221,10 +220,10 @@ function fntEditInfo(element,idcategoria){
     }
 }
 
-function fntDelInfo(idcategoria){
+function fntDelInfo(idservicio){
     swal({
-        title: "Eliminar Categoría",
-        text: "¿Realmente quiere eliminar al categoría?",
+        title: "Eliminar Servicio",
+        text: "¿Realmente quiere eliminar el Servicio?",
         type: "warning",
         showCancelButton: true,
         confirmButtonText: "Si, eliminar!",
@@ -236,8 +235,8 @@ function fntDelInfo(idcategoria){
         if (isConfirm) 
         {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Categorias/delCategoria';
-            let strData = "idCategoria="+idcategoria;
+            let ajaxUrl = base_url+'/Servicios/delServicio';
+            let strData = "idservicio="+idservicio;
             request.open("POST",ajaxUrl,true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
@@ -247,7 +246,7 @@ function fntDelInfo(idcategoria){
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableCategorias.api().ajax.reload();
+                        tableServicios.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }
@@ -270,13 +269,13 @@ function removePhoto(){
 function openModal()
 {
     rowTable = "";
-    document.querySelector('#idCategoria').value ="";
+    document.querySelector('#idServicio').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
-    document.querySelector('#titleModal').innerHTML = "Nueva Categoría";
-    document.querySelector("#formCategoria").reset();
-    $('#modalFormCategorias').modal('show');
+    document.querySelector('#titleModal').innerHTML = "Nuevo Servicio";
+    document.querySelector("#formServicio").reset();
+    $('#modalFormServicios').modal('show');
     removePhoto();
     clocemenu();
 }

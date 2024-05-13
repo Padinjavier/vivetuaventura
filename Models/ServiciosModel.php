@@ -1,9 +1,9 @@
 <?php 
 
-	class CategoriasModel extends Mysql
+	class ServiciosModel extends Mysql
 	{
-		public $intIdcategoria;
-		public $strCategoria;
+		public $intIdservicio;
+		public $strServicio;
 		public $strDescripcion;
 		public $intStatus;
 		public $strPortada;
@@ -14,22 +14,22 @@
 			parent::__construct();
 		}
 
-		public function inserCategoria(string $nombre, string $descripcion, string $portada, string $ruta, int $status){
+		public function inserServicio(string $nombre, string $descripcion, string $portada, string $ruta, int $status){
 
 			$return = 0;
-			$this->strCategoria = $nombre;
+			$this->strServicio = $nombre;
 			$this->strDescripcion = $descripcion;
 			$this->strPortada = $portada;
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCategoria}' ";
+			$sql = "SELECT * FROM servicio WHERE nombre = '{$this->strServicio}' ";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO categoria(nombre,descripcion,portada,ruta,status) VALUES(?,?,?,?,?)";
-	        	$arrData = array($this->strCategoria, 
+				$query_insert  = "INSERT INTO servicio(nombre,descripcion,portada,ruta,status) VALUES(?,?,?,?,?)";
+	        	$arrData = array($this->strServicio, 
 								 $this->strDescripcion, 
 								 $this->strPortada,
 								 $this->strRuta, 
@@ -42,37 +42,37 @@
 			return $return;
 		}
 
-		public function selectCategorias()
+		public function selectServicios()
 		{
-			$sql = "SELECT * FROM categoria 
+			$sql = "SELECT * FROM servicio 
 					WHERE status != 0 ";
 			$request = $this->select_all($sql);
 			return $request;
 		}
 
-		public function selectCategoria(int $idcategoria){
-			$this->intIdcategoria = $idcategoria;
-			$sql = "SELECT * FROM categoria
-					WHERE idcategoria = $this->intIdcategoria";
+		public function selectServicio(int $idservicio){
+			$this->intIdservicio = $idservicio;
+			$sql = "SELECT * FROM servicio
+					WHERE idservicio = $this->intIdservicio";
 			$request = $this->select($sql);
 			return $request;
 		}
 
-		public function updateCategoria(int $idcategoria, string $categoria, string $descripcion, string $portada, string $ruta, int $status){
-			$this->intIdcategoria = $idcategoria;
-			$this->strCategoria = $categoria;
+		public function updateServicio(int $idservicio, string $nombre, string $descripcion, string $portada, string $ruta, int $status){
+			$this->intIdservicio = $idservicio;
+			$this->strServicio = $nombre;
 			$this->strDescripcion = $descripcion;
 			$this->strPortada = $portada;
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCategoria}' AND idcategoria != $this->intIdcategoria";
+			$sql = "SELECT * FROM servicio WHERE nombre = '{$this->strServicio}' AND idservicio != $this->intIdservicio";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$sql = "UPDATE categoria SET nombre = ?, descripcion = ?, portada = ?, ruta = ?, status = ? WHERE idcategoria = $this->intIdcategoria ";
-				$arrData = array($this->strCategoria, 
+				$sql = "UPDATE servicio SET nombre = ?, descripcion = ?, portada = ?, ruta = ?, status = ? WHERE idservicio = $this->intIdservicio ";
+				$arrData = array($this->strServicio, 
 								 $this->strDescripcion, 
 								 $this->strPortada,
 								 $this->strRuta, 
@@ -84,14 +84,14 @@
 		    return $request;			
 		}
 
-		public function deleteCategoria(int $idcategoria)
+		public function deleteServicio(int $idservicio)
 		{
-			$this->intIdcategoria = $idcategoria;
-			$sql = "SELECT * FROM producto WHERE categoriaid = $this->intIdcategoria";
+			$this->intIdservicio = $idservicio;
+			$sql = "SELECT * FROM producto WHERE categoriaid = $this->intIdservicio";
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{
-				$sql = "UPDATE categoria SET status = ? WHERE idcategoria = $this->intIdcategoria ";
+				$sql = "UPDATE servicio SET status = ? WHERE idservicio = $this->intIdservicio";
 				$arrData = array(0);
 				$request = $this->update($sql,$arrData);
 				if($request)
@@ -107,8 +107,8 @@
 		}	
 
 		public function getCategoriasFooter(){
-			$sql = "SELECT idcategoria, nombre, descripcion, portada, ruta
-					FROM categoria WHERE  status = 1 AND idcategoria IN (".CAT_FOOTER.")";
+			$sql = "SELECT idservicio, nombre, descripcion, portada, ruta
+					FROM servicio WHERE  status = 1 AND idservicio IN (".CAT_FOOTER.")";
 			$request = $this->select_all($sql);
 			if(count($request) > 0){
 				for ($c=0; $c < count($request) ; $c++) { 

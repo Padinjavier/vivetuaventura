@@ -1,16 +1,16 @@
 <!-- Modal -->
-<div class="modal fade" id="modalFormCategorias" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalFormServicios" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header headerRegister">
-        <h5 class="modal-title" id="titleModal">Nueva Categoría</h5>
+        <h5 class="modal-title" id="titleModal">Nueva Deperte</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-            <form id="formCategoria" name="formCategoria" class="form-horizontal">
-              <input type="hidden" id="idCategoria" name="idCategoria" value="">
+            <form id="formServicio" name="formServicio" class="form-horizontal">
+              <input type="hidden" id="idServicio" name="idServicio" value="">
               <input type="hidden" id="foto_actual" name="foto_actual" value="">
               <input type="hidden" id="foto_remove" name="foto_remove" value="0">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
@@ -18,11 +18,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                       <label class="control-label">Nombre <span class="required">*</span></label>
-                      <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre Categoría" required="">
+                      <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre Servicio" required="">
                     </div>
                     <div class="form-group">
                       <label class="control-label">Descripción <span class="required">*</span></label>
-                      <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción Categoría" required=""></textarea>
+                      <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción Servicio" required=""></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleSelect1">Estado <span class="required">*</span></label>
@@ -39,7 +39,7 @@
                           <span class="delPhoto notBlock">X</span>
                           <label for="foto"></label>
                           <div>
-                            <img id="img" src="<?= media(); ?>/images/uploads/portada_categoria.png">
+                            <img id="img" src="<?= media(); ?>/images/uploads/portada_servicio.png">
                           </div>
                         </div>
                         <div class="upimg">
@@ -61,11 +61,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalViewCategoria" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalViewServicio" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Datos de la categoría</h5>
+        <h5 class="modal-title" id="titleModal">Datos del Servicio</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -91,7 +91,7 @@
             </tr>
             <tr>
               <td>Foto:</td>
-              <td id="imgCategoria"></td>
+              <td id="imgServicio"></td>
             </tr>
           </tbody>
         </table>

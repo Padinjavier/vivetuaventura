@@ -83,7 +83,7 @@
     border: 1px solid #CCC;
     position: relative;
     cursor: pointer;
-    background: url(../images/uploads/portada_categoria.png);
+    background: url(../images/uploads/portada_servicio.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -143,10 +143,10 @@
 	width: 175px;
 }
 
-#imgCategoria{
+#imgServicio{
 	text-align: center;
 }
-#imgCategoria img{
+#imgServicio img{
 	width: 200px;
 	margin: auto;
 }
