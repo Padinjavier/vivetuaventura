@@ -38,7 +38,7 @@
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,rolid,status) 
+				$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,rolidempleado,status) 
 								  VALUES(?,?,?,?,?,?,?)";
 	        	$arrData = array($this->strIdentificacion,
         						$this->strNombre,
@@ -50,10 +50,7 @@
 	        	$request_insert = $this->insert($query_insert,$arrData);
 
 
-				$query_insertop  = "INSERT INTO opciones(personaid, idioma, tema, formato_moneda) VALUES(?,?,?,?)";
-					$arrDataop = array($request_insert , 1, 1, 1); 
-					$request_insertop = $this->insert($query_insertop, $arrDataop);
-	        	$return = $request_insertop;
+	        	$return = $request_insert;
 			}else{
 				$return = -1;
 			}
@@ -66,26 +63,26 @@
 			if($_SESSION['idUser'] != 1 ){
 				$whereAdmin = " and p.idpersona != 1 ";
 			}
-			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.status,r.idrolusuario,r.nombrerolusuario 
+			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.status,r.idrolempleado,r.nombrerolempleado 
 					FROM persona p 
-					INNER JOIN rol_usuario r
-					ON p.rolid = r.idrolusuario
+					INNER JOIN rol_empleado r
+					ON p.rolidempleado = r.idrolempleado
 					WHERE p.status != 0 ".$whereAdmin;
 					$request = $this->select_all($sql);
 					return $request;
 		}
 		public function selectEmpleado(int $idpersona){
 			$this->intIdEmpleado = $idpersona;
-			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrolusuario,r.nombrerolusuario,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y | %h:%i:%s %p')			as fechaRegistro 
+			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrolempleado,r.nombrerolempleado,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y | %h:%i:%s %p')			as fechaRegistro 
 					FROM persona p
-					INNER JOIN rol_usuario r
-					ON p.rolid = r.idrolusuario
+					INNER JOIN rol_empleado r
+					ON p.rolidempleado = r.idrolempleado
 					WHERE p.idpersona = $this->intIdEmpleado";
 			$request = $this->select($sql);
 			return $request;
 		}
 
-		public function updateEmpleado(int $idEmpleado, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
+		public function updateEmpleado(int $idEmpleado, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, int $tipoid, int $status){
 
 			$this->intIdEmpleado = $idEmpleado;
 			$this->strIdentificacion = $identificacion;
@@ -93,7 +90,6 @@
 			$this->strApellido = $apellido;
 			$this->intTelefono = $telefono;
 			$this->strEmail = $email;
-			$this->strPassword = $password;
 			$this->intTipoId = $tipoid;
 			$this->intStatus = $status;
 
@@ -103,20 +99,7 @@
 
 			if(empty($request))
 			{
-				if($this->strPassword  != "")
-				{
-					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, password=?, rolid=?, status=? 
-							WHERE idpersona = $this->intIdEmpleado ";
-					$arrData = array($this->strIdentificacion,
-	        						$this->strNombre,
-	        						$this->strApellido,
-	        						$this->intTelefono,
-	        						$this->strEmail,
-	        						$this->strPassword,
-	        						$this->intTipoId,
-	        						$this->intStatus);
-				}else{
-					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, rolid=?, status=? 
+					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, rolidempleado=?, status=? 
 							WHERE idpersona = $this->intIdEmpleado ";
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
@@ -125,13 +108,12 @@
 	        						$this->strEmail,
 	        						$this->intTipoId,
 	        						$this->intStatus);
-				}
+				
 				$request = $this->update($sql,$arrData);
 			}else{
 				$request = -1;
 			}
 			return $request;
-		
 		}
 		public function deleteEmpleado(int $intIdpersona)
 		{

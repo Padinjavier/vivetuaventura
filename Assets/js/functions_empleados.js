@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
             {"data":"apellidos"},
             {"data":"email_user"},
             {"data":"telefono"},
-            {"data":"nombrerolusuario"},
+            {"data":"nombrerolempleado"},
             {"data":"status"},
             {"data":"options"}
         ],
@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function(){
             let strEmail = document.querySelector('#txtEmail').value;
             let intTelefono = document.querySelector('#txtTelefono').value;
             let intTipoempleado = document.querySelector('#listRolid').value;
-            // let strPassword = document.querySelector('#txtPassword').value;
             let intStatus = document.querySelector('#listStatus').value;
 
             if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || intTipoempleado == '')
@@ -119,123 +118,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
     }
-//     //Actualizar Perfil
-//     if(document.querySelector("#formPerfil")){
-//         let formPerfil = document.querySelector("#formPerfil");
-//         formPerfil.onsubmit = function(e) {
-//             e.preventDefault();
-//             let strIdentificacion = document.querySelector('#txtIdentificacion').value;
-//             let strNombre = document.querySelector('#txtNombre').value;
-//             let strApellido = document.querySelector('#txtApellido').value;
-//             let intTelefono = document.querySelector('#txtTelefono').value;
-//             let strPassword = document.querySelector('#txtPassword').value;
-//             let strPasswordConfirm = document.querySelector('#txtPasswordConfirm').value;
-
-//             if(strIdentificacion == '' || strApellido == '' || strNombre == '' || intTelefono == '' )
-//             {
-//                 swal("Atención", "Todos los campos son obligatorios." , "error");
-//                 return false;
-//             }
-
-//             if(strPassword != "" || strPasswordConfirm != "")
-//             {   
-//                 if( strPassword != strPasswordConfirm ){
-//                     swal("Atención", "Las contraseñas no son iguales." , "info");
-//                     return false;
-//                 }           
-//                 if(strPassword.length < 5 ){
-//                     swal("Atención", "La contraseña debe tener un mínimo de 5 caracteres." , "info");
-//                     return false;
-//                 }
-//             }
-
-//             let elementsValid = document.getElementsByClassName("valid");
-//             for (let i = 0; i < elementsValid.length; i++) { 
-//                 if(elementsValid[i].classList.contains('is-invalid')) { 
-//                     swal("Atención", "Por favor verifique los campos en rojo." , "error");
-//                     return false;
-//                 } 
-//             } 
-//             divLoading.style.display = "flex";
-//             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-//             let ajaxUrl = base_url+'/Empleados/putPerfil'; 
-//             let formData = new FormData(formPerfil);
-//             request.open("POST",ajaxUrl,true);
-//             request.send(formData);
-//             request.onreadystatechange = function(){
-//                 if(request.readyState != 4 ) return; 
-//                 if(request.status == 200){
-//                     let objData = JSON.parse(request.responseText);
-//                     if(objData.status)
-//                     {
-//                         $('#modalFormPerfil').modal("hide");
-//                         swal({
-//                             title: "",
-//                             text: objData.msg,
-//                             type: "success",
-//                             confirmButtonText: "Aceptar",
-//                             closeOnConfirm: false,
-//                         }, function(isConfirm) {
-//                             if (isConfirm) {
-//                                 location.reload();
-//                             }
-//                         });
-//                     }else{
-//                         swal("Error", objData.msg , "error");
-//                     }
-//                 }
-//                 divLoading.style.display = "none";
-//                 return false;
-//             }
-//         }
-//     }
-//     //Actualizar Datos Fiscales
-//     if(document.querySelector("#formDataFiscal")){
-//         let formDataFiscal = document.querySelector("#formDataFiscal");
-//         formDataFiscal.onsubmit = function(e) {
-//             e.preventDefault();
-//             let strNit = document.querySelector('#txtNit').value;
-//             let strNombreFiscal = document.querySelector('#txtNombreFiscal').value;
-//             let strDirFiscal = document.querySelector('#txtDirFiscal').value;
-           
-//             if(strNit == '' || strNombreFiscal == '' || strDirFiscal == '' )
-//             {
-//                 swal("Atención", "Todos los campos son obligatorios." , "error");
-//                 return false;
-//             }
-//             divLoading.style.display = "flex";
-//             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-//             let ajaxUrl = base_url+'/Empleados/putDFical'; 
-//             let formData = new FormData(formDataFiscal);
-//             request.open("POST",ajaxUrl,true);
-//             request.send(formData);
-//             request.onreadystatechange = function(){
-//                 if(request.readyState != 4 ) return; 
-//                 if(request.status == 200){
-//                     let objData = JSON.parse(request.responseText);
-//                     if(objData.status)
-//                     {
-//                         $('#modalFormPerfil').modal("hide");
-//                         swal({
-//                             title: "",
-//                             text: objData.msg,
-//                             type: "success",
-//                             confirmButtonText: "Aceptar",
-//                             closeOnConfirm: false,
-//                         }, function(isConfirm) {
-//                             if (isConfirm) {
-//                                 location.reload();
-//                             }
-//                         });
-//                     }else{
-//                         swal("Error", objData.msg , "error");
-//                     }
-//                 }
-//                 divLoading.style.display = "none";
-//                 return false;
-//             }
-//         }
-//     }
 
 }, false);
 
@@ -246,7 +128,7 @@ window.addEventListener('load', function() {
 
 function fntRolesEmpleado(){
     if(document.querySelector('#listRolid')){
-        let ajaxUrl = base_url+'/Roles/getSelectRoles';
+        let ajaxUrl = base_url+'/RolesEmpleados/getSelectRoles';
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         request.open("GET",ajaxUrl,true);
         request.send();
@@ -279,7 +161,7 @@ function fntViewEmpleado(idpersona){
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celTipoEmpleado").innerHTML = objData.data.nombrerolusuario;
+                document.querySelector("#celTipoEmpleado").innerHTML = objData.data.nombrerolempleado;
                 document.querySelector("#celEstado").innerHTML = estadoEmpleado;
                 document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
                 $('#modalViewUser').modal('show');
@@ -316,7 +198,7 @@ function fntEditEmpleado(element,idpersona){
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
                 document.querySelector("#txtTelefono").value = objData.data.telefono;
                 document.querySelector("#txtEmail").value = objData.data.email_user;
-                document.querySelector("#listRolid").value =objData.data.idrolusuario;
+                document.querySelector("#listRolid").value =objData.data.idrolempleado;
                 $('#listRolid').selectpicker('render');
 
                 if(objData.data.status == 1){

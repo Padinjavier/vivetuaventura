@@ -70,7 +70,7 @@
 					if($request_user > 0 )
 					{
 						if($option == 1){
-							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente. ' . $request_user);
+							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente. ');
 						}else{
 							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
 						}
@@ -105,22 +105,11 @@
 						$btnView = '<button class="btn btn-info btn-sm btnViewEmpleado" onClick="fntViewEmpleado('.$arrData[$i]['idpersona'].')" title="Ver Empleado"><i class="far fa-eye"></i></button>';
 					}
 					if($_SESSION['permisosMod']['u']){
-						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrolusuario'] == 1) ||
-							($_SESSION['userData']['idrolusuario'] == 1 and $arrData[$i]['idrolusuario'] != 1) ){
 							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditEmpleado" onClick="fntEditEmpleado(this,'.$arrData[$i]['idpersona'].')" title="Editar Empleado"><i class="fas fa-pencil-alt"></i></button>';
-						}else{
-							$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
-						}
+						
 					}
 					if($_SESSION['permisosMod']['d']){
-						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrolusuario'] == 1) ||
-							($_SESSION['userData']['idrolusuario'] == 1 and $arrData[$i]['idrolusuario'] != 1) and
-							($_SESSION['userData']['idpersona'] != $arrData[$i]['idpersona'] )
-							 ){
 							$btnDelete = '<button class="btn btn-danger btn-sm btnDelEmpleado" onClick="fntDelEmpleado('.$arrData[$i]['idpersona'].')" title="Eliminar Empleado"><i class="far fa-trash-alt"></i></button>';
-						}else{
-							$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
-						}
 					}
 					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 				}
@@ -155,7 +144,7 @@
 					$requestDelete = $this->model->deleteEmpleado($intIdpersona);
 					if($requestDelete)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado al Empleado '. $intIdpersona);
+						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado al Empleado ');
 					}else{
 						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar al Empleado.');
 					}

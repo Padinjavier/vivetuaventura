@@ -68,7 +68,7 @@
 		public function getSelectRoles()
 		{
 			$htmlOptions = "";
-			$arrData = $this->model->selectRoles();
+			$arrData = $this->model->selectRolesEmpleados();
 			if(count($arrData) > 0 ){
 				for ($i=0; $i < count($arrData); $i++) { 
 					if($arrData[$i]['status'] == 1 ){

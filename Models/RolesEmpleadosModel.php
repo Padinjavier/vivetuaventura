@@ -14,12 +14,13 @@
 
 		public function selectRolesEmpleados()
 		{
-			$whereAdmin = "";
-			if($_SESSION['idUser'] != 1 ){
-				$whereAdmin = " and idrolempleado != 1 ";
-			}
+			// $whereAdmin = "";
+			// if($_SESSION['idUser'] != 1 ){
+			// 	$whereAdmin = " and idrolempleado != 1 ";
+			// }
 			//EXTRAE ROLES
-			$sql = "SELECT * FROM rol_empleado WHERE status != 0".$whereAdmin;
+			// $sql = "SELECT * FROM rol_empleado WHERE status != 0".$whereAdmin;
+			$sql = "SELECT * FROM rol_empleado WHERE status != 0";
 			$request = $this->select_all($sql);
 			return $request;
 		}
