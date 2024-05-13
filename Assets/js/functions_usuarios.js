@@ -242,7 +242,7 @@ window.addEventListener('load', function() {
 
 function fntRolesUsuario(){
     if(document.querySelector('#listRolid')){
-        let ajaxUrl = base_url+'/Roles/getSelectRoles';
+        let ajaxUrl = base_url+'/RolesUsuarios/getSelectRoles';
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         request.open("GET",ajaxUrl,true);
         request.send();
