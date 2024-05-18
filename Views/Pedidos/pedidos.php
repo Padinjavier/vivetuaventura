@@ -8,9 +8,12 @@
         <div>
             <h1><i class="fas fa-box"></i> <?= $data['page_title'] ?></h1>
         </div>
+        <button class="btn btn-primary" type="button" onclick="newpedidojs();" ><i class="fas fa-plus-circle"></i> Nuevo</button>
+
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
           <li class="breadcrumb-item"><a href="<?= base_url(); ?>/pedidos"><?= $data['page_title'] ?></a></li>
+          <button onClick >cccccc</button>
         </ul>
       </div>
         <div class="row">

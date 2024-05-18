@@ -165,6 +165,35 @@ function fntEditInfo(element,idpedido){
         }
     }
 }
+function newpedidojs(){
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Pedidos/newPedido/';
+    divLoading.style.display = "flex";
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            try {
+                console.log(request)
+                console.log(request.responseText)
+                let objData = JSON.parse(request.responseText);
+                if(objData.status) {
+                    document.querySelector("#divModal").innerHTML = objData.html;
+                    $('#modalFormPedido').modal('show');
+                    $('select').selectpicker();
+                    fntUpdateInfo();
+                } else {
+                    swal("Error", objData.msg , "error");
+                }
+            } catch (e) {
+                console.error("Parsing error:", e);
+                swal("Error", "Error al procesar la respuesta del servidor", "error");
+            }
+            divLoading.style.display = "none";
+        }
+    }
+}
+
 
 function fntUpdateInfo(){
     let formUpdatePedido = document.querySelector("#formUpdatePedido");
