@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="txtPassword">Password </label>
-                  <input type="password" class="form-control" id="txtPassword" name="txtPassword" >
+                  <!-- <input type="password" class="form-control" id="txtPassword" name="txtPassword" > -->
                 </div>
               </div>
               <hr>
