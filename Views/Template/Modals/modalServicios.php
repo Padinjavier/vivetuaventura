@@ -25,6 +25,10 @@
                       <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción Servicio" required=""></textarea>
                     </div>
                     <div class="form-group">
+                      <label class="control-label">Precio <span class="required">*</span></label>
+                      <input class="form-control" id="txtPrecio" name="txtPrecio" type="number"  min="0" step="0.10"  placeholder="Precio Servicio" required="">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleSelect1">Estado <span class="required">*</span></label>
                         <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
                           <option value="1">Activo</option>
@@ -84,6 +88,10 @@
             <tr>
               <td>Descripción:</td>
               <td id="celDescripcion"></td>
+            </tr>
+            <tr>
+              <td>Precio:</td>
+              <td id="celPrecio"></td>
             </tr>
             <tr>
               <td>Estado:</td>

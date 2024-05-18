@@ -5,6 +5,7 @@
 		public $intIdservicio;
 		public $strServicio;
 		public $strDescripcion;
+		public $strPrecio;
 		public $intStatus;
 		public $strPortada;
 		public $strRuta;
@@ -14,11 +15,12 @@
 			parent::__construct();
 		}
 
-		public function inserServicio(string $nombre, string $descripcion, string $portada, string $ruta, int $status){
+		public function inserServicio(string $nombre, string $descripcion, string $precio , string $portada, string $ruta, int $status){
 
 			$return = 0;
 			$this->strServicio = $nombre;
 			$this->strDescripcion = $descripcion;
+			$this->strPrecio = $precio;
 			$this->strPortada = $portada;
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
@@ -28,9 +30,10 @@
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO servicio(nombre,descripcion,portada,ruta,status) VALUES(?,?,?,?,?)";
+				$query_insert  = "INSERT INTO servicio(nombre,descripcion,precio,portada,ruta,status) VALUES(?,?,?,?,?,?)";
 	        	$arrData = array($this->strServicio, 
 								 $this->strDescripcion, 
+								 $this->strPrecio, 
 								 $this->strPortada,
 								 $this->strRuta, 
 								 $this->intStatus);
@@ -58,10 +61,11 @@
 			return $request;
 		}
 
-		public function updateServicio(int $idservicio, string $nombre, string $descripcion, string $portada, string $ruta, int $status){
+		public function updateServicio(int $idservicio, string $nombre, string $descripcion, string $precio, string $portada, string $ruta, int $status){
 			$this->intIdservicio = $idservicio;
 			$this->strServicio = $nombre;
 			$this->strDescripcion = $descripcion;
+			$this->strPrecio = $precio;
 			$this->strPortada = $portada;
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
@@ -71,9 +75,10 @@
 
 			if(empty($request))
 			{
-				$sql = "UPDATE servicio SET nombre = ?, descripcion = ?, portada = ?, ruta = ?, status = ? WHERE idservicio = $this->intIdservicio ";
+				$sql = "UPDATE servicio SET nombre = ?, descripcion = ?, precio = ?, portada = ?, ruta = ?, status = ? WHERE idservicio = $this->intIdservicio ";
 				$arrData = array($this->strServicio, 
 								 $this->strDescripcion, 
+								 $this->strPrecio, 
 								 $this->strPortada,
 								 $this->strRuta, 
 								 $this->intStatus);

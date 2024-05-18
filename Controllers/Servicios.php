@@ -27,7 +27,7 @@
 
 		public function setServicio(){
 			if($_POST){
-				if(empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus']) )
+				if(empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['txtPrecio']) || empty($_POST['listStatus']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{
@@ -35,6 +35,7 @@
 					$intIdservicio = intval($_POST['idServicio']);
 					$strServicio =  strClean($_POST['txtNombre']);
 					$strDescipcion = strClean($_POST['txtDescripcion']);
+					$strPrecio = strClean($_POST['txtPrecio']);
 					$intStatus = intval($_POST['listStatus']);
 
 					$ruta = strtolower(clear_cadena($strServicio));
@@ -54,7 +55,7 @@
 					{
 						//Crear
 						if($_SESSION['permisosMod']['w']){
-							$request_cateria = $this->model->inserServicio($strServicio, $strDescipcion,$imgPortada,$ruta,$intStatus);
+							$request_cateria = $this->model->inserServicio($strServicio, $strDescipcion, $strPrecio, $imgPortada,$ruta,$intStatus);
 							$option = 1;
 						}
 					}else{
@@ -65,7 +66,7 @@
 									$imgPortada = $_POST['foto_actual'];
 								}
 							}
-							$request_cateria = $this->model->updateServicio($intIdservicio,$strServicio, $strDescipcion,$imgPortada,$ruta,$intStatus);
+							$request_cateria = $this->model->updateServicio($intIdservicio,$strServicio, $strDescipcion, $strPrecio ,$imgPortada,$ruta,$intStatus);
 							$option = 2;
 						}
 					}
@@ -103,6 +104,8 @@
 					$btnView = '';
 					$btnEdit = '';
 					$btnDelete = '';
+
+					$arrData[$i]['precio']= "S/".($arrData[$i]['precio']);
 
 					if($arrData[$i]['status'] == 1)
 					{

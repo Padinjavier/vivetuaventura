@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
             {"data":"idservicio"},
             {"data":"nombre"},
             {"data":"descripcion"},
+            {"data":"precio"},
             {"data":"status"},
             {"data":"options"}
         ],
@@ -101,8 +102,9 @@ document.addEventListener('DOMContentLoaded', function(){
         e.preventDefault();
         let strNombre = document.querySelector('#txtNombre').value;
         let strDescripcion = document.querySelector('#txtDescripcion').value;
+        let strPrecio = document.querySelector('#txtPrecio').value;
         let intStatus = document.querySelector('#listStatus').value;        
-        if(strNombre == '' || strDescripcion == '' || intStatus == '')
+        if(strNombre == '' || strDescripcion == '' || intStatus == '' || strPrecio == '' )
         {
             swal("Atención", "Todos los campos son obligatorios." , "error");
             return false;
@@ -126,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function(){
                             '<span class="badge badge-danger">Inactivo</span>';
                         rowTable.cells[1].textContent = strNombre;
                         rowTable.cells[2].textContent = strDescripcion;
-                        rowTable.cells[3].innerHTML = htmlStatus;
+                        rowTable.cells[3].textContent = strPrecio;
+                        rowTable.cells[4].innerHTML = htmlStatus;
                         rowTable = "";
                     }
 
@@ -161,6 +164,7 @@ function fntViewInfo(idservicio){
                 document.querySelector("#celId").innerHTML = objData.data.idservicio;
                 document.querySelector("#celNombre").innerHTML = objData.data.nombre;
                 document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;
+                document.querySelector("#celPrecio").innerHTML = objData.data.precio;
                 document.querySelector("#celEstado").innerHTML = estado;
                 document.querySelector("#imgServicio").innerHTML = '<img src="'+objData.data.url_portada+'"></img>';
                 $('#modalViewServicio').modal('show');
@@ -189,6 +193,7 @@ function fntEditInfo(element,idservicio){
                 document.querySelector("#idServicio").value = objData.data.idservicio;
                 document.querySelector("#txtNombre").value = objData.data.nombre;
                 document.querySelector("#txtDescripcion").value = objData.data.descripcion;
+                document.querySelector("#txtPrecio").value = objData.data.precio;
                 document.querySelector('#foto_actual').value = objData.data.portada;
                 document.querySelector("#foto_remove").value= 0;
 

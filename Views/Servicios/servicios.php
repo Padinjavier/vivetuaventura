@@ -25,6 +25,7 @@
                           <th>ID</th>
                           <th>Nombre</th>
                           <th>Descripción</th>
+                          <th>Precio</th>
                           <th>Status</th>
                           <th>Acciones</th>
                         </tr>
