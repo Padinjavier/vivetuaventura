@@ -241,14 +241,3 @@ function fntUpdateInfo(){
 
     }
 }
-
-function openModal()
-{
-    rowTable = "";
-    // document.querySelector('#idProducto').value ="";
-    document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
-    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
-    document.querySelector('#btnActionForm').innerHTML ="Guardar";
-    document.querySelector("#formUpdatePedido").reset();
-    $('#modalFormPedido').modal('show');
-}

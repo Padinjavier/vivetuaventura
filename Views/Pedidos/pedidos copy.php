@@ -1,22 +1,19 @@
 <?php 
     headerAdmin($data); 
     //getModal('modalProductos',$data);
-    getModal('modalPedido',$data);
 ?>
     <div id="divModal"></div>
     <main class="app-content">
       <div class="app-title">
         <div>
-            <h1><i class="fas fa-box"></i> <?= $data['page_title'] ?>
-            <?php if($_SESSION['permisosMod']['w']){ ?>
-                <button class="btn btn-primary" type="button" onclick="openModal();" ><i class="fas fa-plus-circle"></i> Nuevo</button>
-              <?php } ?>
-            </h1>
+            <h1><i class="fas fa-box"></i> <?= $data['page_title'] ?></h1>
         </div>
+        <button class="btn btn-primary" type="button" onclick="newpedidojs();" ><i class="fas fa-plus-circle"></i> Nuevo</button>
 
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
           <li class="breadcrumb-item"><a href="<?= base_url(); ?>/pedidos"><?= $data['page_title'] ?></a></li>
+          <button onClick >cccccc</button>
         </ul>
       </div>
         <div class="row">
