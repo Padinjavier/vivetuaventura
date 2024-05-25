@@ -48,14 +48,13 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
-                            <div class="form-group">
+                            <div class="form-group cargador">
                                 <label class="control-label">Cargador<span class="required">*</span>
-                                    <button type="button" class="btn btn-primary">+</button>
+                                    <button type="button" class="btn btn-primary" id="btnAgregarCargador">+</button>
                                 </label>
-                                <select class="form-control" id="selectCargador" name="selectCargador" required>
-                                    <option value="1">null</option>
-                                    <option value="2">pedro</option>
-                                </select>
+                                <div id="cargadorContainer">
+                                    <!-- Aquí se añadirán los selects dinámicamente -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -94,7 +93,7 @@
                                 <label class="control-label">Servicio <span class="required">*</span>
                                     <button type="button" class="btn btn-primary">+</button>
                                 </label>
-                                <select class="form-control" id="selectCargador" name="selectCargador" required>
+                                <select class="form-control" id="selectCarga" name="selectCargad" required>
                                     <option value="1">cuatrimoto</option>
                                     <option value="2">canopi</option>
                                 </select>

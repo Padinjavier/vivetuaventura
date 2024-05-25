@@ -245,6 +245,7 @@ function fntUpdateInfo(){
 
 window.addEventListener('load', function() {
     fntRolesEmpleado();
+    fntRoleCargador();
 }, false);
 
 function fntRolesEmpleado() {
@@ -265,6 +266,72 @@ function fntRolesEmpleado() {
         }
     }
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadInitialCargadorSelect();
+    document.getElementById('btnAgregarCargador').addEventListener('click', function() {
+        addNewCargadorSelect();
+    });
+});
+
+function loadInitialCargadorSelect() {
+    let ajaxUrl = base_url + '/RolesEmpleados/getSelectRolesCargadores';
+    let request = new XMLHttpRequest();
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let response = request.responseText;
+            let selectContainer = document.createElement('div');
+            selectContainer.className = 'form-row align-items-center mb-2';
+            selectContainer.innerHTML = `
+                <div class="col">
+                    <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${response}</select>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-danger btn-remove-select">X</button>
+                </div>
+            `;
+            document.getElementById('cargadorContainer').appendChild(selectContainer);
+            $('.selectpicker').selectpicker('render');
+            // Add event listener to remove button
+            selectContainer.querySelector('.btn-remove-select').addEventListener('click', function() {
+                selectContainer.remove();
+            });
+        }
+    }
+}
+
+function addNewCargadorSelect() {
+    let ajaxUrl = base_url + '/RolesEmpleados/getNewCargadorSelect';
+    let request = new XMLHttpRequest();
+    request.open("GET", ajaxUrl, true);
+    request.send();
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let response = request.responseText;
+            let selectContainer = document.createElement('div');
+            selectContainer.className = 'form-row align-items-center mb-2';
+            selectContainer.innerHTML = `
+                <div class="col">
+                    <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${response}</select>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-danger btn-remove-select">X</button>
+                </div>
+            `;
+            document.getElementById('cargadorContainer').appendChild(selectContainer);
+            $('.selectpicker').selectpicker('render');
+
+            // Add event listener to remove button
+            selectContainer.querySelector('.btn-remove-select').addEventListener('click', function() {
+                selectContainer.remove();
+            });
+        }
+    }
+}
+
 
 
 

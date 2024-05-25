@@ -45,26 +45,30 @@
     $request = $this->select_all($sql);
     return $request;
 }
-// public function selectRolesEmpleadosventa()
-// {
-//     $sql = "SELECT 
-//                 re.idrolempleado AS rol_id,
-//                 re.nombrerolempleado AS rol_nombre,
-//                 p.idpersona AS persona_id,
-//                 CONCAT(p.nombres, ' ', p.apellidos) AS persona_nombre
-//             FROM 
-//                 rol_empleado re
-//             LEFT JOIN 
-//                 persona p ON re.idrolempleado = p.rolidempleado
-//             WHERE 
-//                 re.status != 0 
-//                 AND (p.status IS NULL OR p.status != 0)
-//                 AND LOWER(re.nombrerolempleado) NOT IN ('cargador') -- Excluir el rol Cargador en minúsculas
-//             ORDER BY 
-//                 re.idrolempleado, p.nombres, p.apellidos;";
-//     $request = $this->select_all($sql);
-//     return $request;
-// }
+
+
+public function selectRolesCargadores()
+{
+    $sql = "SELECT 
+                re.idrolempleado AS rol_id,
+                re.nombrerolempleado AS rol_nombre,
+                p.idpersona AS persona_id,
+                CONCAT(p.nombres, ' ', p.apellidos) AS persona_nombre
+            FROM 
+                rol_empleado re
+            LEFT JOIN 
+                persona p ON re.idrolempleado = p.rolidempleado
+            WHERE 
+                re.status != 0 
+                AND (p.status IS NULL OR p.status != 0)
+                AND (LOWER(re.nombrerolempleado) = 'cargador' OR LOWER(re.nombrerolempleado) = 'cargador') -- Filtrar solo el rol Cargador o cargador
+                AND p.idpersona IS NOT NULL  -- Solo roles asignados a personas
+            ORDER BY 
+                re.idrolempleado, p.nombres, p.apellidos;";
+    $request = $this->select_all($sql);
+    return $request;
+}
+
 
 
 		public function selectRol(int $idrol)

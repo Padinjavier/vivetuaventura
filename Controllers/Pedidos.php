@@ -208,6 +208,9 @@ class Pedidos extends Controllers{
 	}
 		
 
+
+
+
 	public function setPedido(){
 		if($_POST){
 			if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){

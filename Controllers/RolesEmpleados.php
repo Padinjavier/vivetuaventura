@@ -158,6 +158,36 @@
 		
 
 
+		
+		public function getSelectRolesCargadores() {
+			$htmlOptions = '<option value="">Seleccione una opción</option>';
+			$arrData = $this->model->selectRolesCargadores();
+			foreach ($arrData as $row) {
+				$htmlOptions .= '<option value="' . htmlspecialchars($row['persona_id']) . '">' . htmlspecialchars($row['persona_nombre']) . '</option>';
+			}
+			echo $htmlOptions;
+			die();
+		}
+		
+		public function getNewCargadorSelect() {
+			$htmlOptions = '<option value="">Seleccione una opción</option>';
+			$arrData = $this->model->selectRolesCargadores();
+			foreach ($arrData as $row) {
+				$htmlOptions .= '<option value="' . htmlspecialchars($row['persona_id']) . '">' . htmlspecialchars($row['persona_nombre']) . '</option>';
+			}
+			echo $htmlOptions;
+			die();
+		}
+		
+
+
+
+
+
+
+
+
+
 		public function getRolEmpleado(String $idrolempleado)
 		{
 			if($_SESSION['permisosMod']['r']){
