@@ -242,6 +242,33 @@ function fntUpdateInfo(){
     }
 }
 
+
+window.addEventListener('load', function() {
+    fntRolesEmpleado();
+}, false);
+
+function fntRolesEmpleado() {
+    if (document.querySelector('#listRolNombreEmpleado')) {
+        let ajaxUrl = base_url + '/RolesEmpleados/getSelectRolesEmpleadosventa';
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        request.open("GET", ajaxUrl, true);
+        request.send();
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                // Obtener la respuesta del servidor
+                let response = request.responseText;
+                // Insertar la respuesta dentro del div
+                document.querySelector('#listRolNombreEmpleado').innerHTML = response;
+                // Renderizar el selectpicker
+                $('#listRolNombreEmpleado select').selectpicker('render');
+            }
+        }
+    }
+}
+
+
+
+
 function openModal()
 {
     rowTable = "";

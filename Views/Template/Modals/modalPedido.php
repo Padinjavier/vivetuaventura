@@ -14,14 +14,14 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Codigo Salida <span class="required">*</span></label>
-                                <input class="form-control" id="txtCodigoSalida" name="txtCodigoSalida" type="text"
-                                    required>
+                                <label class="control-label">Codigo Venta<span class="required">*</span></label>
+                                <input class="form-control" id="idProducto" name="txtCodigoSalida" type="text"
+                                    required disabled>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Fecha y hora <span class="required">*</span></label>
+                                <label class="control-label">Fecha y hora<span class="required">*</span></label>
                                 <input type="datetime-local" id="fecha-hora" name="fecha-hora" class="form-control"
                                     required>
                             </div>
@@ -30,45 +30,26 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Codigo Venta <span class="required">*</span></label>
+                                <label class="control-label">Codigo Salida<span class="required">*</span></label>
                                 <input class="form-control" id="txtCodigoVenta" name="txtCodigoVenta" type="text"
-                                    required>
+                                    required disabled>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="listRolNombreEmpleado">
                         <div class="col-lg-4 col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Guia <span class="required">*</span></label>
-                                <select class="form-control" id="selectGuia" name="selectGuia" required>
-                                    <option value="1">null</option>
-                                    <option value="2">ivan</option>
+                            <div class="form-group" >
+                                <label class="control-label" id="listRolEmpleado">Guia<span class="required">*</span></label>
+                                <select class="form-control" id="listNombreEmpleados" name="selectGuia" required>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Chofer <span class="required">*</span></label>
-                                <select class="form-control" id="selectChofer" name="selectChofer" required>
-                                    <option value="1">null</option>
-                                    <option value="2">raul</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Kayak <span class="required">*</span></label>
-                                <select class="form-control" id="selectKayak" name="selectKayak" required>
-                                    <option value="1">null</option>
-                                    <option value="2">pedro</option>
-                                </select>
-                            </div>
-                        </div>
+                      
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                                <label class="control-label">Cargador <span class="required">*</span>
+                                <label class="control-label">Cargador<span class="required">*</span>
                                     <button type="button" class="btn btn-primary">+</button>
                                 </label>
                                 <select class="form-control" id="selectCargador" name="selectCargador" required>
@@ -132,9 +113,6 @@
                         <button class="btn btn-danger" type="button" data-dismiss="modal"><i
                                 class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
                     </div>
-
-
-
                 </form>
             </div>
         </div>

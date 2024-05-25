@@ -79,6 +79,84 @@
 			echo $htmlOptions;
 			die();		
 		}
+		// public function getSelectRolesEmpleadosventa()
+		// {
+		// 	$htmlOptions = "";
+		// 	$arrData = $this->model->selectRolesEmpleadosventa();
+		// 	if (count($arrData) > 0) {
+		// 		$rol_id_anterior = null;
+		// 		foreach ($arrData as $row) {
+		// 			// Solo creamos el div y el select cuando cambia el rol
+		// 			if ($rol_id_anterior != $row['rol_id']) {
+		// 				// Cerramos el div anterior si ya existe
+		// 				if (!is_null($rol_id_anterior)) {
+		// 					$htmlOptions .= '</select>
+		// 								</div>
+		// 							</div>';
+		// 				}
+		// 				// Creamos el nuevo div para el nuevo rol
+		// 				$htmlOptions .= '<div class="col-lg-4 col-md-6">
+		// 									<div class="form-group">
+		// 										<label class="control-label" id="listRolEmpleado">'.htmlspecialchars($row['rol_nombre']).'<span class="required">*</span></label>
+		// 										<select class="form-control" id="listNombreEmpleados" name="select'.htmlspecialchars($row['rol_nombre']).'" required>
+		// 											<option value="">Seleccione una opción</option>';
+		// 			}
+		// 			// Agregamos las opciones del select
+		// 			$htmlOptions .= '<option value="'.htmlspecialchars($row['persona_id']).'">'.htmlspecialchars($row['persona_nombre']).'</option>';
+		// 			// Actualizamos el rol_id_anterior
+		// 			$rol_id_anterior = $row['rol_id'];
+		// 		}
+		// 		// Cerramos el último div
+		// 		$htmlOptions .= '</select>
+		// 								</div>
+		// 							</div>';
+		// 	}
+		// 	echo $htmlOptions;
+		// 	die();
+		// }
+		
+
+		public function getSelectRolesEmpleadosventa()
+		{
+			$htmlOptions = "";
+			$arrData = $this->model->selectRolesEmpleadosventa();
+			if (count($arrData) > 0) {
+				$rol_id_anterior = null;
+				foreach ($arrData as $row) {
+					// Filtramos el nombre del rol "Cargador" o "cargador"
+					if ((strtolower($row['rol_nombre']) === 'cargador')) {
+						continue; // Saltamos al siguiente registro si el rol es "Cargador"
+					}
+					// Solo creamos el div y el select cuando cambia el rol
+					if ($rol_id_anterior != $row['rol_id']) {
+						// Cerramos el div anterior si ya existe
+						if (!is_null($rol_id_anterior)) {
+							$htmlOptions .= '</select>
+										</div>
+									</div>';
+						}
+						// Creamos el nuevo div para el nuevo rol
+						$htmlOptions .= '<div class="col-lg-4 col-md-6">
+											<div class="form-group">
+												<label class="control-label" id="listRolEmpleado">'.htmlspecialchars($row['rol_nombre']).'<span class="required">*</span></label>
+												<select class="form-control" id="listNombreEmpleados" name="select'.htmlspecialchars($row['rol_nombre']).'" required>
+													<option value="">Seleccione una opción</option>';
+					}
+					// Agregamos las opciones del select
+					$htmlOptions .= '<option value="'.htmlspecialchars($row['persona_id']).'">'.htmlspecialchars($row['persona_nombre']).'</option>';
+					// Actualizamos el rol_id_anterior
+					$rol_id_anterior = $row['rol_id'];
+				}
+				// Cerramos el último div
+				$htmlOptions .= '</select>
+										</div>
+									</div>';
+			}
+			echo $htmlOptions;
+			die();
+		}
+		
+
 
 		public function getRolEmpleado(String $idrolempleado)
 		{
