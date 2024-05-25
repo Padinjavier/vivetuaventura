@@ -245,7 +245,6 @@ function fntUpdateInfo(){
 
 window.addEventListener('load', function() {
     fntRolesEmpleado();
-    fntRoleCargador();
 }, false);
 
 function fntRolesEmpleado() {
@@ -268,10 +267,212 @@ function fntRolesEmpleado() {
 }
 
 
+// document.addEventListener('DOMContentLoaded', function() {
+//     loadInitialCargadorSelect();
+//     document.getElementById('btnAgregarCargador').addEventListener('click', function() {
+//         addNewCargadorSelect();
+//     });
+// });
+
+// function loadInitialCargadorSelect() {
+//     let ajaxUrl = base_url + '/RolesEmpleados/getSelectRolesCargadores';
+//     let request = new XMLHttpRequest();
+//     request.open("GET", ajaxUrl, true);
+//     request.send();
+//     request.onreadystatechange = function() {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let response = request.responseText;
+//             let selectContainer = document.createElement('div');
+//             selectContainer.className = 'form-row align-items-center mb-2';
+//             selectContainer.innerHTML = `
+//                 <div class="col">
+//                     <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${response}</select>
+//                 </div>
+//                 <div class="col-auto">
+//                     <button type="button" class="btn btn-danger btn-remove-select">X</button>
+//                 </div>
+//             `;
+//             document.getElementById('cargadorContainer').appendChild(selectContainer);
+//             $('.selectpicker').selectpicker('render');
+//             // Add event listener to remove button
+//             selectContainer.querySelector('.btn-remove-select').addEventListener('click', function() {
+//                 selectContainer.remove();
+//             });
+//         }
+//     }
+// }
+
+// function addNewCargadorSelect() {
+//     let ajaxUrl = base_url + '/RolesEmpleados/getNewCargadorSelect';
+//     let request = new XMLHttpRequest();
+//     request.open("GET", ajaxUrl, true);
+//     request.send();
+//     request.onreadystatechange = function() {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let response = request.responseText;
+//             let selectContainer = document.createElement('div');
+//             selectContainer.className = 'form-row align-items-center mb-2';
+//             selectContainer.innerHTML = `
+//                 <div class="col">
+//                     <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${response}</select>
+//                 </div>
+//                 <div class="col-auto">
+//                     <button type="button" class="btn btn-danger btn-remove-select">X</button>
+//                 </div>
+//             `;
+//             document.getElementById('cargadorContainer').appendChild(selectContainer);
+//             $('.selectpicker').selectpicker('render');
+
+//             // Add event listener to remove button
+//             selectContainer.querySelector('.btn-remove-select').addEventListener('click', function() {
+//                 selectContainer.remove();
+//             });
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let selectedCargadores = []; // Array para almacenar los cargadores seleccionados
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     loadInitialCargadorSelect();
+//     document.getElementById('btnAgregarCargador').addEventListener('click', function() {
+//         addNewCargadorSelect();
+//     });
+// });
+
+// function loadInitialCargadorSelect() {
+//     let ajaxUrl = base_url + '/RolesEmpleados/getSelectRolesCargadores';
+//     let request = new XMLHttpRequest();
+//     request.open("GET", ajaxUrl, true);
+//     request.send();
+//     request.onreadystatechange = function() {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let response = request.responseText;
+//             createCargadorSelect(response);
+//         }
+//     }
+// }
+
+// function addNewCargadorSelect() {
+//     let ajaxUrl = base_url + '/RolesEmpleados/getNewCargadorSelect';
+//     let request = new XMLHttpRequest();
+//     request.open("GET", ajaxUrl, true);
+//     request.send();
+//     request.onreadystatechange = function() {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let response = request.responseText;
+//             createCargadorSelect(response);
+//         }
+//     }
+// }
+
+// function createCargadorSelect(optionsHTML) {
+//     // Crear el nuevo select con las opciones
+//     let selectContainer = document.createElement('div');
+//     selectContainer.className = 'form-row align-items-center mb-2';
+//     selectContainer.innerHTML = `
+//         <div class="col">
+//             <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${optionsHTML}</select>
+//         </div>
+//         <div class="col-auto">
+//             <button type="button" class="btn btn-danger btn-remove-select">X</button>
+//         </div>
+//     `;
+
+//     document.getElementById('cargadorContainer').appendChild(selectContainer);
+//     $('.selectpicker').selectpicker('render');
+
+//     // Agregar event listener para remover el select
+//     selectContainer.querySelector('.btn-remove-select').addEventListener('click', function() {
+//         selectContainer.remove();
+//     });
+
+//     // Agregar el cargador seleccionado al array y deshabilitar la opción en todos los selects
+//     let newSelect = selectContainer.querySelector('select');
+//     newSelect.addEventListener('change', function() {
+//         let selectedOption = newSelect.options[newSelect.selectedIndex].value;
+//         if (selectedCargadores.includes(selectedOption)) {
+//             // Si el cargador ya fue seleccionado, deseleccionarlo y mostrar un mensaje o realizar alguna acción
+//             alert('Este cargador ya fue seleccionado.');
+//             newSelect.value = '';
+//         } else {
+//             selectedCargadores.push(selectedOption);
+//             disableSelectedOption(selectedOption);
+//         }
+//     });
+// }
+
+// function disableSelectedOption(selectedOption) {
+//     let selects = document.querySelectorAll('.selectpicker');
+//     selects.forEach(select => {
+//         let option = select.querySelector(`option[value="${selectedOption}"]`);
+//         if (option) {
+//             option.disabled = true;
+//         }
+//     });
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let selectedCargadores = []; // Array para almacenar los cargadores seleccionados
+
 document.addEventListener('DOMContentLoaded', function() {
     loadInitialCargadorSelect();
     document.getElementById('btnAgregarCargador').addEventListener('click', function() {
         addNewCargadorSelect();
+    });
+    document.querySelectorAll('.btn-remove-select').forEach(btn => {
+        btn.addEventListener('click', function() {
+            removeCargadorSelect(btn);
+        });
+    });
+    document.querySelectorAll('.selectpicker').forEach(select => {
+        select.addEventListener('change', function() {
+            updateSelectedCargadores(select);
+        });
     });
 });
 
@@ -283,22 +484,7 @@ function loadInitialCargadorSelect() {
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             let response = request.responseText;
-            let selectContainer = document.createElement('div');
-            selectContainer.className = 'form-row align-items-center mb-2';
-            selectContainer.innerHTML = `
-                <div class="col">
-                    <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${response}</select>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-danger btn-remove-select">X</button>
-                </div>
-            `;
-            document.getElementById('cargadorContainer').appendChild(selectContainer);
-            $('.selectpicker').selectpicker('render');
-            // Add event listener to remove button
-            selectContainer.querySelector('.btn-remove-select').addEventListener('click', function() {
-                selectContainer.remove();
-            });
+            createCargadorSelect(response);
         }
     }
 }
@@ -311,29 +497,91 @@ function addNewCargadorSelect() {
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             let response = request.responseText;
-            let selectContainer = document.createElement('div');
-            selectContainer.className = 'form-row align-items-center mb-2';
-            selectContainer.innerHTML = `
-                <div class="col">
-                    <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${response}</select>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-danger btn-remove-select">X</button>
-                </div>
-            `;
-            document.getElementById('cargadorContainer').appendChild(selectContainer);
-            $('.selectpicker').selectpicker('render');
-
-            // Add event listener to remove button
-            selectContainer.querySelector('.btn-remove-select').addEventListener('click', function() {
-                selectContainer.remove();
-            });
+            createCargadorSelect(response);
         }
     }
 }
 
+function createCargadorSelect(optionsHTML) {
+    // Crear el nuevo select con las opciones
+    let selectContainer = document.createElement('div');
+    selectContainer.className = 'form-row align-items-center mb-2';
+    selectContainer.innerHTML = `
+        <div class="col">
+            <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${optionsHTML}</select>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-danger btn-remove-select">X</button>
+        </div>
+    `;
+
+    document.getElementById('cargadorContainer').appendChild(selectContainer);
+    $('.selectpicker').selectpicker('render');
+
+    // Agregar event listener para remover el select
+    let btnRemove = selectContainer.querySelector('.btn-remove-select');
+    btnRemove.addEventListener('click', function() {
+        removeCargadorSelect(btnRemove);
+    });
+
+    // Agregar el event listener para actualizar los cargadores seleccionados
+    let newSelect = selectContainer.querySelector('select');
+    newSelect.addEventListener('change', function() {
+        if (newSelect != null) {
+            console.log("1" + newSelect)
+
+            updateSelectedCargadores(newSelect);
+        } else {
+            console.log("2" + newSelect)
+        }
+    });
+}
+
+function removeCargadorSelect(btnRemove) {
+    let selectContainer = btnRemove.closest('.form-row');
+    let removedSelect = selectContainer.querySelector('select');
+    let removedOption = removedSelect.options[removedSelect.selectedIndex].value;
+    // Eliminar el cargador de la lista de seleccionados
+    let index = selectedCargadores.indexOf(removedOption);
+    if (index !== -1) {
+        selectedCargadores.splice(index, 1);
+    }
+    // Habilitar la opción removida en los otros selects
+    let selects = document.querySelectorAll('.selectpicker');
+    selects.forEach(select => {
+        let option = select.querySelector(`option[value="${removedOption}"]`);
+        if (option) {
+            option.disabled = false;
+        }
+    });
+    // Remover el select del DOM
+    selectContainer.remove();
+}
+
+function updateSelectedCargadores(select) {
+    let selectedOption = select.options[select.selectedIndex].value;
+    if (selectedCargadores.includes(selectedOption)) {
+        select.value = '';
+        // No es necesario disparar manualmente el evento de cambio
+        let event = new Event('change');
+        console.log("567"+event)
+        select.dispatchEvent(event);
+    } else {
+        selectedCargadores.push(selectedOption);
+        disableSelectedOption(selectedOption);
+    }
+}
 
 
+function disableSelectedOption(selectedOption) {
+    let selects = document.querySelectorAll('.selectpicker');
+    selects.forEach(select => {
+        let option = select.querySelector(`option[value="${selectedOption}"]`);
+        if (option) {
+            option.disabled = true;
+        }
+    });
+}
 
 
 function openModal()
