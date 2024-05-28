@@ -63,11 +63,11 @@
 			if($_SESSION['idUser'] != 1 ){
 				$whereAdmin = " and p.idpersona != 1 ";
 			}
-			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.status,r.idrolusuario,r.nombrerolusuario 
-					FROM persona p 
-					INNER JOIN rol_usuario r
-					ON p.rolid = r.idrolusuario
-					WHERE p.status != 0 ".$whereAdmin;
+			$sql = "SELECT p.idpersona, p.identificacion, p.nombres, p.apellidos, p.telefono, p.email_user, p.status, r.idrolusuario, r.nombrerolusuario 
+			FROM persona p 
+			INNER JOIN rol_usuario r ON p.rolid = r.idrolusuario
+			WHERE p.status != 0 AND r.idrolusuario != 3
+			".$whereAdmin;
 					$request = $this->select_all($sql);
 					return $request;
 		}

@@ -25,6 +25,9 @@
 			return $request;
 		}
 
+		// ---------------------------------
+		// ---------------------------------
+		// ---------------------------------
 		public function selectRolesEmpleadosventa()
 {
     $sql = "SELECT 
@@ -70,7 +73,9 @@ public function selectRolesCargadores()
 }
 
 
-
+// ------------------------------
+// ------------------------------
+// ------------------------------
 		public function selectRol(int $idrol)
 		{
 			//BUSCAR ROLE

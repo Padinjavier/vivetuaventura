@@ -12,27 +12,25 @@
                     <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.
                     </p>
                     <div class="row">
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-4 col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Codigo Venta<span class="required">*</span></label>
                                 <input class="form-control" id="idProducto" name="txtCodigoSalida" type="text" required
                                     disabled>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
-                            <div class="form-group">
-                                <label class="control-label">Fecha y hora<span class="required">*</span></label>
-                                <input type="datetime-local" id="fecha-hora" name="fecha-hora" class="form-control"
-                                    required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-4 col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Codigo Salida<span class="required">*</span></label>
                                 <input class="form-control" id="txtCodigoVenta" name="txtCodigoVenta" type="text"
                                     required disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Fecha y hora<span class="required">*</span></label>
+                                <input type="datetime-local" id="fecha-hora" name="fecha-hora" class="form-control"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -51,10 +49,12 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group cargador">
                                 <label class="control-label">Cargador<span class="required">*</span>
-                                    <button type="button" class="btn btn-primary" id="btnAgregarCargador">+</button>
+                                    <button class="btn btn-primary btn-sm" type="button" id="btnAgregarCargador"><i
+                                            class="fas fa-plus-circle" aria-hidden="true"></i> Agregar</button>
                                 </label>
                                 <div id="cargadorContainer">
-                                    <!-- Aquí se añadirán los selects dinámicamente -->
+                                    <!-- se crean en automatico con el JS  -->
+
                                 </div>
                             </div>
                         </div>
@@ -88,45 +88,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row  d-flex align-items-end">
-                        <div class="col-lg-4 col-md-4">
-                            <div class="form-group">
-                                <label class="control-label">Servicio <span class="required">*</span>
-                                    <button type="button" class="btn btn-primary">+</button>
-                                </label>
-                                <select class="form-control" id="selectCarga" name="selectCargad" required>
-                                    <option value="1">cuatrimoto</option>
-                                    <option value="2">canopi</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-4">
-                            <div class="form-group">
-                                <label class="control-label">Cantidad<span class="required">*</span></label>
-                                <input class="form-control" id="txtCantidad" name="txtCantidad" type="text" required>
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-4">
-                            <div class="form-group">
-                                <label class="control-label">Precio Uni<span class="required">*</span></label>
-                                <input class="form-control" id="txtCantidad" name="txtCantidad" type="text" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-4">
-                            <div class="form-group">
-                                <label class="control-label">Descuento<span class="required">*</span></label>
-                                <input class="form-control" id="txtCantidad" name="txtCantidad" type="text" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-4">
-                            <div class="form-group">
-                                <label class="control-label">Precio Total<span class="required">*</span></label>
-                                <input class="form-control" id="txtCantidad" name="txtCantidad" type="text" required>
-                            </div>
-                        </div>
-                    </div> -->
-
 
                     <section>
                         <div class="card-body">
@@ -135,59 +96,33 @@
                                     <h4>Detalle de venta</h4>
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <button class="btn btn-success btn-sm" id="btnAgregarProducto">Agregar más
-                                        producto</button>
+                                    <button class="btn btn-primary btn-sm" type="button" id="btnAgregarProducto"><i
+                                            class="fas fa-plus-circle" aria-hidden="true"></i> Agregar</button>
                                 </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-sm">
                                     <thead>
                                         <tr>
-                                            <th style="width:5%"></th>
-                                            <th style="width:55%">Producto</th>
+                                            <th style="width:30%">Producto</th>
                                             <th style="width:10%">Cantidad</th>
                                             <th style="width:10%">Precio</th>
                                             <th style="width:10%">Descuento</th>
                                             <th style="width:10%">Precio Total</th>
+                                            <th style="width:5%"></th>
+                                            <th style="width:0%"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="tblDetalleVenta">
-                                        <tr>
-                                            <td>
-                                                <div class="col-auto">
-                                                    <button type="button"
-                                                        class="btn btn-danger btn-remove-select">X</button>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <select class="form-control">
-                                                    <option value="" disabled selected>[--Seleccione--]</option>
-                                                    <option value="1">Producto 1</option>
-                                                    <option value="2">Producto 2</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="number" class="form-control" value="1">
-                                            </td>
-                                            <td>
-                                                <input type="number" class="form-control" value="0.00">
-                                            </td>
-                                            <td>
-                                                <input type="number" class="form-control" value="0.00">
-                                            </td>
-                                            <td>
-                                                <input type="number" class="form-control" value="0.00" readonly>
-                                            </td>
+                                        <tr class="detalle-venta-row" id="masservicios">
+                                            <!-- se crean en automatico con el JS  -->
+
                                         </tr>
-                                        <!-- Puedes duplicar este bloque de <tr> para añadir más filas de ejemplo -->
-
-
-
                                         <tr>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td>
                                                 <p>Sub Total:</p>
                                             </td>
@@ -196,23 +131,22 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td>
                                                 <p>IGV (18 %) :</p>
                                             </td>
                                             <td>
                                                 <p class="iconomoneda"> S/0.00</p>
-
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td>
                                                 <p>TOTAL :</p>
                                             </td>
@@ -222,10 +156,12 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
-
                     </section>
+
+
                     <div class="tile-footer">
                         <button id="btnActionForm" class="btn btn-info" type="submit"><i
                                 class="fa fa-fw fa-lg fa-check-circle"></i><span>Guardar</span></button>&nbsp;&nbsp;&nbsp;
