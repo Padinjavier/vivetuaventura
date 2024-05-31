@@ -27,12 +27,17 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
+                            <?php
+                            // Obtener la fecha y hora actual en el formato requerido
+                            $now = date("Y-m-d\TH:i");
+                            ?>
                             <div class="form-group">
                                 <label class="control-label">Fecha y hora<span class="required">*</span></label>
                                 <input type="datetime-local" id="fecha-hora" name="fecha-hora" class="form-control"
-                                    required>
+                                    required value="<?php echo $now; ?>">
                             </div>
                         </div>
+
                     </div>
                     <div class="row" id="listRolNombreEmpleado">
                         <div class="col-lg-4 col-md-6">
@@ -80,11 +85,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Descripcion </label>
                                 <textarea class="form-control" id="textareaDescripcion" name="textareaDescripcion"
-                                    rows="5" required></textarea>
+                                    rows="2" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -115,7 +120,9 @@
                                     </thead>
                                     <tbody id="tblDetalleVenta">
                                         <tr class="detalle-venta-row" id="masservicios">
-                                            <!-- se crean en automatico con el JS  -->
+                                        <Script>
+                                        // se crean en automatico con el JS 
+                                        </Script>    
 
                                         </tr>
                                         <tr>
@@ -127,7 +134,7 @@
                                                 <p>Sub Total:</p>
                                             </td>
                                             <td>
-                                                <p class="iconomoneda"> S/0.00</p>
+                                                <span id="subtotal">S/0.00</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -139,7 +146,7 @@
                                                 <p>IGV (18 %) :</p>
                                             </td>
                                             <td>
-                                                <p class="iconomoneda"> S/0.00</p>
+                                                <span id="igv">S/0.00</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -151,7 +158,7 @@
                                                 <p>TOTAL :</p>
                                             </td>
                                             <td>
-                                                <p class="iconomoneda"> S/0.00</p>
+                                                <span id="total">S/0.00</span>
                                             </td>
                                         </tr>
                                     </tbody>

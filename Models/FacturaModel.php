@@ -40,15 +40,25 @@
 										direccionfiscal 
 								FROM persona WHERE idpersona = $idpersona ";
 				$requestcliente = $this->select($sql_cliente);
-				$sql_detalle = "SELECT p.idproducto,
-											p.nombre as producto,
-											d.precio,
-											d.cantidad
-									FROM detalle_pedido d
-									INNER JOIN producto p
-									ON d.productoid = p.idproducto
-									WHERE d.pedidoid = $idpedido";
-				$requestProductos = $this->select_all($sql_detalle);
+				// $sql_detalle = "SELECT p.idproducto,
+				// 							p.nombre as producto,
+				// 							d.precio,
+				// 							d.cantidad
+				// 					FROM detalle_pedido d
+				// 					INNER JOIN producto p
+				// 					ON d.productoid = p.idproducto
+				// 					WHERE d.pedidoid = $idpedido";
+				// $requestProductos = $this->select_all($sql_detalle);
+				$sql_detalle = "SELECT s.idservicio,
+										s.nombre as servicio,
+										d.precio,
+										d.cantidad
+								FROM detalle_pedido d
+								INNER JOIN servicio s
+								ON d.productoid = s.idservicio
+								WHERE d.pedidoid = $idpedido";
+						$requestProductos = $this->select_all($sql_detalle);
+
 				$request = array('cliente' => $requestcliente,
 								'orden' => $requestPedido,
 								'detalle' => $requestProductos

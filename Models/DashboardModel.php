@@ -19,7 +19,7 @@
 			return $total;
 		}
 		public function cantProductos(){
-			$sql = "SELECT COUNT(*) as total FROM producto WHERE status != 0 ";
+			$sql = "SELECT COUNT(*) as total FROM servicio WHERE status != 0 ";
 			$request = $this->select($sql);
 			$total = $request['total']; 
 			return $total;
@@ -122,7 +122,7 @@
 			return $arrVentas;
 		}
 		public function productosTen(){
-			$sql = "SELECT * FROM producto WHERE status = 1 ORDER BY idproducto DESC LIMIT 10 ";
+			$sql = "SELECT * FROM servicio WHERE status = 1 ORDER BY idservicio DESC LIMIT 10 ";
 			$request = $this->select_all($sql);
 			return $request;
 		}

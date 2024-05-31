@@ -242,6 +242,8 @@ function fntUpdateInfo(){
     }
 }
 
+
+
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
@@ -401,114 +403,6 @@ function disableSelectedOption(selectedOption) {
 // ---------------------------------------
 
 // // ---------------Servicios----------
-// document.addEventListener("DOMContentLoaded", function () {
-//   const tblDetalleVenta = document.getElementById("tblDetalleVenta");
-//   const btnAgregarProducto = document.getElementById("btnAgregarProducto");
-
-//   function loadInitialSelectOptions() {
-//     let ajaxUrl = base_url + "/Servicios/getSelectServicios";
-//     let request = new XMLHttpRequest();
-//     request.open("GET", ajaxUrl, true);
-//     request.send();
-//     request.onreadystatechange = function () {
-//       if (request.readyState == 4 && request.status == 200) {
-//         let response = JSON.parse(request.responseText);
-//         addNewProductoRow(response);
-//       }
-//     };
-//   }
-
-//   function addNewProductoRow(response) {
-//     let newRow = document.createElement("tr");
-//     newRow.classList.add("detalle-venta-row");
-//     newRow.innerHTML = `
-//             <td>
-//                 <select class="form-control servicio-select">
-//                     ${response[0]}
-//                 </select>
-//             </td>
-//             <td>
-//                 <input type="number" class="form-control cantidad" value="0.00">
-//             </td>
-//             <td>
-//                 <input type="number" class="form-control precio" value="0.00">
-//             </td>
-//             <td>
-//                 <input type="number" class="form-control descuento" value="0.00" readonly>
-//             </td>
-//             <td>
-//                 <input type="number" class="form-control precio_total" value="0.00" readonly>
-//             </td>
-//             <td>
-//                 <div class="col-auto">
-//                     <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
-//                 </div>
-//             </td>
-//             <td>
-//                 <input type="number" class="form-control precio_db" value="10" readonly>
-//             </td>
-//         `;
-
-//     // Agregar la nueva fila al tbody
-//     tblDetalleVenta.insertBefore(
-//       newRow,
-//       document.getElementById("masservicios")
-//     );
-
-//     // Añadir eventos de cálculo y eliminación a la nueva fila
-//     addEventListenersToRow(newRow);
-
-//     newRow
-//       .querySelector(".btn-remove-select")
-//       .addEventListener("click", function () {
-//         newRow.remove();
-//       });
-
-//     // Añadir event listener para actualizar el precio_db cuando se cambia la selección del servicio
-//     newRow.querySelector(".servicio-select").addEventListener("change", function () {
-//       let selectedOption = this.options[this.selectedIndex];
-//       let precio = selectedOption.dataset.precio;
-//       newRow.querySelector(".precio_db").value = precio;
-//     });
-//   }
-
-//   function addEventListenersToRow(row) {
-//     const cantidadInput = row.querySelector(".cantidad");
-//     const precioInput = row.querySelector(".precio");
-//     const descuentoInput = row.querySelector(".descuento");
-//     const precioTotalInput = row.querySelector(".precio_total");
-//     const precioDbInput = row.querySelector(".precio_db");
-
-//     function calcular() {
-//       const cantidad = parseFloat(cantidadInput.value) || 0;
-//       const precio = parseFloat(precioInput.value) || 0;
-//       const precioDb = parseFloat(precioDbInput.value) || 0;
-
-//       const precioTotal = cantidad * precio;
-//       const precioDbTotal = cantidad * precioDb;
-
-//       let descuento = precioDbTotal - precioTotal;
-//       if (descuento < 0) {
-//         descuento = 0;
-//       }
-
-//       precioTotalInput.value = precioTotal.toFixed(2);
-//       descuentoInput.value = descuento.toFixed(2);
-//     }
-
-//     cantidadInput.addEventListener("input", calcular);
-//     precioInput.addEventListener("input", calcular);
-
-//     calcular(); // Initial calculation on load
-//   }
-
-//   btnAgregarProducto.addEventListener("click", function () {
-//     loadInitialSelectOptions();
-//   });
-
-//   // Cargar el primer select al cargar la página
-//   loadInitialSelectOptions();
-// });
 document.addEventListener("DOMContentLoaded", function () {
     const tblDetalleVenta = document.getElementById("tblDetalleVenta");
     const btnAgregarProducto = document.getElementById("btnAgregarProducto");
@@ -531,15 +425,15 @@ document.addEventListener("DOMContentLoaded", function () {
         newRow.classList.add("detalle-venta-row");
         newRow.innerHTML = `
             <td>
-                <select class="form-control servicio-select">
+                <select class="form-control servicio-select" name="selectGuia" required data-live-search="true">
                     ${response[0]}
                 </select>
             </td>
             <td>
-                <input type="number" class="form-control cantidad" value="0.00">
+                <input type="number" class="form-control cantidad" onclick="sumarPreciosTotales()" value="0.00">
             </td>
             <td>
-                <input type="number" class="form-control precio" value="0.00">
+                <input type="number" class="form-control precio"onclick="sumarPreciosTotales()" value="0.00">
             </td>
             <td>
                 <input type="number" class="form-control descuento" value="0.00" readonly>
@@ -553,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             </td>
             <td>
-                <input type="text" class="form-control precio_db" value="" readonly>
+                <input type="hidden" class="form-control precio_db" value="1" readonly>
             </td>
         `;
 
@@ -593,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function () {
         function calcular() {
             const cantidad = parseFloat(cantidadInput.value) || 0;
             const precio = parseFloat(precioInput.value) || 0;
-            const precioDb = parseFloat(precioDbInput.dataset.precio) || 0;
+            const precioDb = parseFloat(precioDbInput.value) || 0;
 
             const precioTotal = cantidad * precio;
             const precioDbTotal = cantidad * precioDb;
@@ -610,7 +504,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cantidadInput.addEventListener("input", calcular);
         precioInput.addEventListener("input", calcular);
 
-        calcular(); // Initial calculation on load
+        calcular(); // Cálculo inicial al cargar la página
     }
 
     btnAgregarProducto.addEventListener("click", function () {
@@ -620,6 +514,60 @@ document.addEventListener("DOMContentLoaded", function () {
     // Cargar el primer select al cargar la página
     loadInitialSelectOptions();
 });
+
+
+// --------------------
+
+
+
+
+function sumarPreciosTotales() {
+  // Obtener todos los elementos con la clase form-control precio_total
+  const precioTotalInputs = document.querySelectorAll(
+    ".form-control.precio_total"
+  );
+
+  let total = 0;
+
+  // Iterar sobre cada elemento y sumar su valor
+  precioTotalInputs.forEach(function (input) {
+    total += parseFloat(input.value) || 0;
+  });
+
+//   console.log(total);
+  igv = total*0.18;
+  subtotal = total-(igv);
+
+
+  var subtotalSpan = document.getElementById("subtotal");
+  subtotalSpan.textContent = "S/"+subtotal.toFixed(2);
+
+  var igvSpan = document.getElementById("igv");
+  igvSpan.textContent = "S/"+igv.toFixed(2);
+
+  var totalSpan = document.getElementById("total");
+  totalSpan.textContent = "S/"+total.toFixed(2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

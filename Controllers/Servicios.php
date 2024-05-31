@@ -203,7 +203,9 @@
 	public function getSelectServicios()
 	{
 		$servicios = $this->model->selectServicios();
-		$options = '<option value="" disabled selected>[--Seleccione--]</option>';
+		// $options = '<option value="" disabled selected>[--Seleccione--]</option>';
+		$options = '<option value="">Seleccione una opción</option>';
+
 		$data = [];
 	
 		foreach ($servicios as $servicio) {
