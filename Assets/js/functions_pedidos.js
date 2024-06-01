@@ -492,6 +492,121 @@ function disableSelectedOption(selectedOption) {
 // ---------------------------------------
 
 // // ---------------Servicios----------
+// document.addEventListener("DOMContentLoaded", function () {
+//   const tblDetalleVenta = document.getElementById("tblDetalleVenta");
+//   const btnAgregarProducto = document.getElementById("btnAgregarProducto");
+
+//   function loadInitialSelectOptions() {
+//       let ajaxUrl = base_url + "/Servicios/getSelectServicios";
+//       let request = new XMLHttpRequest();
+//       request.open("GET", ajaxUrl, true);
+//       request.send();
+//       request.onreadystatechange = function () {
+//           if (request.readyState == 4 && request.status == 200) {
+//               let response = JSON.parse(request.responseText);
+//               addNewProductoRow(response);
+//           }
+//       };
+//   }
+
+//   function addNewProductoRow(response) {
+//       let newRow = document.createElement("tr");
+//       newRow.classList.add("detalle-venta-row");
+//       newRow.innerHTML = `
+//           <td>
+//               <select class="form-control selectpicker servicio-select" name="selectGuia" required data-live-search="true">
+//                   ${response[0]}
+//               </select>
+//           </td>
+//           <td>
+//               <input type="number" class="form-control cantidad" onclick="sumarPreciosTotales()" value="0.00">
+//           </td>
+//           <td>
+//               <input type="number" class="form-control precio" onclick="sumarPreciosTotales()" value="0.00">
+//           </td>
+//           <td>
+//               <input type="number" class="form-control descuento" value="0.00" readonly>
+//           </td>
+//           <td>
+//               <input type="number" class="form-control precio_total" value="0.00" readonly>
+//           </td>
+//           <td>
+//               <div class="col-auto">
+//                   <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
+//               </div>
+//           </td>
+//           <td>
+//               <input type="hidden" class="form-control precio_db" value="1" readonly>
+//           </td>
+//       `;
+
+//       // Agregar la nueva fila al tbody
+//       tblDetalleVenta.insertBefore(
+//           newRow,
+//           document.getElementById("masservicios")
+//       );
+
+//       // Renderizar el selectpicker para el nuevo select
+//       $(newRow).find('.selectpicker').selectpicker('render');
+
+//       // Añadir eventos de cálculo y eliminación a la nueva fila
+//       addEventListenersToRow(newRow);
+
+//       newRow
+//           .querySelector(".btn-remove-select")
+//           .addEventListener("click", function () {
+//               newRow.remove();
+//           });
+
+//       // Añadir event listener para actualizar el precio_db cuando se cambia la selección del servicio
+//       newRow.querySelector(".servicio-select").addEventListener("change", function () {
+//           let selectedOption = this.options[this.selectedIndex];
+//           let nombreServicio = selectedOption.innerText;
+//           let soloNumeros = nombreServicio.replace(/[^\d.]/g, "");
+//           newRow.querySelector(".precio_db").value = soloNumeros;
+//       });
+//   }
+
+//   function addEventListenersToRow(row) {
+//       const cantidadInput = row.querySelector(".cantidad");
+//       const precioInput = row.querySelector(".precio");
+//       const descuentoInput = row.querySelector(".descuento");
+//       const precioTotalInput = row.querySelector(".precio_total");
+//       const precioDbInput = row.querySelector(".precio_db");
+
+//       function calcular() {
+//           const cantidad = parseFloat(cantidadInput.value) || 0;
+//           const precio = parseFloat(precioInput.value) || 0;
+//           const precioDb = parseFloat(precioDbInput.value) || 0;
+
+//           const precioTotal = cantidad * precio;
+//           const precioDbTotal = cantidad * precioDb;
+
+//           let descuento = precioDbTotal - precioTotal;
+//           if (descuento < 0) {
+//               descuento = 0;
+//           }
+
+//           precioTotalInput.value = precioTotal.toFixed(2);
+//           descuentoInput.value = descuento.toFixed(2);
+//       }
+
+//       cantidadInput.addEventListener("input", calcular);
+//       precioInput.addEventListener("input", calcular);
+
+//       calcular(); // Cálculo inicial al cargar la página
+//   }
+
+//   btnAgregarProducto.addEventListener("click", function () {
+//       loadInitialSelectOptions();
+//   });
+
+//   // Cargar el primer select al cargar la página
+//   loadInitialSelectOptions();
+// });
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 document.addEventListener("DOMContentLoaded", function () {
   const tblDetalleVenta = document.getElementById("tblDetalleVenta");
   const btnAgregarProducto = document.getElementById("btnAgregarProducto");
@@ -503,69 +618,203 @@ document.addEventListener("DOMContentLoaded", function () {
       request.send();
       request.onreadystatechange = function () {
           if (request.readyState == 4 && request.status == 200) {
-              let response = JSON.parse(request.responseText);
-              addNewProductoRow(response);
+              try {
+                  let response = JSON.parse(request.responseText);
+                  console.log("Response from server:", response);
+                  addNewProductoRow(response);
+              } catch (error) {
+                  console.error("Error parsing JSON response:", error);
+              }
           }
       };
   }
 
-  function addNewProductoRow(response) {
-      let newRow = document.createElement("tr");
-      newRow.classList.add("detalle-venta-row");
-      newRow.innerHTML = `
-          <td>
-              <select class="form-control selectpicker servicio-select" name="selectGuia" required data-live-search="true">
-                  ${response[0]}
-              </select>
-          </td>
-          <td>
-              <input type="number" class="form-control cantidad" onclick="sumarPreciosTotales()" value="0.00">
-          </td>
-          <td>
-              <input type="number" class="form-control precio" onclick="sumarPreciosTotales()" value="0.00">
-          </td>
-          <td>
-              <input type="number" class="form-control descuento" value="0.00" readonly>
-          </td>
-          <td>
-              <input type="number" class="form-control precio_total" value="0.00" readonly>
-          </td>
-          <td>
-              <div class="col-auto">
-                  <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
-              </div>
-          </td>
-          <td>
-              <input type="hidden" class="form-control precio_db" value="1" readonly>
-          </td>
-      `;
+//   function addNewProductoRow(response) {
+//       let newRow = document.createElement("tr");
+//       newRow.classList.add("detalle-venta-row");
+//       newRow.innerHTML = `
+//           <td>
+//               <select class="form-control selectpicker servicio-select" name="selectGuia" required data-live-search="true">
+//                   ${response[0]}
+//               </select>
+//           </td>
+//           <td>
+//               <input type="number" class="form-control cantidad" onclick="sumarPreciosTotales()" value="0.00">
+//           </td>
+//           <td>
+//               <input type="number" class="form-control precio" onclick="sumarPreciosTotales()" value="0.00">
+//           </td>
+//           <td>
+//               <input type="number" class="form-control descuento" value="0.00" readonly>
+//           </td>
+//           <td>
+//               <input type="number" class="form-control precio_total" value="0.00" readonly>
+//           </td>
+//           <td>
+//               <div class="col-auto">
+//                   <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
+//               </div>
+//           </td>
+//           <td>
+//               <input type="hidden" class="form-control precio_db" value="1" readonly>
+//           </td>
+//       `;
 
-      // Agregar la nueva fila al tbody
-      tblDetalleVenta.insertBefore(
-          newRow,
-          document.getElementById("masservicios")
-      );
+//       // Agregar la nueva fila al tbody
+//       tblDetalleVenta.insertBefore(newRow, document.getElementById("masservicios"));
 
-      // Renderizar el selectpicker para el nuevo select
-      $(newRow).find('.selectpicker').selectpicker('render');
+//       // Renderizar el selectpicker para el nuevo select
+//       const $newSelect = $(newRow).find('.selectpicker');
+//       console.log("New select element:", $newSelect);
 
-      // Añadir eventos de cálculo y eliminación a la nueva fila
-      addEventListenersToRow(newRow);
+//       if ($newSelect.length) {
+//           try {
+//               $newSelect.selectpicker();
+//           } catch (error) {
+//               console.error("Error initializing selectpicker:", error);
+//           }
+//       } else {
+//           console.error("Select element not found for selectpicker initialization");
+//       }
 
-      newRow
-          .querySelector(".btn-remove-select")
-          .addEventListener("click", function () {
-              newRow.remove();
-          });
+//       // Añadir eventos de cálculo y eliminación a la nueva fila
+//       addEventListenersToRow(newRow);
 
-      // Añadir event listener para actualizar el precio_db cuando se cambia la selección del servicio
-      newRow.querySelector(".servicio-select").addEventListener("change", function () {
-          let selectedOption = this.options[this.selectedIndex];
-          let nombreServicio = selectedOption.innerText;
-          let soloNumeros = nombreServicio.replace(/[^\d.]/g, "");
-          newRow.querySelector(".precio_db").value = soloNumeros;
-      });
+//       newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
+//           newRow.remove();
+//       });
+
+//       // Añadir event listener para actualizar el precio_db cuando se cambia la selección del servicio
+//       // const servicioSelect = newRow.querySelector(".servicio-select");
+//       // if (servicioSelect) {
+//       //     servicioSelect.addEventListener("change", function () {
+//       //         let selectedOption = this.options[this.selectedIndex];
+//       //         if (selectedOption) {
+//       //             let nombreServicio = selectedOption.innerText;
+//       //             let soloNumeros = nombreServicio.replace(/[^\d.]/g, "");
+//       //             let precioDbInput = newRow.querySelector(".precio_db");
+//       //             if (precioDbInput) {
+//       //                 precioDbInput.value = soloNumeros;
+//       //             } else {
+//       //                 console.error("precio_db input not found");
+//       //             }
+//       //         } else {
+//       //             console.error("Selected option not found");
+//       //         }
+//       //     });
+//       // } else {
+//       //     console.error("Service select element not found");
+//       // }
+//       // Añadir event listener para actualizar el precio_db cuando se cambia la selección del servicio
+// const servicioSelect = newRow.querySelector(".servicio-select");
+// if (servicioSelect) {
+//   servicioSelect.addEventListener("change", function () {
+//     if (this.selectedIndex !== -1) { // Verificar si hay alguna opción seleccionada
+//         let selectedOption = this.options[this.selectedIndex];
+//         if (selectedOption) {
+//             let nombreServicio = selectedOption.innerText;
+//             let soloNumeros = nombreServicio.replace(/[^\d.]/g, "");
+//             let precioDbInput = newRow.querySelector(".precio_db");
+//             if (precioDbInput) {
+//                 precioDbInput.value = soloNumeros;
+//             } else {
+//                 console.error("precio_db input not found");
+//             }
+//         } else {
+//             console.error("Selected option not found");
+//         }
+//     } else {
+//         console.error("No option selected");
+//     }
+// });
+
+// } else {
+//     console.error("Service select element not found");
+// }
+
+//   }
+
+function addNewProductoRow(response) {
+  let newRow = document.createElement("tr");
+  newRow.classList.add("detalle-venta-row");
+  newRow.innerHTML = `
+      <td>
+          <select class="form-control selectpicker servicio-select" name="selectGuia" required data-live-search="true">
+              ${response[0]}
+          </select>
+      </td>
+      <td>
+          <input type="number" class="form-control cantidad" onclick="sumarPreciosTotales()" value="0.00">
+      </td>
+      <td>
+          <input type="number" class="form-control precio" onclick="sumarPreciosTotales()" value="0.00">
+      </td>
+      <td>
+          <input type="number" class="form-control descuento" value="0.00" readonly>
+      </td>
+      <td>
+          <input type="number" class="form-control precio_total" value="0.00" readonly>
+      </td>
+      <td>
+          <div class="col-auto">
+              <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
+          </div>
+      </td>
+      <td>
+          <input type="hidden" class="form-control precio_db" value="1" readonly>
+      </td>
+  `;
+
+  // Agregar la nueva fila al tbody
+  tblDetalleVenta.insertBefore(newRow, document.getElementById("masservicios"));
+
+  // Renderizar el selectpicker para el nuevo select
+  const $newSelect = $(newRow).find('.selectpicker');
+  console.log("New select element:", $newSelect);
+
+  if ($newSelect.length) {
+      try {
+          $newSelect.selectpicker();
+      } catch (error) {
+          console.error("Error initializing selectpicker:", error);
+      }
+  } else {
+      console.error("Select element not found for selectpicker initialization");
   }
+
+  // Añadir eventos de cálculo y eliminación a la nueva fila
+  addEventListenersToRow(newRow);
+
+  newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
+      newRow.remove();
+  });
+
+  // Añadir event listener para actualizar el precio_db cuando se cambia la selección del servicio
+  const servicioSelect = newRow.querySelector(".servicio-select");
+  if (servicioSelect) {
+      servicioSelect.addEventListener("change", function () {
+          let selectedOption = this.options[this.selectedIndex];
+          if (selectedOption) {
+              let nombreServicio = selectedOption.innerText;
+              let soloNumeros = nombreServicio.replace(/[^\d.]/g, "");
+              let precioDbInput = newRow.querySelector(".precio_db");
+              if (precioDbInput) {
+                  precioDbInput.value = soloNumeros;
+              } else {
+                  console.error("precio_db input not found");
+              }
+          } else {
+              console.error("Selected option not found");
+          }
+      });
+  } else {
+      console.error("Service select element not found");
+  }
+}
+
+
+
+
 
   function addEventListenersToRow(row) {
       const cantidadInput = row.querySelector(".cantidad");
@@ -591,10 +840,14 @@ document.addEventListener("DOMContentLoaded", function () {
           descuentoInput.value = descuento.toFixed(2);
       }
 
-      cantidadInput.addEventListener("input", calcular);
-      precioInput.addEventListener("input", calcular);
+      if (cantidadInput && precioInput) {
+          cantidadInput.addEventListener("input", calcular);
+          precioInput.addEventListener("input", calcular);
 
-      calcular(); // Cálculo inicial al cargar la página
+          calcular(); // Cálculo inicial al cargar la página
+      } else {
+          console.error("cantidadInput or precioInput not found");
+      }
   }
 
   btnAgregarProducto.addEventListener("click", function () {
@@ -604,6 +857,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Cargar el primer select al cargar la página
   loadInitialSelectOptions();
 });
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 // --------------------
 
