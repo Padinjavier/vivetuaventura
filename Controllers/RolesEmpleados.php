@@ -102,8 +102,8 @@
 						// Creamos el nuevo div para el nuevo rol
 						$htmlOptions .= '<div class="col-lg-4 col-md-6">
 											<div class="form-group">
-												<label class="control-label" id="listRolEmpleado">'.htmlspecialchars($row['rol_nombre']).'<span class="required">*</span></label>
-												<select class="form-control" id="listNombreEmpleados" name="select'.htmlspecialchars($row['rol_nombre']).'" required>
+												<label class="control-label" id="listRolEmpleado">'.htmlspecialchars($row['rol_nombre']).'</label>
+												<select class="form-control" id="listNombreEmpleados" name="select'.htmlspecialchars($row['rol_nombre']).'" >
 													<option value="">Seleccione una opción</option>';
 					}
 					// Agregamos las opciones del select

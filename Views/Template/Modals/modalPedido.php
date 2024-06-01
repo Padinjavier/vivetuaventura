@@ -43,9 +43,9 @@
                     <div class="row" id="listRolNombreEmpleado">
                         <div class="col-lg-4 col-md-6">
                             <div class="form-group">
-                                <label class="control-label" id="listRolEmpleado">Guia<span
-                                        class="required">*</span></label>
+                                <label class="control-label" id="listRolEmpleado">Guia</label>
                                 <select class="form-control" id="listNombreEmpleados" name="selectGuia" required>
+
                                 </select>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group cargador">
-                                <label class="control-label">Cargador<span class="required">*</span>
+                                <label class="control-label">Cargador
                                     <button class="btn btn-primary btn-sm" type="button" id="btnAgregarCargador"><i
                                             class="fas fa-plus-circle" aria-hidden="true"></i> Agregar</button>
                                 </label>
@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 <label class="control-label">Descripcion </label>
                                 <textarea class="form-control" id="textareaDescripcion" name="textareaDescripcion"
-                                    rows="2" required></textarea>
+                                    rows="2"></textarea>
                             </div>
                         </div>
                     </div>

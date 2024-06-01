@@ -66,6 +66,78 @@ tablePedidos = $('#tablePedidos').dataTable( {
     "order":[[0,"desc"]]  
 });
 
+// ------------------------------------
+// ------------------------------------
+// ------------------------------------
+//NUEVO Pedido
+let formPedido = document.querySelector("#formUpdatePedido");
+formPedido.onsubmit = function(e) {
+    e.preventDefault();
+    let strNombre = document.querySelector('#txtNombre').value;
+    let strDescripcion = document.querySelector('#txtDescripcion').value;
+    let strPrecio = document.querySelector('#txtPrecio').value;
+    let intStatus = document.querySelector('#listStatus').value;        
+    if(strNombre == '' || strDescripcion == '' || intStatus == '' || strPrecio == '' )
+    {
+        swal("Atención", "Todos los campos son obligatorios." , "error");
+        return false;
+    }
+    divLoading.style.display = "flex";
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Pedidos/setPedido'; 
+    let formData = new FormData(formPedido);
+    request.open("POST",ajaxUrl,true);
+    request.send(formData);
+    request.onreadystatechange = function(){
+       if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+            if(objData.status)
+            {
+                // if(rowTable == ""){
+                //     tableServicios.api().ajax.reload();
+                // }else{
+                //     htmlStatus = intStatus == 1 ? 
+                //         '<span class="badge badge-success">Activo</span>' : 
+                //         '<span class="badge badge-danger">Inactivo</span>';
+                //     rowTable.cells[1].textContent = strNombre;
+                //     rowTable.cells[2].textContent = strDescripcion;
+                //     rowTable.cells[3].textContent = strPrecio;
+                //     rowTable.cells[4].innerHTML = htmlStatus;
+                //     rowTable = "";
+                // }
+
+                $('#modalFormPedido').modal("hide");
+                formPedido.reset();
+                swal("Pedido", objData.msg ,"success");
+                removePhoto();
+            }else{
+                swal("Error", objData.msg , "error");
+            }              
+        } 
+        divLoading.style.display = "none";
+        return false;
+    }
+  }
+// ------------------------------------
+// ------------------------------------
+// ------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function fntTransaccion(idtransaccion){
     let request = (window.XMLHttpRequest) ? 
                     new XMLHttpRequest() : 
@@ -351,7 +423,7 @@ function createCargadorSelect(optionsHTML) {
   selectContainer.className = "form-row align-items-center mb-2";
   selectContainer.innerHTML = `
         <div class="col">
-            <select class="form-control selectpicker" name="selectGuia" required data-live-search="true">${optionsHTML}</select>
+            <select class="form-control selectpicker" name="selectGuia" data-live-search="true">${optionsHTML}</select>
         </div>
         <div class="col-auto">
             <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
