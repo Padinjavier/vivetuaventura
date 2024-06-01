@@ -189,37 +189,22 @@
 	// ---------------------------------------------
 // ---------------------------------------------
 // ---------------------------------------------
-
-	// public function getSelectServicios()
-	// {
-	// 	$servicios = $this->model->selectServicios();
-	// 	$options = '<option value="" disabled selected>[--Seleccione--]</option>';
-	// 	foreach ($servicios as $servicio) {
-	// 		$options .= '<option value="' . $servicio['idservicio'] . '">' . $servicio['nombre'].' S/'.$servicio['precio'] . '</option>';
-	// 	}
-	// 	echo $options;
-	// }
-
 	public function getSelectServicios()
 	{
 		$servicios = $this->model->selectServicios();
-		// $options = '<option value="" disabled selected>[--Seleccione--]</option>';
 		$options = '<option value="">Seleccione una opción</option>';
-
-		$data = [];
 	
 		foreach ($servicios as $servicio) {
-			$options .= '<option value="' . $servicio['idservicio'] . '">' . $servicio['nombre'] . ' S/' . $servicio['precio'] . '</option>';
+			$options .= '<option value="' . htmlspecialchars($servicio['idservicio']) . '">' . htmlspecialchars($servicio['nombre']) . ' S/' . htmlspecialchars($servicio['precio']) . '</option>';
 		}
 	
+		$data = [];
 		$data[0] = $options;
-		$data[1] = $servicio['precio'];
+		$data[1] = isset($servicio['precio']) ? htmlspecialchars($servicio['precio']) : 0;
 	
 		echo json_encode($data);
 	}
 	
-
-
 
 
 
