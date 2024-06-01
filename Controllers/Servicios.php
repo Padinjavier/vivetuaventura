@@ -189,22 +189,36 @@
 	// ---------------------------------------------
 // ---------------------------------------------
 // ---------------------------------------------
+	// public function getSelectServicios()
+	// {
+	// 	$servicios = $this->model->selectServicios();
+	// 	$options = '<option value="">Seleccione una opción</option>';
+	
+	// 	foreach ($servicios as $servicio) {
+	// 		$options .= '<option value="' . htmlspecialchars($servicio['idservicio']) . '">' . htmlspecialchars($servicio['nombre']) . ' S/' . htmlspecialchars($servicio['precio']) . '</option>';
+	// 	}
+	
+	// 	$data = [];
+	// 	$data[0] = $options;
+	// 	$data[1] = isset($servicio['precio']) ? htmlspecialchars($servicio['precio']) : 0;
+	
+	// 	echo json_encode($data);
+	// }
+	
 	public function getSelectServicios()
-	{
-		$servicios = $this->model->selectServicios();
-		$options = '<option value="">Seleccione una opción</option>';
-	
-		foreach ($servicios as $servicio) {
-			$options .= '<option value="' . htmlspecialchars($servicio['idservicio']) . '">' . htmlspecialchars($servicio['nombre']) . ' S/' . htmlspecialchars($servicio['precio']) . '</option>';
-		}
-	
-		$data = [];
-		$data[0] = $options;
-		$data[1] = isset($servicio['precio']) ? htmlspecialchars($servicio['precio']) : 0;
-	
-		echo json_encode($data);
-	}
-	
+{
+    $servicios = $this->model->selectServicios();
+    $options = '<option value="">Seleccione una opción</option>';
+
+    foreach ($servicios as $servicio) {
+        $options .= '<option value="' . htmlspecialchars($servicio['idservicio']) . '" data-precio="' . htmlspecialchars($servicio['precio']) . '">' . htmlspecialchars($servicio['nombre']) . ' S/' . htmlspecialchars($servicio['precio']) . '</option>';
+    }
+
+    $data = [];
+    $data[0] = $options;
+
+    echo json_encode($data);
+}
 
 
 

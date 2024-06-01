@@ -110,46 +110,20 @@
                                 <table class="table table-sm">
                                     <thead>
                                         <tr>
-                                            <th style="width:30%">Producto</th>
+                                            <th style="width:20%">Producto</th>
                                             <th style="width:10%">Cantidad</th>
                                             <th style="width:10%">Precio</th>
                                             <th style="width:10%">Descuento</th>
                                             <th style="width:10%">Precio Total</th>
                                             <th style="width:5%"></th>
-                                            <th style="width:0%"></th>
+                                            <th style="width:10%"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="tblDetalleVenta">
-                                        <tr class="detalle-venta-row" id="masservicios">
                                         <Script>
                                         // se crean en automatico con el JS 
                                         </Script>    
 
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <p>Sub Total:</p>
-                                            </td>
-                                            <td>
-                                                <span id="subtotal">S/0.00</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <p>IGV (18 %) :</p>
-                                            </td>
-                                            <td>
-                                                <span id="igv">S/0.00</span>
-                                            </td>
-                                        </tr>
                                         <tr>
                                             <td></td>
                                             <td></td>
