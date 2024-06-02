@@ -130,7 +130,7 @@ public function selectRolesCargadores()
 		public function deleteRol(int $idrol)
 		{
 			$this->intIdrol = $idrol;
-			$sql = "SELECT * FROM persona WHERE rolid = $this->intIdrol";
+			$sql = "SELECT * FROM persona WHERE rolidempleado = $this->intIdrol AND status ='1'";
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{
