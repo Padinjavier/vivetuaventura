@@ -14,7 +14,7 @@ date_default_timezone_set('America/Lima');
 const DB_HOST = "localhost";
 const DB_NAME = "agencia";
 const DB_USER = "root";
-const DB_PASSWORD = "root";
+const DB_PASSWORD = "javier20";
 const DB_CHARSET = "utf8";
 
 //Para envío de correo

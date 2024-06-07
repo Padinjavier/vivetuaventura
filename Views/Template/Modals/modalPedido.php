@@ -16,15 +16,13 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Codigo Venta<span class="required">*</span></label>
-                                <input class="form-control" id="idProducto" name="txtCodigoSalida" type="text" required
-                                    disabled>
+                                <input class="form-control" id="txtCodigoVenta" name="txtCodigoVenta" type="text">
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Codigo Salida<span class="required">*</span></label>
-                                <input class="form-control" id="txtCodigoVenta" name="txtCodigoVenta" type="text"
-                                    required disabled>
+                                <input class="form-control" id="txtCodigoSalida" name="txtCodigoSalida" type="text">
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
@@ -41,15 +39,7 @@
 
                     </div>
                     <div class="row" id="listRolNombreEmpleado">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" id="listRolEmpleado">Guia</label>
-                                <select class="form-control" id="listNombreEmpleados" name="selectGuia" required>
-
-                                </select>
-                            </div>
-                        </div>
-
+                        <!-- aqui se agregan los select de los roles    -->
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
@@ -120,9 +110,9 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tblDetalleVenta">
-                                        <Script>
-                                        // se crean en automatico con el JS 
-                                        </Script>    
+                                        <script>
+                                            // se crean en automatico con el JS 
+                                        </script>    
 
                                         <tr>
                                             <td></td>

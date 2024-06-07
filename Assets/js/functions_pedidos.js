@@ -69,53 +69,113 @@ tablePedidos = $('#tablePedidos').dataTable({
 // ------------------------------------
 // ------------------------------------
 // ------------------------------------
-//NUEVO Pedido
+// // NUEVO Pedido
+// let formPedido = document.querySelector("#formUpdatePedido");
+// formPedido.onsubmit = function (e) {
+//   e.preventDefault();
+//   let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
+//   let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
+//   let dtFechaHora = document.querySelector('#fecha-hora').value;
+//   let strGuia = document.querySelector('#selectGuia').value;
+//   let strDNI = document.querySelector('#txtDNI').value;
+//   let strNombre = document.querySelector('#txtNombre').value;
+//   let strApellido = document.querySelector('#txtApellido').value;
+//   let strDescripcion = document.querySelector('#textareaDescripcion').value;
+  
+//   // Verificar campos obligatorios
+//   if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strGuia == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+//     swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+//     return false;
+//   }
+  
+//   divLoading.style.display = "flex";
+//   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+//   let ajaxUrl = base_url + '/Pedidos/setPedido';
+//   let formData = new FormData(formPedido);
+//   request.open("POST", ajaxUrl, true);
+//   request.send(formData);
+//   request.onreadystatechange = function () {
+//     if (request.readyState == 4 && request.status == 200) {
+//       let objData = JSON.parse(request.responseText);
+//       if (objData.status) {
+//         $('#modalFormPedido').modal("hide");
+//         formPedido.reset();
+//         swal("Pedido", objData.msg, "success");
+//       } else {
+//         swal("Error", objData.msg, "error");
+//       }
+//     }
+//     divLoading.style.display = "none";
+//     return false;
+//   }
+// }
+
+// NUEVO Pedido
 let formPedido = document.querySelector("#formUpdatePedido");
 formPedido.onsubmit = function (e) {
-  e.preventDefault();
-  let strNombre = document.querySelector('#txtNombre').value;
-  let strDescripcion = document.querySelector('#txtDescripcion').value;
-  let strPrecio = document.querySelector('#txtPrecio').value;
-  let intStatus = document.querySelector('#listStatus').value;
-  if (strNombre == '' || strDescripcion == '' || intStatus == '' || strPrecio == '') {
-    swal("Atención", "Todos los campos son obligatorios.", "error");
-    return false;
-  }
-  divLoading.style.display = "flex";
-  let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/setPedido';
-  let formData = new FormData(formPedido);
-  request.open("POST", ajaxUrl, true);
-  request.send(formData);
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        // if(rowTable == ""){
-        //     tableServicios.api().ajax.reload();
-        // }else{
-        //     htmlStatus = intStatus == 1 ? 
-        //         '<span class="badge badge-success">Activo</span>' : 
-        //         '<span class="badge badge-danger">Inactivo</span>';
-        //     rowTable.cells[1].textContent = strNombre;
-        //     rowTable.cells[2].textContent = strDescripcion;
-        //     rowTable.cells[3].textContent = strPrecio;
-        //     rowTable.cells[4].innerHTML = htmlStatus;
-        //     rowTable = "";
-        // }
+    e.preventDefault();
+    
+    let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
+    let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
+    let dtFechaHora = document.querySelector('#fecha-hora').value;
+    let strDNI = document.querySelector('#txtDNI').value;
+    let strNombre = document.querySelector('#txtNombre').value;
+    let strApellido = document.querySelector('#txtApellido').value;
+    let strDescripcion = document.querySelector('#textareaDescripcion').value;
 
-        $('#modalFormPedido').modal("hide");
-        formPedido.reset();
-        swal("Pedido", objData.msg, "success");
-        removePhoto();
-      } else {
-        swal("Error", objData.msg, "error");
-      }
+    // Obtener valores de los selectores de roles dinámicos
+    let dynamicRoles = {};
+    document.querySelectorAll("select[id^='select_']").forEach(select => {
+        let roleName = select.id.replace('select_', '');
+        dynamicRoles[roleName] = select.value;
+    });
+
+    // Imprimir valores en la consola
+    console.log("Codigo Venta:", strCodigoVenta);
+    console.log("Codigo Salida:", strCodigoSalida);
+    console.log("Fecha y Hora:", dtFechaHora);
+    console.log("DNI:", strDNI);
+    console.log("Nombre:", strNombre);
+    console.log("Apellido:", strApellido);
+    console.log("Descripcion:", strDescripcion);
+    console.log("Roles Dinámicos:", dynamicRoles);
+
+    // Verificar campos obligatorios
+    if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+        swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+        return false;
     }
-    divLoading.style.display = "none";
-    return false;
-  }
+
+    // Verificar roles dinámicos (si se desea que todos sean obligatorios)
+    for (let role in dynamicRoles) {
+        if (dynamicRoles[role] === '') {
+            swal("Atención", `El campo ${role} es obligatorio.`, "error");
+            return false;
+        }
+    }
+
+    divLoading.style.display = "flex";
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/Pedidos/setPedido';
+    let formData = new FormData(formPedido);
+    request.open("POST", ajaxUrl, true);
+    request.send(formData);
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                $('#modalFormPedido').modal("hide");
+                formPedido.reset();
+                swal("Pedido", objData.msg, "success");
+            } else {
+                swal("Error", objData.msg, "error");
+            }
+        }
+        divLoading.style.display = "none";
+        return false;
+    }
 }
+
 // ------------------------------------
 // ------------------------------------
 // ------------------------------------

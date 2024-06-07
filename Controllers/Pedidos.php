@@ -175,37 +175,7 @@ class Pedidos extends Controllers{
 	// 	die();
 	// }
 
-	public function newPedido() {
-		if ($_SESSION['permisosMod']['u'] && $_SESSION['userData']['idrolusuario'] != RCLIENTES) {
-			$data = [
-				'orden' => [
-					'idpedido' => '111',
-					'monto' => '111',
-					'tipopagoid' => '111',
-					'idtransaccionpaypal' => '111',
-					'referenciacobro' => '111',
-					'tipopago' => '111',
-					'status' => '111'
-				],
-				'cliente' => [
-					'nombres' => 'NombreCliente',
-					'apellidos' => 'ApellidoCliente'
-				],
-				'tipospago' => [
-					['idtipopago' => '111', 'tipopago' => 'TipoPago1'],
-					['idtipopago' => '222', 'tipopago' => 'TipoPago2']
-				],
-				'STATUS' => ['Pendiente', 'Aprobado', 'Rechazado']
-			];
-			$htmlModal = getFile("Template/Modals/modalPedido", $data); // Llamada con datos adicionales
-			$arrResponse = array("status" => true, "html" => $htmlModal);
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-		} else {
-			$arrResponse = array("status" => false, "msg" => "No tiene permisos");
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-		}
-		die();
-	}
+
 		
 
 
