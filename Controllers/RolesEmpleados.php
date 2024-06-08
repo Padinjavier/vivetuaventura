@@ -64,6 +64,15 @@
 			}
 			die();
 		}
+		public function getRolesEmpleadoslist()
+		{
+			if($_SESSION['permisosMod']['r']){
+				$arrData = $this->model->selectRolesEmpleados();
+
+				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+			}
+			die();
+		}
 
 		public function getSelectRoles()
 		{

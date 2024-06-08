@@ -197,3 +197,336 @@ $state.addEventListener('click', () => {
     }
   });
 </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let formPedido = document.querySelector("#formUpdatePedido");
+// formPedido.onsubmit = function (e) {
+//     e.preventDefault();
+    
+//     let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
+//     let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
+//     let dtFechaHora = document.querySelector('#fecha-hora').value;
+//     let strDNI = document.querySelector('#txtDNI').value;
+//     let strNombre = document.querySelector('#txtNombre').value;
+//     let strApellido = document.querySelector('#txtApellido').value;
+//     let strDescripcion = document.querySelector('#textareaDescripcion').value;
+
+//     // Obtener valores de los selectores de roles dinámicos
+//     let dynamicRoles = {};
+//     document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
+//         let roleName = select.id.replace('select_', '');
+//         dynamicRoles[roleName] = select.value;
+//     });
+
+//     // Imprimir valores en la consola
+//     console.log("Codigo Venta:", strCodigoVenta);
+//     console.log("Codigo Salida:", strCodigoSalida);
+//     console.log("Fecha y Hora:", dtFechaHora);
+//     console.log("DNI:", strDNI);
+//     console.log("Nombre:", strNombre);
+//     console.log("Apellido:", strApellido);
+//     console.log("Descripcion:", strDescripcion);
+//     console.log("Roles Dinámicos:", dynamicRoles);
+
+//     // Verificar campos obligatorios
+//     if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+//         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+//         return false;
+//     }
+
+//     // Verificar roles dinámicos (si se desea que todos sean obligatorios)
+//     for (let role in dynamicRoles) {
+//         if (dynamicRoles[role] === '') {
+//             swal("Atención", `El campo ${role} es obligatorio.`, "error");
+//             return false;
+//         }
+//     }
+
+//     divLoading.style.display = "flex";
+//     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+//     let ajaxUrl = base_url + '/Pedidos/setPedido';
+//     let formData = new FormData(formPedido);
+//     request.open("POST", ajaxUrl, true);
+//     request.send(formData);
+//     request.onreadystatechange = function () {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let objData = JSON.parse(request.responseText);
+//             if (objData.status) {
+//                 $('#modalFormPedido').modal("hide");
+//                 formPedido.reset();
+//                 swal("Pedido", objData.msg, "success");
+//             } else {
+//                 swal("Error", objData.msg, "error");
+//             }
+//         }
+//         divLoading.style.display = "none";
+//         return false;
+//     }
+// }
+
+
+
+// NUEVO Pedido
+// let formPedido = document.querySelector("#formUpdatePedido");
+// formPedido.onsubmit = function (e) {
+//     e.preventDefault();
+    
+//     let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
+//     let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
+//     let dtFechaHora = document.querySelector('#fecha-hora').value;
+//     let strDNI = document.querySelector('#txtDNI').value;
+//     let strNombre = document.querySelector('#txtNombre').value;
+//     let strApellido = document.querySelector('#txtApellido').value;
+//     let strDescripcion = document.querySelector('#textareaDescripcion').value;
+
+//     // Obtener valores de los selectores de roles dinámicos
+//     let dynamicRoles = {};
+//     document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
+//         let roleName = select.id.replace('listRolEmpleado_', ''); // Ajustado aquí
+//         dynamicRoles[roleName] = select.value;
+//     });
+
+//     // Imprimir valores en la consola
+//     console.log("Codigo Venta:", strCodigoVenta);
+//     console.log("Codigo Salida:", strCodigoSalida);
+//     console.log("Fecha y Hora:", dtFechaHora);
+//     console.log("DNI:", strDNI);
+//     console.log("Nombre:", strNombre);
+//     console.log("Apellido:", strApellido);
+//     console.log("Descripcion:", strDescripcion);
+
+//     // Imprimir roles dinámicos uno por uno
+//     for (let role in dynamicRoles) {
+//         console.log(`${role}: ${dynamicRoles[role]}`);
+//     }
+
+//     // Verificar campos obligatorios
+//     if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+//         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+//         return false;
+//     }
+
+//     // Verificar roles dinámicos (si se desea que todos sean obligatorios)
+//     for (let role in dynamicRoles) {
+//         if (dynamicRoles[role] === '') {
+//             swal("Atención", `El campo ${role} es obligatorio.`, "error");
+//             return false;
+//         }
+//     }
+
+//     divLoading.style.display = "flex";
+//     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+//     let ajaxUrl = base_url + '/Pedidos/setPedido';
+//     let formData = new FormData(formPedido);
+//     request.open("POST", ajaxUrl, true);
+//     request.send(formData);
+//     request.onreadystatechange = function () {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let objData = JSON.parse(request.responseText);
+//             if (objData.status) {
+//                 $('#modalFormPedido').modal("hide");
+//                 formPedido.reset();
+//                 swal("Pedido", objData.msg, "success");
+//             } else {
+//                 swal("Error", objData.msg, "error");
+//             }
+//         }
+//         divLoading.style.display = "none";
+//         return false;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NUEVO Pedido
+// let formPedido = document.querySelector("#formUpdatePedido");
+// formPedido.onsubmit = function (e) {
+//     e.preventDefault();
+    
+//     let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
+//     let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
+//     let dtFechaHora = document.querySelector('#fecha-hora').value;
+//     let strDNI = document.querySelector('#txtDNI').value;
+//     let strNombre = document.querySelector('#txtNombre').value;
+//     let strApellido = document.querySelector('#txtApellido').value;
+//     let strDescripcion = document.querySelector('#textareaDescripcion').value;
+
+//     // Obtener valores de los selectores de roles dinámicos
+//     let dynamicRoles = {};
+//     document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
+//         let roleName = select.id.replace('listRolEmpleado_', ''); // Ajustado aquí
+//         dynamicRoles[roleName] = select.value;
+//     });
+
+//     // Obtener valores de los selectores de cargadores
+//     let cargadores = [];
+//     document.querySelectorAll("select[name='selectCargador']").forEach(select => {
+//         cargadores.push(select.value);
+//     });
+
+//     // Imprimir valores en la consola
+//     console.log("Codigo Venta:", strCodigoVenta);
+//     console.log("Codigo Salida:", strCodigoSalida);
+//     console.log("Fecha y Hora:", dtFechaHora);
+//     // console.log("Roles Dinámicos:", dynamicRoles);
+//     //     // Imprimir roles dinámicos uno por uno
+//     for (let role in dynamicRoles) {
+//         console.log(`${role}: ${dynamicRoles[role]}`);
+//     }
+//     console.log("Cargadores:", cargadores);
+//     console.log("DNI:", strDNI);
+//     console.log("Nombre:", strNombre);
+//     console.log("Apellido:", strApellido);
+//     console.log("Descripcion:", strDescripcion);
+
+//     // Verificar campos obligatorios
+//     if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+//         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+//         return false;
+//     }
+
+//     // Verificar roles dinámicos (si se desea que todos sean obligatorios)
+//     for (let role in dynamicRoles) {
+//         if (dynamicRoles[role] === '') {
+//             swal("Atención", `El campo ${role} es obligatorio.`, "error");
+//             return false;
+//         }
+//     }
+
+//     // Verificar cargadores (si se desea que al menos uno sea obligatorio)
+//     if (cargadores.length === 0 || cargadores.includes('')) {
+//         swal("Atención", "Todos los cargadores deben ser seleccionados.", "error");
+//         return false;
+//     }
+
+//     divLoading.style.display = "flex";
+//     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+//     let ajaxUrl = base_url + '/Pedidos/setPedido';
+//     let formData = new FormData(formPedido);
+//     request.open("POST", ajaxUrl, true);
+//     request.send(formData);
+//     request.onreadystatechange = function () {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let objData = JSON.parse(request.responseText);
+//             if (objData.status) {
+//                 $('#modalFormPedido').modal("hide");
+//                 formPedido.reset();
+//                 swal("Pedido", objData.msg, "success");
+//             } else {
+//                 swal("Error", objData.msg, "error");
+//             }
+//         }
+//         divLoading.style.display = "none";
+//         return false;
+//     }
+// }
+
+// NUEVO Pedido
+// let formPedido = document.querySelector("#formUpdatePedido");
+// formPedido.onsubmit = function (e) {
+//     e.preventDefault();
+    
+//     let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
+//     let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
+//     let dtFechaHora = document.querySelector('#fecha-hora').value;
+//     let strDNI = document.querySelector('#txtDNI').value;
+//     let strNombre = document.querySelector('#txtNombre').value;
+//     let strApellido = document.querySelector('#txtApellido').value;
+//     let strDescripcion = document.querySelector('#textareaDescripcion').value;
+
+//     // Obtener valores de los selectores de roles dinámicos
+//     let dynamicRoles = {};
+//     document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
+//         let roleName = select.id.replace('listRolEmpleado_', ''); // Ajustado aquí
+//         dynamicRoles[roleName] = select.value;
+//     });
+
+//     // Obtener valores de los selectores de cargadores
+//     let cargadores = [];
+//     document.querySelectorAll("select[name='selectCargador']").forEach(select => {
+//         cargadores.push(select.value);
+//     });
+
+//     // Imprimir valores en la consola
+//     console.log("Codigo Venta:", strCodigoVenta);
+//     console.log("Codigo Salida:", strCodigoSalida);
+//     console.log("Fecha y Hora:", dtFechaHora);
+
+//     // Imprimir roles dinámicos uno por uno
+//     for (let role in dynamicRoles) {
+//         console.log(`${role}: ${dynamicRoles[role]}`);
+//     }
+    
+//     console.log("Cargadores:", cargadores);
+//     console.log("DNI:", strDNI);
+//     console.log("Nombre:", strNombre);
+//     console.log("Apellido:", strApellido);
+//     console.log("Descripcion:", strDescripcion);
+
+//     // Verificar campos obligatorios
+//     if (strCodigoVenta === '' || strCodigoSalida === '' || dtFechaHora === '' || strDNI === '' || strNombre === '' || strApellido === '') {
+//         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+//         return false;
+//     }
+
+//     // Verificar roles dinámicos (si se desea que todos sean obligatorios)
+//     for (let role in dynamicRoles) {
+//         if (dynamicRoles[role] === '') {
+//             swal("Atención", `El campo ${role} es obligatorio.`, "error");
+//             return false;
+//         }
+//     }
+
+//     // Verificar cargadores (si se desea que al menos uno sea obligatorio)
+//     if (cargadores.length === 0 || cargadores.includes('')) {
+//         swal("Atención", "Todos los cargadores deben ser seleccionados.", "error");
+//         return false;
+//     }
+
+//     divLoading.style.display = "flex";
+//     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+//     let ajaxUrl = base_url + '/Pedidos/setPedido';
+//     let formData = new FormData(formPedido);
+//     request.open("POST", ajaxUrl, true);
+//     request.send(formData);
+//     request.onreadystatechange = function () {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let objData = JSON.parse(request.responseText);
+//             if (objData.status) {
+//                 $('#modalFormPedido').modal("hide");
+//                 formPedido.reset();
+//                 swal("Pedido", objData.msg, "success");
+//             } else {
+//                 swal("Error", objData.msg, "error");
+//             }
+//         }
+//         divLoading.style.display = "none";
+//         return false;
+//     }
+// }

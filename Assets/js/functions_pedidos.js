@@ -69,47 +69,6 @@ tablePedidos = $('#tablePedidos').dataTable({
 // ------------------------------------
 // ------------------------------------
 // ------------------------------------
-// // NUEVO Pedido
-// let formPedido = document.querySelector("#formUpdatePedido");
-// formPedido.onsubmit = function (e) {
-//   e.preventDefault();
-//   let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
-//   let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
-//   let dtFechaHora = document.querySelector('#fecha-hora').value;
-//   let strGuia = document.querySelector('#selectGuia').value;
-//   let strDNI = document.querySelector('#txtDNI').value;
-//   let strNombre = document.querySelector('#txtNombre').value;
-//   let strApellido = document.querySelector('#txtApellido').value;
-//   let strDescripcion = document.querySelector('#textareaDescripcion').value;
-  
-//   // Verificar campos obligatorios
-//   if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strGuia == '' || strDNI == '' || strNombre == '' || strApellido == '') {
-//     swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
-//     return false;
-//   }
-  
-//   divLoading.style.display = "flex";
-//   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-//   let ajaxUrl = base_url + '/Pedidos/setPedido';
-//   let formData = new FormData(formPedido);
-//   request.open("POST", ajaxUrl, true);
-//   request.send(formData);
-//   request.onreadystatechange = function () {
-//     if (request.readyState == 4 && request.status == 200) {
-//       let objData = JSON.parse(request.responseText);
-//       if (objData.status) {
-//         $('#modalFormPedido').modal("hide");
-//         formPedido.reset();
-//         swal("Pedido", objData.msg, "success");
-//       } else {
-//         swal("Error", objData.msg, "error");
-//       }
-//     }
-//     divLoading.style.display = "none";
-//     return false;
-//   }
-// }
-
 // NUEVO Pedido
 let formPedido = document.querySelector("#formUpdatePedido");
 formPedido.onsubmit = function (e) {
@@ -125,23 +84,43 @@ formPedido.onsubmit = function (e) {
 
     // Obtener valores de los selectores de roles dinámicos
     let dynamicRoles = {};
-    document.querySelectorAll("select[id^='select_']").forEach(select => {
-        let roleName = select.id.replace('select_', '');
-        dynamicRoles[roleName] = select.value;
+    document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
+        let roleName = select.id.replace('listRolEmpleado_', ''); // Ajustado aquí
+        if (select.value !== '') { // Ignorar si no hay selección
+            dynamicRoles[roleName] = select.value;
+        }
+    });
+
+    // Obtener valores de los selectores de cargadores
+    let cargadores = [];
+    document.querySelectorAll("select[name='selectCargador']").forEach(select => {
+        if (select.value !== '') { // Ignorar si no hay selección
+            cargadores.push(select.value);
+        }
     });
 
     // Imprimir valores en la consola
     console.log("Codigo Venta:", strCodigoVenta);
     console.log("Codigo Salida:", strCodigoSalida);
     console.log("Fecha y Hora:", dtFechaHora);
+
+    // Imprimir roles dinámicos uno por uno
+    for (let role in dynamicRoles) {
+        console.log(`${role}: ${dynamicRoles[role]}`);
+    }
+    
+    // Imprimir cargadores solo si hay selecciones
+    if (cargadores.length > 0) {
+        console.log("Cargadores:", cargadores);
+    }
+    
     console.log("DNI:", strDNI);
     console.log("Nombre:", strNombre);
     console.log("Apellido:", strApellido);
     console.log("Descripcion:", strDescripcion);
-    console.log("Roles Dinámicos:", dynamicRoles);
 
     // Verificar campos obligatorios
-    if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+    if (strCodigoVenta === '' || strCodigoSalida === '' || dtFechaHora === '' || strDNI === '' || strNombre === '' || strApellido === '') {
         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
         return false;
     }
@@ -152,6 +131,12 @@ formPedido.onsubmit = function (e) {
             swal("Atención", `El campo ${role} es obligatorio.`, "error");
             return false;
         }
+    }
+
+    // Verificar cargadores (si se desea que al menos uno sea obligatorio)
+    if (cargadores.length === 0) {
+        swal("Atención", "Al menos un cargador debe ser seleccionado.", "error");
+        return false;
     }
 
     divLoading.style.display = "flex";
@@ -179,220 +164,6 @@ formPedido.onsubmit = function (e) {
 // ------------------------------------
 // ------------------------------------
 // ------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function fntTransaccion(idtransaccion) {
-  let request = (window.XMLHttpRequest) ?
-    new XMLHttpRequest() :
-    new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/getTransaccion/' + idtransaccion;
-  divLoading.style.display = "flex";
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        document.querySelector("#divModal").innerHTML = objData.html;
-        $('#modalReembolso').modal('show');
-      } else {
-        swal("Error", objData.msg, "error");
-      }
-      divLoading.style.display = "none";
-      return false;
-    }
-  }
-}
-
-function fntReembolsar() {
-  let idtransaccion = document.querySelector("#idtransaccion").value;
-  let observacion = document.querySelector("#txtObservacion").value;
-  if (idtransaccion == '' || observacion == '') {
-    swal("", "Complete los datos para continuar.", "error");
-    return false;
-  }
-
-  swal({
-    title: "Hacer Reembolso",
-    text: "¿Realmente quiere realizar el reembolso?",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Si, eliminar!",
-    cancelButtonText: "No, cancelar!",
-    closeOnConfirm: true,
-    closeOnCancel: true
-  }, function (isConfirm) {
-
-    if (isConfirm) {
-      $('#modalReembolso').modal('hide');
-      divLoading.style.display = "flex";
-      let request = (window.XMLHttpRequest) ?
-        new XMLHttpRequest() :
-        new ActiveXObject('Microsoft.XMLHTTP');
-      let ajaxUrl = base_url + '/Pedidos/setReembolso';
-      let formData = new FormData();
-      formData.append('idtransaccion', idtransaccion);
-      formData.append('observacion', observacion);
-      request.open("POST", ajaxUrl, true);
-      request.send(formData);
-      request.onreadystatechange = function () {
-        if (request.readyState != 4) return;
-        if (request.status == 200) {
-          let objData = JSON.parse(request.responseText);
-          if (objData.status) {
-            window.location.reload();
-          } else {
-            swal("Error", objData.msg, "error");
-          }
-          divLoading.style.display = "none";
-          return false;
-        }
-      }
-    }
-
-  });
-}
-
-function fntEditInfo(element, idpedido) {
-  rowTable = element.parentNode.parentNode.parentNode;
-  let request = (window.XMLHttpRequest) ?
-    new XMLHttpRequest() :
-    new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/getPedido/' + idpedido;
-  divLoading.style.display = "flex";
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        document.querySelector("#divModal").innerHTML = objData.html;
-        $('#modalFormPedido').modal('show');
-        $('select').selectpicker();
-        fntUpdateInfo();
-      } else {
-        swal("Error", objData.msg, "error");
-      }
-      divLoading.style.display = "none";
-      return false;
-
-    }
-  }
-}
-function newpedidojs() {
-  let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/newPedido/';
-  divLoading.style.display = "flex";
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      try {
-        console.log(request)
-        console.log(request.responseText)
-        let objData = JSON.parse(request.responseText);
-        if (objData.status) {
-          document.querySelector("#divModal").innerHTML = objData.html;
-          $('#modalFormPedido').modal('show');
-          $('select').selectpicker();
-          fntUpdateInfo();
-        } else {
-          swal("Error", objData.msg, "error");
-        }
-      } catch (e) {
-        console.error("Parsing error:", e);
-        swal("Error", "Error al procesar la respuesta del servidor", "error");
-      }
-      divLoading.style.display = "none";
-    }
-  }
-}
-
-
-function fntUpdateInfo() {
-  let formUpdatePedido = document.querySelector("#formUpdatePedido");
-  formUpdatePedido.onsubmit = function (e) {
-    e.preventDefault();
-    let transaccion;
-    if (document.querySelector("#txtTransaccion")) {
-      transaccion = document.querySelector("#txtTransaccion").value;
-      if (transaccion == "") {
-        swal("", "Complete los datos para continuar.", "error");
-        return false;
-      }
-    }
-
-    let request = (window.XMLHttpRequest) ?
-      new XMLHttpRequest() :
-      new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url + '/Pedidos/setPedido/';
-    divLoading.style.display = "flex";
-    let formData = new FormData(formUpdatePedido);
-    request.open("POST", ajaxUrl, true);
-    request.send(formData);
-    request.onreadystatechange = function () {
-      if (request.readyState != 4) return;
-      if (request.status == 200) {
-        let objData = JSON.parse(request.responseText);
-        if (objData.status) {
-          swal("", objData.msg, "success");
-          $('#modalFormPedido').modal('hide');
-          if (document.querySelector("#txtTransaccion")) {
-            rowTable.cells[1].textContent = document.querySelector("#txtTransaccion").value;
-            rowTable.cells[4].textContent = document.querySelector("#listTipopago").selectedOptions[0].innerText;
-            rowTable.cells[5].textContent = document.querySelector("#listEstado").value;
-          } else {
-            rowTable.cells[5].textContent = document.querySelector("#listEstado").value;
-          }
-        } else {
-          swal("Error", objData.msg, "error");
-        }
-
-        divLoading.style.display = "none";
-        return false;
-      }
-    }
-
-  }
-}
-
-
-
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // ---------------------los roles gia conductor-----------------------------
@@ -479,7 +250,7 @@ function createCargadorSelect(optionsHTML) {
   selectContainer.className = "form-row align-items-center mb-2";
   selectContainer.innerHTML = `
         <div class="col">
-            <select class="form-control selectpicker" name="selectGuia" data-live-search="true">${optionsHTML}</select>
+            <select class="form-control selectpicker" name="selectCargador" data-live-search="true">${optionsHTML}</select>
         </div>
         <div class="col-auto">
             <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
@@ -719,3 +490,265 @@ function openModal() {
   document.querySelector("#formUpdatePedido").reset();
   $('#modalFormPedido').modal('show');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function fntTransaccion(idtransaccion) {
+  let request = (window.XMLHttpRequest) ?
+    new XMLHttpRequest() :
+    new ActiveXObject('Microsoft.XMLHTTP');
+  let ajaxUrl = base_url + '/Pedidos/getTransaccion/' + idtransaccion;
+  divLoading.style.display = "flex";
+  request.open("GET", ajaxUrl, true);
+  request.send();
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      let objData = JSON.parse(request.responseText);
+      if (objData.status) {
+        document.querySelector("#divModal").innerHTML = objData.html;
+        $('#modalReembolso').modal('show');
+      } else {
+        swal("Error", objData.msg, "error");
+      }
+      divLoading.style.display = "none";
+      return false;
+    }
+  }
+}
+
+function fntReembolsar() {
+  let idtransaccion = document.querySelector("#idtransaccion").value;
+  let observacion = document.querySelector("#txtObservacion").value;
+  if (idtransaccion == '' || observacion == '') {
+    swal("", "Complete los datos para continuar.", "error");
+    return false;
+  }
+
+  swal({
+    title: "Hacer Reembolso",
+    text: "¿Realmente quiere realizar el reembolso?",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Si, eliminar!",
+    cancelButtonText: "No, cancelar!",
+    closeOnConfirm: true,
+    closeOnCancel: true
+  }, function (isConfirm) {
+
+    if (isConfirm) {
+      $('#modalReembolso').modal('hide');
+      divLoading.style.display = "flex";
+      let request = (window.XMLHttpRequest) ?
+        new XMLHttpRequest() :
+        new ActiveXObject('Microsoft.XMLHTTP');
+      let ajaxUrl = base_url + '/Pedidos/setReembolso';
+      let formData = new FormData();
+      formData.append('idtransaccion', idtransaccion);
+      formData.append('observacion', observacion);
+      request.open("POST", ajaxUrl, true);
+      request.send(formData);
+      request.onreadystatechange = function () {
+        if (request.readyState != 4) return;
+        if (request.status == 200) {
+          let objData = JSON.parse(request.responseText);
+          if (objData.status) {
+            window.location.reload();
+          } else {
+            swal("Error", objData.msg, "error");
+          }
+          divLoading.style.display = "none";
+          return false;
+        }
+      }
+    }
+
+  });
+}
+
+function fntEditInfo(element, idpedido) {
+  rowTable = element.parentNode.parentNode.parentNode;
+  let request = (window.XMLHttpRequest) ?
+    new XMLHttpRequest() :
+    new ActiveXObject('Microsoft.XMLHTTP');
+  let ajaxUrl = base_url + '/Pedidos/getPedido/' + idpedido;
+  divLoading.style.display = "flex";
+  request.open("GET", ajaxUrl, true);
+  request.send();
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      let objData = JSON.parse(request.responseText);
+      if (objData.status) {
+        document.querySelector("#divModal").innerHTML = objData.html;
+        $('#modalFormPedido').modal('show');
+        $('select').selectpicker();
+        fntUpdateInfo();
+      } else {
+        swal("Error", objData.msg, "error");
+      }
+      divLoading.style.display = "none";
+      return false;
+
+    }
+  }
+}
+function newpedidojs() {
+  let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  let ajaxUrl = base_url + '/Pedidos/newPedido/';
+  divLoading.style.display = "flex";
+  request.open("GET", ajaxUrl, true);
+  request.send();
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      try {
+        console.log(request)
+        console.log(request.responseText)
+        let objData = JSON.parse(request.responseText);
+        if (objData.status) {
+          document.querySelector("#divModal").innerHTML = objData.html;
+          $('#modalFormPedido').modal('show');
+          $('select').selectpicker();
+          fntUpdateInfo();
+        } else {
+          swal("Error", objData.msg, "error");
+        }
+      } catch (e) {
+        console.error("Parsing error:", e);
+        swal("Error", "Error al procesar la respuesta del servidor", "error");
+      }
+      divLoading.style.display = "none";
+    }
+  }
+}
+
+
+function fntUpdateInfo() {
+  let formUpdatePedido = document.querySelector("#formUpdatePedido");
+  formUpdatePedido.onsubmit = function (e) {
+    e.preventDefault();
+    let transaccion;
+    if (document.querySelector("#txtTransaccion")) {
+      transaccion = document.querySelector("#txtTransaccion").value;
+      if (transaccion == "") {
+        swal("", "Complete los datos para continuar.", "error");
+        return false;
+      }
+    }
+
+    let request = (window.XMLHttpRequest) ?
+      new XMLHttpRequest() :
+      new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url + '/Pedidos/setPedido/';
+    divLoading.style.display = "flex";
+    let formData = new FormData(formUpdatePedido);
+    request.open("POST", ajaxUrl, true);
+    request.send(formData);
+    request.onreadystatechange = function () {
+      if (request.readyState != 4) return;
+      if (request.status == 200) {
+        let objData = JSON.parse(request.responseText);
+        if (objData.status) {
+          swal("", objData.msg, "success");
+          $('#modalFormPedido').modal('hide');
+          if (document.querySelector("#txtTransaccion")) {
+            rowTable.cells[1].textContent = document.querySelector("#txtTransaccion").value;
+            rowTable.cells[4].textContent = document.querySelector("#listTipopago").selectedOptions[0].innerText;
+            rowTable.cells[5].textContent = document.querySelector("#listEstado").value;
+          } else {
+            rowTable.cells[5].textContent = document.querySelector("#listEstado").value;
+          }
+        } else {
+          swal("Error", objData.msg, "error");
+        }
+
+        divLoading.style.display = "none";
+        return false;
+      }
+    }
+
+  }
+}
+
+
+
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
