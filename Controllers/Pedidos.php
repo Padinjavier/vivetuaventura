@@ -203,6 +203,50 @@ class Pedidos extends Controllers{
 	}
 	
 	
+
+
+	
+	public function getVentas(){
+		if($_SESSION['permisosMod']['r']){
+			$idpersona = "";
+			if( $_SESSION['userData']['idrolusuario'] == RCLIENTES ){
+				$idpersona = $_SESSION['userData']['idpersona'];
+			}
+			$arrData = $this->model->selectVentas($idpersona);
+			//dep($arrData);
+			for ($i=0; $i < count($arrData); $i++) {
+				$btnView = '';
+				$btnEdit = '';
+				$btnDelete = '';
+	
+				// Cambios en los nombres de las claves de los datos obtenidos
+				$arrData[$i]['transaccion'] = $arrData[$i]['codigo_venta'];
+				// Se elimina la comprobación para 'idtransaccionpaypal'
+	
+				// Se mantiene la forma de dar formato al monto
+	
+				if($_SESSION['permisosMod']['r']){
+	
+					$btnView .= ' <a title="Ver Detalle" href="'.base_url().'/pedidos/orden/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>
+	
+						<a title="Generar PDF" href="'.base_url().'/factura/generarFactura/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-danger btn-sm"> <i class="fas fa-file-pdf"></i> </a> ';
+	
+					if($arrData[$i]['idtipopago'] == 2){ // Se cambia la comprobación para idtipopago == 2
+						$btnView .= '<button class="btn btn-secondary btn-sm" disabled=""><i class="fa fa-paypal" aria-hidden="true"></i></button> ';
+					}else{
+						$btnView .= '<a title="Ver Transacción" href="'.base_url().'/pedidos/transaccion/'.$arrData[$i]['transaccion'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> '; // Se usa la clave 'transaccion'
+					}
+				}
+				if($_SESSION['permisosMod']['u']){
+					$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idventa'].')" title="Editar pedido"><i class="fas fa-pencil-alt"></i></button>';
+				}
+				$arrData[$i]['options'] = '<div class="text-center"  style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+			}
+			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+		}
+		die();
+	}
+	
 // -----------------------
 // -----------------------
 // -----------------------

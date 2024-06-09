@@ -1,28 +1,92 @@
 let tablePedidos;
 let rowTable;
-tablePedidos = $('#tablePedidos').dataTable({
-  "aProcessing": true,
-  "aServerSide": true,
+// tablePedidos = $('#tablePedidos').dataTable({
+//   "aProcessing": true,
+//   "aServerSide": true,
+//   "language": {
+//     "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+//   },
+//   "ajax": {
+//     "url": " " + base_url + "/Pedidos/getPedidos",
+//     "dataSrc": ""
+//   },
+//   "columns": [
+//     { "data": "idpedido" },
+//     { "data": "transaccion" },
+//     { "data": "fecha" },
+//     { "data": "monto" },
+//     { "data": "tipopago" },
+//     { "data": "status" },
+//     { "data": "options" }
+//   ],
+//   "columnDefs": [
+//     { 'className': "textcenter", "targets": [3] },
+//     { 'className': "textright", "targets": [4] },
+//     { 'className': "textcenter", "targets": [5] }
+//   ],
+//   'dom': 'lBfrtip',
+//   'buttons': [
+//     {
+//       "extend": "copyHtml5",
+//       "text": "<i class='far fa-copy'></i> Copiar",
+//       "titleAttr": "Copiar",
+//       "className": "btn btn-secondary",
+//       "exportOptions": {
+//         "columns": [0, 1, 2, 3, 4, 5]
+//       }
+//     }, {
+//       "extend": "excelHtml5",
+//       "text": "<i class='fas fa-file-excel'></i> Excel",
+//       "titleAttr": "Esportar a Excel",
+//       "className": "btn btn-success",
+//       "exportOptions": {
+//         "columns": [0, 1, 2, 3, 4, 5]
+//       }
+//     }, {
+//       "extend": "pdfHtml5",
+//       "text": "<i class='fas fa-file-pdf'></i> PDF",
+//       "titleAttr": "Esportar a PDF",
+//       "className": "btn btn-danger",
+//       "exportOptions": {
+//         "columns": [0, 1, 2, 3, 4, 5]
+//       }
+//     }, {
+//       "extend": "csvHtml5",
+//       "text": "<i class='fas fa-file-csv'></i> CSV",
+//       "titleAttr": "Esportar a CSV",
+//       "className": "btn btn-info",
+//       "exportOptions": {
+//         "columns": [0, 1, 2, 3, 4, 5]
+//       }
+//     }
+//   ],
+//   "resonsieve": "true",
+//   "bDestroy": true,
+//   "iDisplayLength": 10,
+//   "order": [[0, "desc"]]
+// });
+tablePedidos = $('#tablePedidos').DataTable({
+  "processing": true,
+  "serverSide": true,
   "language": {
     "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
   },
   "ajax": {
-    "url": " " + base_url + "/Pedidos/getPedidos",
+    "url": base_url + "/Pedidos/getVentas",
     "dataSrc": ""
   },
   "columns": [
-    { "data": "idpedido" },
-    { "data": "transaccion" },
-    { "data": "fecha" },
-    { "data": "monto" },
-    { "data": "tipopago" },
+    { "data": "idventa" },
+    { "data": "idtipopago" },
+    { "data": "fecha_hora" },
+    { "data": "dni_cliente" },
+    { "data": "nombre_cliente" },
     { "data": "status" },
     { "data": "options" }
   ],
   "columnDefs": [
-    { 'className': "textcenter", "targets": [3] },
-    { 'className': "textright", "targets": [4] },
-    { 'className': "textcenter", "targets": [5] }
+    { 'className': "text-center", "targets": [3, 4, 5] }, // Corregido "textcenter" a "text-center"
+    { 'className': "text-right", "targets": [3] }
   ],
   'dom': 'lBfrtip',
   'buttons': [
@@ -37,7 +101,7 @@ tablePedidos = $('#tablePedidos').dataTable({
     }, {
       "extend": "excelHtml5",
       "text": "<i class='fas fa-file-excel'></i> Excel",
-      "titleAttr": "Esportar a Excel",
+      "titleAttr": "Exportar a Excel",
       "className": "btn btn-success",
       "exportOptions": {
         "columns": [0, 1, 2, 3, 4, 5]
@@ -45,7 +109,7 @@ tablePedidos = $('#tablePedidos').dataTable({
     }, {
       "extend": "pdfHtml5",
       "text": "<i class='fas fa-file-pdf'></i> PDF",
-      "titleAttr": "Esportar a PDF",
+      "titleAttr": "Exportar a PDF",
       "className": "btn btn-danger",
       "exportOptions": {
         "columns": [0, 1, 2, 3, 4, 5]
@@ -53,144 +117,23 @@ tablePedidos = $('#tablePedidos').dataTable({
     }, {
       "extend": "csvHtml5",
       "text": "<i class='fas fa-file-csv'></i> CSV",
-      "titleAttr": "Esportar a CSV",
+      "titleAttr": "Exportar a CSV",
       "className": "btn btn-info",
       "exportOptions": {
         "columns": [0, 1, 2, 3, 4, 5]
       }
     }
   ],
-  "resonsieve": "true",
-  "bDestroy": true,
-  "iDisplayLength": 10,
+  "responsive": true, // Corregido "resonsieve" a "responsive"
+  "destroy": true, // Corregido "bDestroy" a "destroy"
+  "pageLength": 10, // Corregido "iDisplayLength" a "pageLength"
   "order": [[0, "desc"]]
 });
 
+
 // ------------------------------------
 // ------------------------------------
 // ------------------------------------
-// NUEVO Pedido
-// let formPedido = document.querySelector("#formUpdatePedido");
-// formPedido.onsubmit = function (e) {
-//     e.preventDefault();
-    
-//     let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
-//     let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
-//     let dtFechaHora = document.querySelector('#fecha-hora').value;
-//     let strDNI = document.querySelector('#txtDNI').value;
-//     let strNombre = document.querySelector('#txtNombre').value;
-//     let strApellido = document.querySelector('#txtApellido').value;
-//     let strDescripcion = document.querySelector('#textareaDescripcion').value;
-
-//     // Obtener valores de los selectores de roles dinámicos
-//     let dynamicRoles = {};
-//     document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
-//         let roleName = select.id.replace('listRolEmpleado_', '');
-//         if (select.value !== '') { // Ignorar si no hay selección
-//             dynamicRoles[roleName] = select.value;
-//         }
-//     });
-
-//     // Obtener valores de los selectores de cargadores
-//     let cargadores = [];
-//     document.querySelectorAll("select[name='selectCargador']").forEach(select => {
-//         if (select.value !== '') { // Ignorar si no hay selección
-//             cargadores.push(select.value);
-//         }
-//     });
-
-//     // Obtener datos de los servicios
-//     let servicios = [];
-//     document.querySelectorAll("tr.detalle-venta-row").forEach(row => {
-//         let selectServicio = row.querySelector("select.servicio-select");
-//         let cantidad = row.querySelector("input.cantidad").value;
-//         let precio = row.querySelector("input.precio").value;
-//         let precioTotal = row.querySelector("input.precio_total").value;
-
-//         if (selectServicio && selectServicio.value !== '' && cantidad !== '' && precio !== '') {
-//             let nombreServicio = selectServicio.options[selectServicio.selectedIndex].text;
-//             let idServicio = selectServicio.value;
-//             servicios.push({
-//                 id: idServicio,
-//                 servicio: nombreServicio,
-//                 cantidad: parseFloat(cantidad),
-//                 precio: parseFloat(precio),
-//                 precioTotal: parseFloat(precioTotal)
-//             });
-//         }
-//     });
-
-//     // Imprimir valores en la consola
-//     console.log("Codigo Venta:", strCodigoVenta);
-//     console.log("Codigo Salida:", strCodigoSalida);
-//     console.log("Fecha y Hora:", dtFechaHora);
-    
-//     // Imprimir roles dinámicos uno por uno
-//     for (let role in dynamicRoles) {
-//         console.log(`${role}: ${dynamicRoles[role]}`);
-//     }
-    
-//     // Imprimir cargadores solo si hay selecciones
-//     if (cargadores.length > 0) {
-//         console.log("Cargadores:", cargadores);
-//     }
-    
-//     console.log("DNI:", strDNI);
-//     console.log("Nombre:", strNombre);
-//     console.log("Apellido:", strApellido);
-//     console.log("Descripcion:", strDescripcion);
-
-//     // Imprimir servicios
-//     if (servicios.length > 0) {
-//         console.log("Servicios:");
-//         servicios.forEach(servicio => {
-//             console.log(`Servicio: [${servicio.id}, ${servicio.servicio}, ${servicio.cantidad}, ${servicio.precio}, ${servicio.precioTotal}]`);
-//         });
-//     }
-
-//     // Verificar campos obligatorios
-//     if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
-//         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
-//         return false;
-//     }
-
-//     divLoading.style.display = "flex";
-//     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-//     let ajaxUrl = base_url + '/Pedidos/setPedido';
-//     let formData = new FormData(formPedido);
-    
-//     // Agregar datos dinámicos al formData
-//     for (let role in dynamicRoles) {
-//         formData.append(`dynamicRoles[${role}]`, dynamicRoles[role]);
-//     }
-//     cargadores.forEach((cargador, index) => {
-//         formData.append(`cargadores[${index}]`, cargador);
-//     });
-//     servicios.forEach((servicio, index) => {
-//         formData.append(`servicios[${index}][id]`, servicio.id);
-//         formData.append(`servicios[${index}][servicio]`, servicio.servicio);
-//         formData.append(`servicios[${index}][cantidad]`, servicio.cantidad);
-//         formData.append(`servicios[${index}][precio]`, servicio.precio);
-//         formData.append(`servicios[${index}][precioTotal]`, servicio.precioTotal);
-//     });
-
-//     request.open("POST", ajaxUrl, true);
-//     request.send(formData);
-//     request.onreadystatechange = function () {
-//         if (request.readyState == 4 && request.status == 200) {
-//             let objData = JSON.parse(request.responseText);
-//             if (objData.status) {
-//                 $('#modalFormPedido').modal("hide");
-//                 formPedido.reset();
-//                 swal("Pedido", objData.msg, "success");
-//             } else {
-//                 swal("Error", objData.msg, "error");
-//             }
-//         }
-//         divLoading.style.display = "none";
-//         return false;
-//     }
-// }
 // NUEVO Pedido
 let formPedido = document.querySelector("#formUpdatePedido");
 formPedido.onsubmit = function (e) {

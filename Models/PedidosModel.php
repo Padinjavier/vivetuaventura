@@ -148,6 +148,11 @@
 			$request_insert = $this->update($query_insert,$arrData);
         	return $request_insert;
 		}
+
+
+		// ----------------------------------------
+		// ----------------------------------------
+		// ----------------------------------------
 		public function inserPedido($codigoVenta, $codigoSalida, $fechaHora, $idvendedor, $dni_cliente, $nombre_cliente, $apellido_cliente, $descripcion, $dynamicRoles, $cargadores, $servicios) {
 			// Tipo de pago siempre será 2 (pago en efectivo)
 			$idtipopago = 2;
@@ -193,7 +198,34 @@
 		}
 		
 
+		public function selectVentas($idpersona = null){
+			$where = "";
+			if($idpersona != null){
+				$where = " WHERE v.idvendedor = ".$idpersona;
+			}
+			$sql = "SELECT v.idventa,
+							v.codigo_venta,
+							v.codigo_salida,
+							DATE_FORMAT(v.fecha_hora, '%d/%m/%Y %H:%i') as fecha_hora,
+							v.idvendedor,
+							v.dni_cliente,
+							v.nombre_cliente,
+							v.apellido_cliente,
+							v.descripcion,
+							v.idtipopago,
+							tp.tipopago as tipopago_nombre,
+							v.status
+					FROM venta v
+					INNER JOIN tipopago tp
+					ON v.idtipopago = tp.idtipopago $where ";
+			$request = $this->select_all($sql);
+			return $request;
+		}
+	
 
+// ----------------
+// ----------------
+// ----------------
 
 
 
