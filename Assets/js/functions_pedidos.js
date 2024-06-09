@@ -85,7 +85,7 @@ formPedido.onsubmit = function (e) {
     // Obtener valores de los selectores de roles dinámicos
     let dynamicRoles = {};
     document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
-        let roleName = select.id.replace('listRolEmpleado_', ''); // Ajustado aquí
+        let roleName = select.id.replace('listRolEmpleado_', '');
         if (select.value !== '') { // Ignorar si no hay selección
             dynamicRoles[roleName] = select.value;
         }
@@ -99,11 +99,32 @@ formPedido.onsubmit = function (e) {
         }
     });
 
+    // Obtener datos de los servicios
+    let servicios = [];
+    document.querySelectorAll("tr.detalle-venta-row").forEach(row => {
+        let selectServicio = row.querySelector("select.servicio-select");
+        let cantidad = row.querySelector("input.cantidad").value;
+        let precio = row.querySelector("input.precio").value;
+        let precioTotal = row.querySelector("input.precio_total").value;
+
+        if (selectServicio && selectServicio.value !== '' && cantidad !== '' && precio !== '') {
+            let nombreServicio = selectServicio.options[selectServicio.selectedIndex].text;
+            let idServicio = selectServicio.value;
+            servicios.push({
+                id: idServicio,
+                servicio: nombreServicio,
+                cantidad: parseFloat(cantidad),
+                precio: parseFloat(precio),
+                precioTotal: parseFloat(precioTotal)
+            });
+        }
+    });
+
     // Imprimir valores en la consola
     console.log("Codigo Venta:", strCodigoVenta);
     console.log("Codigo Salida:", strCodigoSalida);
     console.log("Fecha y Hora:", dtFechaHora);
-
+    
     // Imprimir roles dinámicos uno por uno
     for (let role in dynamicRoles) {
         console.log(`${role}: ${dynamicRoles[role]}`);
@@ -119,23 +140,18 @@ formPedido.onsubmit = function (e) {
     console.log("Apellido:", strApellido);
     console.log("Descripcion:", strDescripcion);
 
+        // Imprimir servicios
+        if (servicios.length > 0) {
+          console.log("Servicios:");
+          servicios.forEach(servicio => {
+              console.log(`Servicio: [${servicio.id}, ${servicio.servicio}, ${servicio.cantidad}, ${servicio.precio}, ${servicio.precioTotal}]`);
+          });
+      }
+
+
     // Verificar campos obligatorios
-    if (strCodigoVenta === '' || strCodigoSalida === '' || dtFechaHora === '' || strDNI === '' || strNombre === '' || strApellido === '') {
+    if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
-        return false;
-    }
-
-    // Verificar roles dinámicos (si se desea que todos sean obligatorios)
-    for (let role in dynamicRoles) {
-        if (dynamicRoles[role] === '') {
-            swal("Atención", `El campo ${role} es obligatorio.`, "error");
-            return false;
-        }
-    }
-
-    // Verificar cargadores (si se desea que al menos uno sea obligatorio)
-    if (cargadores.length === 0) {
-        swal("Atención", "Al menos un cargador debe ser seleccionado.", "error");
         return false;
     }
 
@@ -143,6 +159,22 @@ formPedido.onsubmit = function (e) {
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url + '/Pedidos/setPedido';
     let formData = new FormData(formPedido);
+    
+    // Agregar datos dinámicos al formData
+    for (let role in dynamicRoles) {
+        formData.append(`dynamicRoles[${role}]`, dynamicRoles[role]);
+    }
+    cargadores.forEach((cargador, index) => {
+        formData.append(`cargadores[${index}]`, cargador);
+    });
+    servicios.forEach((servicio, index) => {
+        formData.append(`servicios[${index}][id]`, servicio.id);
+        formData.append(`servicios[${index}][servicio]`, servicio.servicio);
+        formData.append(`servicios[${index}][cantidad]`, servicio.cantidad);
+        formData.append(`servicios[${index}][precio]`, servicio.precio);
+        formData.append(`servicios[${index}][precioTotal]`, servicio.precioTotal);
+    });
+
     request.open("POST", ajaxUrl, true);
     request.send(formData);
     request.onreadystatechange = function () {
