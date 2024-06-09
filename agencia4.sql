@@ -19,41 +19,6 @@
 CREATE DATABASE IF NOT EXISTS `agencia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `agencia`;
 
--- Volcando estructura para tabla agencia.detalle_pedido
-CREATE TABLE IF NOT EXISTS `detalle_pedido` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `pedidoid` bigint NOT NULL,
-  `productoid` bigint NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
-  `cantidad` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pedidoid` (`pedidoid`),
-  KEY `productoid` (`productoid`),
-  CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`pedidoid`) REFERENCES `pedido` (`idpedido`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`productoid`) REFERENCES `x_producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.detalle_pedido: ~0 rows (aproximadamente)
-DELETE FROM `detalle_pedido`;
-
--- Volcando estructura para tabla agencia.detalle_temp
-CREATE TABLE IF NOT EXISTS `detalle_temp` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `personaid` bigint NOT NULL,
-  `productoid` bigint NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
-  `cantidad` int NOT NULL,
-  `transaccionid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `productoid` (`productoid`),
-  KEY `personaid` (`personaid`),
-  CONSTRAINT `detalle_temp_ibfk_1` FOREIGN KEY (`productoid`) REFERENCES `x_producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_detalle_temp_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.detalle_temp: ~0 rows (aproximadamente)
-DELETE FROM `detalle_temp`;
-
 -- Volcando estructura para tabla agencia.detalle_venta
 CREATE TABLE IF NOT EXISTS `detalle_venta` (
   `iddetalleventa` bigint NOT NULL AUTO_INCREMENT,
@@ -68,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `detalle_venta` (
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.detalle_venta: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.detalle_venta: ~1 rows (aproximadamente)
 DELETE FROM `detalle_venta`;
 INSERT INTO `detalle_venta` (`iddetalleventa`, `idventa`, `idservicio`, `cantidad`, `precio`) VALUES
 	(1, 1, 1, 2, 50.00);
@@ -245,8 +210,8 @@ INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `t
 	(2, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', NULL, NULL, NULL, NULL, 2, '2023-11-29 10:57:56', 1, NULL, NULL, NULL),
 	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', 'NAME tributo javier', 'ADDRES tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222', NULL),
 	(24, 'JUAN LLOCYA', 'Juan Manuel', 'Llocya Castro', 918313532, 'jllocya@system32.shop', '', 'sssssss', 'sssss', 'sssssssssss', NULL, NULL, '2023-11-29 11:03:25', 0, NULL, NULL, 1),
-	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', NULL, NULL, NULL, NULL, NULL, '2023-12-06 17:27:31', 1, NULL, NULL, 1),
-	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 9171893004, '2002010167@undc.edu.pe', '', NULL, NULL, '1111', NULL, NULL, '2023-12-16 10:41:03', 1, 'Av Lima', 'Quilmana', 1),
+	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', NULL, NULL, NULL, NULL, NULL, '2023-12-06 17:27:31', 0, NULL, NULL, 1),
+	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 9171893004, '2002010167@undc.edu.pe', '', NULL, NULL, '1111', NULL, NULL, '2023-12-16 10:41:03', 0, 'Av Lima', 'Quilmana', 1),
 	(30, '4444444444', 'FRANK', 'GALAGER', 99999999, 'FRANK@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, NULL, NULL, 3, '2024-05-12 23:57:54', 1, NULL, NULL, NULL),
 	(56, '75486524', 'JHON VIGNEY', 'ROMERO MELCHOR', 918313532, 'javierpadin6w61@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-25 08:34:47', 1, NULL, NULL, 20),
 	(57, '23232323', 'Jeanettis Mariel', 'CHAVEZ SANCHEZ', 910089718, 'javierpad23in661@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-25 08:39:53', 1, NULL, NULL, 21),
@@ -339,15 +304,18 @@ CREATE TABLE IF NOT EXISTS `venta` (
   `apellido_cliente` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci,
   `idtipopago` bigint NOT NULL,
+  `status` int DEFAULT '1',
   PRIMARY KEY (`idventa`) USING BTREE,
   KEY `idvendedor` (`idvendedor`) USING BTREE,
   KEY `idtipopago` (`idtipopago`) USING BTREE,
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idvendedor`) REFERENCES `persona` (`idpersona`),
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.venta: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.venta: ~2 rows (aproximadamente)
 DELETE FROM `venta`;
+INSERT INTO `venta` (`idventa`, `codigo_venta`, `codigo_salida`, `fecha_hora`, `idvendedor`, `dni_cliente`, `nombre_cliente`, `apellido_cliente`, `descripcion`, `idtipopago`, `status`) VALUES
+	(4, '1', '', '2024-06-04 20:00:39', 22, '', '', '', NULL, 2, 1);
 
 -- Volcando estructura para tabla agencia.venta_persona
 CREATE TABLE IF NOT EXISTS `venta_persona` (
@@ -367,107 +335,6 @@ CREATE TABLE IF NOT EXISTS `venta_persona` (
 
 -- Volcando datos para la tabla agencia.venta_persona: ~0 rows (aproximadamente)
 DELETE FROM `venta_persona`;
-
--- Volcando estructura para tabla agencia.x_contacto
-CREATE TABLE IF NOT EXISTS `x_contacto` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `mensaje` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `ip` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `dispositivo` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `useragent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.x_contacto: ~0 rows (aproximadamente)
-DELETE FROM `x_contacto`;
-INSERT INTO `x_contacto` (`id`, `nombre`, `email`, `mensaje`, `ip`, `dispositivo`, `useragent`, `datecreated`) VALUES
-	(1, 'Fernando Herrera', 'toolsfordeveloper@gmail.com', 'Mensaje del primer suscriptor!', '127.0.0.1', 'PC', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0', '2021-08-20 04:06:18');
-
--- Volcando estructura para tabla agencia.x_imagen
-CREATE TABLE IF NOT EXISTS `x_imagen` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `productoid` bigint NOT NULL,
-  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `productoid` (`productoid`) USING BTREE,
-  CONSTRAINT `x_imagen_ibfk_1` FOREIGN KEY (`productoid`) REFERENCES `servicio` (`idservicio`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.x_imagen: ~0 rows (aproximadamente)
-DELETE FROM `x_imagen`;
-
--- Volcando estructura para tabla agencia.x_post
-CREATE TABLE IF NOT EXISTS `x_post` (
-  `idpost` bigint NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `datecreate` datetime NOT NULL DEFAULT (now()),
-  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idpost`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.x_post: ~0 rows (aproximadamente)
-DELETE FROM `x_post`;
-
--- Volcando estructura para tabla agencia.x_producto
-CREATE TABLE IF NOT EXISTS `x_producto` (
-  `idproducto` bigint NOT NULL AUTO_INCREMENT,
-  `categoriaid` bigint NOT NULL,
-  `codigo` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
-  `stock` int NOT NULL,
-  `fecha_v` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL DEFAULT '',
-  `imagen` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idproducto`),
-  KEY `categoriaid` (`categoriaid`),
-  CONSTRAINT `FK_producto_categoria` FOREIGN KEY (`categoriaid`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.x_producto: ~0 rows (aproximadamente)
-DELETE FROM `x_producto`;
-
--- Volcando estructura para tabla agencia.x_reembolso
-CREATE TABLE IF NOT EXISTS `x_reembolso` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `pedidoid` bigint NOT NULL,
-  `idtransaccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datosreembolso` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `observacion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pedidoid` (`pedidoid`),
-  CONSTRAINT `FK_reembolso_pedido` FOREIGN KEY (`pedidoid`) REFERENCES `pedido` (`idpedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.x_reembolso: ~0 rows (aproximadamente)
-DELETE FROM `x_reembolso`;
-
--- Volcando estructura para tabla agencia.x_suscripciones
-CREATE TABLE IF NOT EXISTS `x_suscripciones` (
-  `idsuscripcion` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idsuscripcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.x_suscripciones: ~4 rows (aproximadamente)
-DELETE FROM `x_suscripciones`;
-INSERT INTO `x_suscripciones` (`idsuscripcion`, `nombre`, `email`, `datecreated`) VALUES
-	(2, 'Juan', 'juan@info.com', '2023-10-29 20:42:27'),
-	(4, 'Jeanettis', 'jeanettis@gmail.com', '2023-11-29 11:16:18'),
-	(5, 'Javier Padin Flores', 'javier@gmail.com', '2023-12-06 17:21:27'),
-	(6, 'Javier Padin Flores', 'javierfff@gmail.com', '2023-12-23 23:25:01');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -10,7 +10,9 @@
             alt="User Image">
         <div>
             <p class="app-sidebar__user-name">
-                <?= $_SESSION['userData']['nombres']; ?>
+            <strong>
+            <?= $_SESSION['userData']['nombres']; ?>
+            </strong>   
             </p>
             <p class="app-sidebar__user-designation">
                 <?= $_SESSION['userData']['nombrerolusuario']; ?>
@@ -28,7 +30,7 @@
         <?php if (!empty($_SESSION['permisos'][1]['r'])) { ?>
             <li>
                 <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
-                    <i class="app-menu__icon fa fa-dashboard"></i>
+                <i class="app-menu__icon bi bi-house-door-fill"></i>
                     <span class="app-menu__label">Dashboard</span>
                 </a>
             </li>
@@ -36,7 +38,7 @@
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
+                    <i class="app-menu__icon bi bi-people-fill"></i>
                     <span class="app-menu__label">Empleados</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -51,7 +53,7 @@
         <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>
             <li>
                 <a class="app-menu__item" href="<?= base_url(); ?>/clientes">
-                    <i class="app-menu__icon fa fa-user" aria-hidden="true"></i>
+                    <i class="app-menu__icon bi bi-person-fill"></i>
                     <span class="app-menu__label">Clientes</span>
                 </a>
             </li>
@@ -59,7 +61,7 @@
         <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
+                    <i class="app-menu__icon bi bi-mouse-fill"></i>
                     <span class="app-menu__label">Usuario</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -74,7 +76,7 @@
         <?php if (!empty($_SESSION['permisos'][5]['r']) || !empty($_SESSION['permisos'][6]['r'])) { ?>
             <li class="treeview">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon fa fa-archive" aria-hidden="true"></i>
+                    <i class="app-menu__icon bi bi-archive-fill"></i>
                     <span class="app-menu__label">Punto de venta</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -134,8 +136,8 @@
 
         <li>
             <a class="app-menu__item" href="<?= base_url(); ?>/logout">
-                <i class="app-menu__icon fa fa-sign-out" aria-hidden="true"></i>
-                <span class="app-menu__label">Logout</span>
+                <i class="app-menu__icon bi bi-arrow-bar-right"></i>
+                <span class="app-menu__label">Cerrar sesión</span>
             </a>
         </li>
     </ul>

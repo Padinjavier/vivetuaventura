@@ -1,7 +1,7 @@
 const lightTheme = {
   // Definiciones de estilo para el tema claro
   "--HEADERHOVER": "#2153f8",
-  "--HEADER": "#6587f8",
+  "--HEADER": "#F37101",
   "--blue": "#007bff",
   "--indigo": "#6610f2",
   "--purple": "#6f42c1",

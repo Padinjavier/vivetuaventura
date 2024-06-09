@@ -40,12 +40,12 @@
 :root {
   --login: linear-gradient(
     180deg,
-    rgba(14, 135, 201, 1) 15%,
-    rgba(124, 191, 215, 1) 50%,
+    #F37101 15%,
+    #F37101 50%,
     rgba(255, 255, 255, 1) 50%
   );
   --HEADERHOVER: #868d94;
-  --HEADER: #2590cb;
+  --HEADER: #F37101;
   --blue: #868d94;
   --indigo: #868d94;
   --purple: #868d94;
@@ -2969,8 +2969,8 @@ fieldset:disabled a.btn {
 
 .btn-info {
   color: #fff;
-  background-color: #17a2b8;
-  border-color: #17a2b8;
+  background-color: var(--HEADER);
+  border-color: var(--HEADER);
 }
 
 .btn-info:hover {
@@ -16677,7 +16677,7 @@ be a descendant of the grid when it is being dragged.
   display: flex;
   border-radius: 4px;
   color: #fff;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
@@ -16686,17 +16686,19 @@ be a descendant of the grid when it is being dragged.
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  min-width: 85px;
+  /* min-width: 85px; */
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 20px;
+  width: 60px; 
+  height: 40px;
+  /* margin: 10px; */
   background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px 0 0 4px;
-  font-size: 2.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
 }
 
 .widget-small .info {
@@ -16709,7 +16711,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .widget-small .info h4 {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin: 0;
   margin-bottom: 5px;
   font-weight: 400;
@@ -16745,7 +16747,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .widget-small.info.coloured-icon .icon {
-  background-color: #17a2b8;
+  background-color: #F37101;
   color: #fff;
 }
 
@@ -16759,7 +16761,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .widget-small.warning.coloured-icon .icon {
-  background-color: #ffc107;
+  background-color: #1989C5;
   color: #fff;
 }
 
@@ -16773,7 +16775,8 @@ be a descendant of the grid when it is being dragged.
 }
 
 .widget-small.danger.coloured-icon .icon {
-  background-color: #dc3545;
+
+  background-color: #7AA637;
   color: #fff;
 }
 

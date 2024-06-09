@@ -17,6 +17,8 @@
   <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/bootstrap-select.min.css">
   <link rel="stylesheet" type="text/css" href="<?= media(); ?>/js/datepicker/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css">
+  <!-- link de icon boostrap  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body class="app sidebar-mini">

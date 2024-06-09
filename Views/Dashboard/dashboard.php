@@ -26,62 +26,38 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
           </p>
         </div>
       </div>
-      <div class="col-12">
+      <div>
         <div class="mb-3">
-          <p class="font-weight-bold">Bienvenida, <span class="text-primary">
+          <p class="font-weight-bold">Te damos la bienvenida, <span class="text-primary">
               <?= $_SESSION['userData']['nombres']; ?>
             </span></p>
         </div>
       </div>
-      <div class="col-12">
+      <div>
         <div class="mb-3 mr-4">
-          <p>Que tengas un bonito día de trabajo, recuerda realizar los registros correctamente y estar al pendiente de
-            la bandeja de entrada de solicitudes de reembolso.</p>
-        </div>
-      </div>
-      <div class="col-12 mb-4 mt-4">
-        <div class="card shadow">
-          <div class="card-body">
-            <i class="fas fa-bell mr-2"></i>
-            Bandeja de entrada
-          </div>
-        </div>
-      </div>
-      <div class="col-12  mb-4">
-        <div class="mb-3">
-          <p class="font-weight-bold">Mis servicios</p>
+          <p>Que tengas un bonito día de trabajo, recuerda realizar los registros correctamente y ser feliz.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="row isotope-grid justify-content-around">
-    <?php if (!empty ($_SESSION['permisos'][2]['r'])) { ?>
-      <div class="m-2">
-        <a href="<?= base_url() ?>/usuarios" class="linkw">
-          <div class="widget-small primary coloured-icon shadow p-2 pt-3 pb-4" style="display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: fit-content;"><i class="icon fa fa-users fa-3x"></i>
-            <div class="info text-center p-0">
-              <h4>Usuarios</h4>
-              <p><b>
-                  <?= $data['usuarios'] ?>
-                </b></p>
-            </div>
-          </div>
-        </a>
+  <div class="row">
+      <div class="col-12  mt-4">
+          <p class="font-weight-bold">Mis servicios</p>
       </div>
-    <?php } ?>
+    <?php if (!empty ($_SESSION['permisos'][5]['r'])) { ?>
+      <div class="col-md-6">
+      <div class="row isotope-grid justify-content-around pb-3">
     <?php if (!empty ($_SESSION['permisos'][3]['r'])) { ?>
       <div class=" m-2">
         <a href="<?= base_url() ?>/clientes" class="linkw">
-          <div class="widget-small info coloured-icon shadow  p-2 pt-3 pb-4" style="display: flex;
+          <div class="widget-small info coloured-icon shadow  p-2 pt-3 " style="display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;"><i class="icon fa fa-user fa-3x"></i>
+    width: 100px;">
+      <i class="icon bi bi-person-fill"></i>
             <div class="info text-center p-0">
-              <h4>Clientes</h4>
-              <p><b>
+              <p class="pt-1 pb-2">Clientes</p>
+              <p class="pb-2"><b>
                   <?= $data['clientes'] ?>
                 </b></p>
             </div>
@@ -92,13 +68,14 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
     <?php if (!empty ($_SESSION['permisos'][4]['r'])) { ?>
       <div class="m-2">
         <a href="<?= base_url() ?>/productos" class="linkw">
-          <div class="widget-small warning coloured-icon shadow p-2 pt-3 pb-4" style="display: flex;
+          <div class="widget-small warning coloured-icon shadow p-2 pt-3" style="display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;"><i class="icon fa fa fa-archive fa-3x"></i>
+    width: 100px;">
+    <i class="icon bi bi-people-fill "></i>
             <div class="info text-center p-0">
-              <h4>Productos</h4>
-              <p><b>
+              <p class="pt-1 pb-2">Salidas</p>
+              <p class="pb-2"><b>
                   <?= $data['productos'] ?>
                 </b></p>
             </div>
@@ -109,13 +86,14 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
     <?php if (!empty ($_SESSION['permisos'][5]['r'])) { ?>
       <div class="m-2">
         <a href="<?= base_url() ?>/pedidos" class="linkw">
-          <div class="widget-small danger coloured-icon shadow p-2 pt-3 pb-4" style="display: flex;
+          <div class="widget-small danger coloured-icon shadow p-2 pt-3" style="display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;"><i class="icon fa fa-shopping-cart fa-3x"></i>
+    width: 100px;">
+    <i class="icon bi bi-archive-fill"></i>
             <div class="info text-center p-0">
-              <h4>Pedidos</h4>
-              <p><b>
+              <p class="pt-1 pb-2">Ventas</p>
+              <p class="pb-2"><b>
                   <?= $data['pedidos'] ?>
                 </b></p>
             </div>
@@ -124,47 +102,45 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
       </div>
     <?php } ?>
   </div>
-  <div class="row">
-    <?php if (!empty ($_SESSION['permisos'][5]['r'])) { ?>
-      <div class="col-md-6">
-        <div class="tile">
-          <h3 class="tile-title">Últimos Pedidos</h3>
+  <p class="tile-title font-weight-bold">Últimas Ventas</p>
+    <div class="tile">
+      <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
           <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Cliente</th>
-                <th>Estado</th>
-                <th class="text-right">Monto</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Cliente</th>
+                      <th>Estado</th>
+                      <th class="text-right">Monto</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
               <?php
               if (count($data['lastOrders']) > 0) {
-                foreach ($data['lastOrders'] as $pedido) {
-                  ?>
-                  <tr>
-                    <td>
-                      <?= $pedido['idpedido'] ?>
-                    </td>
-                    <td>
-                      <?= $pedido['nombre'] ?>
-                    </td>
-                    <td>
-                      <?= $pedido['status'] ?>
-                    </td>
-                    <td class="text-right">
-                      <?= SMONEY . " " . formatMoney($pedido['monto']) ?>
-                    </td>
-                    <td><a href="<?= base_url() ?>/pedidos/orden/<?= $pedido['idpedido'] ?>" target="_blank"><i
-                          class="fa fa-eye" aria-hidden="true"></i></a></td>
-                  </tr>
-                <?php }
-              } ?>
-            </tbody>
+                  foreach ($data['lastOrders'] as $pedido) {
+                      ?>
+                      <tr>
+                          <td><?= $pedido['idpedido'] ?></td>
+                          <td><?= $pedido['nombre'] ?></td>
+                          <td><?= $pedido['status'] ?></td>
+                          <td class="text-right"><?= SMONEY . " " . formatMoney($pedido['monto']) ?></td>
+                          <td><a href="<?= base_url() ?>/pedidos/orden/<?= $pedido['idpedido'] ?>" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                      </tr>
+                      <?php 
+                  }
+              }
+              ?>
+              </tbody>
           </table>
-        </div>
+      </div>
+  </div>
+  <style>
+      .table-responsive::-webkit-scrollbar {
+          width: 0px;  /* Elimina la barra de desplazamiento vertical */
+          background: transparent;  /* Opcional: Fondo transparente para que no ocupe espacio */
+      }
+  </style>
       </div>
     <?php } ?>
     <div class="col-md-6">
@@ -187,26 +163,12 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
         <div class="container-title">
           <h3 class="tile-title">Ventas por mes</h3>
           <div class="dflex">
-            <input class="date-picker ventasMes" name="ventasMes" placeholder="Mes y Año">
+            <input class="date-picker ventasMes" name="ventasMes" placeholder="">
             <button type="button" class="btnVentasMes btn btn-info btn-sm" onclick="fntSearchVMes()"> <i
                 class="fas fa-search"></i> </button>
           </div>
         </div>
         <div id="graficaMes"></div>
-      </div>
-    </div>
-    <div class="col-md-12">
-      <div class="tile">
-        <div class="container-title">
-          <h3 class="tile-title">Ventas por año</h3>
-          <div class="dflex">
-            <input class="ventasAnio" name="ventasAnio" placeholder="Año" minlength="4" maxlength="4"
-              onkeypress="return controlTag(event);">
-            <button type="button" class="btnVentasAnio btn btn-info btn-sm" onclick="fntSearchVAnio()"> <i
-                class="fas fa-search"></i> </button>
-          </div>
-        </div>
-        <div id="graficaAnio"></div>
       </div>
     </div>
   </div>
