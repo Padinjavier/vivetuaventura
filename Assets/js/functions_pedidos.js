@@ -70,6 +70,128 @@ tablePedidos = $('#tablePedidos').dataTable({
 // ------------------------------------
 // ------------------------------------
 // NUEVO Pedido
+// let formPedido = document.querySelector("#formUpdatePedido");
+// formPedido.onsubmit = function (e) {
+//     e.preventDefault();
+    
+//     let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
+//     let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
+//     let dtFechaHora = document.querySelector('#fecha-hora').value;
+//     let strDNI = document.querySelector('#txtDNI').value;
+//     let strNombre = document.querySelector('#txtNombre').value;
+//     let strApellido = document.querySelector('#txtApellido').value;
+//     let strDescripcion = document.querySelector('#textareaDescripcion').value;
+
+//     // Obtener valores de los selectores de roles dinámicos
+//     let dynamicRoles = {};
+//     document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
+//         let roleName = select.id.replace('listRolEmpleado_', '');
+//         if (select.value !== '') { // Ignorar si no hay selección
+//             dynamicRoles[roleName] = select.value;
+//         }
+//     });
+
+//     // Obtener valores de los selectores de cargadores
+//     let cargadores = [];
+//     document.querySelectorAll("select[name='selectCargador']").forEach(select => {
+//         if (select.value !== '') { // Ignorar si no hay selección
+//             cargadores.push(select.value);
+//         }
+//     });
+
+//     // Obtener datos de los servicios
+//     let servicios = [];
+//     document.querySelectorAll("tr.detalle-venta-row").forEach(row => {
+//         let selectServicio = row.querySelector("select.servicio-select");
+//         let cantidad = row.querySelector("input.cantidad").value;
+//         let precio = row.querySelector("input.precio").value;
+//         let precioTotal = row.querySelector("input.precio_total").value;
+
+//         if (selectServicio && selectServicio.value !== '' && cantidad !== '' && precio !== '') {
+//             let nombreServicio = selectServicio.options[selectServicio.selectedIndex].text;
+//             let idServicio = selectServicio.value;
+//             servicios.push({
+//                 id: idServicio,
+//                 servicio: nombreServicio,
+//                 cantidad: parseFloat(cantidad),
+//                 precio: parseFloat(precio),
+//                 precioTotal: parseFloat(precioTotal)
+//             });
+//         }
+//     });
+
+//     // Imprimir valores en la consola
+//     console.log("Codigo Venta:", strCodigoVenta);
+//     console.log("Codigo Salida:", strCodigoSalida);
+//     console.log("Fecha y Hora:", dtFechaHora);
+    
+//     // Imprimir roles dinámicos uno por uno
+//     for (let role in dynamicRoles) {
+//         console.log(`${role}: ${dynamicRoles[role]}`);
+//     }
+    
+//     // Imprimir cargadores solo si hay selecciones
+//     if (cargadores.length > 0) {
+//         console.log("Cargadores:", cargadores);
+//     }
+    
+//     console.log("DNI:", strDNI);
+//     console.log("Nombre:", strNombre);
+//     console.log("Apellido:", strApellido);
+//     console.log("Descripcion:", strDescripcion);
+
+//     // Imprimir servicios
+//     if (servicios.length > 0) {
+//         console.log("Servicios:");
+//         servicios.forEach(servicio => {
+//             console.log(`Servicio: [${servicio.id}, ${servicio.servicio}, ${servicio.cantidad}, ${servicio.precio}, ${servicio.precioTotal}]`);
+//         });
+//     }
+
+//     // Verificar campos obligatorios
+//     if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+//         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+//         return false;
+//     }
+
+//     divLoading.style.display = "flex";
+//     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+//     let ajaxUrl = base_url + '/Pedidos/setPedido';
+//     let formData = new FormData(formPedido);
+    
+//     // Agregar datos dinámicos al formData
+//     for (let role in dynamicRoles) {
+//         formData.append(`dynamicRoles[${role}]`, dynamicRoles[role]);
+//     }
+//     cargadores.forEach((cargador, index) => {
+//         formData.append(`cargadores[${index}]`, cargador);
+//     });
+//     servicios.forEach((servicio, index) => {
+//         formData.append(`servicios[${index}][id]`, servicio.id);
+//         formData.append(`servicios[${index}][servicio]`, servicio.servicio);
+//         formData.append(`servicios[${index}][cantidad]`, servicio.cantidad);
+//         formData.append(`servicios[${index}][precio]`, servicio.precio);
+//         formData.append(`servicios[${index}][precioTotal]`, servicio.precioTotal);
+//     });
+
+//     request.open("POST", ajaxUrl, true);
+//     request.send(formData);
+//     request.onreadystatechange = function () {
+//         if (request.readyState == 4 && request.status == 200) {
+//             let objData = JSON.parse(request.responseText);
+//             if (objData.status) {
+//                 $('#modalFormPedido').modal("hide");
+//                 formPedido.reset();
+//                 swal("Pedido", objData.msg, "success");
+//             } else {
+//                 swal("Error", objData.msg, "error");
+//             }
+//         }
+//         divLoading.style.display = "none";
+//         return false;
+//     }
+// }
+// NUEVO Pedido
 let formPedido = document.querySelector("#formUpdatePedido");
 formPedido.onsubmit = function (e) {
     e.preventDefault();
@@ -140,14 +262,10 @@ formPedido.onsubmit = function (e) {
     console.log("Apellido:", strApellido);
     console.log("Descripcion:", strDescripcion);
 
-        // Imprimir servicios
-        if (servicios.length > 0) {
-          console.log("Servicios:");
-          servicios.forEach(servicio => {
-              console.log(`Servicio: [${servicio.id}, ${servicio.servicio}, ${servicio.cantidad}, ${servicio.precio}, ${servicio.precioTotal}]`);
-          });
-      }
-
+    // Imprimir servicios
+    if (servicios.length > 0) {
+        console.log("Servicios:", servicios);
+    }
 
     // Verificar campos obligatorios
     if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
@@ -158,27 +276,26 @@ formPedido.onsubmit = function (e) {
     divLoading.style.display = "flex";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url + '/Pedidos/setPedido';
-    let formData = new FormData(formPedido);
+    let formData = new FormData();
     
-    // Agregar datos dinámicos al formData
-    for (let role in dynamicRoles) {
-        formData.append(`dynamicRoles[${role}]`, dynamicRoles[role]);
-    }
-    cargadores.forEach((cargador, index) => {
-        formData.append(`cargadores[${index}]`, cargador);
-    });
-    servicios.forEach((servicio, index) => {
-        formData.append(`servicios[${index}][id]`, servicio.id);
-        formData.append(`servicios[${index}][servicio]`, servicio.servicio);
-        formData.append(`servicios[${index}][cantidad]`, servicio.cantidad);
-        formData.append(`servicios[${index}][precio]`, servicio.precio);
-        formData.append(`servicios[${index}][precioTotal]`, servicio.precioTotal);
-    });
+    // Agregar datos al formData
+    formData.append('codigoVenta', strCodigoVenta);
+    formData.append('codigoSalida', strCodigoSalida);
+    formData.append('fechaHora', dtFechaHora);
+    formData.append('dni', strDNI);
+    formData.append('nombre', strNombre);
+    formData.append('apellido', strApellido);
+    formData.append('descripcion', strDescripcion);
+    formData.append('dynamicRoles', JSON.stringify(dynamicRoles));
+    formData.append('cargadores', JSON.stringify(cargadores));
+    formData.append('servicios', JSON.stringify(servicios));
 
     request.open("POST", ajaxUrl, true);
     request.send(formData);
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
+          console.log(request)
+          console.log(request.responseText)
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
                 $('#modalFormPedido').modal("hide");
@@ -192,6 +309,7 @@ formPedido.onsubmit = function (e) {
         return false;
     }
 }
+
 
 // ------------------------------------
 // ------------------------------------

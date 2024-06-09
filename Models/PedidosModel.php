@@ -148,5 +148,54 @@
 			$request_insert = $this->update($query_insert,$arrData);
         	return $request_insert;
 		}
+		public function inserPedido($codigoVenta, $codigoSalida, $fechaHora, $idvendedor, $dni_cliente, $nombre_cliente, $apellido_cliente, $descripcion, $dynamicRoles, $cargadores, $servicios) {
+			// Tipo de pago siempre será 2 (pago en efectivo)
+			$idtipopago = 2;
+		
+			// Inserción en la tabla venta
+			$sqlVenta = "INSERT INTO venta (codigo_venta, codigo_salida, fecha_hora, dni_cliente, nombre_cliente, apellido_cliente, descripcion, idvendedor, idtipopago)
+						 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$arrDataVenta = array($codigoVenta, $codigoSalida, $fechaHora, $dni_cliente, $nombre_cliente, $apellido_cliente, $descripcion, $idvendedor, $idtipopago);
+			$requestVenta = $this->insert($sqlVenta, $arrDataVenta);
+		
+			if($requestVenta) {
+				// Obtener el ID de la última inserción
+				$idVenta = $this->getLastInsertId();
+		
+				// Inserción en la tabla venta_persona
+				foreach ($dynamicRoles as $role) {
+					$idpersona = $role['idpersona'];
+					$idrolempleado = $role['idrolempleado'];
+					$es_cargador = in_array($idpersona, $cargadores) ? 1 : 0;
+		
+					$sqlVentaPersona = "INSERT INTO venta_persona (idventa, idpersona, idrolempleado, es_cargador)
+										VALUES (?, ?, ?, ?)";
+					$arrDataVentaPersona = array($idVenta, $idpersona, $idrolempleado, $es_cargador);
+					$this->insert($sqlVentaPersona, $arrDataVentaPersona);
+				}
+		
+				// Inserción en la tabla detalle_venta
+				foreach ($servicios as $servicio) {
+					$idservicio = $servicio['id'];
+					$cantidad = $servicio['cantidad'];
+					$precio = $servicio['precio'];
+		
+					$sqlDetalleVenta = "INSERT INTO detalle_venta (idventa, idservicio, cantidad, precio)
+										VALUES (?, ?, ?, ?)";
+					$arrDataDetalleVenta = array($idVenta, $idservicio, $cantidad, $precio);
+					$this->insert($sqlDetalleVenta, $arrDataDetalleVenta);
+				}
+		
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+
+
+
+
+
 	}
  ?>

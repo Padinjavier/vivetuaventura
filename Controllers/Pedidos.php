@@ -162,65 +162,49 @@ class Pedidos extends Controllers{
 		}
 		die();
 	}
-	// public function newPedido() {
-	// 	if ($_SESSION['permisosMod']['u'] && $_SESSION['userData']['idrolusuario'] != RCLIENTES) {
-	// 		$requestPedido ="111,111,111,111,111,111";
-	// 		$htmlModal = getFile("Template/Modals/modalPedido",$requestPedido);
-	// 		$arrResponse = array("status" => true, "html" => $htmlModal);
-	// 		echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-	// 	} else {
-	// 		$arrResponse = array("status" => false, "msg" => "No tiene permisos");
-	// 		echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-	// 	}
-	// 	die();
-	// }
 
-
-		
-
-
-
-
+// -----------------------
+// -----------------------
+// -----------------------
 	public function setPedido(){
 		if($_POST){
-			if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
-
-				$idpedido = !empty($_POST['idpedido']) ? intval($_POST['idpedido']) : "";
-				$estado = !empty($_POST['listEstado']) ? strClean($_POST['listEstado']) : "";
-				$idtipopago =  !empty($_POST['listTipopago']) ? intval($_POST['listTipopago']) : "";
-				$transaccion = !empty($_POST['txtTransaccion']) ? strClean($_POST['txtTransaccion']) : "";
-
-				if($idpedido == ""){
+			if($_SESSION['permisosMod']['u'] && $_SESSION['userData']['idrolusuario'] != RCLIENTES){
+	
+				// Obtener datos JSON
+				$codigoVenta = isset($_POST['codigoVenta']) ? strClean($_POST['codigoVenta']) : '';
+				$codigoSalida = isset($_POST['codigoSalida']) ? strClean($_POST['codigoSalida']) : '';
+				$fechaHora = isset($_POST['fechaHora']) ? strClean($_POST['fechaHora']) : '';
+				$idvendedor = $_SESSION['userData']['idpersona'];
+				$dni_cliente = isset($_POST['dni']) ? strClean($_POST['dni']) : '';
+				$nombre_cliente = isset($_POST['nombre']) ? strClean($_POST['nombre']) : '';
+				$apellido_cliente = isset($_POST['apellido']) ? strClean($_POST['apellido']) : '';
+				$descripcion = isset($_POST['descripcion']) ? strClean($_POST['descripcion']) : '';
+				$dynamicRoles = isset($_POST['dynamicRoles']) ? json_decode($_POST['dynamicRoles'], true) : [];
+				$cargadores = isset($_POST['cargadores']) ? json_decode($_POST['cargadores'], true) : [];
+				$servicios = isset($_POST['servicios']) ? json_decode($_POST['servicios'], true) : [];
+	
+				// Verificar campos obligatorios
+				if($codigoVenta == '' || $codigoSalida == '' || $fechaHora == '' || $dni_cliente == '' || $nombre_cliente == '' || $apellido_cliente == '') {
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-				}else{
-					if($idtipopago == ""){
-						if($estado == ""){
-							$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-						}else{
-							$requestPedido = $this->model->updatePedido($idpedido,"","",$estado);
-							if($requestPedido){
-								$arrResponse = array("status" => true, "msg" => "Datos actualizados correctamente");
-							}else{
-								$arrResponse = array("status" => false, "msg" => "No es posible actualizar la información.");
-							}
-						}
-					}else{
-						if($transaccion == "" or $idtipopago =="" or $estado == ""){
-							$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-						}else{
-							$requestPedido = $this->model->updatePedido($idpedido,$transaccion,$idtipopago,$estado);
-							if($requestPedido){
-								$arrResponse = array("status" => true, "msg" => "Datos actualizados correctamente");
-							}else{
-								$arrResponse = array("status" => false, "msg" => "No es posible actualizar la información.");
-							}
-						}
+				} else {
+					// Inserción del pedido en la base de datos
+					$requestPedido = $this->model->inserPedido($codigoVenta, $codigoSalida, $fechaHora, $idvendedor, $dni_cliente, $nombre_cliente, $apellido_cliente, $descripcion, $dynamicRoles, $cargadores, $servicios);
+					if($requestPedido) {
+						$arrResponse = array("status" => true, "msg" => "Datos guardados correctamente");
+					} else {
+						$arrResponse = array("status" => false, "msg" => "No es posible guardar la información.");
 					}
 				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+	
+				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 			}
 		}
 		die();
 	}
+	
+	
+// -----------------------
+// -----------------------
+// -----------------------
 }
  ?>
