@@ -7,16 +7,15 @@
     <main class="app-content">
       <div class="app-title">
         <div>
-            <h1><i class="fas fa-box"></i> <?= $data['page_title'] ?>
+            <h1><?= $data['page_title'] ?>
             <?php if($_SESSION['permisosMod']['w']){ ?>
                 <button class="btn btn-primary" type="button" onclick="openModal();" ><i class="fas fa-plus-circle"></i> Nuevo</button>
               <?php } ?>
             </h1>
         </div>
-
         <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="<?= base_url(); ?>/pedidos"><?= $data['page_title'] ?></a></li>
+          <li class="breadcrumb-item"><i class="app-menu__icon bi bi-house-door-fill"></i></li>
+          <li class="breadcrumb-item"><a href="<?= base_url(); ?>/empleados" class="text-info"><?= $data['page_title'] ?></a></li>
         </ul>
       </div>
         <div class="row">
@@ -30,8 +29,8 @@
                           <th>ID</th>
                           <th>Ref. / Transacción</th>
                           <th>Fecha</th>
-                          <th>Monto</th>
-                          <th>Tipo pago</th>
+                          <th>Tipo de pago</th>
+                          <th>Total</th>
                           <th>Estado</th>
                           <th>Acciones</th>
                         </tr>

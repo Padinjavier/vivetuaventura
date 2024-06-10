@@ -89,41 +89,41 @@ tablePedidos = $('#tablePedidos').DataTable({
     { 'className': "text-right", "targets": [3] }
   ],
   'dom': 'lBfrtip',
-  'buttons': [
-    {
-      "extend": "copyHtml5",
-      "text": "<i class='far fa-copy'></i> Copiar",
-      "titleAttr": "Copiar",
-      "className": "btn btn-secondary",
-      "exportOptions": {
-        "columns": [0, 1, 2, 3, 4, 5]
-      }
-    }, {
-      "extend": "excelHtml5",
-      "text": "<i class='fas fa-file-excel'></i> Excel",
-      "titleAttr": "Exportar a Excel",
-      "className": "btn btn-success",
-      "exportOptions": {
-        "columns": [0, 1, 2, 3, 4, 5]
-      }
-    }, {
-      "extend": "pdfHtml5",
-      "text": "<i class='fas fa-file-pdf'></i> PDF",
-      "titleAttr": "Exportar a PDF",
-      "className": "btn btn-danger",
-      "exportOptions": {
-        "columns": [0, 1, 2, 3, 4, 5]
-      }
-    }, {
-      "extend": "csvHtml5",
-      "text": "<i class='fas fa-file-csv'></i> CSV",
-      "titleAttr": "Exportar a CSV",
-      "className": "btn btn-info",
-      "exportOptions": {
-        "columns": [0, 1, 2, 3, 4, 5]
-      }
-    }
-  ],
+        'buttons': [
+            {
+                "extend": "copyHtml5",
+                "text": "<i class='far fa-copy'></i> Copiar",
+                "titleAttr":"Copiar",
+                "className": "btn btn-secondary",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
+            }
+            },{
+                "extend": "excelHtml5",
+                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+                "titleAttr":"Exportar a Excel",
+                "className": "btn btn-success",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
+            }
+            },{
+                "extend": "pdfHtml5",
+                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+                "titleAttr":"Exportar a PDF",
+                "className": "btn btn-danger",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
+            }
+            },{
+                "extend": "csvHtml5",
+                "text": "<i class='fas fa-file-csv'></i> CSV",
+                "titleAttr":"Exportar a CSV",
+                "className": "btn btn-info d-none",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
+            }
+            }
+        ],
   "responsive": true, // Corregido "resonsieve" a "responsive"
   "destroy": true, // Corregido "bDestroy" a "destroy"
   "pageLength": 10, // Corregido "iDisplayLength" a "pageLength"
@@ -261,153 +261,173 @@ formPedido.onsubmit = function (e) {
 
 // ---------------------los roles gia conductor-----------------------------
 // ---------------------los roles gia conductor-----------------------------
-window.addEventListener(
-  "load",
-  function () {
-    fntRolesEmpleado();
-  },
-  false
-);
+// window.addEventListener(
+//   "load",
+//   function () {
+//     fntRolesEmpleado();
+//   },
+//   false
+// );
 
-function fntRolesEmpleado() {
-  if (document.querySelector("#listRolNombreEmpleado")) {
-    let ajaxUrl = base_url + "/RolesEmpleados/getSelectRolesEmpleadosventa";
-    let request = window.XMLHttpRequest
-      ? new XMLHttpRequest()
-      : new ActiveXObject("Microsoft.XMLHTTP");
-    request.open("GET", ajaxUrl, true);
-    request.send();
-    request.onreadystatechange = function () {
-      if (request.readyState == 4 && request.status == 200) {
-        let response = request.responseText;
-        document.querySelector("#listRolNombreEmpleado").innerHTML = response;
-        $("#listRolNombreEmpleado select").selectpicker("render");
-      }
-    };
-  }
-}
+// function fntRolesEmpleado() {
+//   if (document.querySelector("#listRolNombreEmpleado")) {
+//     let ajaxUrl = base_url + "/RolesEmpleados/getSelectRolesEmpleadosventa";
+//     let request = window.XMLHttpRequest
+//       ? new XMLHttpRequest()
+//       : new ActiveXObject("Microsoft.XMLHTTP");
+//     request.open("GET", ajaxUrl, true);
+//     request.send();
+//     request.onreadystatechange = function () {
+//       if (request.readyState == 4 && request.status == 200) {
+//         let response = request.responseText;
+//         document.querySelector("#listRolNombreEmpleado").innerHTML = response;
+//         $("#listRolNombreEmpleado select").selectpicker("render");
+//       }
+//     };
+//   }
+// }
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
 
 // -------------------CARGADORES--------------------
 // -------------------CARGADORES--------------------
-let selectedCargadores = [];
+// let selectedCargadores = [];
 
-document.addEventListener("DOMContentLoaded", function () {
-  loadInitialCargadorSelect();
-  document
-    .getElementById("btnAgregarCargador")
-    .addEventListener("click", function () {
-      addNewCargadorSelect();
-    });
-  document.querySelectorAll(".btn-remove-select").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      removeCargadorSelect(btn);
-    });
-  });
-  document.querySelectorAll(".selectpicker").forEach((select) => {
-    select.addEventListener("change", function () {
-      updateSelectedCargadores(select);
-    });
-  });
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   loadInitialCargadorSelect();
+//   document
+//     .getElementById("btnAgregarCargador")
+//     .addEventListener("click", function () {
+//       addNewCargadorSelect();
+//     });
+//   document.querySelectorAll(".btn-remove-select").forEach((btn) => {
+//     btn.addEventListener("click", function () {
+//       removeCargadorSelect(btn);
+//     });
+//   });
+//   document.querySelectorAll(".selectpicker").forEach((select) => {
+//     select.addEventListener("change", function () {
+//       updateSelectedCargadores(select);
+//     });
+//   });
+// });
 
-function loadInitialCargadorSelect() {
-  let ajaxUrl = base_url + "/RolesEmpleados/getSelectRolesCargadores";
-  let request = new XMLHttpRequest();
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let response = request.responseText;
-      createCargadorSelect(response);
-    }
-  };
-}
+// function loadInitialCargadorSelect() {
+//   let ajaxUrl = base_url + "/RolesEmpleados/getSelectRolesCargadores";
+//   let request = new XMLHttpRequest();
+//   request.open("GET", ajaxUrl, true);
+//   request.send();
+//   request.onreadystatechange = function () {
+//     if (request.readyState == 4 && request.status == 200) {
+//       let response = request.responseText;
+//       createCargadorSelect(response);
+//     }
+//   };
+// }
 
-function addNewCargadorSelect() {
-  let ajaxUrl = base_url + "/RolesEmpleados/getNewCargadorSelect";
-  let request = new XMLHttpRequest();
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let response = request.responseText;
-      createCargadorSelect(response);
-    }
-  };
-}
+// function addNewCargadorSelect() {
+//   let ajaxUrl = base_url + "/RolesEmpleados/getNewCargadorSelect";
+//   let request = new XMLHttpRequest();
+//   request.open("GET", ajaxUrl, true);
+//   request.send();
+//   request.onreadystatechange = function () {
+//     if (request.readyState == 4 && request.status == 200) {
+//       let response = request.responseText;
+//       createCargadorSelect(response);
+//     }
+//   };
+// }
 
-function createCargadorSelect(optionsHTML) {
-  let selectContainer = document.createElement("div");
-  selectContainer.className = "form-row align-items-center mb-2";
-  selectContainer.innerHTML = `
-        <div class="col">
-            <select class="form-control selectpicker" name="selectCargador" data-live-search="true">${optionsHTML}</select>
-        </div>
-        <div class="col-auto">
-            <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
-        </div>
-    `;
+// function createCargadorSelect(optionsHTML) {
+//   let selectContainer = document.createElement("div");
+//   selectContainer.className = "form-row align-items-center mb-2";
+//   selectContainer.innerHTML = `
+//         <div class="col">
+//             <select class="form-control selectpicker" name="selectCargador" data-live-search="true">${optionsHTML}</select>
+//         </div>
+//         <div class="col-auto">
+//             <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
+//         </div>
+//     `;
 
-  document.getElementById("cargadorContainer").appendChild(selectContainer);
-  $(".selectpicker").selectpicker("render");
+//   document.getElementById("cargadorContainer").appendChild(selectContainer);
+//   $(".selectpicker").selectpicker("render");
 
-  let btnRemove = selectContainer.querySelector(".btn-remove-select");
-  btnRemove.addEventListener("click", function () {
-    removeCargadorSelect(btnRemove);
-  });
+//   let btnRemove = selectContainer.querySelector(".btn-remove-select");
+//   btnRemove.addEventListener("click", function () {
+//     removeCargadorSelect(btnRemove);
+//   });
 
-  let newSelect = selectContainer.querySelector("select");
-  newSelect.addEventListener("change", function () {
-    updateSelectedCargadores(newSelect);
-  });
-}
+//   let newSelect = selectContainer.querySelector("select");
+//   newSelect.addEventListener("change", function () {
+//     updateSelectedCargadores(newSelect);
+//   });
+// }
 
-function removeCargadorSelect(btnRemove) {
-  let selectContainer = btnRemove.closest(".form-row");
-  let removedSelect = selectContainer.querySelector("select");
-  let removedOption = removedSelect.options[removedSelect.selectedIndex].value;
-  let index = selectedCargadores.indexOf(removedOption);
-  if (index !== -1) {
-    selectedCargadores.splice(index, 1);
-  }
+// function removeCargadorSelect(btnRemove) {
+//   let selectContainer = btnRemove.closest(".form-row");
+//   let removedSelect = selectContainer.querySelector("select");
+//   let removedOption = removedSelect.options[removedSelect.selectedIndex].value;
+//   let index = selectedCargadores.indexOf(removedOption);
+//   if (index !== -1) {
+//     selectedCargadores.splice(index, 1);
+//   }
 
-  let selects = document.querySelectorAll(".selectpicker");
-  selects.forEach((select) => {
-    let option = select.querySelector(`option[value="${removedOption}"]`);
-    if (option) {
-      option.disabled = false;
-    }
-  });
+//   let selects = document.querySelectorAll(".selectpicker");
+//   selects.forEach((select) => {
+//     let option = select.querySelector(`option[value="${removedOption}"]`);
+//     if (option) {
+//       option.disabled = false;
+//     }
+//   });
 
-  selectContainer.remove();
-}
+//   selectContainer.remove();
+// }
 
-function updateSelectedCargadores(select) {
-  let selectedOption = select.options[select.selectedIndex].value;
-  if (selectedCargadores.includes(selectedOption)) {
-    select.value = "";
+// function updateSelectedCargadores(select) {
+//   let selectedOption = select.options[select.selectedIndex].value;
+//   if (selectedCargadores.includes(selectedOption)) {
+//     select.value = "";
 
-    let event = new Event("change");
-    select.dispatchEvent(event);
-  } else {
-    selectedCargadores.push(selectedOption);
-    disableSelectedOption(selectedOption);
-  }
-}
+//     let event = new Event("change");
+//     select.dispatchEvent(event);
+//   } else {
+//     selectedCargadores.push(selectedOption);
+//     disableSelectedOption(selectedOption);
+//   }
+// }
 
-function disableSelectedOption(selectedOption) {
-  let selects = document.querySelectorAll(".selectpicker");
-  selects.forEach((select) => {
-    let option = select.querySelector(`option[value="${selectedOption}"]`);
-    if (option) {
-      option.disabled = true;
-    }
-  });
-}
+// function disableSelectedOption(selectedOption) {
+//   let selects = document.querySelectorAll(".selectpicker");
+//   selects.forEach((select) => {
+//     let option = select.querySelector(`option[value="${selectedOption}"]`);
+//     if (option) {
+//       option.disabled = true;
+//     }
+//   });
+// }
 // ---------------------------------------
 // ---------------------------------------
+//  clientes------------
+window.addEventListener("load", function () {
+  fntClientes();
+}, false);
+
+function fntClientes() {
+  if (document.querySelector("#listClienteid")) {
+      let ajaxUrl = base_url + "/Clientes/getlistclientes";
+      let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+      request.open("GET", ajaxUrl, true);
+      request.send();
+      request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+              let response = request.responseText;
+              document.querySelector("#listClienteid").innerHTML = response;
+              $("#listClienteid").selectpicker("render");
+          }
+      };
+  }
+}
 
 
 // // // ---------------Servicios----------
@@ -417,22 +437,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnAgregarProducto = document.getElementById("btnAgregarProducto");
 
   function loadInitialSelectOptions() {
-    let ajaxUrl = base_url + "/Servicios/getSelectServicios";
-    let request = new XMLHttpRequest();
-    request.open("GET", ajaxUrl, true);
-    request.send();
-    request.onreadystatechange = function () {
-      if (request.readyState == 4 && request.status == 200) {
-        let response = JSON.parse(request.responseText);
-        addNewProductoRow(response);
-      }
-    };
+      let ajaxUrl = base_url + "/Servicios/getSelectServicios";
+      let request = new XMLHttpRequest();
+      request.open("GET", ajaxUrl, true);
+      request.send();
+      request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+              let response = JSON.parse(request.responseText);
+              addNewProductoRow(response);
+          }
+      };
   }
 
   function addNewProductoRow(response) {
-    let newRow = document.createElement("tr");
-    newRow.classList.add("detalle-venta-row");
-    newRow.innerHTML = `
+      let newRow = document.createElement("tr");
+      newRow.classList.add("detalle-venta-row");
+      newRow.innerHTML = `
+          <td>
+              <p class="row-number"></p>
+          </td>
           <td>
               <select class="form-control selectpicker servicio-select" name="selectGuia" required data-live-search="true">
                   ${response[0]}
@@ -459,83 +482,88 @@ document.addEventListener("DOMContentLoaded", function () {
               <input type="number" class="form-control precio_db" value="0" readonly>
           </td>
       `;
+      tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila
 
-    tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila
+      $(newRow).find('.selectpicker').selectpicker('render');
 
-    $(newRow).find('.selectpicker').selectpicker('render');
+      addEventListenersToRow(newRow);
 
-    addEventListenersToRow(newRow);
+      newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
+          newRow.remove();
+          updateRowNumbers();
+          sumarPreciosTotales();
+      });
 
-    newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
-      newRow.remove();
-      sumarPreciosTotales();
-    });
+      updateRowNumbers();
   }
 
   function addEventListenersToRow(row) {
-    const cantidadInput = row.querySelector(".cantidad");
-    const precioInput = row.querySelector(".precio");
+      const cantidadInput = row.querySelector(".cantidad");
+      const precioInput = row.querySelector(".precio");
 
-    cantidadInput.addEventListener("input", function () {
+      cantidadInput.addEventListener("input", function () {
+          calculateRow(row);
+          sumarPreciosTotales();
+      });
+
+      precioInput.addEventListener("input", function () {
+          calculateRow(row);
+          sumarPreciosTotales();
+      });
+
       calculateRow(row);
-      sumarPreciosTotales();
-    });
-
-    precioInput.addEventListener("input", function () {
-      calculateRow(row);
-      sumarPreciosTotales();
-    });
-
-    calculateRow(row);
   }
 
   function calculateRow(row) {
-    const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
-    const precio = parseFloat(row.querySelector(".precio").value) || 0;
-    const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
+      const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
+      const precio = parseFloat(row.querySelector(".precio").value) || 0;
+      const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
 
-    const precioTotal = cantidad * precio;
-    const precioDbTotal = cantidad * precioDb;
+      const precioTotal = cantidad * precio;
+      const precioDbTotal = cantidad * precioDb;
 
-    let descuento = precioDbTotal - precioTotal;
-    if (descuento < 0) {
-      descuento = 0;
-    }
+      let descuento = precioDbTotal - precioTotal;
+      if (descuento < 0) {
+          descuento = 0;
+      }
 
-    row.querySelector(".precio_total").value = precioTotal.toFixed(2);
-    row.querySelector(".descuento").value = descuento.toFixed(2);
+      row.querySelector(".precio_total").value = precioTotal.toFixed(2);
+      row.querySelector(".descuento").value = descuento.toFixed(2);
   }
 
   function sumarPreciosTotales() {
-    let subtotal = 0;
-    let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
+      let subtotal = 0;
+      let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
 
-    aaa();
-    // ---------------------
-    for (let i = 0; i < filas.length; i++) {
-      let fila = filas[i];
-      let precioTotalElement = fila.querySelector(".precio_total");
-      let precioTotal = 0;
+      for (let i = 0; i < filas.length; i++) {
+          let fila = filas[i];
+          let precioTotalElement = fila.querySelector(".precio_total");
+          let precioTotal = 0;
 
-      // Verificar si precioTotalElement es null antes de intentar acceder a su valor
-      if (precioTotalElement) {
-        precioTotal = parseFloat(precioTotalElement.value) || 0;
+          if (precioTotalElement) {
+              precioTotal = parseFloat(precioTotalElement.value) || 0;
+          }
+
+          subtotal += precioTotal;
       }
 
-      subtotal += precioTotal;
-    }
-
-    document.getElementById("total").innerText = "S/" + subtotal.toFixed(2);
+      document.getElementById("total").innerText = "S/" + subtotal.toFixed(2);
   }
 
+  function updateRowNumbers() {
+      let rows = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
+      for (let i = 0; i < rows.length; i++) {
+          let rowNumberElement = rows[i].querySelector(".row-number");
+          rowNumberElement.innerText = i + 1;
+      }
+  }
 
   btnAgregarProducto.addEventListener("click", function () {
-    loadInitialSelectOptions();
+      loadInitialSelectOptions();
   });
 
   loadInitialSelectOptions(); // Cargar opciones iniciales al abrir el modal
 });
-
 
 
 

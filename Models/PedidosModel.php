@@ -57,9 +57,7 @@
 										apellidos,
 										telefono,
 										email_user,
-										nit,
-										nombrefiscal,
-										direccionfiscal 
+										hotel
 								FROM persona WHERE idpersona = $idpersona ";
 				$requestcliente = $this->select($sql_cliente);
 				$sql_detalle = "SELECT s.idservicio,

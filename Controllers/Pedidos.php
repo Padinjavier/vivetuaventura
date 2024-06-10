@@ -19,8 +19,8 @@ class Pedidos extends Controllers{
 		if(empty($_SESSION['permisosMod']['r'])){
 			header("Location:".base_url().'/dashboard');
 		}
-		$data['page_tag'] = "Pedidos";
-		$data['page_title'] = "PEDIDOS <small>Tienda Virtual</small>";
+		$data['page_tag'] = "Ventas";
+		$data['page_title'] = "Ventas <small> </small>";
 		$data['page_name'] = "pedidos";
 		$data['page_functions_js'] = "functions_pedidos.js";
 		$this->views->getView($this,"pedidos",$data);
