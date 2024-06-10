@@ -85,10 +85,13 @@
             </div>
           </div>
           <div class="tile-footer">
-            <button id="btnActionForm" class="btn btn-primary" type="submit"><i
-                class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-success" type="button" data-dismiss="modal"><i
-                class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
+            <button id="btnActionForm" class="btn btn-primary" type="submit">
+              <i class="fa fa-fw fa-lg fa-check-circle"></i>
+              <span id="btnText">Guardar</span>
+            </button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-success" type="button" data-dismiss="modal">
+              <i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar
+            </button>
           </div>
         </form>
       </div>

@@ -44,12 +44,15 @@
 						$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
 					}
 
+					if($_SESSION['permisosMod']['r']){
+						$btnView = '<button class="btn btn-info btn-sm btnView btnViewRol" onClick="fntViewRol('.$arrData[$i]['idrolempleado'].')" title="Ver Empleado"><i class="far fa-eye"></i></button>';
+					}
 					if($_SESSION['permisosMod']['u']){
-						$btnEdit = '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrolempleado'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+						$btnEdit = '<button class="btn btn-primary btn-sm btnEdit btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrolempleado'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
 					}
 					if($arrData[$i]['nombrerolempleado'] == 'Cliente'){
 						if($_SESSION['permisosMod']['d']){
-							$btnDelete = '<button class="btn btn-secondary btn-sm btnDelRol" onClick="" title="Eliminar desactivado"><i class="far fa-trash-alt"></i></button>
+							$btnDelete = '<button class="btn btn-secondary btn-sm btnDel btnDelRol" onClick="" title="Eliminar desactivado"><i class="far fa-trash-alt"></i></button>
 						</div>';
 						}
 					}else{
@@ -206,9 +209,9 @@
 				{
 					if($option == 1)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'insert',  'msg' => 'Datos de roles del empleado guardados correctamente.');
 					}else{
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'edit',  'msg' => 'Datos de roles actualizados correctamente.');
 					}
 				}else if($request_rol == 'exist'){
 					
@@ -228,7 +231,7 @@
 					$requestDelete = $this->model->deleteRol($intIdrolempleado);
 					if($requestDelete == 'ok')
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el Rol');
+						$arrResponse = array('status' => true, 'msg' => 'Datos del rol eliminado correctamente.');
 					}else if($requestDelete == 'exist'){
 						$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar un Rol asociado a usuarios.');
 					}else{

@@ -80,7 +80,7 @@ public function selectRolesCargadores()
 		{
 			//BUSCAR ROLE
 			$this->intIdrol = $idrol;
-			$sql = "SELECT * FROM rol_empleado WHERE idrolempleado = $this->intIdrol";
+			$sql = "SELECT idrolempleado, nombrerolempleado, descripcion, DATE_FORMAT(datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated, status FROM rol_empleado WHERE idrolempleado = $this->intIdrol";
 			$request = $this->select($sql);
 			return $request;
 		}

@@ -169,7 +169,7 @@ function fntViewEmpleado(idpersona){
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
                 document.querySelector("#celTipoEmpleado").innerHTML = objData.data.nombrerolempleado;
                 document.querySelector("#celEstado").innerHTML = estadoEmpleado;
-                document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
+                document.querySelector("#celFechaRegistro").innerHTML = objData.data.datecreated; 
                 $('#modalViewUser').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
