@@ -93,10 +93,7 @@
 		public function deleteServicio(int $idservicio)
 		{
 			$this->intIdservicio = $idservicio;
-			$sql = "SELECT * FROM producto WHERE categoriaid = $this->intIdservicio";
-			$request = $this->select_all($sql);
-			if(empty($request))
-			{
+			
 				$sql = "UPDATE servicio SET status = ? WHERE idservicio = $this->intIdservicio";
 				$arrData = array(0);
 				$request = $this->update($sql,$arrData);
@@ -106,9 +103,7 @@
 				}else{
 					$request = 'error';
 				}
-			}else{
-				$request = 'exist';
-			}
+			
 			return $request;
 		}	
 

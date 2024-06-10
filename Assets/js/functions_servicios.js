@@ -252,10 +252,12 @@ function fntDelInfo(idservicio){
             request.send(strData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
+                    console.log(request)
+                    console.log(request.responseText)
                     let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
-                        swal("Eliminar!", objData.msg , "success");
+                        swal("Eliminado", objData.msg , "success");
                         tableServicios.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");

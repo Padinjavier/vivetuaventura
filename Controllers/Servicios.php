@@ -158,9 +158,7 @@
 				$requestDelete = $this->model->deleteServicio($intIdservicio);
 					if($requestDelete == 'ok')
 					{
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el servicio');
-					}else if($requestDelete == 'exist'){
-					$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar el servicio con productos asociados.');
+					$arrResponse = array('status' => true, 'msg' => 'Datos del servicio eliminado correctamente.');
 					}else{
 					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el servicio.');
 				}
