@@ -32,19 +32,19 @@ document.addEventListener('DOMContentLoaded', function(){
                 "className": "btn btn-secondary"
             },{
                 "extend": "excelHtml5",
-                "text": "<i class='fas fa-file-excel'></i> Excel",
-                "titleAttr":"Esportar a Excel",
+                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+                "titleAttr":"Exportar a Excel",
                 "className": "btn btn-success"
             },{
                 "extend": "pdfHtml5",
-                "text": "<i class='fas fa-file-pdf'></i> PDF",
-                "titleAttr":"Esportar a PDF",
+                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+                "titleAttr":"Exportar a PDF",
                 "className": "btn btn-danger"
             },{
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Esportar a CSV",
-                "className": "btn btn-info"
+                "titleAttr":"Exportar a CSV",
+                "className": "btn btn-info d-none"
             }
         ],
         "resonsieve":"true",
@@ -106,7 +106,11 @@ document.addEventListener('DOMContentLoaded', function(){
                         }
                         $('#modalFormUsuario').modal("hide");
                         formUsuario.reset();
-                        swal("Usuarios", objData.msg ,"success");
+                        if(objData.action=="insert"){
+                            swal("Guardado", objData.msg ,"success");
+                        }else{
+                            swal("Actualizado", objData.msg ,"success");
+                        }
                     }else{
                         swal("Error", objData.msg , "error");
                     }
@@ -262,8 +266,6 @@ function fntViewUsuario(idpersona){
     request.send();
     request.onreadystatechange = function(){
         if(request.readyState == 4 && request.status == 200){
-            console.log(request)
-            console.log(request.responseText)
             let objData = JSON.parse(request.responseText);
 
             if(objData.status)
@@ -352,7 +354,7 @@ function fntDelUsuario(idpersona){
                     let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
-                        swal("Eliminar!", objData.msg , "success");
+                        swal("Eliminado", objData.msg , "success");
                         tableUsuarios.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
@@ -381,3 +383,34 @@ function openModal()
 function openModalPerfil(){
     $('#modalFormPerfil').modal('show');
 }
+
+
+function togglePasswordVisibility() {
+    const input = document.getElementById("txtPassword");
+    if(input.value != ""){
+        const alerta = document.getElementById("alerta");
+        const toggleIcon = document.getElementById("togglePassword").querySelector("i");
+        const tipo = input.getAttribute("type") === "password" ? "text" : "password";
+        input.setAttribute("type", tipo);
+        toggleIcon.classList.toggle("fa-eye-slash");
+        toggleIcon.classList.toggle("fa-eye");
+      
+        let secondsLeft = 5;
+      
+        // Mostrar la cuenta regresiva en la consola
+        const countdownInterval = setInterval(() => {
+          alerta.innerHTML=("oculta en: " + secondsLeft + " s.");
+          secondsLeft--;
+      
+          if (secondsLeft < 0) {
+            clearInterval(countdownInterval);
+            input.setAttribute("type", "password");
+            toggleIcon.classList.add("fa-eye-slash");
+            toggleIcon.classList.remove("fa-eye");
+            alerta.innerHTML=("");
+          }
+        }, 1000); // Actualizar cada segundo
+    }
+}
+
+  

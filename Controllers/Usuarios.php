@@ -19,7 +19,7 @@
 				header("Location:".base_url().'/dashboard');
 			}
 			$data['page_tag'] = "Usuarios";
-			$data['page_title'] = "USUARIOS <small>Tienda Virtual</small>";
+			$data['page_title'] = "Usuarios <small> </small>";
 			$data['page_name'] = "usuarios";
 			$data['page_functions_js'] = "functions_usuarios.js";
 			$this->views->getView($this,"usuarios",$data);
@@ -75,9 +75,9 @@
 					if($request_user > 0 )
 					{
 						if($option == 1){
-							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+							$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Datos del usuario guardados correctamente.');
 						}else{
-							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+							$arrResponse = array('status' => true,'action' => 'edit' ,'msg' => 'Datos del usuario actualizados correctamente.');
 						}
 					}else if($request_user == 'exist'){
 						$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
@@ -160,7 +160,7 @@
 					$requestDelete = $this->model->deleteUsuario($intIdpersona);
 					if($requestDelete)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el usuario');
+						$arrResponse = array('status' => true, 'msg' => 'Datos del usuario eliminado correctamente.');
 					}else{
 						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el usuario.');
 					}

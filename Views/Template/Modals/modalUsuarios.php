@@ -11,32 +11,44 @@
       <div class="modal-body">
             <form id="formUsuario" name="formUsuario" class="form-horizontal">
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
-              <p class="text-primary">Todos los campos son obligatorios.</p>
+              <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtIdentificacion">Identificación</label>
                   <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
                 </div>
-              </div>
-              <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtNombre">Nombres</label>
                   <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
                 </div>
+              </div>
+              <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtApellido">Apellidos</label>
                   <input type="text" class="form-control valid validText" id="txtApellido" name="txtApellido" required="">
                 </div>
-              </div>
-              <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtTelefono">Teléfono</label>
                   <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
                 </div>
+              </div>
+              <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtEmail">Email</label>
                   <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="txtPassword">Contraseña <span id="alerta"></span></label>
+                  <div class="input-group">
+                      <input id="txtPassword" name="txtPassword" class="form-control" type="password">
+                      <div class="input-group-append " onclick="togglePasswordVisibility()"
+                        style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); z-index: 10000;">
+                        <span class="input-group-text bg-white border-0 bg-transparent" id="togglePassword">
+                          <i class="fas fa-eye-slash"></i>
+                        </span>
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="form-row">
@@ -51,12 +63,6 @@
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
                     </select>
-                </div>
-             </div>
-             <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="txtPassword">Password</label>
-                  <input type="password" class="form-control" id="txtPassword" name="txtPassword" >
                 </div>
              </div>
               <div class="tile-footer">
