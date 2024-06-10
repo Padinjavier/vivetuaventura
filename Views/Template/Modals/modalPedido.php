@@ -1,6 +1,6 @@
 <!-- modal  -->
-<div class="modal fade" id="modalFormPedido" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade" id="modalFormPedido" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog modal-xl" >
         <div class="modal-content">
             <div class="modal-header headerUpdate">
                 <h5 class="modal-title" id="titleModal">Nueva venta</h5>
@@ -10,9 +10,8 @@
             </div>
             <div class="modal-body">
                 <form id="formUpdatePedido" name="formUpdatePedido" class="form-horizontal">
+                <input type="hidden" id="idVenta" name="idVenta" value="">
                     <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
-                    
-                    
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <label for="listClienteid">Cliente</label>
@@ -43,13 +42,13 @@
                                     <thead>
                                         <tr style="text-align: center;">
                                             <th style="width:5%">#</th>
-                                            <th style="width:20%">Tipo de servicio</th>
+                                            <th style="width:35%">Tipo de servicio</th>
                                             <th style="width:10%">Cantidad</th>
                                             <th style="width:10%">Precio</th>
                                             <th style="width:10%">Descuento</th>
                                             <th style="width:10%">Precio Total</th>
                                             <th style="width:5%"></th>
-                                            <th style="width:10%"></th>
+                                            <th style="width:0%"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="tblDetalleVenta">
@@ -63,14 +62,15 @@
                                             <td></td>
                                             <td></td>
                                             <td>
-                                                <span>TOTAL:</span><br>
-                                                <span>Descuento Total:</span><br>
                                                 <span>Sub Total:</span><br>
+                                                <span>Descuento Total:</span><br>
+                                                <span>Total:</span><br>
                                             </td>
+                                            <td></td>
                                             <td>
-                                                <span id="total">S/00.00</span><br>
-                                                <span id="decuento">S/00.00</span><br>
-                                                <span id="sub_total">S/00.00</span><br>
+                                                <span id="gran_sub_total">00.00</span><br>
+                                                <span id="gran_descuento">00.00</span><br>
+                                                <span id="gran_total">00.00</span><br>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -82,11 +82,9 @@
 
 
                     <div class="tile-footer">
-                        <button id="btnActionForm" class="btn btn-info" type="submit"><i
-                                class="fa fa-fw fa-lg fa-check-circle"></i><span>Guardar</span></button>&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-success" type="button" data-dismiss="modal"><i
-                                class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
-                    </div>
+                <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
+              </div>
                 </form>
             </div>
         </div>

@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
       newRow.classList.add("detalle-venta-row");
       newRow.innerHTML = `
           <td style="text-align: center;">
-              <p class="row-number"></p>
+              <span class="row-number"></span>
           </td>
           <td>
               <select class="form-control selectpicker servicio-select" name="selectGuia" required data-live-search="true">
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
               </div>
           </td>
           <td>
-              <input type="number" class="form-control precio_db" value="0" readonly>
+              <input type="hidden" class="form-control precio_db" readonly>
           </td>
       `;
       tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila
@@ -307,8 +307,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addEventListenersToRow(row) {
+      const selectElement = row.querySelector(".servicio-select");
       const cantidadInput = row.querySelector(".cantidad");
       const precioInput = row.querySelector(".precio");
+
+      selectElement.addEventListener("change", function () {
+          cal_precio_db(row);
+          calculateRow(row);
+          sumarPreciosTotales();
+      });
 
       cantidadInput.addEventListener("input", function () {
           calculateRow(row);
@@ -321,6 +328,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       calculateRow(row);
+  }
+
+  function cal_precio_db(row) {
+      var buttonElement = row.querySelector('.btn.dropdown-toggle.btn-light');
+      var buttonTitle = buttonElement.getAttribute('title');
+      var decimalNumber = buttonTitle.match(/\d+\.\d+/);
+      var precioDb = decimalNumber ? decimalNumber[0] : 0;
+      row.querySelector(".precio_db").value = precioDb;
   }
 
   function calculateRow(row) {
@@ -342,21 +357,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function sumarPreciosTotales() {
       let subtotal = 0;
+      let totalDescuento = 0;
+      let subtotalreal = 0;
       let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
 
       for (let i = 0; i < filas.length; i++) {
           let fila = filas[i];
+          // Sumar precios real
+          let precioRealElement = fila.querySelector(".precio_db");
+          let precioReal = 0;
+          if (precioRealElement) {
+            precioReal = parseFloat(precioRealElement.value) || 0;
+          }
+          subtotalreal += precioReal;
+
+          // Sumar precios totales
           let precioTotalElement = fila.querySelector(".precio_total");
           let precioTotal = 0;
-
           if (precioTotalElement) {
               precioTotal = parseFloat(precioTotalElement.value) || 0;
           }
-
           subtotal += precioTotal;
+
+          // Sumar descuentos
+          let descuentoElement = fila.querySelector(".descuento");
+          let descuento = 0;
+          if (descuentoElement) {
+              descuento = parseFloat(descuentoElement.value) || 0;
+          }
+          totalDescuento += descuento;
+
+          
       }
 
-      document.getElementById("total").innerText = "S/" + subtotal.toFixed(2);
+      // Actualizar el total
+      document.getElementById("gran_sub_total").innerText = "S/" + subtotalreal.toFixed(2);
+      document.getElementById("gran_descuento").innerText = "S/" + totalDescuento.toFixed(2);
+      document.getElementById("gran_total").innerText = "S/" + subtotal.toFixed(2);
   }
 
   function updateRowNumbers() {
@@ -376,20 +413,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-function aaa() {
-
-  // Obtener el elemento del botón dentro del div con ID 'tblDetalleVenta'
-  var buttonElement = document.querySelector('#tblDetalleVenta .btn.dropdown-toggle.btn-light');
-
-  // Obtener el título del botón
-  var buttonTitle = buttonElement.getAttribute('title');
-
-  // Utilizar una expresión regular para encontrar el número decimal en el título
-  var decimalNumber = buttonTitle.match(/\d+\.\d+/);
-
-  console.log("Número decimal en el título:", decimalNumber[0]);
-
-}
 
 
 
@@ -404,21 +427,15 @@ function aaa() {
 
 
 
-
-
-
-
-
-
-
-function openModal() {
-  rowTable = "";
-  // document.querySelector('#idProducto').value ="";
-  document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
-  document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
-  document.querySelector('#btnActionForm').innerHTML = "Guardar";
-  document.querySelector("#formUpdatePedido").reset();
-  $('#modalFormPedido').modal('show');
+function openModal()
+{
+    rowTable = "";
+    document.querySelector('#idVenta').value ="";
+    document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
+    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
+    document.querySelector('#btnText').innerHTML ="Guardar";
+    document.querySelector("#formUpdatePedido").reset();
+    $('#modalFormPedido').modal('show');
 }
 
 
