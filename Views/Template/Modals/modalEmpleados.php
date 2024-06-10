@@ -12,7 +12,7 @@
         <form id="formEmpleado" name="formEmpleado" class="form-horizontal">
           <!-- name idEmpleado es en PHP js con POST no con id # -->
           <input type="hidden" id="idEmpleado" name="idEmpleado" value="">
-          <p class="text-primary">Todos los campos son obligatorios.</p>
+          <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
 
           <div class="form-row">
             <div class="form-group col-md-6">

@@ -20,16 +20,15 @@ class Clientes extends Controllers{
 			header("Location:".base_url().'/dashboard');
 		}
 		$data['page_tag'] = "Clientes";
-		$data['page_title'] = "CLIENTES <small>Tienda Virtual</small>";
+		$data['page_title'] = "Clientes <small> </small>";
 		$data['page_name'] = "clientes";
 		$data['page_functions_js'] = "functions_clientes.js";
 		$this->views->getView($this,"clientes",$data);
 	}
 
 	public function setCliente(){
-		error_reporting(0);
 		if($_POST){
-			if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) )
+			if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtHotel']) )
 			{
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 			}else{ 
@@ -39,31 +38,23 @@ class Clientes extends Controllers{
 				$strApellido = ucwords(strClean($_POST['txtApellido']));
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
-				$strNit = strClean($_POST['txtNit']);
-				$strNomFiscal = strClean($_POST['txtNombreFiscal']);
-				$strDirFiscal = strClean($_POST['txtDirFiscal']);
+				$strhotel = strClean($_POST['txtHotel']);
 				$intTipoId = 3;
 				$request_user = "";
 				if($idUsuario == 0)
 				{
 					$option = 1;
-					$strPassword =  empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
-					$strPasswordEncript = hash("SHA256",$strPassword);
 					if($_SESSION['permisosMod']['w']){
 						$request_user = $this->model->insertCliente($strIdentificacion,
 																			$strNombre, 
 																			$strApellido, 
 																			$intTelefono, 
 																			$strEmail,
-																			$strPasswordEncript,
 																			$intTipoId, 
-																			$strNit,
-																			$strNomFiscal,
-																			$strDirFiscal );
+																			$strhotel);
 					}
 				}else{
 					$option = 2;
-					$strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
 					if($_SESSION['permisosMod']['u']){
 						$request_user = $this->model->updateCliente($idUsuario,
 																	$strIdentificacion, 
@@ -71,25 +62,21 @@ class Clientes extends Controllers{
 																	$strApellido, 
 																	$intTelefono, 
 																	$strEmail,
-																	$strPassword, 
-																	$strNit,
-																	$strNomFiscal, 
-																	$strDirFiscal);
+																	$strhotel);
 					}
 				}
 
 				if($request_user > 0 )
 				{
 					if($option == 1){
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Datos del cliente guardados correctamente.');
 						$nombreUsuario = $strNombre.' '.$strApellido;
 						$dataUsuario = array('nombreUsuario' => $nombreUsuario,
 											 'email' => $strEmail,
-											 'password' => $strPassword,
 											 'asunto' => 'Bienvenido a tu tienda en línea');
 						sendEmail($dataUsuario,'email_bienvenida');
 					}else{
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Datos del cliente actualizados correctamente.');
 					}
 				}else if($request_user == -1){
 					$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
@@ -111,13 +98,13 @@ class Clientes extends Controllers{
 				$btnEdit = '';
 				$btnDelete = '';
 				if($_SESSION['permisosMod']['r']){
-					$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idpersona'].')" title="Ver cliente"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnView btnViewInfo" onClick="fntViewInfo('.$arrData[$i]['idpersona'].')" title="Ver cliente"><i class="far fa-eye"></i></button>';
 				}
 				if($_SESSION['permisosMod']['u']){
-					$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idpersona'].')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
+					$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit btnEditInfo" onClick="fntEditInfo(this,'.$arrData[$i]['idpersona'].')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
 				}
 				if($_SESSION['permisosMod']['d']){	
-					$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idpersona'].')" title="Eliminar cliente"><i class="far fa-trash-alt"></i></button>';
+					$btnDelete = '<button class="btn btn-danger btn-sm btnDel btnDelInfo" onClick="fntDelInfo('.$arrData[$i]['idpersona'].')" title="Eliminar cliente"><i class="far fa-trash-alt"></i></button>';
 				}
 				$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 			}
@@ -152,7 +139,7 @@ class Clientes extends Controllers{
 				$requestDelete = $this->model->deleteCliente($intIdpersona);
 				if($requestDelete)
 				{
-					$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el cliente');
+					$arrResponse = array('status' => true, 'msg' => 'Datos del cliente eliminado correctamente.');
 				}else{
 					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar al cliente.');
 				}

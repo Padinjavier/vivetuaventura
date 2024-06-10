@@ -11,13 +11,15 @@
       <div class="modal-body">
             <form id="formCliente" name="formCliente" class="form-horizontal">
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
-              <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
+              <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
 
               <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label for="txtIdentificacion">Identificación <span class="required">*</span></label>
+                <div class="form-group col-md-6">
+                  <label for="txtIdentificacion">Identificación</label>
                   <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
                 </div>
+              </div>
+              <div class="form-row">
                 <script>
                 var txtIdentificacion = document.getElementById("txtIdentificacion");
 
@@ -34,55 +36,37 @@
                       .then((res) => res.json())
                       .then((data) => {
                         document.getElementById("txtNombre").value = data.data.nombres;
-                        document.getElementById("txtPassword").value = dni;
                         document.getElementById("txtApellido").value = data.data.apellido_paterno + " " + data.data.apellido_materno;
                       });
                   }
                 });
               </script>
-                <div class="form-group col-md-4">
-                  <label for="txtNombre">Nombres <span class="required">*</span></label>
+                <div class="form-group col-md-6">
+                  <label for="txtNombre">Nombres</label>
                   <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="txtApellido">Apellidos <span class="required">*</span></label>
+                <div class="form-group col-md-6">
+                  <label for="txtApellido">Apellidos</label>
                   <input type="text" class="form-control valid validText" id="txtApellido" name="txtApellido" required="">
                 </div>
               </div>
               <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label for="txtTelefono">Teléfono <span class="required">*</span></label>
+                <div class="form-group col-md-6">
+                  <label for="txtTelefono">Teléfono</label>
                   <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="txtEmail">Email <span class="required">*</span></label>
+                <div class="form-group col-md-6">
+                  <label for="txtEmail">Correo</label>
                   <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="txtPassword">Password </label>
-                  <!-- <input type="password" class="form-control" id="txtPassword" name="txtPassword" > -->
-                </div>
               </div>
-              <hr>
-              <p class="text-primary">Datos Fiscales.</p>
               <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label>Identificación Tributaria <span class="required">*</span></label>
-                  <input class="form-control" type="text" id="txtNit" name="txtNit" required="">
-                </div>
-                <div class="form-group col-md-6">
-                  <label>Nombre fiscal <span class="required">*</span></label>
-                  <input class="form-control" type="text" id="txtNombreFiscal" name="txtNombreFiscal" required="">
-                </div>
-
                 <div class="form-group col-md-12">
-                  <label>Dirección fiscal <span class="required">*</span></label>
-                  <input class="form-control" type="text" id="txtDirFiscal" name="txtDirFiscal" required="">
+                  <label>Nombre de hotel (Opcional)</label>
+                  <input class="form-control" type="text" id="txtHotel" name="txtHotel">
                 </div>
-                
               </div>
              <div class="form-row">
-                
              </div>
               <div class="tile-footer">
                 <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
@@ -94,7 +78,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal view -->
 <div class="modal fade" id="modalViewCliente" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" >
     <div class="modal-content">
@@ -124,20 +108,12 @@
               <td id="celTelefono">Larry</td>
             </tr>
             <tr>
-              <td>Email (Usuario):</td>
+              <td>Correo:</td>
               <td id="celEmail">Larry</td>
             </tr>
             <tr>
-              <td>Identificación Tributaria:</td>
+              <td>Hotel:</td>
               <td id="celIde">Larry</td>
-            </tr>
-            <tr>
-              <td>Nombre Fiscal:</td>
-              <td id="celNomFiscal">Larry</td>
-            </tr>
-            <tr>
-              <td>Dirección Fiscal:</td>
-              <td id="celDirFiscal">Larry</td>
             </tr>
             <tr>
               <td>Fecha registro:</td>

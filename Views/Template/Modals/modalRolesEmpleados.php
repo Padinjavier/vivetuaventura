@@ -12,6 +12,7 @@
             <div class="tile-body">
               <form id="formRolEmpleado" name="formRolEmpleado">
                 <input type="hidden" id="idRolEmpleado" name="idRolEmpleado" value="">
+                <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
                 <div class="form-group">
                   <label class="control-label">Nombre</label>
                   <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre del rol" required="">

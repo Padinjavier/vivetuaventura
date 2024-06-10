@@ -31,19 +31,19 @@ document.addEventListener('DOMContentLoaded', function(){
                 "className": "btn btn-secondary"
             },{
                 "extend": "excelHtml5",
-                "text": "<i class='fas fa-file-excel'></i> Excel",
-                "titleAttr":"Esportar a Excel",
+                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+                "titleAttr":"Exportar a Excel",
                 "className": "btn btn-success"
             },{
                 "extend": "pdfHtml5",
-                "text": "<i class='fas fa-file-pdf'></i> PDF",
-                "titleAttr":"Esportar a PDF",
+                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+                "titleAttr":"Exportar a PDF",
                 "className": "btn btn-danger"
             },{
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Esportar a CSV",
-                "className": "btn btn-info"
+                "titleAttr":"Exportar a CSV",
+                "className": "btn btn-info d-none"
             }
         ],
         "resonsieve":"true",
@@ -61,12 +61,9 @@ document.addEventListener('DOMContentLoaded', function(){
             let strApellido = document.querySelector('#txtApellido').value;
             let strEmail = document.querySelector('#txtEmail').value;
             let intTelefono = document.querySelector('#txtTelefono').value;
-            let strNit = document.querySelector('#txtNit').value;
-            let strNomFical = document.querySelector('#txtNombreFiscal').value;
-            let strDirFiscal = document.querySelector('#txtDirFiscal').value;
-            // let strPassword = document.querySelector('#txtPassword').value;
+            let strhotel = document.querySelector('#txtHotel').value;
 
-            if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || strNit == '' || strDirFiscal == '' || strNomFical=='' )
+            if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || strhotel == '' )
             {
                 swal("Atención", "Todos los campos son obligatorios." , "error");
                 return false;
@@ -87,14 +84,9 @@ document.addEventListener('DOMContentLoaded', function(){
             request.send(formData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-
                     console.log(request)
                     console.log(request.responseText)
-
-
                     let objData = JSON.parse(request.responseText);
-
-                   
 
                     if(objData.status)
                     {
@@ -110,7 +102,11 @@ document.addEventListener('DOMContentLoaded', function(){
                         }
                         $('#modalFormCliente').modal("hide");
                         formCliente.reset();
-                        swal("Usuarios", objData.msg ,"success");
+                        if(objData.action=="insert"){
+                            swal("Guardado", objData.msg ,"success");
+                        }else{
+                            swal("Actualizado", objData.msg ,"success");
+                        }
                     }else{
                         swal("Error", objData.msg , "error");
                     }
@@ -140,10 +136,8 @@ function fntViewInfo(idpersona){
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celIde").innerHTML = objData.data.nit;
-                document.querySelector("#celNomFiscal").innerHTML = objData.data.nombrefiscal;
-                document.querySelector("#celDirFiscal").innerHTML = objData.data.direccionfiscal;
-                document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
+                document.querySelector("#celIde").innerHTML = objData.data.hotel;
+                document.querySelector("#celFechaRegistro").innerHTML = objData.data.datecreated; 
                 $('#modalViewCliente').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
@@ -174,9 +168,7 @@ function fntEditInfo(element, idpersona){
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
                 document.querySelector("#txtTelefono").value = objData.data.telefono;
                 document.querySelector("#txtEmail").value = objData.data.email_user;
-                document.querySelector("#txtNit").value =objData.data.nit;
-                document.querySelector("#txtNombreFiscal").value =objData.data.nombrefiscal;
-                document.querySelector("#txtDirFiscal").value =objData.data.direccionfiscal;
+                document.querySelector("#txtHotel").value =objData.data.hotel;
             }
         }
         $('#modalFormCliente').modal('show');
@@ -208,7 +200,7 @@ function fntDelInfo(idpersona){
                     let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
-                        swal("Eliminar!", objData.msg , "success");
+                        swal("Eliminado", objData.msg , "success");
                         tableClientes.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
