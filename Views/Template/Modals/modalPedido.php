@@ -137,7 +137,7 @@
                     <div class="tile-footer">
                         <button id="btnActionForm" class="btn btn-info" type="submit"><i
                                 class="fa fa-fw fa-lg fa-check-circle"></i><span>Guardar</span></button>&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-danger" type="button" data-dismiss="modal"><i
+                        <button class="btn btn-success" type="button" data-dismiss="modal"><i
                                 class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
                     </div>
                 </form>

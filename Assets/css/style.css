@@ -33,11 +33,11 @@
 	display: none;
 }
 .headerRegister, .header-primary{
-	background: #F75858;
+	background: var(--HEADER);
 	color: #FFF;
 }
 .headerUpdate{
-	background: #F75858;
+	background: var(--HEADER);
 	color: #FFF;
 }
 .textcenter{

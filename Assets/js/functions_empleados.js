@@ -32,18 +32,18 @@ document.addEventListener('DOMContentLoaded', function(){
                 "className": "btn btn-secondary"
             },{
                 "extend": "excelHtml5",
-                "text": "<i class='fas fa-file-excel'></i> Excel",
-                "titleAttr":"Esportar a Excel",
+                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+                "titleAttr":"Exportar a Excel",
                 "className": "btn btn-success"
             },{
                 "extend": "pdfHtml5",
-                "text": "<i class='fas fa-file-pdf'></i> PDF",
-                "titleAttr":"Esportar a PDF",
+                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+                "titleAttr":"Exportar a PDF",
                 "className": "btn btn-danger"
             },{
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Esportar a CSV",
+                "titleAttr":"Exportar a CSV",
                 "className": "btn btn-info d-none"
             }
         ],
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 if(request.readyState == 4 && request.status == 200){
                     console.log(request.responseText)
                     let objData = JSON.parse(request.responseText);
-                    
+                    console.log(objData)
                     if(objData.status)
                     {
                         if(rowTable == ""){
@@ -107,7 +107,13 @@ document.addEventListener('DOMContentLoaded', function(){
                         }
                         $('#modalFormEmpleado').modal("hide");
                         formEmpleado.reset();
-                        swal("Empleados", objData.msg ,"success");
+
+                        if(objData.action=="insert"){
+                            swal("Guardado", objData.msg ,"success");
+                        }else{
+                            swal("Actualizado", objData.msg ,"success");
+                        }
+
                     }else{
                         swal("Error", objData.msg , "error");
                     }
@@ -176,7 +182,7 @@ function fntEditEmpleado(element,idpersona){
     rowTable = element.parentNode.parentNode.parentNode; 
     document.querySelector('#titleModal').innerHTML ="Actualizar empleado";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
-    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    // document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url+'/Empleados/getEmpleado/'+idpersona;
@@ -241,7 +247,7 @@ function fntDelEmpleado(idpersona){
                     let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
-                        swal("Eliminar!", objData.msg , "success");
+                        swal("Empleados", objData.msg , "success");
                         tableEmpleados.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");

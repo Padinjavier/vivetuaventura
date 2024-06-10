@@ -17,7 +17,7 @@ $anio = date('Y');
 $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
 ?>
 <main class="app-content bg-white">
-  <div class="container">
+  <!-- <div class="container"> -->
     <div class="row">
       <div class="col-12">
         <div class="mb-3">
@@ -26,20 +26,20 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
           </p>
         </div>
       </div>
-      <div>
+      <div class="col-12 ">
         <div class="mb-3">
           <p class="font-weight-bold">Te damos la bienvenida, <span class="text-primary">
               <?= $_SESSION['userData']['nombres']; ?>
             </span></p>
         </div>
       </div>
-      <div>
+      <div class="col-12 ">
         <div class="mb-3 mr-4">
           <p>Que tengas un bonito día de trabajo, recuerda realizar los registros correctamente y ser feliz.</p>
         </div>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
   <div class="row">
       <div class="col-12  mt-4">
           <p class="font-weight-bold">Mis servicios</p>

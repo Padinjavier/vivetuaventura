@@ -535,6 +535,12 @@ mark,
   padding-left: 0;
   list-style: none;
 }
+.treeview.active{
+  background: var(--HEADER);
+}
+.treeview.active a{
+  color: white;
+}
 
 .list-inline {
   padding-left: 0;
@@ -2852,6 +2858,21 @@ fieldset:disabled a.btn {
   background-color: var(--HEADER);
   border-color: var(--HEADER);
 }
+.btnView {
+  color: #fff;
+  background-color: #18A5B7;
+  border-color: #18A5B7;
+}
+.btnEdit {
+  color: #fff;
+  background-color: #1989C5;
+  border-color: #1989C5;
+}
+.btnDel {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
 
 .btn-primary:hover {
   color: #fff;
@@ -2929,8 +2950,8 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #7AA637;
+  border-color: #7AA637;
 }
 
 .btn-success:hover {
@@ -2969,9 +2990,16 @@ fieldset:disabled a.btn {
 
 .btn-info {
   color: #fff;
-  background-color: var(--HEADER);
-  border-color: var(--HEADER);
+  background-color: #18A5B7;
+  border-color: #18A5B7;
 }
+.btnTipoVentaMes, .btnVentasMes {
+  color: #fff;
+  background-color: var(--HEADER);
+  border-color:  var(--HEADER);
+}
+
+
 
 .btn-info:hover {
   color: #fff;
@@ -5751,7 +5779,7 @@ a.badge-secondary.focus {
 
 .badge-success {
   color: #fff;
-  background-color: #28a745;
+  background-color: #7AA637;
 }
 
 a.badge-success:hover,
@@ -11096,6 +11124,7 @@ table.dataTable {
   margin-top: 6px !important;
   margin-bottom: 6px !important;
   max-width: none !important;
+  text-align: center;
 }
 
 table.dataTable td,
@@ -12519,11 +12548,11 @@ body.stop-scrolling {
 }
 
 .sweet-alert button.cancel {
-  background-color: #c1c1c1 !important;
+  background-color: #F9A147 !important;
 }
 
 .sweet-alert button.cancel:hover {
-  background-color: #b9b9b9;
+  background-color: #F9A147;
 }
 
 .sweet-alert button.cancel:active {
@@ -12711,7 +12740,7 @@ body.stop-scrolling {
 .sweet-alert .sa-icon.sa-success .sa-placeholder {
   width: 80px;
   height: 80px;
-  border: 4px solid rgba(165, 220, 134, 0.2);
+  border: 4px solid #7AA637;
   border-radius: 40px;
   border-radius: 50%;
   -webkit-box-sizing: content-box;
@@ -12737,7 +12766,7 @@ body.stop-scrolling {
 
 .sweet-alert .sa-icon.sa-success .sa-line {
   height: 5px;
-  background-color: #a5dc86;
+  background-color: #7AA637;
   display: block;
   border-radius: 2px;
   position: absolute;
@@ -15891,7 +15920,7 @@ be a descendant of the grid when it is being dragged.
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 12px 15px;
+  padding: 8px 15px;
   font-size: 1.08em;
   border-left: 3px solid transparent;
   -webkit-transition: border-left-color 0.3s ease, background-color 0.3s ease;
@@ -15925,7 +15954,7 @@ be a descendant of the grid when it is being dragged.
 
 .treeview.is-expanded [data-toggle="treeview"] {
   border-left-color: var(--HEADER);
-  background: var(--HEADERHOVER);
+  background: var(--HEADER);
 }
 
 .treeview.is-expanded .treeview-menu {
@@ -15935,7 +15964,7 @@ be a descendant of the grid when it is being dragged.
 .treeview.is-expanded .treeview-indicator {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  transform: rotate(270deg);
 }
 
 .treeview-menu {

@@ -19,7 +19,7 @@
 				header("Location:".base_url().'/dashboard');
 			}
 			$data['page_tag'] = "Empleados";
-			$data['page_title'] = "EMPLEADOS <small> </small>";
+			$data['page_title'] = "Empleados <small> </small>";
 			$data['page_name'] = "empleado";
 			$data['page_functions_js'] = "functions_empleados.js";
 			$this->views->getView($this,"empleados",$data);
@@ -70,9 +70,9 @@
 					if($request_user > 0 )
 					{
 						if($option == 1){
-							$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente. ');
+							$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Datos del empleado guardados correctamente.');
 						}else{
-							$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+							$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Datos del empleado actualizados correctamente.');
 						}
 					}else if($request_user == -1){
 						$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
@@ -102,14 +102,14 @@
 					}
 
 					if($_SESSION['permisosMod']['r']){
-						$btnView = '<button class="btn btn-info btn-sm btnViewEmpleado" onClick="fntViewEmpleado('.$arrData[$i]['idpersona'].')" title="Ver Empleado"><i class="far fa-eye"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm btnView btnViewEmpleado" onClick="fntViewEmpleado('.$arrData[$i]['idpersona'].')" title="Ver Empleado"><i class="far fa-eye"></i></button>';
 					}
 					if($_SESSION['permisosMod']['u']){
-							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditEmpleado" onClick="fntEditEmpleado(this,'.$arrData[$i]['idpersona'].')" title="Editar Empleado"><i class="fas fa-pencil-alt"></i></button>';
+							$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit btnEditEmpleado" onClick="fntEditEmpleado(this,'.$arrData[$i]['idpersona'].')" title="Editar Empleado"><i class="fas fa-pencil-alt"></i></button>';
 						
 					}
 					if($_SESSION['permisosMod']['d']){
-							$btnDelete = '<button class="btn btn-danger btn-sm btnDelEmpleado" onClick="fntDelEmpleado('.$arrData[$i]['idpersona'].')" title="Eliminar Empleado"><i class="far fa-trash-alt"></i></button>';
+							$btnDelete = '<button class="btn btn-danger btn-sm btnDel btnDelEmpleado" onClick="fntDelEmpleado('.$arrData[$i]['idpersona'].')" title="Eliminar Empleado"><i class="far fa-trash-alt"></i></button>';
 					}
 					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 				}
@@ -144,7 +144,7 @@
 					$requestDelete = $this->model->deleteEmpleado($intIdpersona);
 					if($requestDelete)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado al Empleado ');
+						$arrResponse = array('status' => true, 'msg' => 'Datos del empleado eliminado correctamente.');
 					}else{
 						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar al Empleado.');
 					}

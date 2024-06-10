@@ -20,13 +20,6 @@
         </div>
     </div>
     <ul class="app-menu">
-        <!-- Mi sitioweb -->
-        <!-- <li>
-            <a class="app-menu__item" href="<?= base_url(); ?>/home" target="_blank">
-                <i class="app-menu__icon fa fas fa-globe" aria-hidden="true"></i>
-                <span class="app-menu__label">Ver sitio web</span>
-            </a>
-        </li> -->
         <?php if (!empty($_SESSION['permisos'][1]['r'])) { ?>
             <li>
                 <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
@@ -36,22 +29,22 @@
             </li>
         <?php } ?>
         <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-            <li class="treeview">
+            <li class="treeview" id="menu-empleados">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon bi bi-people-fill"></i>
                     <span class="app-menu__label">Empleados</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a class="treeview-item" href="<?= base_url(); ?>/empleados"><i class="icon fa fa-circle-o"></i>
+                    <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/empleados">
                             Empleados</a></li>
-                    <li><a class="treeview-item" href="<?= base_url(); ?>/rolesempleados"><i class="icon fa fa-circle-o"></i>
+                    <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesempleados">
                             Roles</a></li>
                 </ul>
             </li>
         <?php } ?>
         <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>
-            <li>
+            <li class="treeview" id="menu-clientes">
                 <a class="app-menu__item" href="<?= base_url(); ?>/clientes">
                     <i class="app-menu__icon bi bi-person-fill"></i>
                     <span class="app-menu__label">Clientes</span>
@@ -59,22 +52,22 @@
             </li>
         <?php } ?>
         <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
-            <li class="treeview">
+            <li class="treeview" id="menu-usuario">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon bi bi-mouse-fill"></i>
                     <span class="app-menu__label">Usuario</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i>
+                <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/usuarios">
                             Usuarios</a></li>
-                    <li><a class="treeview-item" href="<?= base_url(); ?>/rolesusuarios"><i class="icon fa fa-circle-o"></i>
+                    <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesusuarios">
                             Permisos</a></li>
                 </ul>
             </li>
         <?php } ?>
         <?php if (!empty($_SESSION['permisos'][5]['r']) || !empty($_SESSION['permisos'][6]['r'])) { ?>
-            <li class="treeview">
+            <li class="treeview" id="menu-puntoventa">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon bi bi-archive-fill"></i>
                     <span class="app-menu__label">Punto de venta</span>
@@ -82,57 +75,21 @@
                 </a>
                 <ul class="treeview-menu">
                     <?php if (!empty($_SESSION['permisos'][6]['r'])) { ?>
-                        <li><a class="treeview-item" href="<?= base_url(); ?>/pedidos"><i class="icon fa fa-circle-o"></i>
+                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/pedidos">
                                 Venta</a></li>
                     <?php } ?>
                     <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
-                        <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i>
+                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/productos">
                                 Salida</a></li>
                     <?php } ?>
                     <?php if (!empty($_SESSION['permisos'][8]['r'])) { ?>
-                        <li><a class="treeview-item" href="<?= base_url(); ?>/servicios"><i class="icon fa fa-circle-o"></i>
+                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/servicios">
                                 Servicios</a></li>
                     <?php } ?>
                 </ul>
             </li>
         <?php } ?>
-        <!-- Pedidos  -->
-        <!-- <?php if (!empty($_SESSION['permisos'][9]['r'])) { ?>
-            <li>
-                <a class="app-menu__item" href="<?= base_url(); ?>/pedidos">
-                    <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
-                    <span class="app-menu__label">Pedidos</span>
-                </a>
-            </li>
-        <?php } ?> -->
-
-        <!-- Suscripciones -->
-        <!-- <?php if (!empty($_SESSION['permisos'][MSUSCRIPTORES]['r'])) { ?>
-            <li>
-                <a class="app-menu__item" href="<?= base_url(); ?>/suscriptores">
-                    <i class="app-menu__icon fas fa-user-tie" aria-hidden="true"></i>
-                    <span class="app-menu__label">Suscriptores</span>
-                </a>
-            </li>
-        <?php } ?> -->
-
-        <!-- <?php if (!empty($_SESSION['permisos'][MDCONTACTOS]['r'])) { ?>
-            <li>
-                <a class="app-menu__item" href="<?= base_url(); ?>/contactos">
-                    <i class="app-menu__icon fas fa-envelope" aria-hidden="true"></i>
-                    <span class="app-menu__label">Mensajes</span>
-                </a>
-            </li>
-        <?php } ?> -->
-
-        <!-- <?php if (!empty($_SESSION['permisos'][MDPAGINAS]['r'])) { ?>
-            <li>
-                <a class="app-menu__item" href="<?= base_url(); ?>/paginas">
-                    <i class="app-menu__icon fas fa-file-alt" aria-hidden="true"></i>
-                    <span class="app-menu__label">Páginas</span>
-                </a>
-            </li>
-        <?php } ?> -->
+       
 
         <li>
             <a class="app-menu__item" href="<?= base_url(); ?>/logout">
@@ -142,3 +99,42 @@
         </li>
     </ul>
 </aside>
+
+<script>
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Obtener la URL actual
+//     var currentUrl = window.location.href;
+
+//     // Verificar si la URL contiene /empleados o /rolesempleados
+//     if (currentUrl.includes('/empleados') || currentUrl.includes('/rolesempleados')) {
+//         // Seleccionar el <li> con el id menu-empleados
+//         var menuItem = document.getElementById('menu-empleados');
+//         if (menuItem) {
+//             // Agregar la clase 'active'
+//             menuItem.classList.add('active');
+//         }
+//     }
+
+//     if (currentUrl.includes('/clientes')) {
+//         var menuItem = document.getElementById('menu-clientes');
+//         if (menuItem) {
+//             menuItem.classList.add('active');
+//         }
+//     }
+    
+//     if (currentUrl.includes('/usuarios') || currentUrl.includes('/rolesusuarios')) {
+//         var menuItem = document.getElementById('menu-usuario');
+//         if (menuItem) {
+//             menuItem.classList.add('active');
+//         }
+//     }
+//     if (currentUrl.includes('/pedidos') || currentUrl.includes('/productos')|| currentUrl.includes('/servicios')) {
+//         // Seleccionar el <li> con el id menu-empleados
+//         var menuItem = document.getElementById('menu-puntoventa');
+//         if (menuItem) {
+//             // Agregar la clase 'active'
+//             menuItem.classList.add('active');
+//         }
+//     }
+// });
+</script>

@@ -50,3 +50,41 @@ if (regex.test(window.location.href)) {
     });
   });
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Obtener la URL actual
+  var currentUrl = window.location.href;
+
+  // Verificar si la URL contiene /empleados o /rolesempleados
+  if (currentUrl.includes('/empleados') || currentUrl.includes('/rolesempleados')) {
+      // Seleccionar el <li> con el id menu-empleados
+      var menuItem = document.getElementById('menu-empleados');
+      if (menuItem) {
+          // Agregar la clase 'active'
+          menuItem.classList.add('active');
+      }
+  }
+
+  if (currentUrl.includes('/clientes')) {
+      var menuItem = document.getElementById('menu-clientes');
+      if (menuItem) {
+          menuItem.classList.add('active');
+      }
+  }
+  
+  if (currentUrl.includes('/usuarios') || currentUrl.includes('/rolesusuarios')) {
+      var menuItem = document.getElementById('menu-usuario');
+      if (menuItem) {
+          menuItem.classList.add('active');
+      }
+  }
+  if (currentUrl.includes('/pedidos') || currentUrl.includes('/productos')|| currentUrl.includes('/servicios')) {
+      // Seleccionar el <li> con el id menu-empleados
+      var menuItem = document.getElementById('menu-puntoventa');
+      if (menuItem) {
+          // Agregar la clase 'active'
+          menuItem.classList.add('active');
+      }
+  }
+});
