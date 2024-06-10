@@ -1,15 +1,15 @@
 <!-- Modal Salida-->
-<div class="modal fade" id="modalFormProductos" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalFormSalidas" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-xl" >
     <div class="modal-content">
       <div class="modal-header headerRegister">
-        <h5 class="modal-title" id="titleModal">Nueva Producto</h5>
+        <h5 class="modal-title" id="titleModal">Nueva Salida</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-            <form id="formProductos" name="formProductos" class="form-horizontal">
+            <form id="formSalidas" name="formSalidas" class="form-horizontal">
               <input type="hidden" id="idProducto" name="idProducto" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
               <div class="row">

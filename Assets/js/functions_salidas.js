@@ -73,9 +73,9 @@ tableProductos = $('#tableProductos').dataTable( {
     "order":[[0,"desc"]]  
 });
 window.addEventListener('load', function() {
-    if(document.querySelector("#formProductos")){
-        let formProductos = document.querySelector("#formProductos");
-        formProductos.onsubmit = function(e) {
+    if(document.querySelector("#formSalidas")){
+        let formSalidas = document.querySelector("#formSalidas");
+        formSalidas.onsubmit = function(e) {
             e.preventDefault();
             let strNombre = document.querySelector('#txtNombre').value;
             let intCodigo = document.querySelector('#txtCodigo').value;
@@ -98,7 +98,7 @@ window.addEventListener('load', function() {
                             new XMLHttpRequest() : 
                             new ActiveXObject('Microsoft.XMLHTTP');
             let ajaxUrl = base_url+'/Productos/setProducto'; 
-            let formData = new FormData(formProductos);
+            let formData = new FormData(formSalidas);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
             request.onreadystatechange = function(){
@@ -112,7 +112,7 @@ window.addEventListener('load', function() {
 
                         if(rowTable == ""){
                             // agregado para ocultar fomrulario
-                            $('#modalFormProductos').modal('hide');
+                            $('#modalFormSalidas').modal('hide');
                             tableProductos.api().ajax.reload();
                         }else{
                            htmlStatus = intStatus == 1 ? 
@@ -148,7 +148,7 @@ window.addEventListener('load', function() {
                             rowTable.cells[6].innerHTML =  htmlStatus;
                             rowTable = "";
                             // agregado para ocultar fomrulario
-                            $('#modalFormProductos').modal('hide');
+                            $('#modalFormSalidas').modal('hide');
                         }
                     }else{
                         swal("Error", objData.msg , "error");
@@ -376,7 +376,7 @@ function fntEditInfo(element,idProducto){
                 document.querySelector("#containerImages").innerHTML = htmlImage; 
                 document.querySelector("#divBarCode").classList.remove("notblock");
                 document.querySelector("#containerGallery").classList.remove("notblock");           
-                $('#modalFormProductos').modal('show');
+                $('#modalFormSalidas').modal('show');
             }else{
                 swal("Error", objData.msg , "error");
             }
@@ -462,12 +462,12 @@ function openModal()
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
-    document.querySelector('#titleModal').innerHTML = "Nuevo Producto";
-    document.querySelector("#formProductos").reset();
+    // document.querySelector('#titleModal').innerHTML = "Nuevo Producto";
+    document.querySelector("#formSalidas").reset();
     document.querySelector("#divBarCode").classList.add("show");//con error
     document.querySelector("#containerGallery").classList.add("show");//con error
     document.querySelector("#containerImages").innerHTML = "";
-    $('#modalFormProductos').modal('show');
+    $('#modalFormSalidas').modal('show');
     clocemenu();
 
 }
