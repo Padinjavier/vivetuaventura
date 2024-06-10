@@ -22,7 +22,7 @@
 			$data['page_id'] = 3;
 			$data['page_tag'] = "Permisos Usuario";
 			$data['page_name'] = "rol_usuario";
-			$data['page_title'] = "Permisos Usuario";
+			$data['page_title'] = "Permisos <small> </small>";
 			$data['page_functions_js'] = "functions_rolesusuario.js";
 			$this->views->getView($this,"rolesusuarios",$data);
 		}
@@ -44,15 +44,15 @@
 						$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
 					}
 					if($_SESSION['permisosMod']['u']){
-						$btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisosUsuario('.$arrData[$i]['idrolusuario'].')" title="Permisos"><i class="fas fa-key"></i></button>';
-						$btnEdit = '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRolUsuario('.$arrData[$i]['idrolusuario'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm btnView btnPermisosRol" onClick="fntPermisosUsuario('.$arrData[$i]['idrolusuario'].')" title="Permisos"><i class="fas fa-key"></i></button>';
+						$btnEdit = '<button class="btn btn-primary btn-sm btnEdit btnEditRol" onClick="fntEditRolUsuario('.$arrData[$i]['idrolusuario'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
 					}
 					if($_SESSION['permisosMod']['d']){
 						if(($arrData[$i]['nombrerolusuario'] == 'Cliente') || ($arrData[$i]['idrolusuario'] == '3')){
 							
 							$btnDelete = '<button class="btn btn-secondary btn-sm btnDelRol" disabled  onClick="" title="Eliminar desactivado"><i class="far fa-trash-alt"></i></button></div>';
 						}else{
-							$btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRolUsuario('.$arrData[$i]['idrolusuario'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button></div>';
+							$btnDelete = '<button class="btn btn-danger btn-sm btnDel btnDelRol" onClick="fntDelRolUsuario('.$arrData[$i]['idrolusuario'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button></div>';
 						}
 					}
 					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
@@ -121,9 +121,9 @@
 				{
 					if($option == 1)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Datos del permiso guardados correctamente.');
 					}else{
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Datos del permiso actualizados correctamente.');
 					}
 				}else if($request_rol == 'exist'){
 					
@@ -143,7 +143,7 @@
 					$requestDelete = $this->model->deleteRol($intIdrol);
 					if($requestDelete == 'ok')
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el Rol');
+						$arrResponse = array('status' => true, 'msg' => 'Datos del permiso de usuario eliminado correctamente.');
 					}else if($requestDelete == 'exist'){
 						$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar un Rol asociado a usuarios.');
 					}else{

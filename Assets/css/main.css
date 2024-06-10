@@ -16514,12 +16514,14 @@ be a descendant of the grid when it is being dragged.
 
 .toggle-flip input[type="checkbox"] + .flip-indecator:before {
   content: attr(data-toggle-off);
-  background-color: #ddd;
+  background-color: #D93644;
+  color: #fff;
+
 }
 
 .toggle-flip input[type="checkbox"] + .flip-indecator:after {
   content: attr(data-toggle-on);
-  background-color: var(--HEADER);
+  background-color: #7AA637;
   color: #fff;
   -webkit-transform: rotateY(-180deg);
   transform: rotateY(-180deg);

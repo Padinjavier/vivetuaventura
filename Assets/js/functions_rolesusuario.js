@@ -19,6 +19,30 @@ document.addEventListener('DOMContentLoaded', function(){
             {"data":"status"},
             {"data":"options"}
         ],
+        'dom': 'lBfrtip',
+        'buttons': [
+            {
+                "extend": "copyHtml5",
+                "text": "<i class='far fa-copy'></i> Copiar",
+                "titleAttr":"Copiar",
+                "className": "btn btn-secondary"
+            },{
+                "extend": "excelHtml5",
+                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+                "titleAttr":"Exportar a Excel",
+                "className": "btn btn-success"
+            },{
+                "extend": "pdfHtml5",
+                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+                "titleAttr":"Exportar a PDF",
+                "className": "btn btn-danger"
+            },{
+                "extend": "csvHtml5",
+                "text": "<i class='fas fa-file-csv'></i> CSV",
+                "titleAttr":"Exportar a CSV",
+                "className": "btn btn-info d-none"
+            }
+        ],
         "resonsieve":"true",
         "bDestroy": true,
         "iDisplayLength": 10,
@@ -53,7 +77,11 @@ document.addEventListener('DOMContentLoaded', function(){
                 {
                     $('#modalFormRolUsuario').modal("hide");
                     formRol.reset();
-                    swal("Roles de usuario", objData.msg ,"success");
+                    if(objData.action=="insert"){
+                        swal("Guardado", objData.msg ,"success");
+                    }else{
+                        swal("Actualizado", objData.msg ,"success");
+                    }
                     tableRolesUsuario.api().ajax.reload();
                 }else{
                     swal("Error", objData.msg , "error");
@@ -89,9 +117,9 @@ window.addEventListener('load', function() {
 }, false);
 
 function fntEditRolUsuario(idrolusuario){
-    document.querySelector('#titleModal').innerHTML ="Actualizar Rol";
+    document.querySelector('#titleModal').innerHTML ="Actualizar Permiso";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
-    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    // document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML ="Actualizar";
 
     var idrolusuario = idrolusuario;
@@ -134,8 +162,8 @@ function fntEditRolUsuario(idrolusuario){
 function fntDelRolUsuario(idrolusuario){
     var idrolusuario = idrolusuario;
     swal({
-        title: "Eliminar Rol",
-        text: "¿Realmente quiere eliminar el Rol?",
+        title: "Eliminar Permiso",
+        text: "¿Realmente quieres eliminar el permiso del usuario?",
         type: "warning",
         showCancelButton: true,
         confirmButtonText: "Si, eliminar!",
@@ -159,7 +187,7 @@ function fntDelRolUsuario(idrolusuario){
                     var objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
-                        swal("Eliminar!", objData.msg , "success");
+                        swal("Eliminado", objData.msg , "success");
                         tableRolesUsuario.api().ajax.reload();
                         //ver de que es esto porque funciona en main pero al cambiar surguio error 
                         // tableRolesUsuario.api().ajax.reload(function(){
