@@ -192,163 +192,13 @@ formPedido.onsubmit = function (e) {
 // ------------------------------------
 // ------------------------------------
 // ------------------------------------
-
-
-// ---------------------los roles gia conductor-----------------------------
-// ---------------------los roles gia conductor-----------------------------
-// window.addEventListener(
-//   "load",
-//   function () {
-//     fntRolesEmpleado();
-//   },
-//   false
-// );
-
-// function fntRolesEmpleado() {
-//   if (document.querySelector("#listRolNombreEmpleado")) {
-//     let ajaxUrl = base_url + "/RolesEmpleados/getSelectRolesEmpleadosventa";
-//     let request = window.XMLHttpRequest
-//       ? new XMLHttpRequest()
-//       : new ActiveXObject("Microsoft.XMLHTTP");
-//     request.open("GET", ajaxUrl, true);
-//     request.send();
-//     request.onreadystatechange = function () {
-//       if (request.readyState == 4 && request.status == 200) {
-//         let response = request.responseText;
-//         document.querySelector("#listRolNombreEmpleado").innerHTML = response;
-//         $("#listRolNombreEmpleado select").selectpicker("render");
-//       }
-//     };
-//   }
-// }
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
-
-// -------------------CARGADORES--------------------
-// -------------------CARGADORES--------------------
-// let selectedCargadores = [];
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   loadInitialCargadorSelect();
-//   document
-//     .getElementById("btnAgregarCargador")
-//     .addEventListener("click", function () {
-//       addNewCargadorSelect();
-//     });
-//   document.querySelectorAll(".btn-remove-select").forEach((btn) => {
-//     btn.addEventListener("click", function () {
-//       removeCargadorSelect(btn);
-//     });
-//   });
-//   document.querySelectorAll(".selectpicker").forEach((select) => {
-//     select.addEventListener("change", function () {
-//       updateSelectedCargadores(select);
-//     });
-//   });
-// });
-
-// function loadInitialCargadorSelect() {
-//   let ajaxUrl = base_url + "/RolesEmpleados/getSelectRolesCargadores";
-//   let request = new XMLHttpRequest();
-//   request.open("GET", ajaxUrl, true);
-//   request.send();
-//   request.onreadystatechange = function () {
-//     if (request.readyState == 4 && request.status == 200) {
-//       let response = request.responseText;
-//       createCargadorSelect(response);
-//     }
-//   };
-// }
-
-// function addNewCargadorSelect() {
-//   let ajaxUrl = base_url + "/RolesEmpleados/getNewCargadorSelect";
-//   let request = new XMLHttpRequest();
-//   request.open("GET", ajaxUrl, true);
-//   request.send();
-//   request.onreadystatechange = function () {
-//     if (request.readyState == 4 && request.status == 200) {
-//       let response = request.responseText;
-//       createCargadorSelect(response);
-//     }
-//   };
-// }
-
-// function createCargadorSelect(optionsHTML) {
-//   let selectContainer = document.createElement("div");
-//   selectContainer.className = "form-row align-items-center mb-2";
-//   selectContainer.innerHTML = `
-//         <div class="col">
-//             <select class="form-control selectpicker" name="selectCargador" data-live-search="true">${optionsHTML}</select>
-//         </div>
-//         <div class="col-auto">
-//             <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
-//         </div>
-//     `;
-
-//   document.getElementById("cargadorContainer").appendChild(selectContainer);
-//   $(".selectpicker").selectpicker("render");
-
-//   let btnRemove = selectContainer.querySelector(".btn-remove-select");
-//   btnRemove.addEventListener("click", function () {
-//     removeCargadorSelect(btnRemove);
-//   });
-
-//   let newSelect = selectContainer.querySelector("select");
-//   newSelect.addEventListener("change", function () {
-//     updateSelectedCargadores(newSelect);
-//   });
-// }
-
-// function removeCargadorSelect(btnRemove) {
-//   let selectContainer = btnRemove.closest(".form-row");
-//   let removedSelect = selectContainer.querySelector("select");
-//   let removedOption = removedSelect.options[removedSelect.selectedIndex].value;
-//   let index = selectedCargadores.indexOf(removedOption);
-//   if (index !== -1) {
-//     selectedCargadores.splice(index, 1);
-//   }
-
-//   let selects = document.querySelectorAll(".selectpicker");
-//   selects.forEach((select) => {
-//     let option = select.querySelector(`option[value="${removedOption}"]`);
-//     if (option) {
-//       option.disabled = false;
-//     }
-//   });
-
-//   selectContainer.remove();
-// }
-
-// function updateSelectedCargadores(select) {
-//   let selectedOption = select.options[select.selectedIndex].value;
-//   if (selectedCargadores.includes(selectedOption)) {
-//     select.value = "";
-
-//     let event = new Event("change");
-//     select.dispatchEvent(event);
-//   } else {
-//     selectedCargadores.push(selectedOption);
-//     disableSelectedOption(selectedOption);
-//   }
-// }
-
-// function disableSelectedOption(selectedOption) {
-//   let selects = document.querySelectorAll(".selectpicker");
-//   selects.forEach((select) => {
-//     let option = select.querySelector(`option[value="${selectedOption}"]`);
-//     if (option) {
-//       option.disabled = true;
-//     }
-//   });
-// }
-// ---------------------------------------
-// ---------------------------------------
-//  clientes------------
+//  clientes list------------
+//  clientes list------------
 window.addEventListener("load", function () {
-  fntClientes();
+  fntClienteslist();
 }, false);
 
-function fntClientes() {
+function fntClienteslist() {
   if (document.querySelector("#listClienteid")) {
       let ajaxUrl = base_url + "/Clientes/getlistclientes";
       let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
@@ -363,7 +213,31 @@ function fntClientes() {
       };
   }
 }
+// ----------------------
+// ----------------------
+//  medio de pago list------------
+//  medio de pago list------------
+window.addEventListener("load", function () {
+  fnttipopagolist();
+}, false);
 
+function fnttipopagolist() {
+  if (document.querySelector("#listMetodoPagoid")) {
+      let ajaxUrl = base_url + "/Pedidos/getlisttipopago";
+      let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+      request.open("GET", ajaxUrl, true);
+      request.send();
+      request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status == 200) {
+              let response = request.responseText;
+              document.querySelector("#listMetodoPagoid").innerHTML = response;
+              $("#listMetodoPagoid").selectpicker("render");
+          }
+      };
+  }
+}
+// ----------------------
+// ----------------------
 
 // // // ---------------Servicios----------
 
@@ -388,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let newRow = document.createElement("tr");
       newRow.classList.add("detalle-venta-row");
       newRow.innerHTML = `
-          <td>
+          <td style="text-align: center;">
               <p class="row-number"></p>
           </td>
           <td>

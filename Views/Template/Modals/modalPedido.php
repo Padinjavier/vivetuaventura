@@ -37,12 +37,13 @@
                                             class="fas fa-plus-circle" aria-hidden="true"></i> Agregar</button>
                                 </div>
                             </div>
-                            <div class="table-responsive">
+                            <!-- <div class="table-responsive"> -->
+                            <div class="">
                                 <table class="table table-sm">
                                     <thead>
-                                        <tr>
+                                        <tr style="text-align: center;">
                                             <th style="width:5%">#</th>
-                                            <th style="width:20%">Producto</th>
+                                            <th style="width:20%">Tipo de servicio</th>
                                             <th style="width:10%">Cantidad</th>
                                             <th style="width:10%">Precio</th>
                                             <th style="width:10%">Descuento</th>

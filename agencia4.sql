@@ -19,6 +19,34 @@
 CREATE DATABASE IF NOT EXISTS `agencia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `agencia`;
 
+-- Volcando estructura para tabla agencia.categoria
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `idcategoria` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idcategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla agencia.categoria: ~12 rows (aproximadamente)
+DELETE FROM `categoria`;
+INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `datecreated`, `ruta`, `status`) VALUES
+	(1, 'Embutidos', 'Productos o derivados cárnicos.', 'img_083c06d74a24b56e649059fd8a3b2416.jpg', '2021-08-20 03:04:04', 'embutidos', 1),
+	(2, 'Bebidas', 'Gaseosa, refresco, fresco o soda', 'img_90165900d66f0ad48275beb8fe1f3f14.jpg', '2021-08-21 00:47:10', 'bebidas', 1),
+	(3, 'Dulces', 'Productos dulces peruanos', 'img_350eae9b69dd03a7713ebd84b9bcb5f7.jpg', '2023-11-08 22:52:36', 'dulces', 1),
+	(4, 'ss', 'fff', 'img_cc7d26084d5893794aafa18573fd6e85.jpg', '2023-11-13 08:35:25', 'ss', 0),
+	(5, 'Cuidado personal', 'Productos de higiene personal', 'img_57bfd177ac746208efa98657cec3970b.jpg', '2023-11-23 01:15:09', 'cuidado-personal', 1),
+	(6, 'Lácteos', 'Lacteos', 'img_e3490ef3cb0f50ab8a431fcf41384313.jpg', '2023-11-29 08:43:42', 'lacteos', 1),
+	(7, 'Bebidas Alcoholicas', 'Tragos', 'img_856b9f33b2e9a7ec1d92444aad6542cf.jpg', '2023-11-29 08:45:44', 'bebidas-alcoholicas', 1),
+	(8, 'Limpieza', 'Limpieza', 'portada_categoria.png', '2023-11-29 09:34:39', 'limpieza', 1),
+	(9, 'Snack', 'Aperitivos', 'portada_categoria.png', '2023-11-29 09:48:31', 'snack', 1),
+	(10, 'Abarrotes', 'Fideos, azucares', 'portada_categoria.png', '2023-11-29 10:19:15', 'abarrotes', 1),
+	(11, 'Golosinas', 'Caramelos, Chicles, otros', 'portada_categoria.png', '2023-11-29 11:55:23', 'golosinas', 1),
+	(12, 'ddd', 'dd', 'portada_categoria.png', '2024-03-28 09:41:54', 'ddd', 1);
+
 -- Volcando estructura para tabla agencia.detalle_venta
 CREATE TABLE IF NOT EXISTS `detalle_venta` (
   `iddetalleventa` bigint NOT NULL AUTO_INCREMENT,
@@ -217,8 +245,8 @@ INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `t
 	(59, '666', 'NANCY YANINA', 'MAZA SUAREZ', 910089718, 'javierpa66din661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 09:25:41', 0, NULL, NULL, 22),
 	(60, '72014148', 'AZALIA ABIGAIL', 'CONTRERAS BRAVO', 946454569, 'javiderpadin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:20:49', 0, NULL, NULL, 1),
 	(61, '74199534', 'RICHARD CESAR ALEXANDER', 'SANCHEZ LOPEZ', 946454573, 'javier11paeedin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:28:45', 0, NULL, NULL, 1),
-	(62, '72014141', 'JOSE ALEJANDRO', 'LA ROSA HUASASQUICHE', 946454569, 'javi1erpad1in661@gmail.com', NULL, '1111111', NULL, 3, '2024-06-09 21:59:26', 0, NULL, NULL, NULL),
-	(63, '74199539', 'BRANDOLEE VANDAMME', 'JARA PRINCIPE', 946454569, 'j666avie55rpadin661@gmail.com', NULL, 'peru', NULL, 3, '2024-06-09 22:03:34', 0, NULL, NULL, NULL),
+	(62, '72014141', 'JOSE ALEJANDRO', 'LA ROSA HUASASQUICHE', 946454569, 'javi1erpad1in661@gmail.com', NULL, '1111111', NULL, 3, '2024-06-09 21:59:26', 1, NULL, NULL, NULL),
+	(63, '74199539', 'BRANDOLEE VANDAMME', 'JARA PRINCIPE', 946454569, 'j666avie55rpadin661@gmail.com', NULL, 'peru', NULL, 3, '2024-06-09 22:03:34', 1, NULL, NULL, NULL),
 	(64, '72014144', 'Lunes', 'Huasasquiche', 946454569, 'javierpa44444din661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, 2, '2024-06-10 00:20:37', 1, NULL, NULL, NULL);
 
 -- Volcando estructura para tabla agencia.rol_empleado
@@ -271,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `servicio` (
   PRIMARY KEY (`idservicio`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.servicio: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.servicio: ~7 rows (aproximadamente)
 DELETE FROM `servicio`;
 INSERT INTO `servicio` (`idservicio`, `nombre`, `descripcion`, `precio`, `portada`, `datecreated`, `ruta`, `status`) VALUES
 	(1, 'Rafting y nado con salvavidas en el río', 'Emocionante aventura acuática en aguas bravas con guías expertos y equipo de seguridad.', 11.20, 'portada_servicio.png', '2024-05-13 19:46:32', 'rafting_y_nado_con_salvavidas_en_el_rio', 1),
@@ -280,7 +308,7 @@ INSERT INTO `servicio` (`idservicio`, `nombre`, `descripcion`, `precio`, `portad
 	(4, 'Tours extremos y de adrenalina', 'Experimenta emociones fuertes con actividades como rapel, bungee jumping y más.', 10.00, 'img_ee5da223d41a457c75108adb998ca63c.jpg', '2024-05-13 19:46:32', 'tours-extremos-y-de-adrenalina', 1),
 	(5, 'Tours de naturaleza y vida silvestre', 'Descubre la diversidad natural y observa animales en su hábitat natural.', 10.00, 'img_bc833529de8d9b1871ec7e7756efda97.jpg', '2024-05-13 19:46:32', 'tours-de-naturaleza-y-vida-silvestre', 1),
 	(6, 'aaaa', 'kkkkkkkk', 17.30, 'portada_servicio.png', '2024-05-18 12:01:02', 'aaaa', 0),
-	(7, 'www', 'wwwwwwsss', 23.00, 'portada_servicio.png', '2024-06-10 01:09:56', 'www', 1);
+	(7, 'www', 'wwwwwwsss', 23.00, 'portada_servicio.png', '2024-06-10 01:09:56', 'www', 0);
 
 -- Volcando estructura para tabla agencia.tipopago
 CREATE TABLE IF NOT EXISTS `tipopago` (
@@ -319,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `venta` (
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.venta: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.venta: ~1 rows (aproximadamente)
 DELETE FROM `venta`;
 INSERT INTO `venta` (`idventa`, `codigo_venta`, `codigo_salida`, `fecha_hora`, `idvendedor`, `dni_cliente`, `nombre_cliente`, `apellido_cliente`, `descripcion`, `idtipopago`, `status`) VALUES
 	(4, '1', '', '2024-06-04 20:00:39', 22, '', '', '', NULL, 2, 1);

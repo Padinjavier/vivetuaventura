@@ -247,6 +247,18 @@ class Pedidos extends Controllers{
 		die();
 	}
 	
+
+	public function getlisttipopago() {
+		$htmlOptions = '<option value="">Seleccione una opción</option>';
+		$arrData = $this->model->selectTipopago();
+		if (count($arrData) > 0) {
+			foreach ($arrData as $row) {
+				$htmlOptions .= '<option value="'.htmlspecialchars($row['idtipopago']).'">'.htmlspecialchars($row['tipopago']).'</option>';
+			}
+		}
+		echo $htmlOptions;
+		die();
+	}
 // -----------------------
 // -----------------------
 // -----------------------

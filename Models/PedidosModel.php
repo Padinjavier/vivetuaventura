@@ -220,7 +220,13 @@
 			return $request;
 		}
 	
-
+		public function selectTipopago()
+		{
+			$sql = "SELECT * FROM tipopago 
+					WHERE  status != 0 "; 
+			$request = $this->select_all($sql);
+			return $request;
+		}
 // ----------------
 // ----------------
 // ----------------
