@@ -30,19 +30,19 @@ document.addEventListener('DOMContentLoaded', function(){
                 "className": "btn btn-secondary"
             },{
                 "extend": "excelHtml5",
-                "text": "<i class='fas fa-file-excel'></i> Excel",
-                "titleAttr":"Esportar a Excel",
+                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+                "titleAttr":"Exportar a Excel",
                 "className": "btn btn-success"
             },{
                 "extend": "pdfHtml5",
-                "text": "<i class='fas fa-file-pdf'></i> PDF",
-                "titleAttr":"Esportar a PDF",
+                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+                "titleAttr":"Exportar a PDF",
                 "className": "btn btn-danger"
             },{
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Esportar a CSV",
-                "className": "btn btn-info"
+                "titleAttr":"Exportar a CSV",
+                "className": "btn btn-info d-none"
             }
         ],
         "resonsieve":"true",
@@ -128,14 +128,18 @@ document.addEventListener('DOMContentLoaded', function(){
                             '<span class="badge badge-danger">Inactivo</span>';
                         rowTable.cells[1].textContent = strNombre;
                         rowTable.cells[2].textContent = strDescripcion;
-                        rowTable.cells[3].textContent = strPrecio;
+                        rowTable.cells[3].textContent = "S/"+strPrecio;
                         rowTable.cells[4].innerHTML = htmlStatus;
                         rowTable = "";
                     }
 
                     $('#modalFormServicios').modal("hide");
                     formServicio.reset();
-                    swal("Servicio", objData.msg ,"success");
+                    if(objData.action=="insert"){
+                        swal("Guardado", objData.msg ,"success");
+                    }else{
+                        swal("Actualizado", objData.msg ,"success");
+                    }
                     removePhoto();
                 }else{
                     swal("Error", objData.msg , "error");
@@ -164,8 +168,9 @@ function fntViewInfo(idservicio){
                 document.querySelector("#celId").innerHTML = objData.data.idservicio;
                 document.querySelector("#celNombre").innerHTML = objData.data.nombre;
                 document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;
-                document.querySelector("#celPrecio").innerHTML = objData.data.precio;
+                document.querySelector("#celPrecio").innerHTML = "S/"+objData.data.precio;
                 document.querySelector("#celEstado").innerHTML = estado;
+                document.querySelector("#celfecha").innerHTML = objData.data.datecreated;
                 document.querySelector("#imgServicio").innerHTML = '<img src="'+objData.data.url_portada+'"></img>';
                 $('#modalViewServicio').modal('show');
             }else{

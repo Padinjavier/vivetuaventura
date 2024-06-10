@@ -13,23 +13,23 @@
               <input type="hidden" id="idServicio" name="idServicio" value="">
               <input type="hidden" id="foto_actual" name="foto_actual" value="">
               <input type="hidden" id="foto_remove" name="foto_remove" value="0">
-              <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
+              <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
               <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label class="control-label">Nombre <span class="required">*</span></label>
+                      <label class="control-label">Nombre</label>
                       <input class="form-control" id="txtNombre" name="txtNombre" type="text" placeholder="Nombre Servicio" required="">
                     </div>
                     <div class="form-group">
-                      <label class="control-label">Descripción <span class="required">*</span></label>
+                      <label class="control-label">Descripción</label>
                       <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripción Servicio" required=""></textarea>
                     </div>
                     <div class="form-group">
-                      <label class="control-label">Precio <span class="required">*</span></label>
+                      <label class="control-label">Precio</label>
                       <input class="form-control" id="txtPrecio" name="txtPrecio" type="number"  min="0" step="0.10"  placeholder="Precio Servicio" required="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleSelect1">Estado <span class="required">*</span></label>
+                        <label for="exampleSelect1">Estado</label>
                         <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
                           <option value="1">Activo</option>
                           <option value="2">Inactivo</option>
@@ -96,6 +96,10 @@
             <tr>
               <td>Estado:</td>
               <td id="celEstado"></td>
+            </tr>
+            <tr>
+              <td>Fecha registro:</td>
+              <td id="celfecha"></td>
             </tr>
             <tr>
               <td>Foto:</td>

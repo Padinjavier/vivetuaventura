@@ -74,10 +74,10 @@
 					{
 						if($option == 1)
 						{
-						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'insert' ,'msg' => 'Datos del servicio guardados correctamente.');
 							if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }
 						}else{
-						$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+						$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Datos del servicio actualizados correctamente.');
 							if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }
 
 							if(($nombre_foto == '' && $_POST['foto_remove'] == 1 && $_POST['foto_actual'] != 'portada_servicio.png')

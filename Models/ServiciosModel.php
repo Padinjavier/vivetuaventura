@@ -55,11 +55,12 @@
 
 		public function selectServicio(int $idservicio){
 			$this->intIdservicio = $idservicio;
-			$sql = "SELECT * FROM servicio
+			$sql = "SELECT idservicio, nombre, descripcion, precio, portada, DATE_FORMAT(datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated, ruta, status 
+					FROM servicio
 					WHERE idservicio = $this->intIdservicio";
 			$request = $this->select($sql);
 			return $request;
-		}
+		}		
 
 		public function updateServicio(int $idservicio, string $nombre, string $descripcion, string $precio, string $portada, string $ruta, int $status){
 			$this->intIdservicio = $idservicio;
