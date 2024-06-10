@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `opciones` (
 -- Volcando datos para la tabla agencia.opciones: ~0 rows (aproximadamente)
 DELETE FROM `opciones`;
 INSERT INTO `opciones` (`id`, `personaid`, `idioma`, `tema`, `formato_moneda`) VALUES
-	(13, 22, 1, 3, 1);
+	(13, 22, 1, 1, 1);
 
 -- Volcando estructura para tabla agencia.pedido
 CREATE TABLE IF NOT EXISTS `pedido` (
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `permisos` (
   KEY `rolid` (`rolid`) USING BTREE,
   CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrolusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `permisos_ibfk_2` FOREIGN KEY (`moduloid`) REFERENCES `modulo` (`idmodulo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla agencia.permisos: ~39 rows (aproximadamente)
 DELETE FROM `permisos`;
@@ -166,17 +166,17 @@ INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VA
 	(181, 2, 8, 1, 1, 1, 1),
 	(182, 2, 9, 1, 1, 1, 1),
 	(206, 1, 11, 1, 1, 1, 1),
-	(218, 4, 1, 1, 0, 0, 0),
-	(219, 4, 2, 0, 0, 0, 0),
-	(220, 4, 3, 1, 1, 1, 0),
-	(221, 4, 4, 1, 0, 0, 0),
-	(222, 4, 5, 1, 1, 1, 0),
-	(223, 4, 6, 0, 1, 0, 0),
-	(224, 4, 7, 1, 0, 1, 0),
-	(225, 4, 8, 1, 0, 0, 0),
-	(226, 4, 9, 0, 0, 0, 0),
-	(227, 4, 10, 0, 0, 0, 0),
-	(228, 4, 11, 0, 0, 0, 0);
+	(229, 4, 1, 1, 1, 0, 0),
+	(230, 4, 2, 0, 0, 0, 0),
+	(231, 4, 3, 1, 1, 1, 0),
+	(232, 4, 4, 1, 0, 0, 0),
+	(233, 4, 5, 1, 1, 1, 0),
+	(234, 4, 6, 0, 1, 0, 0),
+	(235, 4, 7, 1, 0, 1, 0),
+	(236, 4, 8, 1, 0, 0, 0),
+	(237, 4, 9, 0, 0, 0, 0),
+	(238, 4, 10, 0, 0, 0, 0),
+	(239, 4, 11, 0, 0, 0, 0);
 
 -- Volcando estructura para tabla agencia.persona
 CREATE TABLE IF NOT EXISTS `persona` (
@@ -187,9 +187,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `telefono` bigint NOT NULL,
   `email_user` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `password` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `nit` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `nombrefiscal` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `direccionfiscal` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `hotel` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   `rolid` bigint DEFAULT NULL,
   `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -202,38 +200,46 @@ CREATE TABLE IF NOT EXISTS `persona` (
   KEY `rolidempleado` (`rolidempleado`),
   CONSTRAINT `FK_persona_rol` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrolusuario`),
   CONSTRAINT `FK_persona_rol_empleado` FOREIGN KEY (`rolidempleado`) REFERENCES `rol_empleado` (`idrolempleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.persona: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.persona: ~15 rows (aproximadamente)
 DELETE FROM `persona`;
-INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `nit`, `nombrefiscal`, `direccionfiscal`, `token`, `rolid`, `datecreated`, `status`, `direccion`, `ciudad`, `rolidempleado`) VALUES
-	(2, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', NULL, NULL, NULL, NULL, 2, '2023-11-29 10:57:56', 1, NULL, NULL, NULL),
-	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', 'NAME tributo javier', 'ADDRES tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222', NULL),
-	(24, 'JUAN LLOCYA', 'Juan Manuel', 'Llocya Castro', 918313532, 'jllocya@system32.shop', '', 'sssssss', 'sssss', 'sssssssssss', NULL, NULL, '2023-11-29 11:03:25', 0, NULL, NULL, 1),
-	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', NULL, NULL, NULL, NULL, NULL, '2023-12-06 17:27:31', 0, NULL, NULL, 1),
-	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 9171893004, '2002010167@undc.edu.pe', '', NULL, NULL, '1111', NULL, NULL, '2023-12-16 10:41:03', 0, 'Av Lima', 'Quilmana', 1),
-	(30, '4444444444', 'FRANK', 'GALAGER', 99999999, 'FRANK@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, NULL, NULL, 3, '2024-05-12 23:57:54', 1, NULL, NULL, NULL),
-	(56, '75486524', 'JHON VIGNEY', 'ROMERO MELCHOR', 918313532, 'javierpadin6w61@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-25 08:34:47', 1, NULL, NULL, 20),
-	(57, '23232323', 'Jeanettis Mariel', 'CHAVEZ SANCHEZ', 910089718, 'javierpad23in661@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-25 08:39:53', 1, NULL, NULL, 21),
-	(58, '2323234', 'Juangg', 'Herrera', 111111111111111, 'javiegggrpadin661@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-25 08:40:10', 1, NULL, NULL, 22),
-	(59, '666', 'NANCY YANINA', 'MAZA SUAREZ', 910089718, 'javierpa66din661@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-25 09:25:41', 1, NULL, NULL, 22);
+INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `hotel`, `token`, `rolid`, `datecreated`, `status`, `direccion`, `ciudad`, `rolidempleado`) VALUES
+	(2, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@gmail.com', '1a5376ad727d65213a79f3108541cf95012969a0d3064f108b5dd6e7f8c19b89', NULL, NULL, 2, '2023-11-29 10:57:56', 1, NULL, NULL, NULL),
+	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222', NULL),
+	(24, 'JUAN LLOCYA', 'Juan Manuel', 'Llocya Castro', 918313532, 'jllocya@system32.shop', '', 'sssssss', NULL, NULL, '2023-11-29 11:03:25', 0, NULL, NULL, 1),
+	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', NULL, NULL, NULL, '2023-12-06 17:27:31', 0, NULL, NULL, 1),
+	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 9171893004, '2002010167@undc.edu.pe', '', NULL, NULL, NULL, '2023-12-16 10:41:03', 0, 'Av Lima', 'Quilmana', 1),
+	(30, '4444444444', 'FRANK', 'GALAGER', 99999999, 'FRANK@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'lima', NULL, 3, '2024-05-12 23:57:54', 1, NULL, NULL, NULL),
+	(56, '75486524', 'JHON VIGNEY', 'ROMERO MELCHOR', 918313532, 'javierpadin6w61@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 08:34:47', 1, NULL, NULL, 20),
+	(57, '23232323', 'Jeanettis Mariel', 'CHAVEZ SANCHEZ', 910089718, 'javierpad23in661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 08:39:53', 1, NULL, NULL, 21),
+	(58, '2323234', 'Juanggiii', 'Herrera', 111111111111111, 'javiegggrpadin661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 08:40:10', 1, NULL, NULL, 22),
+	(59, '666', 'NANCY YANINA', 'MAZA SUAREZ', 910089718, 'javierpa66din661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 09:25:41', 0, NULL, NULL, 22),
+	(60, '72014148', 'AZALIA ABIGAIL', 'CONTRERAS BRAVO', 946454569, 'javiderpadin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:20:49', 0, NULL, NULL, 1),
+	(61, '74199534', 'RICHARD CESAR ALEXANDER', 'SANCHEZ LOPEZ', 946454573, 'javier11paeedin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:28:45', 0, NULL, NULL, 1),
+	(62, '72014141', 'JOSE ALEJANDRO', 'LA ROSA HUASASQUICHE', 946454569, 'javi1erpad1in661@gmail.com', NULL, '1111111', NULL, 3, '2024-06-09 21:59:26', 0, NULL, NULL, NULL),
+	(63, '74199539', 'BRANDOLEE VANDAMME', 'JARA PRINCIPE', 946454569, 'j666avie55rpadin661@gmail.com', NULL, 'peru', NULL, 3, '2024-06-09 22:03:34', 0, NULL, NULL, NULL),
+	(64, '72014144', 'Lunes', 'Huasasquiche', 946454569, 'javierpa44444din661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, 2, '2024-06-10 00:20:37', 1, NULL, NULL, NULL);
 
 -- Volcando estructura para tabla agencia.rol_empleado
 CREATE TABLE IF NOT EXISTS `rol_empleado` (
   `idrolempleado` bigint NOT NULL AUTO_INCREMENT,
   `nombrerolempleado` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idrolempleado`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.rol_empleado: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.rol_empleado: ~6 rows (aproximadamente)
 DELETE FROM `rol_empleado`;
-INSERT INTO `rol_empleado` (`idrolempleado`, `nombrerolempleado`, `descripcion`, `status`) VALUES
-	(1, 'Guia', 'GUIAR A LOS TURISTAS', 1),
-	(20, 'CONDUCTOR', '111', 1),
-	(21, 'KAYACK', '222', 1),
-	(22, 'CARGADOR', '333', 1);
+INSERT INTO `rol_empleado` (`idrolempleado`, `nombrerolempleado`, `descripcion`, `datecreated`, `status`) VALUES
+	(1, 'Guia', 'GUIAR A LOS TURISTAS', '2024-06-09 20:25:52', 1),
+	(20, 'CONDUCTOR', '111', '2024-06-09 20:25:53', 1),
+	(21, 'KAYACK', '222', '2024-06-09 20:25:54', 1),
+	(22, 'CARGADOR', '333', '2024-06-09 20:25:54', 1),
+	(24, 'sww', 'wwwwwrrrwww', '0000-00-00 00:00:00', 0),
+	(25, 'see', 'eeee', '0000-00-00 00:00:00', 0);
 
 -- Volcando estructura para tabla agencia.rol_usuario
 CREATE TABLE IF NOT EXISTS `rol_usuario` (
@@ -263,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `servicio` (
   `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idservicio`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla agencia.servicio: ~6 rows (aproximadamente)
 DELETE FROM `servicio`;
@@ -271,9 +277,10 @@ INSERT INTO `servicio` (`idservicio`, `nombre`, `descripcion`, `precio`, `portad
 	(1, 'Rafting y nado con salvavidas en el río', 'Emocionante aventura acuática en aguas bravas con guías expertos y equipo de seguridad.', 11.20, 'portada_servicio.png', '2024-05-13 19:46:32', 'rafting_y_nado_con_salvavidas_en_el_rio', 1),
 	(2, 'Práctica de kayak y canotaje', 'Explora ríos y lagos a bordo de kayaks y canoas, ideal para amantes de la naturaleza.', 9.00, 'portada_servicio.png', '2024-05-13 19:46:32', 'practica_de_kayak_y_canotaje', 1),
 	(3, 'Tirolesa y parques de aventuras aéreas', 'Desafía la gravedad y disfruta de la adrenalina en recorridos por el aire entre árboles.', 5.00, 'portada_servicio.png', '2024-05-13 19:46:32', 'tirolesa_y_parques_de_aventuras_aereas', 1),
-	(4, 'Tours extremos y de adrenalina', 'Experimenta emociones fuertes con actividades como rapel, bungee jumping y más.', 10.00, 'portada_servicio.png', '2024-05-13 19:46:32', 'tours-extremos-y-de-adrenalina', 1),
-	(5, 'Tours de naturaleza y vida silvestre', 'Descubre la diversidad natural y observa animales en su hábitat natural.', 10.00, 'img_1ea7c75b43557ab57dbb518708fc8029.jpg', '2024-05-13 19:46:32', 'tours-de-naturaleza-y-vida-silvestre', 1),
-	(6, 'aaaa', 'kkkkkkkk', 17.30, 'portada_servicio.png', '2024-05-18 12:01:02', 'aaaa', 0);
+	(4, 'Tours extremos y de adrenalina', 'Experimenta emociones fuertes con actividades como rapel, bungee jumping y más.', 10.00, 'img_ee5da223d41a457c75108adb998ca63c.jpg', '2024-05-13 19:46:32', 'tours-extremos-y-de-adrenalina', 1),
+	(5, 'Tours de naturaleza y vida silvestre', 'Descubre la diversidad natural y observa animales en su hábitat natural.', 10.00, 'img_bc833529de8d9b1871ec7e7756efda97.jpg', '2024-05-13 19:46:32', 'tours-de-naturaleza-y-vida-silvestre', 1),
+	(6, 'aaaa', 'kkkkkkkk', 17.30, 'portada_servicio.png', '2024-05-18 12:01:02', 'aaaa', 0),
+	(7, 'www', 'wwwwwwsss', 23.00, 'portada_servicio.png', '2024-06-10 01:09:56', 'www', 1);
 
 -- Volcando estructura para tabla agencia.tipopago
 CREATE TABLE IF NOT EXISTS `tipopago` (
