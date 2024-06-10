@@ -20,7 +20,7 @@
 			if($_SESSION['permisosMod']['r']){
 				if(is_numeric($idpedido)){
 					$idpersona = "";
-					if($_SESSION['permisosMod']['r'] and $_SESSION['userData']['idrol'] == RCLIENTES){
+					if($_SESSION['permisosMod']['r'] and $_SESSION['userData']['idrolusuario'] == RCLIENTES){
 						$idpersona = $_SESSION['userData']['idpersona'];
 					}
 					$data = $this->model->selectPedido($idpedido,$idpersona);

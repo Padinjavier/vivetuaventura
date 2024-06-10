@@ -31,13 +31,12 @@
 			if(!empty($requestPedido)){
 				$idpersona = $requestPedido['personaid'];
 				$sql_cliente = "SELECT idpersona,
+										identificacion,
 										nombres,
 										apellidos,
 										telefono,
-										email_user,
-										nit,
-										nombrefiscal,
-										direccionfiscal 
+										email_user
+										
 								FROM persona WHERE idpersona = $idpersona ";
 				$requestcliente = $this->select($sql_cliente);
 				// $sql_detalle = "SELECT p.idproducto,

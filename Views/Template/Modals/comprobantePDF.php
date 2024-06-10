@@ -114,7 +114,7 @@ $detalle = $data['detalle'];
 		<tbody>
 			<tr>
 				<td class="wd10">DNI:</td>
-				<td class="wd40"><?= $cliente['nit'] ?></td>
+				<td class="wd40"><?= $cliente['identificacion'] ?></td>
 				<td class="wd10">Teléfono:</td>
 				<td class="wd40"><?= $cliente['telefono'] ?></td>
 			</tr>
@@ -122,7 +122,8 @@ $detalle = $data['detalle'];
 				<td>Nombre:</td>
 				<td><?= $cliente['nombres'] . ' ' . $cliente['apellidos'] ?></td>
 				<td>Dirección:</td>
-				<td><?= $cliente['direccionfiscal'] ?></td>
+				<td>ver en comprobantePDF.php</td>
+				<!-- <td><?= $cliente['direccionfiscal'] ?></td> -->
 			</tr>
 		</tbody>
 	</table>
