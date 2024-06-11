@@ -171,7 +171,7 @@ class Pedidos extends Controllers{
 	public function setPedido(){
 		if($_POST){
 			if($_SESSION['permisosMod']['u'] && $_SESSION['userData']['idrolusuario'] != RCLIENTES){
-	
+
 				// Obtener datos JSON
 				$idvendedor = $_SESSION['userData']['idpersona'];
 
@@ -180,38 +180,33 @@ class Pedidos extends Controllers{
 				$metodopago = isset($_POST['metodopago']) ? strClean($_POST['metodopago']) : '';
 				$servicios = isset($_POST['servicios']) ? json_decode($_POST['servicios'], true) : [];
 				$total = isset($_POST['total']) ? strClean($_POST['total']) : '';
-	
+
 				// Verificar campos obligatorios
-				if($codigoVenta == '' || $dni_cliente == '' || $servicios == ''|| $metodopago == '' || $total == '') {
+				if($codigoVenta == '' || $dni_cliente == '' || empty($servicios) || $metodopago == '' || $total == '') {
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				} else {
-					if($codigoVenta ==""){
-						$option = 1;
-						// Inserción del pedido en la base de datos
-						$requestPedido = $this->model->inserPedido($idvendedor,
-																	$dni_cliente, 
-																	$metodopago,  
-																	$servicios, 
-																	$total);
-						
-					}else{
-						$option = 2;
 
+					if(empty($codigoVenta)){
+						$option = 1;
+						$requestPedido = $this->inserPedido($codigoVenta, $dni_cliente, $idvendedor, $metodopago, $total, $servicios);
+						
+					} else {
+						$option = 2;
+						// Aquí puedes agregar la lógica para actualizar un pedido existente si lo deseas
+						// $requestPedido = $this->actualizarPedido($codigoVenta, $dni_cliente, $metodopago, $total);
 					}
-					if($requestPedido > 0 )
-					{
+
+					if($requestPedido) {
 						if($option == 1){
-							$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Datos del empleado guardados correctamente.');
-						}else{
-							$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Datos del empleado actualizados correctamente.');
+							$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Pedido creado correctamente.');
+						} else {
+							$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Pedido actualizado correctamente.');
 						}
-					}else if($requestPedido == -1){
-						$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
-					}else{
+					} else {
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
 				}
-	
+
 				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 			}
 		}
