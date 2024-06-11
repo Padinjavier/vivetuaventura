@@ -28,54 +28,34 @@
 
 		}	
 
-		public function selectPedido(int $idpedido, $idpersona = NULL){
-			$busqueda = "";
-			if($idpersona != NULL){
-				$busqueda = " AND p.personaid =".$idpersona;
-			}
+		public function selectPedido(int $idventa){
 			$request = array();
-			$sql = "SELECT p.idpedido,
-							p.referenciacobro,
-							p.idtransaccionpaypal,
-							p.personaid,
-							DATE_FORMAT(p.fecha, '%d/%m/%Y') as fecha,
-							p.costo_envio,
-							p.monto,
-							p.tipopagoid,
-							t.tipopago,
-							p.direccion_envio,
-							p.status
-					FROM pedido as p
-					INNER JOIN tipopago t
-					ON p.tipopagoid = t.idtipopago
-					WHERE p.idpedido =  $idpedido ".$busqueda;
-			$requestPedido = $this->select($sql);
-			if(!empty($requestPedido)){
-				$idpersona = $requestPedido['personaid'];
-				$sql_cliente = "SELECT idpersona,
-										nombres,
-										apellidos,
-										telefono,
-										email_user,
-										hotel
-								FROM persona WHERE idpersona = $idpersona ";
-				$requestcliente = $this->select($sql_cliente);
-				$sql_detalle = "SELECT s.idservicio,
-										s.nombre AS servicio,
-										d.precio,
-										d.cantidad
-								FROM detalle_pedido d
-								INNER JOIN servicio s ON d.productoid = s.idservicio
-								WHERE d.pedidoid = $idpedido;
-								";
-				$requestProductos = $this->select_all($sql_detalle);
-				$request = array('cliente' => $requestcliente,
-								'orden' => $requestPedido,
-								'detalle' => $requestProductos
-								 );
+			$sql = "SELECT v.idventa,
+							v.codigo_venta,
+							v.datecreated AS fecha,
+							v.dni_cliente,
+							v.idtipopago,
+							v.total,
+							v.status
+					FROM venta AS v
+					WHERE v.idventa =  $idventa";
+			$requestVenta = $this->select($sql);
+			if(!empty($requestVenta)){
+				$codigo_venta = $requestVenta['codigo_venta'];
+				$sql_detalle = "SELECT dv.iddetalleventa,
+										dv.codigo_venta,
+										dv.idservicio,
+										dv.cantidad,
+										dv.precio
+								FROM detalle_venta AS dv
+								WHERE dv.codigo_venta = '$codigo_venta'";
+				$requestDetalle = $this->select_all($sql_detalle);
+				$request = array('venta' => $requestVenta,
+								'detalle_venta' => $requestDetalle);
 			}
 			return $request;
 		}
+		
 
 		public function selectTransPaypal(string $idtransaccion, $idpersona = NULL){
 			$busqueda = "";

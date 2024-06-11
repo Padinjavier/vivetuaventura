@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <span class="row-number"></span>
           </td>
           <td>
-              <select class="form-control selectpicker servicio-select" name="selectServicio" required data-live-search="true">
+              <select class="form-control selectpicker servicio-select" name="selectServicio" id="listservicios" required data-live-search="true">
                   ${response[0]}
               </select>
           </td>
@@ -395,6 +395,93 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+function fntEditInfo(element, idpedido) {
+
+  // Eliminar elementos del grupo de servicio pero debe dejar al menos uno
+  let detalleVentaRows = document.querySelectorAll('.detalle-venta-row');
+  for (let i = 0; i < detalleVentaRows.length; i++) {
+      detalleVentaRows[i].remove();
+  }
+  
+  rowTable = element.parentNode.parentNode.parentNode; 
+  document.querySelector('#titleModal').innerHTML = "Actualizar empleado";
+  document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+  document.querySelector('#btnText').innerHTML = "Actualizar";
+  let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  let ajaxUrl = base_url + '/Pedidos/getPedido/'+idpedido;
+  request.open("GET", ajaxUrl, true);
+  request.send();
+  request.onreadystatechange = function () {
+      if (request.readyState == 4 && request.status == 200) {
+          let objData = JSON.parse(request.responseText);
+          if (objData.status) {
+      
+              document.querySelector("#listClienteid").value = objData.data.venta.dni_cliente;
+              $('#listClienteid').selectpicker('refresh');
+      
+              document.querySelector("#listMetodoPagoid").value = objData.data.venta.idtipopago;
+              $('#listMetodoPagoid').selectpicker('refresh');
+      
+              let cantidadDatos = objData.data.detalle_venta.length;
+      
+              // Hacer clic en el botón para agregar nuevos grupos
+              for (let i = 0; i < cantidadDatos; i++) {
+                  btnAgregarProducto.click();
+              }
+
+              $('#modalFormPedido').modal('show');
+
+              // Ejecutar la asignación de datos después de un retraso
+              setTimeout(function() {
+                  asignarDatos(objData.data.detalle_venta);
+              }, 125); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
+          }
+      }
+  }
+}
+
+function asignarDatos(detalleVenta) {
+  let cantidadDatos = detalleVenta.length;
+  // Asignar los datos a los grupos respectivos
+  let grupos = document.querySelectorAll(".detalle-venta-row");
+  // console.log(document.querySelectorAll(".detalle-venta-row"));
+
+  for (let i = 0; i < cantidadDatos; i++) {
+      let datosLote = detalleVenta[i];
+      // console.log(datosLote)
+      let grupoActual = grupos[i];
+      if (grupoActual) {
+          let servicioSelect = grupoActual.querySelector("#listservicios");
+          if (servicioSelect) {
+              servicioSelect.value = datosLote.idservicio;
+              $(servicioSelect).selectpicker('refresh');
+          }
+
+          let cantidadInput = grupoActual.querySelector(".cantidad");
+          if (cantidadInput) {
+              cantidadInput.value = datosLote.cantidad;
+          }
+
+          let precioInput = grupoActual.querySelector(".precio");
+          if (precioInput) {
+              precioInput.value = datosLote.precio;
+          }
+      }
+  }
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -513,7 +600,7 @@ function fntTransaccion(idtransaccion) {
         document.querySelector("#divModal").innerHTML = objData.html;
         $('#modalReembolso').modal('show');
       } else {
-        swal("Error", objData.msg, "error");
+        swal("Errorrrrr", objData.msg, "error");
       }
       divLoading.style.display = "none";
       return false;
@@ -570,32 +657,7 @@ function fntReembolsar() {
   });
 }
 
-function fntEditInfo(element, idpedido) {
-  rowTable = element.parentNode.parentNode.parentNode;
-  let request = (window.XMLHttpRequest) ?
-    new XMLHttpRequest() :
-    new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/getPedido/' + idpedido;
-  divLoading.style.display = "flex";
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        document.querySelector("#divModal").innerHTML = objData.html;
-        $('#modalFormPedido').modal('show');
-        $('select').selectpicker();
-        fntUpdateInfo();
-      } else {
-        swal("Error", objData.msg, "error");
-      }
-      divLoading.style.display = "none";
-      return false;
 
-    }
-  }
-}
 function newpedidojs() {
   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   let ajaxUrl = base_url + '/Pedidos/newPedido/';

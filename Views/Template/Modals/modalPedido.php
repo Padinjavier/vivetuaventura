@@ -15,12 +15,12 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <label for="listClienteid">Cliente</label>
-                            <select class="form-control listClienteid" data-live-search="true" id="listClienteid" name="listClienteid" required >
+                            <select class="form-control" data-live-search="true" id="listClienteid" name="listClienteid" required >
                             </select>
                         </div>
                         <div class="col-lg-6 col-md-">
                             <label for="listMetodoPagoid">Metodo de Pago</label>
-                            <select class="form-control listMetodoPagoid" data-live-search="true" id="listMetodoPagoid" name="listMetodoPagoid" required >
+                            <select class="form-control" data-live-search="true" id="listMetodoPagoid" name="listMetodoPagoid" required >
                             </select>
                         </div>
                         

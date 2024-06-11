@@ -144,21 +144,22 @@ class Pedidos extends Controllers{
 		die();
 	}
 
-	public function getPedido(string $pedido){
-		if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
-			if($pedido == ""){
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			}else{
-				$requestPedido = $this->model->selectPedido($pedido,"");
-				if(empty($requestPedido)){
+	public function getPedido($idventa){
+		if ($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES) {
+			$idventa = intval($idventa);
+			if ($idventa > 0)
+			{
+				$arrData = $this->model->selectPedido($idventa, "");
+				if (empty($arrData)) {
 					$arrResponse = array("status" => false, "msg" => "Datos no disponibles.");
-				}else{
-					$requestPedido['tipospago'] = $this->getTiposPagoT();
-					$htmlModal = getFile("Template/Modals/modalPedido",$requestPedido);
-					$arrResponse = array("status" => true, "html" => $htmlModal);
+				} else {
+					$arrResponse = array('status' => true, 'data' => $arrData);
 				}
+			
+			} else {
+				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos error.');
 			}
-			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
 		die();
 	}
