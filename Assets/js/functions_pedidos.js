@@ -12,11 +12,10 @@ tablePedidos = $('#tablePedidos').DataTable({
   },
   "columns": [
     { "data": "idventa" },
-    { "data": "idtipopago" },
-    { "data": "fecha_hora" },
     { "data": "dni_cliente" },
-    { "data": "nombre_cliente" },
-    { "data": "status" },
+    { "data": "datecreated" },
+    { "data": "tipopago_nombre" },
+    { "data": "dni_cliente" },
     { "data": "options" }
   ],
   "columnDefs": [
@@ -74,31 +73,11 @@ let formPedido = document.querySelector("#formUpdatePedido");
 formPedido.onsubmit = function (e) {
     e.preventDefault();
     
-    let strCodigoVenta = document.querySelector('#txtCodigoVenta').value;
-    let strCodigoSalida = document.querySelector('#txtCodigoSalida').value;
-    let dtFechaHora = document.querySelector('#fecha-hora').value;
-    let strDNI = document.querySelector('#txtDNI').value;
-    let strNombre = document.querySelector('#txtNombre').value;
-    let strApellido = document.querySelector('#txtApellido').value;
-    let strDescripcion = document.querySelector('#textareaDescripcion').value;
-
-    // Obtener valores de los selectores de roles dinámicos
-    let dynamicRoles = {};
-    document.querySelectorAll("select[id^='listRolEmpleado_']").forEach(select => {
-        let roleName = select.id.replace('listRolEmpleado_', '');
-        if (select.value !== '') { // Ignorar si no hay selección
-            dynamicRoles[roleName] = select.value;
-        }
-    });
-
-    // Obtener valores de los selectores de cargadores
-    let cargadores = [];
-    document.querySelectorAll("select[name='selectCargador']").forEach(select => {
-        if (select.value !== '') { // Ignorar si no hay selección
-            cargadores.push(select.value);
-        }
-    });
-
+    let idVenta = document.querySelector('#idVenta').value;
+    let strDNI = document.querySelector('#listClienteid').value;
+    let idMetodoPago = document.querySelector('#listMetodoPagoid').value;
+    let total = document.querySelector('#gran_total').innerText;
+    
     // Obtener datos de los servicios
     let servicios = [];
     document.querySelectorAll("tr.detalle-venta-row").forEach(row => {
@@ -120,33 +99,18 @@ formPedido.onsubmit = function (e) {
         }
     });
 
-    // Imprimir valores en la consola
-    console.log("Codigo Venta:", strCodigoVenta);
-    console.log("Codigo Salida:", strCodigoSalida);
-    console.log("Fecha y Hora:", dtFechaHora);
-    
-    // Imprimir roles dinámicos uno por uno
-    for (let role in dynamicRoles) {
-        console.log(`${role}: ${dynamicRoles[role]}`);
-    }
-    
-    // Imprimir cargadores solo si hay selecciones
-    if (cargadores.length > 0) {
-        console.log("Cargadores:", cargadores);
-    }
-    
-    console.log("DNI:", strDNI);
-    console.log("Nombre:", strNombre);
-    console.log("Apellido:", strApellido);
-    console.log("Descripcion:", strDescripcion);
+   console.log(idVenta)
+   console.log(strDNI)
+   console.log(idMetodoPago)
+   console.log(total)
 
     // Imprimir servicios
     if (servicios.length > 0) {
         console.log("Servicios:", servicios);
     }
 
-    // Verificar campos obligatorios
-    if (strCodigoVenta == '' || strCodigoSalida == '' || dtFechaHora == '' || strDNI == '' || strNombre == '' || strApellido == '') {
+    // // Verificar campos obligatorios
+    if (strDNI == '' || idMetodoPago == ''|| servicios == ''|| total == '') {
         swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
         return false;
     }
@@ -157,16 +121,11 @@ formPedido.onsubmit = function (e) {
     let formData = new FormData();
     
     // Agregar datos al formData
-    formData.append('codigoVenta', strCodigoVenta);
-    formData.append('codigoSalida', strCodigoSalida);
-    formData.append('fechaHora', dtFechaHora);
+    formData.append('codigoVenta', idVenta);
     formData.append('dni', strDNI);
-    formData.append('nombre', strNombre);
-    formData.append('apellido', strApellido);
-    formData.append('descripcion', strDescripcion);
-    formData.append('dynamicRoles', JSON.stringify(dynamicRoles));
-    formData.append('cargadores', JSON.stringify(cargadores));
+    formData.append('metodopago', idMetodoPago);
     formData.append('servicios', JSON.stringify(servicios));
+    formData.append('total', total);
 
     request.open("POST", ajaxUrl, true);
     request.send(formData);
@@ -391,9 +350,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Actualizar el total
-      document.getElementById("gran_sub_total").innerText = "S/" + subtotalreal.toFixed(2);
-      document.getElementById("gran_descuento").innerText = "S/" + totalDescuento.toFixed(2);
-      document.getElementById("gran_total").innerText = "S/" + subtotal.toFixed(2);
+      document.getElementById("gran_sub_total").innerText =  subtotalreal.toFixed(2);
+      document.getElementById("gran_descuento").innerText =  totalDescuento.toFixed(2);
+      document.getElementById("gran_total").innerText = subtotal.toFixed(2);
   }
 
   function updateRowNumbers() {

@@ -155,7 +155,7 @@ class Clientes extends Controllers{
 		$arrData = $this->model->selectClientes();
 		if (count($arrData) > 0) {
 			foreach ($arrData as $row) {
-				$htmlOptions .= '<option value="'.htmlspecialchars($row['idpersona']).'">'.htmlspecialchars($row['nombres']).' '.htmlspecialchars($row['apellidos']).'</option>';
+				$htmlOptions .= '<option value="'.htmlspecialchars($row['identificacion']).'">'.htmlspecialchars($row['nombres']).' '.htmlspecialchars($row['apellidos']).'</option>';
 			}
 		}
 		echo $htmlOptions;

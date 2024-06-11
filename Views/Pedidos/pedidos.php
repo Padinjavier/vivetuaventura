@@ -27,11 +27,11 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Ref. / Transacción</th>
+                          <th>Identificación</th>
                           <th>Fecha</th>
                           <th>Tipo de pago</th>
                           <th>Total</th>
-                          <th>Estado</th>
+                          <!-- <th>Estado</th> -->
                           <th>Acciones</th>
                         </tr>
                       </thead>

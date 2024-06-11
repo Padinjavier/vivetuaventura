@@ -163,6 +163,8 @@ class Pedidos extends Controllers{
 		die();
 	}
 
+
+
 // -----------------------
 // -----------------------
 // -----------------------
@@ -171,28 +173,42 @@ class Pedidos extends Controllers{
 			if($_SESSION['permisosMod']['u'] && $_SESSION['userData']['idrolusuario'] != RCLIENTES){
 	
 				// Obtener datos JSON
-				$codigoVenta = isset($_POST['codigoVenta']) ? strClean($_POST['codigoVenta']) : '';
-				$codigoSalida = isset($_POST['codigoSalida']) ? strClean($_POST['codigoSalida']) : '';
-				$fechaHora = isset($_POST['fechaHora']) ? strClean($_POST['fechaHora']) : '';
 				$idvendedor = $_SESSION['userData']['idpersona'];
+
+				$codigoVenta = isset($_POST['codigoVenta']) ? strClean($_POST['codigoVenta']) : '';
 				$dni_cliente = isset($_POST['dni']) ? strClean($_POST['dni']) : '';
-				$nombre_cliente = isset($_POST['nombre']) ? strClean($_POST['nombre']) : '';
-				$apellido_cliente = isset($_POST['apellido']) ? strClean($_POST['apellido']) : '';
-				$descripcion = isset($_POST['descripcion']) ? strClean($_POST['descripcion']) : '';
-				$dynamicRoles = isset($_POST['dynamicRoles']) ? json_decode($_POST['dynamicRoles'], true) : [];
-				$cargadores = isset($_POST['cargadores']) ? json_decode($_POST['cargadores'], true) : [];
+				$metodopago = isset($_POST['metodopago']) ? strClean($_POST['metodopago']) : '';
 				$servicios = isset($_POST['servicios']) ? json_decode($_POST['servicios'], true) : [];
+				$total = isset($_POST['total']) ? strClean($_POST['total']) : '';
 	
 				// Verificar campos obligatorios
-				if($codigoVenta == '' || $codigoSalida == '' || $fechaHora == '' || $dni_cliente == '' || $nombre_cliente == '' || $apellido_cliente == '') {
+				if($codigoVenta == '' || $dni_cliente == '' || $servicios == ''|| $metodopago == '' || $total == '') {
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				} else {
-					// Inserción del pedido en la base de datos
-					$requestPedido = $this->model->inserPedido($codigoVenta, $codigoSalida, $fechaHora, $idvendedor, $dni_cliente, $nombre_cliente, $apellido_cliente, $descripcion, $dynamicRoles, $cargadores, $servicios);
-					if($requestPedido) {
-						$arrResponse = array("status" => true, "msg" => "Datos guardados correctamente");
-					} else {
-						$arrResponse = array("status" => false, "msg" => "No es posible guardar la información.");
+					if($codigoVenta ==""){
+						$option = 1;
+						// Inserción del pedido en la base de datos
+						$requestPedido = $this->model->inserPedido($idvendedor,
+																	$dni_cliente, 
+																	$metodopago,  
+																	$servicios, 
+																	$total);
+						
+					}else{
+						$option = 2;
+
+					}
+					if($requestPedido > 0 )
+					{
+						if($option == 1){
+							$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Datos del empleado guardados correctamente.');
+						}else{
+							$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Datos del empleado actualizados correctamente.');
+						}
+					}else if($requestPedido == -1){
+						$arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
+					}else{
+						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
 				}
 	

@@ -68,9 +68,9 @@
                                             </td>
                                             <td></td>
                                             <td>
-                                                <span id="gran_sub_total">00.00</span><br>
-                                                <span id="gran_descuento">00.00</span><br>
-                                                <span id="gran_total">00.00</span><br>
+                                                <span>S/ <span id="gran_sub_total">00.00</span></span><br>
+                                                <span>S/ <span id="gran_descuento">00.00</span></span><br>
+                                                <span>S/ <span id="gran_total">00.00</span></span><br>
                                             </td>
                                         </tr>
                                     </tbody>

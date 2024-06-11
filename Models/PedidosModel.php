@@ -203,13 +203,9 @@
 			}
 			$sql = "SELECT v.idventa,
 							v.codigo_venta,
-							v.codigo_salida,
-							DATE_FORMAT(v.fecha_hora, '%d/%m/%Y %H:%i') as fecha_hora,
+							 DATE_FORMAT(datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
 							v.idvendedor,
 							v.dni_cliente,
-							v.nombre_cliente,
-							v.apellido_cliente,
-							v.descripcion,
 							v.idtipopago,
 							tp.tipopago as tipopago_nombre,
 							v.status
