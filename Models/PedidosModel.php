@@ -185,7 +185,7 @@
 		
 			if($requestVenta) {
 				  // Eliminar los detalles de venta existentes
-				  $sqlDeleteDetalle = "DELETE FROM detalle_venta WHERE codigo_venta = " . intval($idVenta);
+				  $sqlDeleteDetalle = "DELETE FROM detalle_venta WHERE codigo_venta = '" . $idVenta . "'";
 				  $this->delete($sqlDeleteDetalle);
 		
 				// Insertar los nuevos detalles de venta

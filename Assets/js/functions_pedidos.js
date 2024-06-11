@@ -361,13 +361,13 @@ function sumarPreciosTotales() {
 
   for (let i = 0; i < filas.length; i++) {
       let fila = filas[i];
-      // Sumar precios real
-      let precioRealElement = fila.querySelector(".precio_db");
-      let precioReal = 0;
-      if (precioRealElement) {
-        precioReal = parseFloat(precioRealElement.value) || 0;
-      }
-      subtotalreal += precioReal;
+      // Obtener la cantidad y el precio base
+      let cantidad = parseFloat(fila.querySelector(".cantidad").value) || 0;
+      let precioDB = parseFloat(fila.querySelector(".precio_db").value) || 0;
+
+      // Calcular el subtotal real del lote actual
+      let subtotalLote = cantidad * precioDB;
+      subtotalreal += subtotalLote;
 
       // Sumar precios totales
       let precioTotalElement = fila.querySelector(".precio_total");
@@ -384,15 +384,14 @@ function sumarPreciosTotales() {
           descuento = parseFloat(descuentoElement.value) || 0;
       }
       totalDescuento += descuento;
-
-      
   }
 
   // Actualizar el total
-  document.getElementById("gran_sub_total").innerText =  subtotalreal.toFixed(2);
-  document.getElementById("gran_descuento").innerText =  totalDescuento.toFixed(2);
+  document.getElementById("gran_sub_total").innerText = subtotalreal.toFixed(2);
+  document.getElementById("gran_descuento").innerText = totalDescuento.toFixed(2);
   document.getElementById("gran_total").innerText = subtotal.toFixed(2);
 }
+
 // fin funciones publicas 
 
 
@@ -507,7 +506,10 @@ function asignarDatos(detalleVenta) {
   $('.servicio-select').selectpicker('val', '');
   $('#listClienteid').selectpicker('val', '');
   $('#listMetodoPagoid').selectpicker('val', '');
-
+  document.getElementById("gran_sub_total").innerText ="00.00";
+  document.getElementById("gran_descuento").innerText ="00.00";
+  document.getElementById("gran_total").innerText ="00.00";
+  
     $('#modalFormPedido').modal('show');
   }
 
