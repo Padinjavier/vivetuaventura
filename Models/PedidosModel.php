@@ -148,9 +148,9 @@
 		}
 
 
-		// ----------------------------------------
-		// ----------------------------------------
-		// ----------------------------------------
+// ----------------------------------------
+// ----------------------------------------
+// ----------------------------------------
 		public function inserPedido($dni_cliente, $idvendedor, $metodopago, $total, $servicios) {
 			// Generar código de venta
 			$codigoVenta = $this->generateCodigoVenta();
@@ -162,8 +162,6 @@
 			$requestVenta = $this->insert($sqlVenta, $arrDataVenta);
 		
 			if($requestVenta) {
-				// Obtener el ID de la última inserción
-				$idVenta = $this->getLastInsertId();
 		
 				// Inserción en la tabla detalle_venta
 				foreach ($servicios as $servicio) {
@@ -171,9 +169,9 @@
 					$cantidad = $servicio['cantidad'];
 					$precio = $servicio['precio'];
 		
-					$sqlDetalleVenta = "INSERT INTO detalle_venta (idventa, idservicio, cantidad, precio)
+					$sqlDetalleVenta = "INSERT INTO detalle_venta (codigo_venta, idservicio, cantidad, precio)
 										VALUES (?, ?, ?, ?)";
-					$arrDataDetalleVenta = array($idVenta, $idservicio, $cantidad, $precio);
+					$arrDataDetalleVenta = array($codigoVenta, $idservicio, $cantidad, $precio);
 					$this->insert($sqlDetalleVenta, $arrDataDetalleVenta);
 				}
 		

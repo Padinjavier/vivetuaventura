@@ -1,78 +1,76 @@
 let tablePedidos;
-let rowTable;
-tablePedidos = $('#tablePedidos').DataTable({
-  "processing": true,
-  "serverSide": true,
-  "language": {
-    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-  },
-  "ajax": {
-    "url": base_url + "/Pedidos/getVentas",
-    "dataSrc": ""
-  },
-  "columns": [
-    { "data": "idventa" },
-    { "data": "dni_cliente" },
-    { "data": "datecreated" },
-    { "data": "tipopago_nombre" },
-    { "data": "total" },
-    { "data": "options" }
-  ],
-  "columnDefs": [
-    { 'className': "text-center", "targets": [3, 4, 5] }, // Corregido "textcenter" a "text-center"
-    { 'className': "text-right", "targets": [3] }
-  ],
-  'dom': 'lBfrtip',
-        'buttons': [
-            {
-                "extend": "copyHtml5",
-                "text": "<i class='far fa-copy'></i> Copiar",
-                "titleAttr":"Copiar",
-                "className": "btn btn-secondary",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
-            },{
-                "extend": "excelHtml5",
-                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
-                "titleAttr":"Exportar a Excel",
-                "className": "btn btn-success",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
-            },{
-                "extend": "pdfHtml5",
-                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
-                "titleAttr":"Exportar a PDF",
-                "className": "btn btn-danger",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
-            },{
-                "extend": "csvHtml5",
-                "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Exportar a CSV",
-                "className": "btn btn-info d-none",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
-            }
-        ],
-  "responsive": true, // Corregido "resonsieve" a "responsive"
-  "destroy": true, // Corregido "bDestroy" a "destroy"
-  "pageLength": 10, // Corregido "iDisplayLength" a "pageLength"
-  "order": [[0, "desc"]]
-});
+let rowTable = "";
+let divLoading = document.querySelector("#divLoading");
+document.addEventListener('DOMContentLoaded', function(){
 
+    tablePedidos = $('#tablePedidos').dataTable({
+      "aProcessing":true,
+      "aServerSide":true,
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+      },
+      "ajax": {
+        "url": " "+base_url+"/Pedidos/getVentas",
+        "dataSrc": ""
+      },
+      "columns": [
+        { "data": "idventa" },
+        { "data": "dni_cliente" },
+        { "data": "datecreated" },
+        { "data": "tipopago_nombre" },
+        { "data": "total" },
+        { "data": "options" }
+      ],
+      'dom': 'lBfrtip',
+      'buttons': [
+          {
+              "extend": "copyHtml5",
+              "text": "<i class='far fa-copy'></i> Copiar",
+              "titleAttr":"Copiar",
+              "className": "btn btn-secondary",
+              "exportOptions": { 
+              "columns": [ 0, 1, 2, 3, 4] 
+          }
+          },{
+              "extend": "excelHtml5",
+              "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+              "titleAttr":"Exportar a Excel",
+              "className": "btn btn-success",
+              "exportOptions": { 
+              "columns": [ 0, 1, 2, 3, 4] 
+          }
+          },{
+              "extend": "pdfHtml5",
+              "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+              "titleAttr":"Exportar a PDF",
+              "className": "btn btn-danger",
+              "exportOptions": { 
+              "columns": [ 0, 1, 2, 3, 4] 
+          }
+          },{
+              "extend": "csvHtml5",
+              "text": "<i class='fas fa-file-csv'></i> CSV",
+              "titleAttr":"Exportar a CSV",
+              "className": "btn btn-info d-none",
+              "exportOptions": { 
+              "columns": [ 0, 1, 2, 3, 4] 
+          }
+          }
+            ],
+      "responsive":"true",
+      "bDestroy": true,
+      "iDisplayLength": 10,
+      "order":[[0,"desc"]]  
+    });
 
 // ------------------------------------
 // ------------------------------------
 // ------------------------------------
 // NUEVO Pedido
+if(document.querySelector("#formUpdatePedido")){
 let formPedido = document.querySelector("#formUpdatePedido");
 formPedido.onsubmit = function (e) {
     e.preventDefault();
-    
     let idVenta = document.querySelector('#idVenta').value;
     let strDNI = document.querySelector('#listClienteid').value;
     let idMetodoPago = document.querySelector('#listMetodoPagoid').value;
@@ -135,17 +133,40 @@ formPedido.onsubmit = function (e) {
           console.log(request.responseText)
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
+
+              if(rowTable == ""){
+                tablePedidos.api().ajax.reload();
+              }else{
+                  rowTable.cells[1].textContent = strNombre;
+                  rowTable.cells[2].textContent = strDNI;
+                  rowTable.cells[3].textContent = idMetodoPago;
+                  rowTable.cells[4].textContent = idMetodoPago;
+                  rowTable.cells[5].textContent = total;
+              }
+
                 $('#modalFormPedido').modal("hide");
                 formPedido.reset();
-                swal("Pedido", objData.msg, "success");
+                if(objData.action=="insert"){
+                  swal("Guardado", objData.msg ,"success");
+                }else{
+                    swal("Actualizado", objData.msg ,"success");
+                }
             } else {
                 swal("Error", objData.msg, "error");
             }
         }
         divLoading.style.display = "none";
         return false;
+      }
     }
-}
+
+  }
+
+},false);
+
+
+
+
 
 
 // ------------------------------------

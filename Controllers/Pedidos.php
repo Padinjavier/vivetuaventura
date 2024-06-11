@@ -182,13 +182,13 @@ class Pedidos extends Controllers{
 				$total = isset($_POST['total']) ? strClean($_POST['total']) : '';
 
 				// Verificar campos obligatorios
-				if($codigoVenta == '' || $dni_cliente == '' || empty($servicios) || $metodopago == '' || $total == '') {
+				if( $dni_cliente == '' || empty($servicios) || $metodopago == '' || $total == '') {
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				} else {
 
 					if(empty($codigoVenta)){
 						$option = 1;
-						$requestPedido = $this->inserPedido($dni_cliente, $idvendedor, $metodopago, $total, $servicios);
+						$requestPedido = $this->model->inserPedido($dni_cliente, $idvendedor, $metodopago, $total, $servicios);
 						
 					} else {
 						$option = 2;
@@ -198,9 +198,9 @@ class Pedidos extends Controllers{
 
 					if($requestPedido) {
 						if($option == 1){
-							$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Pedido creado correctamente.');
+							$arrResponse = array('status' => true,'action' => 'insert', 'msg' => 'Datos de la venta guardados correctamente.');
 						} else {
-							$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Pedido actualizado correctamente.');
+							$arrResponse = array('status' => true,'action' => 'edit', 'msg' => 'Datos del usuario actualizados correctamente.');
 						}
 					} else {
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
