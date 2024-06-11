@@ -15,7 +15,7 @@ tablePedidos = $('#tablePedidos').DataTable({
     { "data": "dni_cliente" },
     { "data": "datecreated" },
     { "data": "tipopago_nombre" },
-    { "data": "dni_cliente" },
+    { "data": "total" },
     { "data": "options" }
   ],
   "columnDefs": [

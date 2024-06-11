@@ -188,7 +188,7 @@ class Pedidos extends Controllers{
 
 					if(empty($codigoVenta)){
 						$option = 1;
-						$requestPedido = $this->inserPedido($codigoVenta, $dni_cliente, $idvendedor, $metodopago, $total, $servicios);
+						$requestPedido = $this->inserPedido($dni_cliente, $idvendedor, $metodopago, $total, $servicios);
 						
 					} else {
 						$option = 2;
@@ -212,11 +212,11 @@ class Pedidos extends Controllers{
 		}
 		die();
 	}
-	
-	
 
 
-	
+
+
+
 	public function getVentas(){
 		if($_SESSION['permisosMod']['r']){
 			$idpersona = "";
@@ -230,11 +230,10 @@ class Pedidos extends Controllers{
 				$btnEdit = '';
 				$btnDelete = '';
 	
+				$arrData[$i]['total']= "S/".($arrData[$i]['total']);
 				// Cambios en los nombres de las claves de los datos obtenidos
 				$arrData[$i]['transaccion'] = $arrData[$i]['codigo_venta'];
-				// Se elimina la comprobación para 'idtransaccionpaypal'
-	
-				// Se mantiene la forma de dar formato al monto
+				
 	
 				if($_SESSION['permisosMod']['r']){
 	

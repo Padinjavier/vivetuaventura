@@ -151,31 +151,19 @@
 		// ----------------------------------------
 		// ----------------------------------------
 		// ----------------------------------------
-		public function inserPedido($codigoVenta, $codigoSalida, $fechaHora, $idvendedor, $dni_cliente, $nombre_cliente, $apellido_cliente, $descripcion, $dynamicRoles, $cargadores, $servicios) {
-			// Tipo de pago siempre será 2 (pago en efectivo)
-			$idtipopago = 2;
+		public function inserPedido($dni_cliente, $idvendedor, $metodopago, $total, $servicios) {
+			// Generar código de venta
+			$codigoVenta = $this->generateCodigoVenta();
 		
 			// Inserción en la tabla venta
-			$sqlVenta = "INSERT INTO venta (codigo_venta, codigo_salida, fecha_hora, dni_cliente, nombre_cliente, apellido_cliente, descripcion, idvendedor, idtipopago)
-						 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			$arrDataVenta = array($codigoVenta, $codigoSalida, $fechaHora, $dni_cliente, $nombre_cliente, $apellido_cliente, $descripcion, $idvendedor, $idtipopago);
+			$sqlVenta = "INSERT INTO venta (codigo_venta, dni_cliente, idvendedor, idtipopago, total)
+						 VALUES (?, ?, ?, ?, ?)";
+			$arrDataVenta = array($codigoVenta, $dni_cliente, $idvendedor, $metodopago, $total);
 			$requestVenta = $this->insert($sqlVenta, $arrDataVenta);
 		
 			if($requestVenta) {
 				// Obtener el ID de la última inserción
 				$idVenta = $this->getLastInsertId();
-		
-				// Inserción en la tabla venta_persona
-				foreach ($dynamicRoles as $role) {
-					$idpersona = $role['idpersona'];
-					$idrolempleado = $role['idrolempleado'];
-					$es_cargador = in_array($idpersona, $cargadores) ? 1 : 0;
-		
-					$sqlVentaPersona = "INSERT INTO venta_persona (idventa, idpersona, idrolempleado, es_cargador)
-										VALUES (?, ?, ?, ?)";
-					$arrDataVentaPersona = array($idVenta, $idpersona, $idrolempleado, $es_cargador);
-					$this->insert($sqlVentaPersona, $arrDataVentaPersona);
-				}
 		
 				// Inserción en la tabla detalle_venta
 				foreach ($servicios as $servicio) {
@@ -195,6 +183,21 @@
 			}
 		}
 		
+		private function generateCodigoVenta() {
+			// Obtener el último código de venta insertado
+			$sql = "SELECT codigo_venta FROM venta ORDER BY idventa DESC LIMIT 1";
+			$request = $this->select($sql);
+		
+			if(empty($request)) {
+				return 'v_1';
+			} else {
+				$lastCodigo = $request['codigo_venta'];
+				$number = intval(str_replace('v_', '', $lastCodigo)) + 1;
+				return 'v_' . $number;
+			}
+		}
+		
+		
 
 		public function selectVentas($idpersona = null){
 			$where = "";
@@ -208,6 +211,7 @@
 							v.dni_cliente,
 							v.idtipopago,
 							tp.tipopago as tipopago_nombre,
+							v.total,
 							v.status
 					FROM venta v
 					INNER JOIN tipopago tp
