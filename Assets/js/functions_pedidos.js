@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function(){
         "dataSrc": ""
       },
       "columns": [
-        { "data": "idventa" },
+        { "data": "codigo_venta" },
         { "data": "dni_cliente" },
         { "data": "datecreated" },
         { "data": "tipopago_nombre" },
@@ -71,7 +71,7 @@ if(document.querySelector("#formUpdatePedido")){
 let formPedido = document.querySelector("#formUpdatePedido");
 formPedido.onsubmit = function (e) {
     e.preventDefault();
-    let idVenta = document.querySelector('#idVenta').value;
+    let idVenta = document.querySelector('#idVenta').innerText;
     let strDNI = document.querySelector('#listClienteid').value;
     let idMetodoPago = document.querySelector('#listMetodoPagoid').value;
     let total = document.querySelector('#gran_total').innerText;
@@ -119,7 +119,7 @@ formPedido.onsubmit = function (e) {
     let formData = new FormData();
     
     // Agregar datos al formData
-    formData.append('codigoVenta', idVenta);
+    formData.append('idVenta', idVenta);
     formData.append('dni', strDNI);
     formData.append('metodopago', idMetodoPago);
     formData.append('servicios', JSON.stringify(servicios));
@@ -133,15 +133,15 @@ formPedido.onsubmit = function (e) {
           console.log(request.responseText)
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
-
+              console.log(objData)
               if(rowTable == ""){
                 tablePedidos.api().ajax.reload();
               }else{
-                  rowTable.cells[1].textContent = strNombre;
-                  rowTable.cells[2].textContent = strDNI;
+                  rowTable.cells[0].textContent = idVenta;
+                  rowTable.cells[1].textContent = strDNI;
+                  rowTable.cells[2].textContent = idMetodoPago;
                   rowTable.cells[3].textContent = idMetodoPago;
-                  rowTable.cells[4].textContent = idMetodoPago;
-                  rowTable.cells[5].textContent = total;
+                  rowTable.cells[4].textContent = "S/"+total;
               }
 
                 $('#modalFormPedido').modal("hide");
@@ -220,7 +220,7 @@ function fnttipopagolist() {
 // ----------------------
 
 // // // ---------------Servicios----------
-
+// // // ---------------Servicios----------
 document.addEventListener("DOMContentLoaded", function () {
   const tblDetalleVenta = document.getElementById("tblDetalleVenta");
   const btnAgregarProducto = document.getElementById("btnAgregarProducto");
@@ -310,72 +310,6 @@ document.addEventListener("DOMContentLoaded", function () {
       calculateRow(row);
   }
 
-  function cal_precio_db(row) {
-      var buttonElement = row.querySelector('.btn.dropdown-toggle.btn-light');
-      var buttonTitle = buttonElement.getAttribute('title');
-      var decimalNumber = buttonTitle.match(/\d+\.\d+/);
-      var precioDb = decimalNumber ? decimalNumber[0] : 0;
-      row.querySelector(".precio_db").value = precioDb;
-  }
-
-  function calculateRow(row) {
-      const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
-      const precio = parseFloat(row.querySelector(".precio").value) || 0;
-      const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
-
-      const precioTotal = cantidad * precio;
-      const precioDbTotal = cantidad * precioDb;
-
-      let descuento = precioDbTotal - precioTotal;
-      if (descuento < 0) {
-          descuento = 0;
-      }
-
-      row.querySelector(".precio_total").value = precioTotal.toFixed(2);
-      row.querySelector(".descuento").value = descuento.toFixed(2);
-  }
-
-  function sumarPreciosTotales() {
-      let subtotal = 0;
-      let totalDescuento = 0;
-      let subtotalreal = 0;
-      let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
-
-      for (let i = 0; i < filas.length; i++) {
-          let fila = filas[i];
-          // Sumar precios real
-          let precioRealElement = fila.querySelector(".precio_db");
-          let precioReal = 0;
-          if (precioRealElement) {
-            precioReal = parseFloat(precioRealElement.value) || 0;
-          }
-          subtotalreal += precioReal;
-
-          // Sumar precios totales
-          let precioTotalElement = fila.querySelector(".precio_total");
-          let precioTotal = 0;
-          if (precioTotalElement) {
-              precioTotal = parseFloat(precioTotalElement.value) || 0;
-          }
-          subtotal += precioTotal;
-
-          // Sumar descuentos
-          let descuentoElement = fila.querySelector(".descuento");
-          let descuento = 0;
-          if (descuentoElement) {
-              descuento = parseFloat(descuentoElement.value) || 0;
-          }
-          totalDescuento += descuento;
-
-          
-      }
-
-      // Actualizar el total
-      document.getElementById("gran_sub_total").innerText =  subtotalreal.toFixed(2);
-      document.getElementById("gran_descuento").innerText =  totalDescuento.toFixed(2);
-      document.getElementById("gran_total").innerText = subtotal.toFixed(2);
-  }
-
   function updateRowNumbers() {
       let rows = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
       for (let i = 0; i < rows.length; i++) {
@@ -390,10 +324,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadInitialSelectOptions(); // Cargar opciones iniciales al abrir el modal
 });
+// fin servicio 
+
+// funciones publicas
+function cal_precio_db(row) {
+  var buttonElement = row.querySelector('.btn.dropdown-toggle.btn-light');
+  var buttonTitle = buttonElement.getAttribute('title');
+  var decimalNumber = buttonTitle.match(/\d+\.\d+/);
+  var precioDb = decimalNumber ? decimalNumber[0] : 0;
+  row.querySelector(".precio_db").value = precioDb;
+}
+
+function calculateRow(row) {
+  const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
+  const precio = parseFloat(row.querySelector(".precio").value) || 0;
+  const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
+
+  const precioTotal = cantidad * precio;
+  const precioDbTotal = cantidad * precioDb;
+
+  let descuento = precioDbTotal - precioTotal;
+  if (descuento < 0) {
+      descuento = 0;
+  }
+
+  row.querySelector(".precio_total").value = precioTotal.toFixed(2);
+  row.querySelector(".descuento").value = descuento.toFixed(2);
+}
 
 
+function sumarPreciosTotales() {
+  let subtotal = 0;
+  let totalDescuento = 0;
+  let subtotalreal = 0;
+  let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
+
+  for (let i = 0; i < filas.length; i++) {
+      let fila = filas[i];
+      // Sumar precios real
+      let precioRealElement = fila.querySelector(".precio_db");
+      let precioReal = 0;
+      if (precioRealElement) {
+        precioReal = parseFloat(precioRealElement.value) || 0;
+      }
+      subtotalreal += precioReal;
+
+      // Sumar precios totales
+      let precioTotalElement = fila.querySelector(".precio_total");
+      let precioTotal = 0;
+      if (precioTotalElement) {
+          precioTotal = parseFloat(precioTotalElement.value) || 0;
+      }
+      subtotal += precioTotal;
+
+      // Sumar descuentos
+      let descuentoElement = fila.querySelector(".descuento");
+      let descuento = 0;
+      if (descuentoElement) {
+          descuento = parseFloat(descuentoElement.value) || 0;
+      }
+      totalDescuento += descuento;
+
+      
+  }
+
+  // Actualizar el total
+  document.getElementById("gran_sub_total").innerText =  subtotalreal.toFixed(2);
+  document.getElementById("gran_descuento").innerText =  totalDescuento.toFixed(2);
+  document.getElementById("gran_total").innerText = subtotal.toFixed(2);
+}
+// fin funciones publicas 
 
 
+// ------editar venta-----------
+// ------editar venta-----------
 
 function fntEditInfo(element, idpedido) {
 
@@ -404,7 +408,8 @@ function fntEditInfo(element, idpedido) {
   }
   
   rowTable = element.parentNode.parentNode.parentNode; 
-  document.querySelector('#titleModal').innerHTML = "Actualizar empleado";
+  document.querySelector('.viewcodigoventa').classList.remove("d-none");
+  document.querySelector('#titleModal').innerHTML = "Actualizar venta ";
   document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
   document.querySelector('#btnText').innerHTML = "Actualizar";
   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -416,6 +421,8 @@ function fntEditInfo(element, idpedido) {
           let objData = JSON.parse(request.responseText);
           if (objData.status) {
       
+              document.querySelector("#idVenta").innerHTML = objData.data.venta.codigo_venta;
+
               document.querySelector("#listClienteid").value = objData.data.venta.dni_cliente;
               $('#listClienteid').selectpicker('refresh');
       
@@ -423,14 +430,11 @@ function fntEditInfo(element, idpedido) {
               $('#listMetodoPagoid').selectpicker('refresh');
       
               let cantidadDatos = objData.data.detalle_venta.length;
-      
               // Hacer clic en el botón para agregar nuevos grupos
               for (let i = 0; i < cantidadDatos; i++) {
                   btnAgregarProducto.click();
               }
-
               $('#modalFormPedido').modal('show');
-
               // Ejecutar la asignación de datos después de un retraso
               setTimeout(function() {
                   asignarDatos(objData.data.detalle_venta);
@@ -465,27 +469,18 @@ function asignarDatos(detalleVenta) {
           let precioInput = grupoActual.querySelector(".precio");
           if (precioInput) {
               precioInput.value = datosLote.precio;
-          }
-      }
-  }
- 
+            }
+
+            // Llamar a las funciones necesarias para calcular y sumar precios
+            cal_precio_db(grupoActual);
+            calculateRow(grupoActual);
+        }
+    }
+    // Sumar precios totales después de asignar todos los datos
+    sumarPreciosTotales();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ------fin editar venta-----------
+// ------fin editar venta-----------
 
 
 
@@ -496,7 +491,8 @@ function asignarDatos(detalleVenta) {
 
   function openModal() {
     rowTable = "";
-    document.querySelector('#idVenta').value = "";
+    document.querySelector('#idVenta').innerHTML = "";
+    document.querySelector('.viewcodigoventa').classList.add("d-none");
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML = "Guardar";

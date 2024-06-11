@@ -176,7 +176,7 @@ class Pedidos extends Controllers{
 				// Obtener datos JSON
 				$idvendedor = $_SESSION['userData']['idpersona'];
 
-				$codigoVenta = isset($_POST['codigoVenta']) ? strClean($_POST['codigoVenta']) : '';
+				$idVenta = isset($_POST['idVenta']) ? strClean($_POST['idVenta']) : '';
 				$dni_cliente = isset($_POST['dni']) ? strClean($_POST['dni']) : '';
 				$metodopago = isset($_POST['metodopago']) ? strClean($_POST['metodopago']) : '';
 				$servicios = isset($_POST['servicios']) ? json_decode($_POST['servicios'], true) : [];
@@ -187,14 +187,14 @@ class Pedidos extends Controllers{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				} else {
 
-					if(empty($codigoVenta)){
+					if(empty($idVenta)){
 						$option = 1;
 						$requestPedido = $this->model->inserPedido($dni_cliente, $idvendedor, $metodopago, $total, $servicios);
 						
 					} else {
 						$option = 2;
 						// Aquí puedes agregar la lógica para actualizar un pedido existente si lo deseas
-						// $requestPedido = $this->actualizarPedido($codigoVenta, $dni_cliente, $metodopago, $total);
+						$requestPedido = $this->model->updatePedido($idVenta, $dni_cliente, $idvendedor, $metodopago, $total, $servicios);
 					}
 
 					if($requestPedido) {

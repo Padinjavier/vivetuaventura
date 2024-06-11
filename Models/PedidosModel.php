@@ -112,20 +112,20 @@
 			}
 		}
 
-		public function updatePedido(int $idpedido, $transaccion = NULL, $idtipopago = NULL, string $estado){
-			if($transaccion == NULL){
-				$query_insert  = "UPDATE pedido SET status = ?  WHERE idpedido = $idpedido ";
-	        	$arrData = array($estado);
-			}else{
-				$query_insert  = "UPDATE pedido SET referenciacobro = ?, tipopagoid = ?,status = ? WHERE idpedido = $idpedido";
-	        	$arrData = array($transaccion,
-	        					$idtipopago,
-	    						$estado
-	    					);
-			}
-			$request_insert = $this->update($query_insert,$arrData);
-        	return $request_insert;
-		}
+		// public function updatePedido(int $idpedido, $transaccion = NULL, $idtipopago = NULL, string $estado){
+		// 	if($transaccion == NULL){
+		// 		$query_insert  = "UPDATE pedido SET status = ?  WHERE idpedido = $idpedido ";
+	    //     	$arrData = array($estado);
+		// 	}else{
+		// 		$query_insert  = "UPDATE pedido SET referenciacobro = ?, tipopagoid = ?,status = ? WHERE idpedido = $idpedido";
+	    //     	$arrData = array($transaccion,
+	    //     					$idtipopago,
+	    // 						$estado
+	    // 					);
+		// 	}
+		// 	$request_insert = $this->update($query_insert,$arrData);
+        // 	return $request_insert;
+		// }
 
 
 // ----------------------------------------
@@ -175,6 +175,36 @@
 			}
 		}
 		
+		public function updatePedido($idVenta, $dni_cliente, $idvendedor, $metodopago, $total, $servicios) {
+			// Actualizar la tabla venta
+			$sqlVenta = "UPDATE venta 
+						 SET dni_cliente = ?, idvendedor = ?, idtipopago = ?, total = ?
+						 WHERE idventa = ?";
+			$arrDataVenta = array($dni_cliente, $idvendedor, $metodopago, $total, $idVenta);
+			$requestVenta = $this->update($sqlVenta, $arrDataVenta);
+		
+			if($requestVenta) {
+				  // Eliminar los detalles de venta existentes
+				  $sqlDeleteDetalle = "DELETE FROM detalle_venta WHERE codigo_venta = " . intval($idVenta);
+				  $this->delete($sqlDeleteDetalle);
+		
+				// Insertar los nuevos detalles de venta
+				foreach ($servicios as $servicio) {
+					$idservicio = $servicio['id'];
+					$cantidad = $servicio['cantidad'];
+					$precio = $servicio['precio'];
+		
+					$sqlDetalleVenta = "INSERT INTO detalle_venta (codigo_venta, idservicio, cantidad, precio)
+										VALUES (?, ?, ?, ?)";
+					$arrDataDetalleVenta = array($idVenta, $idservicio, $cantidad, $precio);
+					$this->insert($sqlDetalleVenta, $arrDataDetalleVenta);
+				}
+		
+				return true;
+			} else {
+				return false;
+			}
+		}
 		
 
 		public function selectVentas($idpersona = null){

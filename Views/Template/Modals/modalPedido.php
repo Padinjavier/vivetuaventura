@@ -10,8 +10,8 @@
             </div>
             <div class="modal-body">
                 <form id="formUpdatePedido" name="formUpdatePedido" class="form-horizontal">
-                <input type="hidden" id="idVenta" name="idVenta" value="">
                     <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
+                    <p class="viewcodigoventa d-none">Codigo venta: <span id="idVenta">v_001</span></p>
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <label for="listClienteid">Cliente</label>
