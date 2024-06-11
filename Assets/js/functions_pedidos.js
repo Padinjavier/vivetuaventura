@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <span class="row-number"></span>
           </td>
           <td>
-              <select class="form-control selectpicker servicio-select" name="selectGuia" required data-live-search="true">
+              <select class="form-control selectpicker servicio-select" name="selectServicio" required data-live-search="true">
                   ${response[0]}
               </select>
           </td>
@@ -407,16 +407,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-function openModal()
-{
+  function openModal() {
     rowTable = "";
-    document.querySelector('#idVenta').value ="";
+    document.querySelector('#idVenta').value = "";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
-    document.querySelector('#btnText').innerHTML ="Guardar";
+    document.querySelector('#btnText').innerHTML = "Guardar";
     document.querySelector("#formUpdatePedido").reset();
+
+    // Eliminar elementos del grupo de servicio pero debe dejar al menos uno
+    let detalleVentaRows = document.querySelectorAll('.detalle-venta-row');
+    for (let i = 1; i < detalleVentaRows.length; i++) {
+        detalleVentaRows[i].remove();
+    }
+    // Restablecer los select a su estado inicial
+  $('.servicio-select').selectpicker('val', '');
+  $('#listClienteid').selectpicker('val', '');
+  $('#listMetodoPagoid').selectpicker('val', '');
+
     $('#modalFormPedido').modal('show');
-}
+  }
+
 
 
 
