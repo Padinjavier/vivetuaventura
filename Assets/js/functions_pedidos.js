@@ -134,14 +134,17 @@ formPedido.onsubmit = function (e) {
             let objData = JSON.parse(request.responseText);
             if (objData.status) {
               console.log(objData)
+              console.log(objData.data)
               if(rowTable == ""){
                 tablePedidos.api().ajax.reload();
-              }else{
-                  rowTable.cells[0].textContent = idVenta;
-                  rowTable.cells[1].textContent = strDNI;
-                  rowTable.cells[2].textContent = idMetodoPago;
-                  rowTable.cells[3].textContent = idMetodoPago;
-                  rowTable.cells[4].textContent = "S/"+total;
+              } else {
+                // rowTable.cells[0].textContent = idVenta;
+                // rowTable.cells[1].textContent = strDNI;
+                // rowTable.cells[2].textContent = idMetodoPago; // Fecha de la venta
+                // rowTable.cells[3].textContent = idMetodoPago; // Nombre del tipo de pago
+                // rowTable.cells[4].textContent = "S/" + total;
+                tablePedidos.api().ajax.reload();
+            
               }
 
                 $('#modalFormPedido').modal("hide");

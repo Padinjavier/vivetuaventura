@@ -160,7 +160,23 @@
 				return false;
 			}
 		}
+		public function selectPedidoCodigo($codigoVenta){
+			$request = array();
+			$sql = "SELECT v.idventa,
+							v.codigo_venta,
+							v.datecreated AS fecha,
+							v.idtipopago,
+							v.total,
+							tp.tipopago
+					FROM venta AS v
+					INNER JOIN tipopago AS tp ON v.idtipopago = tp.idtipopago
+					WHERE v.codigo_venta =  $codigoVenta";
+			$requestVenta = $this->select($sql);
+			return $requestVenta;
+		}
 		
+
+
 		private function generateCodigoVenta() {
 			// Obtener el último código de venta insertado
 			$sql = "SELECT codigo_venta FROM venta ORDER BY idventa DESC LIMIT 1";
@@ -179,7 +195,7 @@
 			// Actualizar la tabla venta
 			$sqlVenta = "UPDATE venta 
 						 SET dni_cliente = ?, idvendedor = ?, idtipopago = ?, total = ?
-						 WHERE idventa = ?";
+						 WHERE codigo_venta = ?";
 			$arrDataVenta = array($dni_cliente, $idvendedor, $metodopago, $total, $idVenta);
 			$requestVenta = $this->update($sqlVenta, $arrDataVenta);
 		
