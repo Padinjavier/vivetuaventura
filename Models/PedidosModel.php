@@ -160,22 +160,7 @@
 				return false;
 			}
 		}
-		public function selectPedidoCodigo($codigoVenta){
-			$request = array();
-			$sql = "SELECT v.idventa,
-							v.codigo_venta,
-							v.datecreated AS fecha,
-							v.idtipopago,
-							v.total,
-							tp.tipopago
-					FROM venta AS v
-					INNER JOIN tipopago AS tp ON v.idtipopago = tp.idtipopago
-					WHERE v.codigo_venta =  $codigoVenta";
-			$requestVenta = $this->select($sql);
-			return $requestVenta;
-		}
 		
-
 
 		private function generateCodigoVenta() {
 			// Obtener el último código de venta insertado
