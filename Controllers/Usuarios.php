@@ -112,7 +112,7 @@
 					if($_SESSION['permisosMod']['u']){
 						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrolusuario'] == 1) ||
 							($_SESSION['userData']['idrolusuario'] == 1 and $arrData[$i]['idrolusuario'] != 1) ){
-							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
+							$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
 						}else{
 							$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 						}

@@ -230,6 +230,7 @@ class Pedidos extends Controllers{
 				$btnView = '';
 				$btnEdit = '';
 				$btnDelete = '';
+				$btnPdf = '';
 	
 				$arrData[$i]['total']= "S/".($arrData[$i]['total']);
 				// Cambios en los nombres de las claves de los datos obtenidos
@@ -237,21 +238,37 @@ class Pedidos extends Controllers{
 				
 	
 				if($_SESSION['permisosMod']['r']){
-	
-					$btnView .= ' <a title="Ver Detalle" href="'.base_url().'/pedidos/orden/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>
-	
-						<a title="Generar PDF" href="'.base_url().'/factura/generarFactura/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-danger btn-sm"> <i class="fas fa-file-pdf"></i> </a> ';
-	
-					if($arrData[$i]['idtipopago'] == 2){ // Se cambia la comprobación para idtipopago == 2
-						$btnView .= '<button class="btn btn-secondary btn-sm" disabled=""><i class="fa fa-paypal" aria-hidden="true"></i></button> ';
-					}else{
-						$btnView .= '<a title="Ver Transacción" href="'.base_url().'/pedidos/transaccion/'.$arrData[$i]['transaccion'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> '; // Se usa la clave 'transaccion'
-					}
+					$btnView = '<button class="btn btn-info btn-sm btnView btnViewEmpleado" onClick="fntViewVenta('.$arrData[$i]['idventa'].')" title="Ver Venta"><i class="far fa-eye"></i></button>';
+					$btnPdf = '<button class="btn btn-secondary btn-sm  btnViewEmpleado" onClick="fntViewEmpleado('.$arrData[$i]['idventa'].')" title="Ver PDF Venta"><i class="bi bi-filetype-pdf"></i></button>';
+				
 				}
 				if($_SESSION['permisosMod']['u']){
-					$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idventa'].')" title="Editar pedido"><i class="fas fa-pencil-alt"></i></button>';
+					$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit btnEditInfo" onClick="fntEditInfo(this,'.$arrData[$i]['idventa'].')" title="Editar Venta"><i class="fas fa-pencil-alt"></i></button>';
+					
 				}
-				$arrData[$i]['options'] = '<div class="text-center"  style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+				if($_SESSION['permisosMod']['d']){
+						$btnDelete = '<button class="btn btn-danger btn-sm btnDel btnDelEmpleado" onClick="fntDelEmpleado('.$arrData[$i]['idventa'].')" title="Eliminar Venta"><i class="far fa-trash-alt"></i></button>';
+				}
+				$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.''.$btnPdf.'</div>';
+			
+
+				// if($_SESSION['permisosMod']['r']){
+	
+				// 	$btnView .= ' <a title="Ver Detalle" href="'.base_url().'/pedidos/orden/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>
+	
+				// 		<a title="Generar PDF" href="'.base_url().'/factura/generarFactura/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-danger btn-sm"> <i class="fas fa-file-pdf"></i> </a> ';
+	
+				// 	if($arrData[$i]['idtipopago'] == 2){ // Se cambia la comprobación para idtipopago == 2
+				// 		$btnView .= '<button class="btn btn-secondary btn-sm" disabled=""><i class="fa fa-paypal" aria-hidden="true"></i></button> ';
+				// 	}else{
+				// 		$btnView .= '<a title="Ver Transacción" href="'.base_url().'/pedidos/transaccion/'.$arrData[$i]['transaccion'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> '; // Se usa la clave 'transaccion'
+				// 	}
+				// }
+				// if($_SESSION['permisosMod']['u']){
+				// 	$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idventa'].')" title="Editar pedido"><i class="fas fa-pencil-alt"></i></button>';
+				// }
+				// $arrData[$i]['options'] = '<div class="text-center"  style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+			
 			}
 			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 		}
