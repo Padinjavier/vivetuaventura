@@ -123,6 +123,18 @@ $detalle = $data['detalle'];
 		</tbody>
 	</table>
 	<br>
+	<p><?php 
+			$subtotal = 0;
+	foreach ($detalle as $servicio) {
+
+		echo($servicio['servicio']);
+		$importe = $servicio['precio'] * $servicio['cantidad'];
+		$subtotal = $subtotal + $importe;
+	}
+    echo json_encode($detalle, JSON_PRETTY_PRINT);
+	echo(SMONEY . ' ' . formatMoney($subtotal));
+	echo(SMONEY . ' ' . formatMoney($orden['total']));
+?></p>
 	<table class="tbl-detalle m-1" style="border: 10px solid red;">
 		<thead>
 			<tr>
@@ -135,35 +147,29 @@ $detalle = $data['detalle'];
 		<tbody>
 			<?php
 			$subtotal = 0;
-			foreach ($detalle as $producto) {
-				$importe = $producto['precio'] * $producto['cantidad'];
+			foreach ($detalle as $servicio) {
+				$importe = $servicio['precio'] * $servicio['cantidad'];
 				$subtotal = $subtotal + $importe;
 				?>
 				<tr>
-					<td><?= $producto['producto'] ?></td>
-					<td class="text-right"><?= SMONEY . ' ' . formatMoney($producto['precio']) ?></td>
-					<td class="text-center"><?= $producto['cantidad'] ?></td>
+					<td><?= $servicio['servicio'] ?></td>
+					<td class="text-right"><?= SMONEY . ' ' . formatMoney($servicio['precio']) ?></td>
+					<td class="text-center"><?= $servicio['cantidad'] ?></td>
 					<td class="text-right"><?= SMONEY . ' ' . formatMoney($importe) ?></td>
 				</tr>
 			<?php } ?>
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="3" class="text-right">Subtotal:</td>
-				<td class="text-right"><?= SMONEY . ' ' . formatMoney($subtotal) ?></td>
-			</tr>
-			<tr>
-				<td colspan="3" class="text-right">Envío:</td>
-				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['costo_envio']); ?></td>
-			</tr>
-			<tr>
 				<td colspan="3" class="text-right">Total:</td>
-				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['monto']); ?></td>
+				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
 			</tr>
 		</tfoot>
 	</table>
-	<div class="text-center " style="border: 1px solid red;">
-		<!-- <p>Si tienes preguntas sobre tu pedido, <br> pongase en contacto con nombre, teléfono y Email</p> -->
+	<div class="text-center ">
+		<p>Nota: Este documento no es un comprobante fiscal.<br>
+		Es una nota de venta para el control interno de la agencia.<br>
+		Si tienes preguntas sobre tu pedido, por favor ponte en contacto con nosotros</p>
 		<h4>¡Gracias por tu eleccion!</h4>
 	</div>
 </body>
