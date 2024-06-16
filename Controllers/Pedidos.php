@@ -239,7 +239,7 @@ class Pedidos extends Controllers{
 	
 				if($_SESSION['permisosMod']['r']){
 					$btnView = '<button class="btn btn-info btn-sm btnView btnViewEmpleado" onClick="fntViewVenta('.$arrData[$i]['idventa'].')" title="Ver Venta"><i class="far fa-eye"></i></button>';
-					$btnPdf = '<button class="btn btn-secondary btn-sm  btnViewEmpleado" onClick="fntViewEmpleado('.$arrData[$i]['idventa'].')" title="Ver PDF Venta"><i class="bi bi-filetype-pdf"></i></button>';
+					$btnPdf = '<button class="btn btn-secondary btn-sm  btnViewEmpleado" onClick="fntViewVenta('.$arrData[$i]['idventa'].')" title="Ver PDF Venta"><i class="bi bi-filetype-pdf"></i></button>';
 				
 				}
 				if($_SESSION['permisosMod']['u']){
@@ -287,6 +287,15 @@ class Pedidos extends Controllers{
 		echo $htmlOptions;
 		die();
 	}
+
+
+
+
+
+
+
+
+
 // -----------------------
 // -----------------------
 // -----------------------

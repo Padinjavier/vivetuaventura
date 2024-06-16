@@ -421,6 +421,8 @@ function fntEditInfo(element, idpedido) {
   request.onreadystatechange = function () {
       if (request.readyState == 4 && request.status == 200) {
           let objData = JSON.parse(request.responseText);
+          console.log(objData.data);
+
           if (objData.status) {
       
               document.querySelector("#idVenta").innerHTML = objData.data.venta.codigo_venta;
@@ -518,9 +520,39 @@ function asignarDatos(detalleVenta) {
 
 
 
+// funcion view venta 
+// funcion view venta 
+function fntViewVenta(idventa){
+  let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  let ajaxUrl = base_url+'/Pedidos/getPedido/'+idventa;
+  request.open("GET",ajaxUrl,true);
+  request.send();
+  request.onreadystatechange = function(){
+      if(request.readyState == 4 && request.status == 200){
+          let objData = JSON.parse(request.responseText);
+          if(objData.status)
+          {
 
-
-
+            // Suponiendo que objData.data.venta.fecha es una cadena de fecha en formato ISO 8601
+            let fechaISO = objData.data.venta.fecha; // Ejemplo: "2025-06-14T13:13:04Z"
+            let fechaFormateada = moment(fechaISO).format('YYYY/MM/DD | hh:mm:ss A');
+            texto =""
+            for (i=0;i<objData.data.detalle_venta.length ; i++){
+              texto +="<i class='bi bi-circle'></i> "+ objData.data.detalle_venta[i].nombre + "<br>";
+            }
+              document.querySelector("#celIdentificacion").innerHTML = objData.data.venta.codigo_venta;
+              document.querySelector("#celNombre").innerHTML = objData.data.venta.nombres;
+              document.querySelector("#celApellido").innerHTML = objData.data.venta.tipopago;
+              document.querySelector("#celTelefono").innerHTML = objData.data.venta.total;
+              document.querySelector("#celEmail").innerHTML = texto
+              document.querySelector("#celFechaRegistro").innerHTML = fechaFormateada;
+              $('#modalViewUser').modal('show');
+          }else{
+              swal("Error", objData.msg , "error");
+          }
+      }
+  }
+}
 
 
 

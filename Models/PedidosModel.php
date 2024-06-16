@@ -28,6 +28,8 @@
 
 		}	
 
+		// el segundo select es dibidifo y es select_all debido a que necesito que traiga losdatos de toods 
+		// los evicion indexados a la venta en lotes de array para ahcer el for del llenado de datos
 		public function selectPedido(int $idventa){
 			$request = array();
 			$sql = "SELECT v.idventa,
@@ -35,9 +37,17 @@
 							v.datecreated AS fecha,
 							v.dni_cliente,
 							v.idtipopago,
+							tp.tipopago,
 							v.total,
-							v.status
+							v.status,
+							p.nombres 
 					FROM venta AS v
+						INNER JOIN 
+							persona AS p ON v.dni_cliente = p.identificacion
+						INNER JOIN 
+							tipopago AS tp ON v.idtipopago = tp.idtipopago
+						INNER JOIN
+							detalle_venta AS dv ON v.codigo_venta = dv.codigo_venta
 					WHERE v.idventa =  $idventa";
 			$requestVenta = $this->select($sql);
 			if(!empty($requestVenta)){
@@ -46,12 +56,14 @@
 										dv.codigo_venta,
 										dv.idservicio,
 										dv.cantidad,
-										dv.precio
+										dv.precio,
+										s.nombre
 								FROM detalle_venta AS dv
+								INNER JOIN 
+								servicio AS s ON dv.idservicio = s.idservicio
 								WHERE dv.codigo_venta = '$codigo_venta'";
 				$requestDetalle = $this->select_all($sql_detalle);
-				$request = array('venta' => $requestVenta,
-								'detalle_venta' => $requestDetalle);
+				$request = array('venta' => $requestVenta,'detalle_venta' => $requestDetalle);
 			}
 			return $request;
 		}

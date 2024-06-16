@@ -90,3 +90,51 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal view-->
+<div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header header-primary">
+        <h5 class="modal-title" id="titleModal">Datos del <?= $data['page_name'] ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>Código de venta:</td>
+              <td id="celIdentificacion">654654654</td>
+            </tr>
+            <tr>
+              <td>Cliente:</td>
+              <td id="celNombre">Jacob</td>
+            </tr>
+            <tr>
+              <td>Tipo de Pago:</td>
+              <td id="celApellido">Jacob</td>
+            </tr>
+            <tr>
+              <td>Total:</td>
+              <td id="celTelefono">Larry</td>
+            </tr>
+            <tr>
+              <td>Tipo de servicio:</td>
+              <td id="celEmail">Larry</td>
+            </tr>
+            <tr>
+              <td>Fecha registro:</td>
+              <td id="celFechaRegistro">Larry</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
