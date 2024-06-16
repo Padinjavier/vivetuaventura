@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `detalle_pedido` (
 -- Volcando datos para la tabla agencia.detalle_pedido: ~1 rows (aproximadamente)
 DELETE FROM `detalle_pedido`;
 INSERT INTO `detalle_pedido` (`id`, `pedidoid`, `productoid`, `precio`, `cantidad`) VALUES
-	(1, 3, 22, 12.00, 3);
+	(1, 30, 22, 12.00, 3);
 
 -- Volcando estructura para tabla agencia.detalle_venta
 CREATE TABLE IF NOT EXISTS `detalle_venta` (
@@ -78,18 +78,18 @@ CREATE TABLE IF NOT EXISTS `detalle_venta` (
   KEY `idventa` (`codigo_venta`) USING BTREE,
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`codigo_venta`) REFERENCES `venta` (`codigo_venta`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.detalle_venta: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.detalle_venta: ~7 rows (aproximadamente)
 DELETE FROM `detalle_venta`;
 INSERT INTO `detalle_venta` (`iddetalleventa`, `codigo_venta`, `idservicio`, `cantidad`, `precio`) VALUES
-	(42, 'v_1', 3, 9, 9.00),
-	(45, 'v_2', 4, 1, 222.00),
-	(46, 'v_2', 1, 1, 111.00),
-	(47, 'v_3', 1, 1, 1.00),
-	(53, 'v_4', 1, 3, 4.00),
-	(54, 'v_4', 2, 2, 2.00),
-	(66, 'v_5', 5, 14, 1.00);
+	(66, 'v_5', 5, 14, 1.00),
+	(69, 'v_2', 4, 1, 222.00),
+	(70, 'v_2', 1, 1, 111.00),
+	(71, 'v_1', 3, 9, 9.00),
+	(72, 'v_3', 1, 1, 333.00),
+	(75, 'v_4', 1, 7, 4.00),
+	(76, 'v_4', 2, 2, 1.00);
 
 -- Volcando estructura para tabla agencia.modulo
 CREATE TABLE IF NOT EXISTS `modulo` (
@@ -153,10 +153,10 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   KEY `FK_pedido_producto` (`producto_id`),
   KEY `FK_pedido_reembolso` (`reembolso`),
   CONSTRAINT `FK_pedido_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`),
-  CONSTRAINT `FK_pedido_producto` FOREIGN KEY (`producto_id`) REFERENCES `x_producto` (`idproducto`),
+  CONSTRAINT `FK_pedido_producto` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`idproducto`),
   CONSTRAINT `FK_pedido_reembolso` FOREIGN KEY (`reembolso`) REFERENCES `x_reembolso` (`id`),
   CONSTRAINT `FK_pedido_tipopago` FOREIGN KEY (`tipopagoid`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla agencia.pedido: ~10 rows (aproximadamente)
 DELETE FROM `pedido`;
@@ -164,13 +164,13 @@ INSERT INTO `pedido` (`idpedido`, `referenciacobro`, `idtransaccionpaypal`, `dat
 	(3, '12', NULL, NULL, 22, '2023-11-15 00:50:52', 5.00, 7.50, 2, '123, aaaa', 'Pendiente', NULL, NULL),
 	(4, NULL, NULL, NULL, 22, '2023-12-06 13:30:58', 5.00, 17.00, 2, 'AV. Lima 123, Quilmana', 'Pendiente', NULL, NULL),
 	(6, NULL, NULL, NULL, 28, '2023-12-06 17:28:13', 5.00, 8.00, 2, 'Jr. Agusto B. Leguía N453, Quilmana - Cañete', 'Pendiente', NULL, NULL),
-	(7, 'completa', NULL, NULL, 28, '2023-12-06 17:40:11', 5.00, 6.50, 2, 'Jr. Agusto B. Leguia N 403, Quilmana', 'Completo', NULL, NULL),
 	(8, NULL, NULL, NULL, 28, '2023-12-06 18:10:32', 5.00, 12.50, 2, 'Jr. Agusto B. Leguia N 403, quimana', 'Pendiente', NULL, NULL),
 	(9, NULL, NULL, NULL, 22, '2023-12-12 23:07:35', 5.00, 6.50, 3, 'ewe, weew', 'Pendiente', NULL, NULL),
 	(10, NULL, NULL, NULL, 22, '2023-12-16 10:42:04', 5.00, 20.90, 2, '123, e', 'Pendiente', NULL, NULL),
 	(11, NULL, NULL, NULL, 22, '2023-12-19 10:07:54', 5.00, 6.50, 2, 'f, f', 'Pendiente', NULL, NULL),
 	(12, NULL, NULL, NULL, 22, '2023-12-22 00:38:17', 5.00, 6.50, 2, '111111f, 2222', 'Pendiente', NULL, NULL),
-	(13, '12', NULL, NULL, 22, '2023-12-23 23:18:52', 5.00, 6.50, 2, '111111v, 2222', 'Entregado', NULL, NULL);
+	(13, '12', NULL, NULL, 22, '2023-12-23 23:18:52', 5.00, 6.50, 2, '111111v, 2222', 'Entregado', NULL, NULL),
+	(30, 'completa', NULL, NULL, 28, '2023-12-06 17:40:11', 5.00, 6.50, 2, 'Jr. Agusto B. Leguia N 403, Quilmana', 'Completo', 1, NULL);
 
 -- Volcando estructura para tabla agencia.permisos
 CREATE TABLE IF NOT EXISTS `permisos` (
@@ -255,13 +255,13 @@ CREATE TABLE IF NOT EXISTS `persona` (
   CONSTRAINT `FK_persona_rol_empleado` FOREIGN KEY (`rolidempleado`) REFERENCES `rol_empleado` (`idrolempleado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.persona: ~15 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.persona: ~16 rows (aproximadamente)
 DELETE FROM `persona`;
 INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `hotel`, `token`, `rolid`, `datecreated`, `status`, `direccion`, `ciudad`, `rolidempleado`) VALUES
 	(2, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@gmail.com', '1a5376ad727d65213a79f3108541cf95012969a0d3064f108b5dd6e7f8c19b89', NULL, NULL, 2, '2023-11-29 10:57:56', 1, NULL, NULL, NULL),
 	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222', NULL),
 	(24, 'JUAN LLOCYA', 'Juan Manuel', 'Llocya Castro', 918313532, 'jllocya@system32.shop', '', 'sssssss', NULL, NULL, '2023-11-29 11:03:25', 0, NULL, NULL, 1),
-	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', NULL, NULL, NULL, '2023-12-06 17:27:31', 0, NULL, NULL, 1),
+	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', 'kkkkkkk', NULL, NULL, '2023-12-06 17:27:31', 0, NULL, NULL, 1),
 	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 9171893004, '2002010167@undc.edu.pe', '', NULL, NULL, NULL, '2023-12-16 10:41:03', 0, 'Av Lima', 'Quilmana', 1),
 	(30, '4444444444', 'FRANK', 'GALAGER', 99999999, 'FRANK@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'lima', NULL, 3, '2024-05-12 23:57:54', 1, NULL, NULL, NULL),
 	(56, '75486524', 'JHON VIGNEY', 'ROMERO MELCHOR', 918313532, 'javierpadin6w61@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 08:34:47', 1, NULL, NULL, 20),
@@ -297,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
 -- Volcando datos para la tabla agencia.producto: ~169 rows (aproximadamente)
 DELETE FROM `producto`;
 INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `fecha_v`, `imagen`, `datecreated`, `ruta`, `status`) VALUES
-	(1, 1, '2417984565', 'Chaqueta Azul', '<p>a</p>', 100.00, 50, '2023-12-30', NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 0),
+	(1, 1, '2417984565', 'Chaqueta Azul', '<p>a</p>', 100.00, 50, '2023-12-30', NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 1),
 	(2, 1, '456879878', 'Reloj', '<p>b</p>', 200.00, 100, '2023-10-03', NULL, '2021-08-20 03:14:10', 'reloj', 0),
 	(3, 5, '4658798787', 'Pack Shampoo y Acondicionador Dove Reconstrucción Completa Frasco 400ml', '', 28.00, 12, '2023-12-16', NULL, '2021-08-21 00:48:21', 'pack-shampoo-y-acondicionador-dove-reconstruccion-completa-frasco-400ml', 1),
 	(4, 1, '113333', 'dd', 'd', 2.50, 5, '2023-11-10', NULL, '2023-11-08 23:22:14', 'dd', 0),
@@ -565,13 +565,13 @@ CREATE TABLE IF NOT EXISTS `venta` (
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.venta: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.venta: ~5 rows (aproximadamente)
 DELETE FROM `venta`;
 INSERT INTO `venta` (`idventa`, `codigo_venta`, `datecreated`, `idvendedor`, `dni_cliente`, `idtipopago`, `total`, `status`) VALUES
-	(25, 'v_1', '2024-06-11 16:41:38', 22, '72014141', 1, 2.00, 1),
-	(27, 'v_2', '2024-06-11 17:33:06', 22, '72014141', 3, 5.00, 1),
-	(28, 'v_3', '2024-06-11 18:45:06', 22, '4444444444', 1, 1.00, 1),
-	(29, 'v_4', '2024-06-11 18:46:52', 22, '72014141', 2, 12.00, 1),
+	(25, 'v_1', '2024-06-11 16:41:38', 22, '72014141', 1, 81.00, 1),
+	(27, 'v_2', '2024-06-11 17:33:06', 22, '72014141', 3, 333.00, 1),
+	(28, 'v_3', '2024-06-10 18:45:06', 22, '4444444444', 1, 333.00, 1),
+	(29, 'v_4', '2024-06-11 18:46:52', 22, '72014141', 2, 30.00, 1),
 	(30, 'v_5', '2024-06-11 18:49:57', 22, '72014141', 1, 14.00, 1);
 
 -- Volcando estructura para tabla agencia.venta_persona
