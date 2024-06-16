@@ -234,10 +234,12 @@
 						   v.idtipopago,
 						   tp.tipopago as tipopago_nombre,
 						   v.total,
-						   v.status
+						   v.status,
+						   p.nombres,
+						   p.email_user
 					FROM venta v
-					INNER JOIN tipopago tp
-					ON v.idtipopago = tp.idtipopago" . $where;
+					INNER JOIN tipopago tp	ON v.idtipopago = tp.idtipopago 
+					INNER JOIN persona p ON v.dni_cliente = p.identificacion". $where;
 			$request = $this->select_all($sql);
 			return $request;
 		}

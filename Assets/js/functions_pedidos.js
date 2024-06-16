@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function(){
       },
       "columns": [
         { "data": "codigo_venta" },
-        { "data": "dni_cliente" },
+        { "data": "nombres_emails" },
         { "data": "datecreated" },
         { "data": "tipopago_nombre" },
         { "data": "total" },
