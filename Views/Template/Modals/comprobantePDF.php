@@ -93,17 +93,9 @@ $detalle = $data['detalle'];
 						Email: <?= EMAIL_EMPRESA ?></p>
 				</td>
 				<td class="text-right wd33">
-					<p>No. Orden <strong><?= $orden['idpedido'] ?></strong><br>
+					<p>No. Orden <strong><?= $orden['codigo_venta'] ?></strong><br>
 						Fecha: <?= $orden['fecha'] ?> <br>
-						<?php
-						if ($orden['tipopagoid'] == 1) {
-							?>
-							Método Pago: <?= $orden['tipopago'] ?> <br>
-							Transacción: <?= $orden['idtransaccionpaypal'] ?>
-						<?php } else { ?>
-							Método Pago: Pago contra entrega <br>
-							Tipo Pago: <?= $orden['tipopago'] ?>
-						<?php } ?>
+						Método Pago: <?= $orden['tipopago'] ?> <br>
 					</p>
 				</td>
 			</tr>
@@ -122,8 +114,11 @@ $detalle = $data['detalle'];
 				<td>Nombre:</td>
 				<td><?= $cliente['nombres'] . ' ' . $cliente['apellidos'] ?></td>
 				<td>Dirección:</td>
-				<td>ver en comprobantePDF.php</td>
-				<!-- <td><?= $cliente['direccionfiscal'] ?></td> -->
+				<td><?= $cliente['hotel'] ?></td>
+			</tr>
+			<tr>
+			<td class="wd10">Correo:</td>
+			<td class="wd40"><?= $cliente['email_user'] ?></td>
 			</tr>
 		</tbody>
 	</table>

@@ -24,6 +24,7 @@
 						$idpersona = $_SESSION['userData']['idpersona'];
 					}
 					$data = $this->model->selectPedido($idpedido,$idpersona);
+					// echo($data);
 					if(empty($data)){
 						echo "Datos no encontrados";
 					}else{

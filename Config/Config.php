@@ -39,9 +39,9 @@ const SECRET = "";
 //const SECRET = "";
 
 //Datos envio de correo
-const NOMBRE_REMITENTE = "Market Chamorro";
+const NOMBRE_REMITENTE = "Vive tu aventura";
 const EMAIL_REMITENTE = "no-reply@tecomsis.com";
-const NOMBRE_EMPESA = "Market Chamorro";
+const NOMBRE_EMPESA = "Vive tu aventura";
 const WEB_EMPRESA = "www.system32.com";
 
 const DESCRIPCION = "Un negocio familiar que ofrece variedad de productos, calidad y a buen precio.";
