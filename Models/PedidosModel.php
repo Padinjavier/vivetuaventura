@@ -2,6 +2,7 @@
 	class PedidosModel extends Mysql
 	{
 		private $objCategoria;
+		private $intIdVenta;
 		public function __construct()
 		{
 			parent::__construct();
@@ -220,23 +221,23 @@
 		}
 		
 
-		public function selectVentas($idpersona = null){
-			$where = "";
+		public function selectVentas($idpersona){
+			$where = " WHERE v.status = 1";
 			if($idpersona != null){
-				$where = " WHERE v.idvendedor = ".$idpersona;
+				$where .= " AND v.idvendedor = " . $idpersona;
 			}
 			$sql = "SELECT v.idventa,
-							v.codigo_venta,
-							 DATE_FORMAT(datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
-							v.idvendedor,
-							v.dni_cliente,
-							v.idtipopago,
-							tp.tipopago as tipopago_nombre,
-							v.total,
-							v.status
+						   v.codigo_venta,
+						   DATE_FORMAT(v.datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
+						   v.idvendedor,
+						   v.dni_cliente,
+						   v.idtipopago,
+						   tp.tipopago as tipopago_nombre,
+						   v.total,
+						   v.status
 					FROM venta v
 					INNER JOIN tipopago tp
-					ON v.idtipopago = tp.idtipopago $where ";
+					ON v.idtipopago = tp.idtipopago" . $where;
 			$request = $this->select_all($sql);
 			return $request;
 		}
@@ -248,7 +249,19 @@
 			$request = $this->select_all($sql);
 			return $request;
 		}
-// ----------------
+
+		public function deleteVenta(int $intIdventa)
+		{
+			$this->intIdVenta = $intIdventa;
+			$sql = "UPDATE venta SET status = ? WHERE idventa = $this->intIdVenta ";
+			$arrData = array(0);
+			$request = $this->update($sql,$arrData);
+			return $request;
+		}
+
+
+
+		// ----------------
 // ----------------
 // ----------------
 

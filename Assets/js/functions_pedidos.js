@@ -546,7 +546,7 @@ function fntViewVenta(idventa){
               document.querySelector("#celTelefono").innerHTML = objData.data.venta.total;
               document.querySelector("#celEmail").innerHTML = texto
               document.querySelector("#celFechaRegistro").innerHTML = fechaFormateada;
-              $('#modalViewUser').modal('show');
+              $('#modalViewVenta').modal('show');
           }else{
               swal("Error", objData.msg , "error");
           }
@@ -554,6 +554,47 @@ function fntViewVenta(idventa){
   }
 }
 
+// funcion delet 
+// funcion delet 
+function fntDelEmpleado(idventa){
+  swal({
+      title: "Eliminar Venta",
+      text: "¿Realmente quiere eliminar al Venta?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Si, eliminar!",
+      cancelButtonText: "No, cancelar!",
+      closeOnConfirm: false,
+      closeOnCancel: true
+  }, function(isConfirm) {
+      
+      if (isConfirm) 
+      {
+          let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+          let ajaxUrl = base_url+'/Pedidos/delVenta';
+          // cuando es post es los name de los imput
+          let strData = "idVenta="+idventa;
+          request.open("POST",ajaxUrl,true);
+          console.log(strData)
+          request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          request.send(strData);
+          request.onreadystatechange = function(){
+              if(request.readyState == 4 && request.status == 200){
+                  let objData = JSON.parse(request.responseText);
+                  if(objData.status)
+                  {
+                      swal("Eliminado", objData.msg , "success");
+                      tablePedidos.api().ajax.reload();
+                  }else{
+                      swal("Atención!", objData.msg , "error");
+                  }
+              }
+          }
+      }
+
+  });
+
+}
 
 
 

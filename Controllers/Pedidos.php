@@ -21,7 +21,7 @@ class Pedidos extends Controllers{
 		}
 		$data['page_tag'] = "Ventas";
 		$data['page_title'] = "Ventas <small> </small>";
-		$data['page_name'] = "pedidos";
+		$data['page_name'] = "ventas";
 		$data['page_functions_js'] = "functions_pedidos.js";
 		$this->views->getView($this,"pedidos",$data);
 	}
@@ -220,10 +220,9 @@ class Pedidos extends Controllers{
 
 	public function getVentas(){
 		if($_SESSION['permisosMod']['r']){
-			$idpersona = "";
-			if( $_SESSION['userData']['idrolusuario'] == RCLIENTES ){
-				$idpersona = $_SESSION['userData']['idpersona'];
-			}
+			
+			$idpersona = $_SESSION['userData']['idpersona'];
+			
 			$arrData = $this->model->selectVentas($idpersona);
 			//dep($arrData);
 			for ($i=0; $i < count($arrData); $i++) {
@@ -232,7 +231,7 @@ class Pedidos extends Controllers{
 				$btnDelete = '';
 				$btnPdf = '';
 	
-				$arrData[$i]['total']= "S/".($arrData[$i]['total']);
+				// $arrData[$i]['total']= "S/".($arrData[$i]['total']);
 				// Cambios en los nombres de las claves de los datos obtenidos
 				$arrData[$i]['transaccion'] = $arrData[$i]['codigo_venta'];
 				
@@ -240,6 +239,8 @@ class Pedidos extends Controllers{
 				if($_SESSION['permisosMod']['r']){
 					$btnView = '<button class="btn btn-info btn-sm btnView btnViewEmpleado" onClick="fntViewVenta('.$arrData[$i]['idventa'].')" title="Ver Venta"><i class="far fa-eye"></i></button>';
 					$btnPdf = '<button class="btn btn-secondary btn-sm  btnViewEmpleado" onClick="fntViewVenta('.$arrData[$i]['idventa'].')" title="Ver PDF Venta"><i class="bi bi-filetype-pdf"></i></button>';
+						// $btnView1 .= '<a title="Ver Transacción" href="'.base_url().'/pedidos/transaccion/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> '; // Se usa la clave 'transaccion'
+
 				
 				}
 				if($_SESSION['permisosMod']['u']){
@@ -288,8 +289,23 @@ class Pedidos extends Controllers{
 		die();
 	}
 
-
-
+	public function delVenta()
+	{
+		if($_POST){
+			if($_SESSION['permisosMod']['d']){
+				$intIdventa = intval($_POST['idVenta']);
+				$requestDelete = $this->model->deleteVenta($intIdventa);
+				if($requestDelete)
+				{
+					$arrResponse = array('status' => true, 'msg' => 'Datos de la venta eliminado correctamente.');
+				}else{
+					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar al Empleado.');
+				}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			}
+		}
+		die();
+	}
 
 
 
