@@ -22,8 +22,8 @@ class Pedidos extends Controllers{
 		$data['page_tag'] = "Ventas";
 		$data['page_title'] = "Ventas <small> </small>";
 		$data['page_name'] = "ventas";
-		$data['page_functions_js'] = "functions_pedidos.js";
-		$this->views->getView($this,"pedidos",$data);
+		$data['page_functions_js'] = "functions_ventas.js";
+		$this->views->getView($this,"ventas",$data);
 	}
 
 	public function getPedidos(){
