@@ -1,6 +1,6 @@
 <?php 
 require_once("Models/TTipoPago.php"); 
-class Pedidos extends Controllers{
+class Ventas extends Controllers{
 	use TTipoPago;
 	public function __construct()
 	{
@@ -14,7 +14,7 @@ class Pedidos extends Controllers{
 		getPermisos(MPEDIDOS);
 	}
 
-	public function Pedidos()
+	public function Ventas()
 	{
 		if(empty($_SESSION['permisosMod']['r'])){
 			header("Location:".base_url().'/dashboard');
@@ -29,7 +29,7 @@ class Pedidos extends Controllers{
 
 	public function orden($idventa){
 		if(!is_numeric($idventa)){
-			header("Location:".base_url().'/pedidos');
+			header("Location:".base_url().'/ventas');
 		}
 		if(empty($_SESSION['permisosMod']['r'])){
 			header("Location:".base_url().'/dashboard');
@@ -67,25 +67,25 @@ class Pedidos extends Controllers{
 		die();
 	}
 
-	public function setReembolso(){
-		if($_POST){
-			if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
-				//dep($_POST);
-				$transaccion = strClean($_POST['idtransaccion']);
-				$observacion = strClean($_POST['observacion']);
-				$requestTransaccion = $this->model->reembolsoPaypal($transaccion,$observacion);
-				if($requestTransaccion){
-					$arrResponse = array("status" => true, "msg" => "El reembolso se ha procesado.");
-				}else{
-					$arrResponse = array("status" => false, "msg" => "No es posible procesar el reembolso.");
-				}
-			}else{
-				$arrResponse = array("status" => false, "msg" => "No es posible realizar el proceso, consulte al administrador.");
-			}
-			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-		}
-		die();
-	}
+	// public function setReembolso(){
+	// 	if($_POST){
+	// 		if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
+	// 			//dep($_POST);
+	// 			$transaccion = strClean($_POST['idtransaccion']);
+	// 			$observacion = strClean($_POST['observacion']);
+	// 			$requestTransaccion = $this->model->reembolsoPaypal($transaccion,$observacion);
+	// 			if($requestTransaccion){
+	// 				$arrResponse = array("status" => true, "msg" => "El reembolso se ha procesado.");
+	// 			}else{
+	// 				$arrResponse = array("status" => false, "msg" => "No es posible procesar el reembolso.");
+	// 			}
+	// 		}else{
+	// 			$arrResponse = array("status" => false, "msg" => "No es posible realizar el proceso, consulte al administrador.");
+	// 		}
+	// 		echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+	// 	}
+	// 	die();
+	// }
 
 	public function getVenta($idventa){
 		if ($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES) {
@@ -184,8 +184,8 @@ class Pedidos extends Controllers{
 	
 				if($_SESSION['permisosMod']['r']){
 					$btnView = '<button class="btn btn-info btn-sm btnView btnViewEmpleado" onClick="fntViewVenta('.$arrData[$i]['idventa'].')" title="Ver Venta"><i class="far fa-eye"></i></button>';
-					$btnViewTrans = '<a title="Ver Transacción" href="'.base_url().'/pedidos/transaccion/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> '; // Se usa la clave 'transaccion'
-					$btnViewdetalle = ' <a title="Ver Detalle" href="'.base_url().'/pedidos/orden/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>';
+					$btnViewTrans = '<a title="Ver Transacción" href="'.base_url().'/ventas/transaccion/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> '; // Se usa la clave 'transaccion'
+					$btnViewdetalle = ' <a title="Ver Detalle" href="'.base_url().'/ventas/orden/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>';
 					$btnPdf = '<a  class="btn btn-secondary btn-sm  btnViewEmpleado" href="'.base_url().'/factura/generarFactura/'.$arrData[$i]['idventa'].'" target="_blanck"  title="Ver PDF Venta"><i class="bi bi-filetype-pdf"></i></a> ';
 				}
 				if($_SESSION['permisosMod']['u']){

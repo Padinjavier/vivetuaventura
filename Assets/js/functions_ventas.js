@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
         "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
       },
       "ajax": {
-        "url": " "+base_url+"/Pedidos/getVentas",
+        "url": " "+base_url+"/Ventas/getVentas",
         "dataSrc": ""
       },
       "columns": [
@@ -115,7 +115,7 @@ formVenta.onsubmit = function (e) {
 
     divLoading.style.display = "flex";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url + '/Pedidos/setVenta';
+    let ajaxUrl = base_url + '/Ventas/setVenta';
     let formData = new FormData();
     
     // Agregar datos al formData
@@ -197,7 +197,7 @@ window.addEventListener("load", function () {
 
 function fnttipopagolist() {
   if (document.querySelector("#listMetodoPagoid")) {
-      let ajaxUrl = base_url + "/Pedidos/getlisttipopago";
+      let ajaxUrl = base_url + "/Ventas/getlisttipopago";
       let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
       request.open("GET", ajaxUrl, true);
       request.send();
@@ -405,7 +405,7 @@ function fntEditInfo(element, idventa) {
   document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
   document.querySelector('#btnText').innerHTML = "Actualizar";
   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/getVenta/'+idventa;
+  let ajaxUrl = base_url + '/Ventas/getVenta/'+idventa;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -507,7 +507,7 @@ function asignarDatos(detalleVenta) {
 // funcion view venta 
 function fntViewVenta(idventa){
   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url+'/Pedidos/getVenta/'+idventa;
+  let ajaxUrl = base_url+'/Ventas/getVenta/'+idventa;
   request.open("GET",ajaxUrl,true);
   request.send();
   request.onreadystatechange = function(){
@@ -554,7 +554,7 @@ function fntDelEmpleado(idventa){
       if (isConfirm) 
       {
           let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-          let ajaxUrl = base_url+'/Pedidos/delVenta';
+          let ajaxUrl = base_url+'/Ventas/delVenta';
           // cuando es post es los name de los imput
           let strData = "idVenta="+idventa;
           request.open("POST",ajaxUrl,true);
