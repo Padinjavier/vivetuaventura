@@ -242,7 +242,7 @@ class Pedidos extends Controllers{
 				if($_SESSION['permisosMod']['r']){
 					$btnView = '<button class="btn btn-info btn-sm btnView btnViewEmpleado" onClick="fntViewVenta('.$arrData[$i]['idventa'].')" title="Ver Venta"><i class="far fa-eye"></i></button>';
 					// $btnViewTrans = '<a title="Ver Transacción" href="'.base_url().'/pedidos/transaccion/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="fa fa-paypal" aria-hidden="true"></i> </a> '; // Se usa la clave 'transaccion'
-					// $btnViewdetalle = ' <a title="Ver Detalle" href="'.base_url().'/pedidos/orden/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>';
+					$btnViewdetalle = ' <a title="Ver Detalle" href="'.base_url().'/pedidos/orden/'.$arrData[$i]['idventa'].'" target="_blanck" class="btn btn-info btn-sm"> <i class="far fa-eye"></i> </a>';
 					$btnPdf = '<a  class="btn btn-secondary btn-sm  btnViewEmpleado" href="'.base_url().'/factura/generarFactura/'.$arrData[$i]['idventa'].'" target="_blanck"  title="Ver PDF Venta"><i class="bi bi-filetype-pdf"></i></a> ';
 				}
 				if($_SESSION['permisosMod']['u']){

@@ -76,6 +76,9 @@ $detalle = $data['detalle'];
 		.tbl-detalle tfoot td {
 			padding: 5px;
 		}
+		p.noboleta{
+			color: #c6c9cb;
+		}
 	</style>
 </head>
 
@@ -123,7 +126,7 @@ $detalle = $data['detalle'];
 		</tbody>
 	</table>
 	<br>
-	<p><?php 
+	<!-- <p><?php 
 			$subtotal = 0;
 	foreach ($detalle as $servicio) {
 
@@ -135,7 +138,7 @@ $detalle = $data['detalle'];
 	echo(SMONEY . ' ' . formatMoney($subtotal));
 	echo(SMONEY . ' ' . formatMoney($orden['total']));
 	
-?></p>
+?></p> -->
 	<table class="tbl-detalle m-1" style="border: 10px solid red;">
 		<thead>
 			<tr>
@@ -173,7 +176,7 @@ $detalle = $data['detalle'];
 		</tfoot>
 	</table>
 	<div class="text-center ">
-		<p>Nota: Este documento no es un comprobante fiscal.<br>
+		<p class="noboleta">Nota: Este documento no es un comprobante fiscal.<br>
 		Es una nota de venta para el control interno de la agencia.<br>
 		Si tienes preguntas sobre tu pedido, por favor ponte en contacto con nosotros</p>
 		<h4>¡Gracias por tu eleccion!</h4>
