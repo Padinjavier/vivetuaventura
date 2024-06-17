@@ -64,7 +64,7 @@ $detalle = $data['detalle'];
 
 		.tbl-detalle thead th {
 			padding: 5px;
-			background-color: #009688;
+			background-color: #F37101;
 			color: #FFF;
 		}
 
@@ -134,33 +134,39 @@ $detalle = $data['detalle'];
     echo json_encode($detalle, JSON_PRETTY_PRINT);
 	echo(SMONEY . ' ' . formatMoney($subtotal));
 	echo(SMONEY . ' ' . formatMoney($orden['total']));
+	
 ?></p>
 	<table class="tbl-detalle m-1" style="border: 10px solid red;">
 		<thead>
 			<tr>
+				<th class="wd10">N°</th>
 				<th class="wd55">Descripción</th>
-				<th class="wd15 text-right">Precio</th>
-				<th class="wd15 text-center">Cantidad</th>
+				<th class="wd10 text-right">Precio</th>
+				<th class="wd10 text-center">Cantidad</th>
 				<th class="wd15 text-right">Importe</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
 			$subtotal = 0;
+			$i=0;
 			foreach ($detalle as $servicio) {
 				$importe = $servicio['precio'] * $servicio['cantidad'];
 				$subtotal = $subtotal + $importe;
+				$i++;
 				?>
 				<tr>
+					<td><?= $i ?></td>
 					<td><?= $servicio['servicio'] ?></td>
 					<td class="text-right"><?= SMONEY . ' ' . formatMoney($servicio['precio']) ?></td>
 					<td class="text-center"><?= $servicio['cantidad'] ?></td>
 					<td class="text-right"><?= SMONEY . ' ' . formatMoney($importe) ?></td>
 				</tr>
-			<?php } ?>
+			<?php  }	?>
 		</tbody>
 		<tfoot>
 			<tr>
+				<td></td>
 				<td colspan="3" class="text-right">Total:</td>
 				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
 			</tr>

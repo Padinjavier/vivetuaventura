@@ -432,7 +432,7 @@ function fntEditInfo(element, idpedido) {
               // Ejecutar la asignación de datos después de un retraso
               setTimeout(function() {
                   asignarDatos(objData.data.detalle_venta);
-              }, 125); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
+              }, 1125); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
           }
       }
   }
