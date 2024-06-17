@@ -48,13 +48,13 @@ function imprimirPedido() {
     <div class="col-md-12">
       <div class="tile">
         <?php
-          if(empty($data['arrPedido'])){
+          if(empty($data['arrVenta'])){
         ?>
         <p>Datos no encontrados</p>
         <?php }else{
-            $cliente = $data['arrPedido']['cliente']; 
-            $orden = $data['arrPedido']['orden'];
-            $detalle = $data['arrPedido']['detalle'];
+            $cliente = $data['arrVenta']['cliente']; 
+            $orden = $data['arrVenta']['orden'];
+            $detalle = $data['arrVenta']['detalle'];
             $transaccion = $orden['idtransaccionpaypal'] != "" ? 
                            $orden['idtransaccionpaypal'] : 
                            $orden['referenciacobro'];

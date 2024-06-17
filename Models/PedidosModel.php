@@ -31,7 +31,7 @@
 
 		// el segundo select es dibidifo y es select_all debido a que necesito que traiga losdatos de toods 
 		// los evicion indexados a la venta en lotes de array para ahcer el for del llenado de datos
-		public function selectPedido(int $idventa){
+		public function selectVenta(int $idventa){
 			$request = array();
 			$sql = "SELECT v.idventa,
 							v.codigo_venta,
@@ -69,22 +69,6 @@
 			return $request;
 		}
 		
-		public function selectTransPaypal(string $idtransaccion, $idpersona = NULL){
-			$busqueda = "";
-			if($idpersona != NULL){
-				$busqueda = " AND personaid =".$idpersona;
-			}
-			$objTransaccion = array();
-			$sql = "SELECT datospaypal FROM pedido WHERE idtransaccionpaypal = '{$idtransaccion}' ".$busqueda;
-			$requestData = $this->select($sql);
-			if(!empty($requestData)){
-				$objData = json_decode($requestData['datospaypal']);
-				//$urlOrden = $objData->purchase_units[0]->payments->captures[0]->links[2]->href;
-				$urlOrden = $objData->links[0]->href;
-				$objTransaccion = CurlConnectionGet($urlOrden,"application/json",getTokenPaypal());
-			}
-			return $objTransaccion;
-		}
 
 		public function reembolsoPaypal(string $idtransaccion, string $observacion){
 			$response = false;
