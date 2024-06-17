@@ -1,5 +1,5 @@
 <!-- modal  -->
-<div class="modal fade" id="modalFormPedido" tabindex="-1" role="dialog" aria-hidden="true" >
+<div class="modal fade" id="modalFormVenta" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog modal-xl" >
         <div class="modal-content">
             <div class="modal-header headerUpdate">
@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formUpdatePedido" name="formUpdatePedido" class="form-horizontal">
+                <form id="formUpdateVenta" name="formUpdateVenta" class="form-horizontal">
                     <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
                     <p class="viewcodigoventa d-none">Codigo venta: <span id="idVenta">v_001</span></p>
                     <div class="row">

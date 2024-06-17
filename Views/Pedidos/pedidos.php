@@ -1,7 +1,7 @@
 <?php 
     headerAdmin($data); 
     //getModal('modalProductos',$data);
-    getModal('modalPedido',$data);
+    getModal('modalVenta',$data);
 ?>
     <div id="divModal"></div>
     <main class="app-content">
@@ -23,7 +23,7 @@
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered w-100" id="tablePedidos">
+                    <table class="table table-hover table-bordered w-100" id="tableVentas">
                       <thead>
                         <tr>
                           <th>ID</th>

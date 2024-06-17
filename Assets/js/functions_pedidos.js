@@ -1,9 +1,9 @@
-let tablePedidos;
+let tableVentas;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
 
-    tablePedidos = $('#tablePedidos').dataTable({
+  tableVentas = $('#tableVentas').dataTable({
       "aProcessing":true,
       "aServerSide":true,
       "language": {
@@ -66,10 +66,10 @@ document.addEventListener('DOMContentLoaded', function(){
 // ------------------------------------
 // -------------se usa-----------------------
 // ------------------------------------
-// NUEVO Pedido
-if(document.querySelector("#formUpdatePedido")){
-let formPedido = document.querySelector("#formUpdatePedido");
-formPedido.onsubmit = function (e) {
+// NUEVA VENTA
+if(document.querySelector("#formUpdateVenta")){
+let formVenta = document.querySelector("#formUpdateVenta");
+formVenta.onsubmit = function (e) {
     e.preventDefault();
     let idVenta = document.querySelector('#idVenta').innerText;
     let strDNI = document.querySelector('#listClienteid').value;
@@ -136,19 +136,19 @@ formPedido.onsubmit = function (e) {
               console.log(objData)
               console.log(objData.data)
               if(rowTable == ""){
-                tablePedidos.api().ajax.reload();
+                tableVentas.api().ajax.reload();
               } else {
                 // rowTable.cells[0].textContent = idVenta;
                 // rowTable.cells[1].textContent = strDNI;
                 // rowTable.cells[2].textContent = idMetodoPago; // Fecha de la venta
                 // rowTable.cells[3].textContent = idMetodoPago; // Nombre del tipo de pago
                 // rowTable.cells[4].textContent = "S/" + total;
-                tablePedidos.api().ajax.reload();
+                tableVentas.api().ajax.reload();
             
               }
 
-                $('#modalFormPedido').modal("hide");
-                formPedido.reset();
+                $('#modalFormVenta').modal("hide");
+                formVenta.reset();
                 if(objData.action=="insert"){
                   swal("Guardado", objData.msg ,"success");
                 }else{
@@ -391,7 +391,7 @@ function sumarPreciosTotales() {
 // ------editar venta-----------
 // ------editar venta-----------
 
-function fntEditInfo(element, idpedido) {
+function fntEditInfo(element, idventa) {
 
   // Eliminar elementos del grupo de servicio pero debe dejar al menos uno
   let detalleVentaRows = document.querySelectorAll('.detalle-venta-row');
@@ -405,7 +405,7 @@ function fntEditInfo(element, idpedido) {
   document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
   document.querySelector('#btnText').innerHTML = "Actualizar";
   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/getPedido/'+idpedido;
+  let ajaxUrl = base_url + '/Pedidos/getPedido/'+idventa;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -428,7 +428,7 @@ function fntEditInfo(element, idpedido) {
               for (let i = 0; i < cantidadDatos; i++) {
                   btnAgregarProducto.click();
               }
-              $('#modalFormPedido').modal('show');
+              $('#modalFormVenta').modal('show');
               // Ejecutar la asignación de datos después de un retraso
               setTimeout(function() {
                   asignarDatos(objData.data.detalle_venta);
@@ -442,11 +442,9 @@ function asignarDatos(detalleVenta) {
   let cantidadDatos = detalleVenta.length;
   // Asignar los datos a los grupos respectivos
   let grupos = document.querySelectorAll(".detalle-venta-row");
-  // console.log(document.querySelectorAll(".detalle-venta-row"));
 
   for (let i = 0; i < cantidadDatos; i++) {
       let datosLote = detalleVenta[i];
-      // console.log(datosLote)
       let grupoActual = grupos[i];
       if (grupoActual) {
           let servicioSelect = grupoActual.querySelector("#listservicios");
@@ -485,7 +483,7 @@ function asignarDatos(detalleVenta) {
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML = "Guardar";
-    document.querySelector("#formUpdatePedido").reset();
+    document.querySelector("#formUpdateVenta").reset();
 
     // Eliminar elementos del grupo de servicio pero debe dejar al menos uno
     let detalleVentaRows = document.querySelectorAll('.detalle-venta-row');
@@ -500,7 +498,7 @@ function asignarDatos(detalleVenta) {
   document.getElementById("gran_descuento").innerText ="00.00";
   document.getElementById("gran_total").innerText ="00.00";
   
-    $('#modalFormPedido').modal('show');
+    $('#modalFormVenta').modal('show');
   }
 
 
@@ -569,7 +567,7 @@ function fntDelEmpleado(idventa){
                   if(objData.status)
                   {
                       swal("Eliminado", objData.msg , "success");
-                      tablePedidos.api().ajax.reload();
+                      tableVentas.api().ajax.reload();
                   }else{
                       swal("Atención!", objData.msg , "error");
                   }
@@ -580,218 +578,6 @@ function fntDelEmpleado(idventa){
   });
 
 }
-
-
 // ------------------------------------
 // -------------fin se usan-----------------------
 // ------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function fntTransaccion(idtransaccion) {
-  let request = (window.XMLHttpRequest) ?
-    new XMLHttpRequest() :
-    new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/getTransaccion/' + idtransaccion;
-  divLoading.style.display = "flex";
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        document.querySelector("#divModal").innerHTML = objData.html;
-        $('#modalReembolso').modal('show');
-      } else {
-        swal("Errorrrrr", objData.msg, "error");
-      }
-      divLoading.style.display = "none";
-      return false;
-    }
-  }
-}
-
-function fntReembolsar() {
-  let idtransaccion = document.querySelector("#idtransaccion").value;
-  let observacion = document.querySelector("#txtObservacion").value;
-  if (idtransaccion == '' || observacion == '') {
-    swal("", "Complete los datos para continuar.", "error");
-    return false;
-  }
-
-  swal({
-    title: "Hacer Reembolso",
-    text: "¿Realmente quiere realizar el reembolso?",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Si, eliminar!",
-    cancelButtonText: "No, cancelar!",
-    closeOnConfirm: true,
-    closeOnCancel: true
-  }, function (isConfirm) {
-
-    if (isConfirm) {
-      $('#modalReembolso').modal('hide');
-      divLoading.style.display = "flex";
-      let request = (window.XMLHttpRequest) ?
-        new XMLHttpRequest() :
-        new ActiveXObject('Microsoft.XMLHTTP');
-      let ajaxUrl = base_url + '/Pedidos/setReembolso';
-      let formData = new FormData();
-      formData.append('idtransaccion', idtransaccion);
-      formData.append('observacion', observacion);
-      request.open("POST", ajaxUrl, true);
-      request.send(formData);
-      request.onreadystatechange = function () {
-        if (request.readyState != 4) return;
-        if (request.status == 200) {
-          let objData = JSON.parse(request.responseText);
-          if (objData.status) {
-            window.location.reload();
-          } else {
-            swal("Error", objData.msg, "error");
-          }
-          divLoading.style.display = "none";
-          return false;
-        }
-      }
-    }
-
-  });
-}
-
-
-function newpedidojs() {
-  let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/newPedido/';
-  divLoading.style.display = "flex";
-  request.open("GET", ajaxUrl, true);
-  request.send();
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      try {
-        console.log(request)
-        console.log(request.responseText)
-        let objData = JSON.parse(request.responseText);
-        if (objData.status) {
-          document.querySelector("#divModal").innerHTML = objData.html;
-          $('#modalFormPedido').modal('show');
-          $('select').selectpicker();
-          fntUpdateInfo();
-        } else {
-          swal("Error", objData.msg, "error");
-        }
-      } catch (e) {
-        console.error("Parsing error:", e);
-        swal("Error", "Error al procesar la respuesta del servidor", "error");
-      }
-      divLoading.style.display = "none";
-    }
-  }
-}
-
-
-function fntUpdateInfo() {
-  let formUpdatePedido = document.querySelector("#formUpdatePedido");
-  formUpdatePedido.onsubmit = function (e) {
-    e.preventDefault();
-    let transaccion;
-    if (document.querySelector("#txtTransaccion")) {
-      transaccion = document.querySelector("#txtTransaccion").value;
-      if (transaccion == "") {
-        swal("", "Complete los datos para continuar.", "error");
-        return false;
-      }
-    }
-
-    let request = (window.XMLHttpRequest) ?
-      new XMLHttpRequest() :
-      new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url + '/Pedidos/setPedido/';
-    divLoading.style.display = "flex";
-    let formData = new FormData(formUpdatePedido);
-    request.open("POST", ajaxUrl, true);
-    request.send(formData);
-    request.onreadystatechange = function () {
-      if (request.readyState != 4) return;
-      if (request.status == 200) {
-        let objData = JSON.parse(request.responseText);
-        if (objData.status) {
-          swal("", objData.msg, "success");
-          $('#modalFormPedido').modal('hide');
-          if (document.querySelector("#txtTransaccion")) {
-            rowTable.cells[1].textContent = document.querySelector("#txtTransaccion").value;
-            rowTable.cells[4].textContent = document.querySelector("#listTipopago").selectedOptions[0].innerText;
-            rowTable.cells[5].textContent = document.querySelector("#listEstado").value;
-          } else {
-            rowTable.cells[5].textContent = document.querySelector("#listEstado").value;
-          }
-        } else {
-          swal("Error", objData.msg, "error");
-        }
-
-        divLoading.style.display = "none";
-        return false;
-      }
-    }
-
-  }
-}
