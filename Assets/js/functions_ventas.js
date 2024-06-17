@@ -115,7 +115,7 @@ formVenta.onsubmit = function (e) {
 
     divLoading.style.display = "flex";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url + '/Pedidos/setPedido';
+    let ajaxUrl = base_url + '/Pedidos/setVenta';
     let formData = new FormData();
     
     // Agregar datos al formData
@@ -405,7 +405,7 @@ function fntEditInfo(element, idventa) {
   document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
   document.querySelector('#btnText').innerHTML = "Actualizar";
   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url + '/Pedidos/getPedido/'+idventa;
+  let ajaxUrl = base_url + '/Pedidos/getVenta/'+idventa;
   request.open("GET", ajaxUrl, true);
   request.send();
   request.onreadystatechange = function () {
@@ -507,7 +507,7 @@ function asignarDatos(detalleVenta) {
 // funcion view venta 
 function fntViewVenta(idventa){
   let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  let ajaxUrl = base_url+'/Pedidos/getPedido/'+idventa;
+  let ajaxUrl = base_url+'/Pedidos/getVenta/'+idventa;
   request.open("GET",ajaxUrl,true);
   request.send();
   request.onreadystatechange = function(){
