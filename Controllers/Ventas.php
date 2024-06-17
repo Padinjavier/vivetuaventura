@@ -67,25 +67,6 @@ class Ventas extends Controllers{
 		die();
 	}
 
-	// public function setReembolso(){
-	// 	if($_POST){
-	// 		if($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES){
-	// 			//dep($_POST);
-	// 			$transaccion = strClean($_POST['idtransaccion']);
-	// 			$observacion = strClean($_POST['observacion']);
-	// 			$requestTransaccion = $this->model->reembolsoPaypal($transaccion,$observacion);
-	// 			if($requestTransaccion){
-	// 				$arrResponse = array("status" => true, "msg" => "El reembolso se ha procesado.");
-	// 			}else{
-	// 				$arrResponse = array("status" => false, "msg" => "No es posible procesar el reembolso.");
-	// 			}
-	// 		}else{
-	// 			$arrResponse = array("status" => false, "msg" => "No es posible realizar el proceso, consulte al administrador.");
-	// 		}
-	// 		echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-	// 	}
-	// 	die();
-	// }
 
 	public function getVenta($idventa){
 		if ($_SESSION['permisosMod']['u'] and $_SESSION['userData']['idrolusuario'] != RCLIENTES) {
@@ -109,9 +90,9 @@ class Ventas extends Controllers{
 
 
 
-// -----------------------
-// -----------------------
-// -----------------------
+// --------------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------------
 	public function setVenta(){
 		if($_POST){
 			if($_SESSION['permisosMod']['u'] && $_SESSION['userData']['idrolusuario'] != RCLIENTES){
@@ -157,10 +138,6 @@ class Ventas extends Controllers{
 		die();
 	}
 
-
-
-
-
 	public function getVentas(){
 		if($_SESSION['permisosMod']['r']){
 			
@@ -176,7 +153,6 @@ class Ventas extends Controllers{
 
 				$btnViewdetalle="";
 				$btnViewTrans="";
-				// $arrData[$i]['total']= "S/".($arrData[$i]['total']);
 				// Cambios en los nombres de las claves de los datos obtenidos
 				$arrData[$i]['transaccion'] = $arrData[$i]['codigo_venta'];
 				// Combina nombres y email_user en una nueva clave ddd
@@ -218,10 +194,7 @@ class Ventas extends Controllers{
 		die();
 	}
 
-// ------------------------------------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------------------------------------
-	
+
 public function delVenta()
 	{
 		if($_POST){

@@ -8,64 +8,6 @@ class VentasModel extends Mysql
 		parent::__construct();
 	}
 
-	// public function selectPedidos($idpersona = null){
-	// 	$where = "";
-	// 	if($idpersona != null){
-	// 		$where = " WHERE p.personaid = ".$idpersona;
-	// 	}
-	// 	$sql = "SELECT p.idpedido,
-	// 					p.referenciacobro,
-	// 					p.idtransaccionpaypal,
-	// 					DATE_FORMAT(p.fecha, '%d/%m/%Y') as fecha,
-	// 					p.monto,
-	// 					tp.tipopago,
-	// 					tp.idtipopago,
-	// 					p.status 
-	// 			FROM pedido p 
-	// 			INNER JOIN tipopago tp
-	// 			ON p.tipopagoid = tp.idtipopago $where ";
-	// 	$request = $this->select_all($sql);
-	// 	return $request;
-	// }	
-
-	// public function reembolsoPaypal(string $idtransaccion, string $observacion){
-	// 	$response = false;
-	// 	$sql = "SELECT idpedido,datospaypal FROM pedido WHERE idtransaccionpaypal = '{$idtransaccion}' ";
-	// 	$requestData = $this->select($sql);
-	// 	if(!empty($requestData)){
-	// 		$objData = json_decode($requestData['datospaypal']);
-	// 		$urlReembolso = $objData->purchase_units[0]->payments->captures[0]->links[1]->href;
-	// 		$objTransaccion = CurlConnectionPost($urlReembolso,"application/json",getTokenPaypal());
-	// 		if(isset($objTransaccion->status) and  $objTransaccion->status == "COMPLETED"){
-	// 			$idpedido = $requestData['idpedido'];
-	// 			$idtrasaccion = $objTransaccion->id;
-	// 			$status = $objTransaccion->status;
-	// 			$jsonData = json_encode($objTransaccion);
-	// 			$observacion = $observacion;
-	// 			$query_insert  = "INSERT INTO reembolso(pedidoid,
-	// 												idtransaccion,
-	// 												datosreembolso,
-	// 												observacion,
-	// 												status) 
-	// 						  	VALUES(?,?,?,?,?)";
-	// 			$arrData = array($idpedido,
-	//     						$idtrasaccion,
-	//     						$jsonData,
-	//     						$observacion,
-	//     						$status
-	//     					);
-	// 			$request_insert = $this->insert($query_insert,$arrData);
-	// 			if($request_insert > 0){
-	//     			$updatePedido  = "UPDATE pedido SET status = ? WHERE idpedido = $idpedido";
-	// 	        	$arrPedido = array("Reembolsado");
-	// 	        	$request = $this->update($updatePedido,$arrPedido);
-	// 	        	$response = true;
-	//     		}
-	// 		}
-	// 		return $response;
-	// 	}
-	// }
-
 // -------------------------------------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------

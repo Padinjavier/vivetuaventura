@@ -162,9 +162,7 @@ formVenta.onsubmit = function (e) {
         return false;
       }
     }
-
   }
-
 },false);
 
 
@@ -210,7 +208,6 @@ function fnttipopagolist() {
       };
   }
 }
-
 
 // // // ---------------Servicios----------
 // // // ---------------Servicios----------
@@ -344,7 +341,6 @@ function calculateRow(row) {
   row.querySelector(".precio_total").value = precioTotal.toFixed(2);
   row.querySelector(".descuento").value = descuento.toFixed(2);
 }
-
 
 function sumarPreciosTotales() {
   let subtotal = 0;
