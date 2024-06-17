@@ -20,7 +20,7 @@
 			$data['page_tag'] = "Salidas";
 			$data['page_title'] = "Salidas <small> </small>";
 			$data['page_name'] = "productos";
-			$data['page_functions_js'] = "functions_salidas.js";
+			$data['page_functions_js'] = "functions_productos.js";
 			$this->views->getView($this,"productos",$data);
 		}
 
