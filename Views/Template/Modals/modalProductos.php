@@ -28,8 +28,8 @@
                         <div class="form-group col-md-6">
                             <label class="control-label">Estado de pago</label>
                             <select class="form-control selectpicker" id="listEstPago" name="listEstPago" required="">
-                              <option value="1">Inactivo</option>
-                              <option value="2">Activo</option>
+                              <option value="1">Falta</option>
+                              <option value="2">Realizado</option>
                             </select>
                             
                         
@@ -63,24 +63,19 @@
                               <button class="btn btn-primary" type="button" id="btnAgregar"><i class="fas fa-plus-circle"></i> Agregar</button>
                           </div>
                       </div>
-                      <div class="row" id="dynamicFields">
-                          <!-- Este es el modelo de cada conjunto dinámico -->
-                          <div class="form-group col-md-6">
-                              <label for="listServicio">Tipo de servicio</label>
-                              <select class="form-control selectpicker servicio-select" name="listServicio[]" required="">
-                                  <!-- Opciones de servicio se generarán dinámicamente -->
-                              </select>
-                          </div>
-                          <div class="form-group col-md-6">
-                              <label for="cantidad">Cantidad</label>
-                              <input class="form-control cantidad" name="cantidad[]" type="number" placeholder="0">
-                          </div>
-                      </div>
+                      <table class="table table-sm">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th style="width:45%" class="text-start">Tipo de servicio</th>
+                                <th style="width:5%"></th>
+                                <th style="width:45%" class="text-start">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dynamicFields">
+                            <!-- Las filas se generarán automáticamente con JavaScript -->
+                        </tbody>
+                      </table>
                     </div>
- 
-
-
-
                     <div class="tile-footer">
                       <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
                       <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle" aria-hidden="true"></i>Cerrar</button>

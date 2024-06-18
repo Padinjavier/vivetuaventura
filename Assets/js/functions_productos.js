@@ -439,63 +439,107 @@ function fntPrintBarcode(area){
 // -----------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const btnAgregar = document.getElementById("btnAgregar");
     const dynamicFields = document.getElementById("dynamicFields");
 
-    btnAgregar.addEventListener("click", function () {
-        const newField = `
-                <div class="form-group col-md-6">
-                    <select class="form-control selectpicker servicio-select" name="listServicio[]" required="">
-                                  <!-- Opciones de servicio se generarán dinámicamente -->
-                              </select>
+    function loadInitialSelectOptions(callback) {
+        let ajaxUrl = base_url + "/Servicios/getSelectServicios";
+        let request = new XMLHttpRequest();
+        request.open("GET", ajaxUrl, true);
+        request.send();
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                let response = JSON.parse(request.responseText);
+                callback(response);
+            }
+        };
+    }
+
+    function addNewServicioRow(response) {
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <td>
+                <select class="form-control selectpicker servicio-select" name="listServicio[]" required="" data-live-search="true">
+                    ${response[0]}
+                </select>
+            </td>
+            <td>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
                 </div>
-                <div class="form-group col-md-6">
-                    <input class="form-control cantidad" name="cantidad[]" type="number" placeholder="0">
-                </div>
+            </td>
+            <td>
+                <input class="form-control cantidad" name="cantidad[]" type="number" placeholder="0">
+            </td>
         `;
-        dynamicFields.insertAdjacentHTML("beforeend", newField);
+        dynamicFields.appendChild(newRow);
+
+        // Inicializar los nuevos selects de Bootstrap Select
+        $(newRow).find('.selectpicker').selectpicker('refresh');
+
+        // Agregar evento para eliminar la fila
+        newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
+            newRow.remove();
+        });
+    }
+
+    btnAgregar.addEventListener("click", function () {
+        loadInitialSelectOptions(addNewServicioRow);
     });
+
+    // Generar una fila al iniciar la página
+    loadInitialSelectOptions(addNewServicioRow);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const externoBtn = document.getElementById("externo");
@@ -503,12 +547,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const listEstPago = document.getElementById("listEstPago");
 
     externoBtn.addEventListener("click", function () {
-        if (listNombres.hasAttribute("required")) {
-            listNombres.removeAttribute("required");
-            listEstPago.removeAttribute("required");
-        } else {
+        if (listNombres.disabled) {
+            // Activar selects
+            listNombres.disabled = false;
             listNombres.setAttribute("required", "");
+            $(listNombres).selectpicker("refresh");
+
+            listEstPago.disabled = false;
             listEstPago.setAttribute("required", "");
+            $(listEstPago).selectpicker("refresh");
+        } else {
+            // Desactivar selects
+            listNombres.disabled = true;
+            listNombres.removeAttribute("required");
+            listNombres.value = ""; // Clear the selected value
+            $(listNombres).selectpicker("refresh"); // Refresh the Bootstrap select
+
+            listEstPago.disabled = true;
+            listEstPago.removeAttribute("required");
+            listEstPago.value = "1"; // Clear the selected value
+            $(listEstPago).selectpicker("refresh"); // Refresh the Bootstrap select
         }
     });
 });
