@@ -1,6 +1,6 @@
 <!-- Modal Salida-->
-<div class="modal fade" id="modalFormSalidas" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl" >
+<div class="modal fade" id="modalFormProductos" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
         <h5 class="modal-title" id="titleModal">Nueva Salida</h5>
@@ -9,104 +9,83 @@
         </button>
       </div>
       <div class="modal-body">
-            <form id="formSalidas" name="formSalidas" class="form-horizontal">
+            <form id="formProductos" name="formProductos" class="form-horizontal">
               <input type="hidden" id="idProducto" name="idProducto" value="">
-              <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="form-group">
-                      <label class="control-label">Nombre Producto <span class="required">*</span></label>
-                      <input class="form-control" id="txtNombre" name="txtNombre" type="text" required="">
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label">Descripción Producto</label>
-                      <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" ></textarea>
-                    </div>
-                    
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Código <span class="required">*</span></label>
-                        <input class="form-control" id="txtCodigo" name="txtCodigo" type="text" placeholder="Código de barra" required="">
-                        <br>
-                        <div id="divBarCode" class="notblock textcenter">
-                            <div id="printCode">
-                                <svg id="barcode"></svg> 
-                            </div>
-                            <button class="btn btn-success btn-sm" type="button" onClick="fntPrintBarcode('#printCode')"><i class="fas fa-print"></i> Imprimir</button>
-                        </div>
+                        <label class="control-label">Código de venta</label>
+                        <select class="form-control" data-live-search="true" id="listCodVenta" name="listCodVenta" required="">
+                          <!-- se agregar los cod venta automatico -->
+                        </select>                       
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="control-label">Precio <span class="required">*</span></label>
-                            <input class="form-control" id="txtPrecio" name="txtPrecio" type="text" required="">
+                            <label class="control-label">Nombres</label>
+                        <select class="form-control" data-live-search="true" id="listNombres" name="listNombres" required="">
+                        </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="control-label">Stock <span class="required">*</span></label>
-                            <input class="form-control" id="txtStock" name="txtStock" type="text" required="">
-                        </div>
-                        <!-- //agregamos fecha -->
-                        <div class="form-group col-md-6">
-                            <label class="control-label">Fecha vencimiento <span class="required">*</span></label>
-                            <input class="form-control" id="txtfecha" name="txtfecha" type="date" required="">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="listCategoria">Categoría <span class="required">*</span></label>
-                            <select class="form-control" data-live-search="true" id="listCategoria" name="listCategoria" required=""></select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="listStatus">Estado <span class="required">*</span></label>
-                            <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
-                              <option value="1">Activo</option>
-                              <option value="2">Inactivo</option>
+                            <label class="control-label">Estado de pago</label>
+                            <select class="form-control selectpicker" id="listEstPago" name="listEstPago" required="">
+                              <option value="1">Inactivo</option>
+                              <option value="2">Activo</option>
                             </select>
+                            
+                        
+                        </div>
+                        <!-- //agregamos externo -->
+                        <div class="form-group col-md-6">
+                          <div class="switch-container">
+                              <span>Externo a la agencia</span>
+                              <label class="switch">
+                                  <input type="checkbox" id="externo" name="externo">
+                                  <span class="slider"></span>
+                              </label>
+                          </div>
                         </div>
                     </div>
-
                     <div class="row">
-                       <div class="form-group col-md-6">
-                           <button id="btnActionForm" class="btn btn-primary btn-lg btn-block" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>
-                       </div> 
-                       <div class="form-group col-md-6">
-                           <button class="btn btn-success btn-lg btn-block" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
-                       </div> 
-                    </div>  
+                        <div class="form-group col-md-6">
+                            <label for="listNombre">Nombres</label>
+                            <input class="form-control" id="txtNombre" name="txtNombre" type="text" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="descripcion">Descripción (Opcional)</label>
+                            <input class="form-control" id="txtdescripcion" name="txtdescripcion" type="text" placeholder="Ingrese una descripción">
+                        </div>
+                    </div>
+                    <div class="lotessalida">
+                      <div class="row">
+                          <div class="form-group col-md-6">
+                          </div>
+                          <div class="form-group col-md-6" style="display: flex; justify-content: flex-end;">
+                              <button class="btn btn-primary" type="button" id="btnAgregar"><i class="fas fa-plus-circle"></i> Agregar</button>
+                          </div>
+                      </div>
+                      <div class="row" id="dynamicFields">
+                          <!-- Este es el modelo de cada conjunto dinámico -->
+                          <div class="form-group col-md-6">
+                              <label for="listServicio">Tipo de servicio</label>
+                              <select class="form-control selectpicker servicio-select" name="listServicio[]" required="">
+                                  <!-- Opciones de servicio se generarán dinámicamente -->
+                              </select>
+                          </div>
+                          <div class="form-group col-md-6">
+                              <label for="cantidad">Cantidad</label>
+                              <input class="form-control cantidad" name="cantidad[]" type="number" placeholder="0">
+                          </div>
+                      </div>
+                    </div>
+ 
+
+
+
+                    <div class="tile-footer">
+                      <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+                      <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle" aria-hidden="true"></i>Cerrar</button>
+                    </div>
                 </div>
-              </div>
-              
-              <div class="tile-footer">
-                 <div class="form-group col-md-12">
-                     <div id="containerGallery">
-                         <span>Agregar foto (440 x 545)</span>
-                         <button class="btnAddImage btn btn-info btn-sm" type="button">
-                             <i class="fas fa-plus"></i>
-                         </button>
-                     </div>
-                     <hr>
-                     <div id="containerImages">
-                         <!-- <div id="div24">
-                             <div class="prevImage">
-                                 <img src="<?= media(); ?>/images/uploads/producto1.jpg">
-                             </div>
-                             <input type="file" name="foto" id="img1" class="inputUploadfile">
-                             <label for="img1" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-                             <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24')"><i class="fas fa-trash-alt"></i></button>
-                         </div>
-                         <div id="div24">
-                             <div class="prevImage">
-                                 <img class="loading" src="<?= media(); ?>/images/loading.svg">
-                             </div>
-                             <input type="file" name="foto" id="img1" class="inputUploadfile">
-                             <label for="img1" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-                             <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24')"><i class="fas fa-trash-alt"></i></button>
-                         </div> -->
-                        
-                     </div>
-                 </div>
-                                
               </div>
             </form>
       </div>

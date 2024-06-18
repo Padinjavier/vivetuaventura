@@ -13,7 +13,7 @@
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="app-menu__icon bi bi-house-door-fill"></i></li>
-          <li class="breadcrumb-item"><a href="<?= base_url(); ?>/empleados" class="text-info"><?= $data['page_title'] ?></a></li>
+          <li class="breadcrumb-item"><a href="<?= base_url(); ?>/salidas" class="text-info"><?= $data['page_title'] ?></a></li>
         </ul>
       </div>
         <div class="row">
@@ -25,12 +25,12 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Código</th>
+                          <th>Código venta</th>
                           <th>Nombre</th>
-                          <th>Stock</th>
-                          <th>Precio</th>
-                          <th>Fecha vencimiento</th>
-                          <th>Estado</th>
+                          <th>Fecha</th>
+                          <th>Estado de pago</th>
+                          <!-- <th>Fecha vencimiento</th> -->
+                          <!-- <th>Estado</th> -->
                           <th>Acciones</th>
                         </tr>
                       </thead>

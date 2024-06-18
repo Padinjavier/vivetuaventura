@@ -212,6 +212,18 @@ public function delVenta()
 		}
 		die();
 	}
+	
+	public function getSelectVentas() {
+		$htmlOptions = '<option value="">Código de venta</option>';
+		$arrData = $this->model->selectlistventa();
+		if (count($arrData) > 0) {
+			foreach ($arrData as $row) {
+				$htmlOptions .= '<option value="'.htmlspecialchars($row['idventa']).'">'.htmlspecialchars($row['codigo_venta']).'</option>';
+			}
+		}
+		echo $htmlOptions;
+		die();
+	}
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------

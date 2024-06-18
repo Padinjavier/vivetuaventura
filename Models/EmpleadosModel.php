@@ -167,5 +167,12 @@
 		    return $request;
 		}
 
+		public function selectlistempleado()
+		{
+			$sql = "SELECT * FROM persona
+						WHERE  status != 0 AND rolidempleado IS NOT NULL ";
+			$request = $this->select_all($sql);
+			return $request;
+		}
 	}
  ?>

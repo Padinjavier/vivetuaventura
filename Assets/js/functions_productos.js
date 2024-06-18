@@ -22,8 +22,6 @@ tableProductos = $('#tableProductos').dataTable( {
         {"data":"nombre"},
         {"data":"stock"},
         {"data":"precio"},
-        {"data":"fecha_v"},
-        {"data":"status"},
         {"data":"options"}
     ],
     "columnDefs": [
@@ -32,41 +30,41 @@ tableProductos = $('#tableProductos').dataTable( {
                     { 'className': "textcenter", "targets": [ 5 ] }
                   ],       
     'dom': 'lBfrtip',
-    'buttons': [
-        {
-            "extend": "copyHtml5",
-            "text": "<i class='far fa-copy'></i> Copiar",
-            "titleAttr":"Copiar",
-            "className": "btn btn-secondary",
-            "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+        'buttons': [
+            {
+                "extend": "copyHtml5",
+                "text": "<i class='far fa-copy'></i> Copiar",
+                "titleAttr":"Copiar",
+                "className": "btn btn-secondary",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
-        },{
-            "extend": "excelHtml5",
-            "text": "<i class='fas fa-file-excel'></i> Excel",
-            "titleAttr":"Esportar a Excel",
-            "className": "btn btn-success",
-            "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+            },{
+                "extend": "excelHtml5",
+                "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
+                "titleAttr":"Exportar a Excel",
+                "className": "btn btn-success",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
-        },{
-            "extend": "pdfHtml5",
-            "text": "<i class='fas fa-file-pdf'></i> PDF",
-            "titleAttr":"Esportar a PDF",
-            "className": "btn btn-danger",
-            "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+            },{
+                "extend": "pdfHtml5",
+                "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
+                "titleAttr":"Exportar a PDF",
+                "className": "btn btn-danger",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
-        },{
-            "extend": "csvHtml5",
-            "text": "<i class='fas fa-file-csv'></i> CSV",
-            "titleAttr":"Esportar a CSV",
-            "className": "btn btn-info",
-            "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+            },{
+                "extend": "csvHtml5",
+                "text": "<i class='fas fa-file-csv'></i> CSV",
+                "titleAttr":"Exportar a CSV",
+                "className": "btn btn-info d-none",
+                "exportOptions": { 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
-        }
-    ],
+            }
+        ],
     "resonsieve":"true",
     "bDestroy": true,
     "iDisplayLength": 10,
@@ -178,7 +176,7 @@ window.addEventListener('load', function() {
     }
 
     fntInputFile();
-    fntCategorias();
+    
 }, false);
 
 if(document.querySelector("#txtCodigo")){
@@ -424,23 +422,6 @@ function fntDelInfo(idProducto){
 
 
 
-function fntCategorias(){
-    if(document.querySelector('#listCategoria')){
-        let ajaxUrl = base_url+'/Categorias/getSelectCategorias';
-        let request = (window.XMLHttpRequest) ? 
-                    new XMLHttpRequest() : 
-                    new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET",ajaxUrl,true);
-        request.send();
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
-                document.querySelector('#listCategoria').innerHTML = request.responseText;
-                $('#listCategoria').selectpicker('render');
-            }
-        }
-    }
-}
-
 function fntBarcode(){
     let codigo = document.querySelector("#txtCodigo").value;
     JsBarcode("#barcode", codigo);
@@ -454,6 +435,128 @@ function fntPrintBarcode(area){
     vprint.print();
     vprint.close();
 }
+// -----------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btnAgregar = document.getElementById("btnAgregar");
+    const dynamicFields = document.getElementById("dynamicFields");
+
+    btnAgregar.addEventListener("click", function () {
+        const newField = `
+                <div class="form-group col-md-6">
+                    <select class="form-control selectpicker servicio-select" name="listServicio[]" required="">
+                                  <!-- Opciones de servicio se generarán dinámicamente -->
+                              </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <input class="form-control cantidad" name="cantidad[]" type="number" placeholder="0">
+                </div>
+        `;
+        dynamicFields.insertAdjacentHTML("beforeend", newField);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const externoBtn = document.getElementById("externo");
+    const listNombres = document.getElementById("listNombres");
+    const listEstPago = document.getElementById("listEstPago");
+
+    externoBtn.addEventListener("click", function () {
+        if (listNombres.hasAttribute("required")) {
+            listNombres.removeAttribute("required");
+            listEstPago.removeAttribute("required");
+        } else {
+            listNombres.setAttribute("required", "");
+            listEstPago.setAttribute("required", "");
+        }
+    });
+});
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    fntListCategorias();
+    fntListNombres();
+});
+
+
+function fntListCategorias(){
+    if(document.querySelector('#listCodVenta')){
+        let ajaxUrl = base_url+'/Ventas/getSelectVentas';
+        let request = (window.XMLHttpRequest) ? 
+                    new XMLHttpRequest() : 
+                    new ActiveXObject('Microsoft.XMLHTTP');
+        request.open("GET",ajaxUrl,true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                document.querySelector('#listCodVenta').innerHTML = request.responseText;
+                $('#listCodVenta').selectpicker('render');
+            }
+        }
+    }
+}
+function fntListNombres(){
+    if(document.querySelector('#listNombres')){
+        let ajaxUrl = base_url+'/Empleados/getSelectEmpleados';
+        let request = (window.XMLHttpRequest) ? 
+                    new XMLHttpRequest() : 
+                    new ActiveXObject('Microsoft.XMLHTTP');
+        request.open("GET",ajaxUrl,true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                document.querySelector('#listNombres').innerHTML = request.responseText;
+                $('#listNombres').selectpicker('render');
+            }
+        }
+    }
+}
 
 function openModal()
 {
@@ -462,11 +565,15 @@ function openModal()
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
-    document.querySelector('#titleModal').innerHTML = "Nuevo Producto";
+    document.querySelector('#titleModal').innerHTML = "Nueva Salida";
     document.querySelector("#formProductos").reset();
-    document.querySelector("#divBarCode").classList.add("show");//con error
-    document.querySelector("#containerGallery").classList.add("show");//con error
-    document.querySelector("#containerImages").innerHTML = "";
+    // document.querySelector("#divBarCode").classList.add("show");//con error
+    // document.querySelector("#containerGallery").classList.add("show");//con error
+    // document.querySelector("#containerImages").innerHTML = "";
     $('#modalFormProductos').modal('show');
 
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------

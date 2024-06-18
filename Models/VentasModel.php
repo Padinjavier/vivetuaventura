@@ -171,6 +171,14 @@ class VentasModel extends Mysql
 		$request = $this->update($sql, $arrData);
 		return $request;
 	}
+	public function selectlistventa()
+	{
+		$sql = "SELECT * FROM venta 
+					WHERE  status != 0 ";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+
 
 	// -------------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------------

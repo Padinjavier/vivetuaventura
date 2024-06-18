@@ -189,6 +189,16 @@
 			}
 			die();
 		}
-
+		public function getSelectEmpleados() {
+			$htmlOptions = '<option value="">Ingrese el nombre del empleado</option>';
+			$arrData = $this->model->selectlistempleado();
+			if (count($arrData) > 0) {
+				foreach ($arrData as $row) {
+					$htmlOptions .= '<option value="'.htmlspecialchars($row['idpersona']).'">'.htmlspecialchars($row['nombres']).'</option>';
+				}
+			}
+			echo $htmlOptions;
+			die();
+		}
 	}
  ?>
