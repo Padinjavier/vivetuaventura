@@ -241,16 +241,16 @@ document.addEventListener("DOMContentLoaded", function () {
               </select>
           </td>
           <td>
-              <input type="number" class="form-control cantidad" value="0.00">
+              <input type="number" class="form-control cantidad" value="0.00" min="0">
           </td>
           <td>
-              <input type="number" class="form-control precio" value="0.00">
+              <input type="number" class="form-control precio" value="0.00" min="0">
           </td>
           <td>
-              <input type="number" class="form-control descuento" value="0.00" readonly>
+              <input type="number" class="form-control descuento" value="0.00" min="0" readonly>
           </td>
           <td>
-              <input type="number" class="form-control precio_total" value="0.00" readonly>
+              <input type="number" class="form-control precio_total" value="0.00" min="0" readonly>
           </td>
           <td>
               <div class="col-auto">
@@ -428,7 +428,7 @@ function fntEditInfo(element, idventa) {
               // Ejecutar la asignación de datos después de un retraso
               setTimeout(function() {
                   asignarDatos(objData.data.detalle_venta);
-              }, 1125); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
+              }, 2000); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
           }
       }
   }
