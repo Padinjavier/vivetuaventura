@@ -90,7 +90,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modalViewProducto" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl" >
+  <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header header-primary">
         <h5 class="modal-title" id="titleModal">Datos del Producto</h5>
@@ -126,7 +126,7 @@
               <td id="celCantidad"></td>
             </tr>
             <tr>
-              <td>Status:</td>
+              <td>Fecha:</td>
               <td id="celFecha"></td>
             </tr>
            

@@ -277,52 +277,7 @@ window.addEventListener('load', function() {
 //     }
 // }
 
-function fntViewInfo(idSalida){
-    let request = (window.XMLHttpRequest) ? 
-                    new XMLHttpRequest() : 
-                    new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Productos/getProducto/'+idSalida;
-    request.open("GET",ajaxUrl,true);
-    request.send();
-    request.onreadystatechange = function(){
-        if(request.readyState == 4 && request.status == 200){
 
-            console.log(request)
-            console.log(request.responseText)
-
-            let objData = JSON.parse(request.responseText);
-            if(objData.status)
-            {
-                let htmlImage = "";
-                let estadoProducto = objData.data.status == 1 ? 
-                 '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;">Listo</span>': 
-                 '<span style="color: white; background-color: red; padding: 5px; border-radius: 3px;">Falta</span>';
-
-                servicios =""
-                for (i=0;i<objData.data.detalle_salida.length ; i++){
-                    servicios +="<i class='bi bi-circle'></i> "+ objData.data.detalle_salida[i].nombre_servicio + "<br>";
-                }
-                cantidad =""
-                for (i=0;i<objData.data.detalle_salida.length ; i++){
-                    cantidad +="<i class='bi bi-circle'></i> "+ objData.data.detalle_salida[i].cantidad + "<br>";
-                }
-                document.querySelector("#celCodigo").innerHTML = objData.data.Salida.codigo_venta;
-                document.querySelector("#celNombre").innerHTML = objData.data.Salida.nombre_completo;
-                document.querySelector("#celEstadoPago").innerHTML = estadoProducto;
-                document.querySelector("#celDescripcion").innerHTML = objData.data.Salida.descripcion;
-                document.querySelector("#celTipoServicios").innerHTML = servicios;
-                document.querySelector("#celCantidad").innerHTML = cantidad;
-                document.querySelector("#celFecha").innerHTML = objData.data.Salida.datecreated;
-               
-
-                $('#modalViewProducto').modal('show');
-
-            }else{
-                swal("Error", objData.msg , "error");
-            }
-        }
-    } 
-}
 
 function fntEditInfo(element,idProducto){
     rowTable = element.parentNode.parentNode.parentNode;
@@ -484,10 +439,54 @@ function fntDelInfo(idProducto){
 
 
 
+function fntViewInfo(idSalida){
+    let request = (window.XMLHttpRequest) ? 
+                    new XMLHttpRequest() : 
+                    new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Productos/getProducto/'+idSalida;
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
 
+            console.log(request)
+            console.log(request.responseText)
 
+            let objData = JSON.parse(request.responseText);
+            if(objData.status)
+            {
+                let htmlImage = "";
+                let estadoProducto = objData.data.status == 1 ? 
+                 '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;">Listo</span>': 
+                 '<span style="color: white; background-color: red; padding: 5px; border-radius: 3px;">Falta</span>';
 
+                servicios =""
+                cantidad =""
+                Cantidad_total=0;
+                for (i=0;i<objData.data.detalle_salida.length ; i++){
+                    servicios += objData.data.detalle_salida[i].nombre_servicio + " -> " + objData.data.detalle_salida[i].cantidad + "<br>";
+                // }
+                // for (i=0;i<objData.data.detalle_salida.length ; i++){
+                // cantidad +="<i class='bi bi-circle'></i> "+ objData.data.detalle_salida[i].cantidad + "<br>";
+                Cantidad_total+= objData.data.detalle_salida[i].cantidad;
+                }
+                document.querySelector("#celCodigo").innerHTML = objData.data.Salida.codigo_venta;
+                document.querySelector("#celNombre").innerHTML = objData.data.Salida.nombre_completo;
+                document.querySelector("#celEstadoPago").innerHTML = estadoProducto;
+                document.querySelector("#celDescripcion").innerHTML = objData.data.Salida.descripcion;
+                document.querySelector("#celTipoServicios").innerHTML = servicios;
+                document.querySelector("#celCantidad").innerHTML = Cantidad_total;
+                document.querySelector("#celFecha").innerHTML = objData.data.Salida.datecreated;
+               
 
+                $('#modalViewProducto').modal('show');
+
+            }else{
+                swal("Error", objData.msg , "error");
+            }
+        }
+    } 
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const btnAgregar = document.getElementById("btnAgregar");
@@ -546,7 +545,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     const externoBtn = document.getElementById("externo");
     const listNombres = document.getElementById("listNombres");
-    const listEstPago = document.getElementById("listEstPago");
+    // const listEstPago = document.getElementById("listEstPago");
     const txtNombre = document.getElementById("txtNombre");
     const txtdescripcion = document.getElementById("txtdescripcion");
 
@@ -557,9 +556,9 @@ document.addEventListener("DOMContentLoaded", function () {
             listNombres.setAttribute("required", "");
             $(listNombres).selectpicker("refresh");
 
-            listEstPago.disabled = false;
-            listEstPago.setAttribute("required", "");
-            $(listEstPago).selectpicker("refresh");
+            // listEstPago.disabled = false;
+            // listEstPago.setAttribute("required", "");
+            // $(listEstPago).selectpicker("refresh");
 
             // Desactivar inputs
             txtNombre.disabled = true;
@@ -574,10 +573,10 @@ document.addEventListener("DOMContentLoaded", function () {
             listNombres.value = ""; // Limpiar el valor seleccionado
             $(listNombres).selectpicker("refresh");
 
-            listEstPago.disabled = true;
-            listEstPago.removeAttribute("required");
-            listEstPago.value = "1"; // Establecer valor por defecto si es necesario
-            $(listEstPago).selectpicker("refresh");
+            // listEstPago.disabled = true;
+            // listEstPago.removeAttribute("required");
+            // listEstPago.value = "1"; // Establecer valor por defecto si es necesario
+            // $(listEstPago).selectpicker("refresh");
 
             // Activar inputs
             txtNombre.disabled = false;
@@ -633,7 +632,7 @@ function openModal()
     document.querySelector('#txtdescripcion').value ="";
     $('#listCodVenta').selectpicker('val', '');
     $('#listNombres').selectpicker('val', '');
-    $('#listEstPago').selectpicker('val', '');
+    $('#listEstPago').selectpicker('val', '1');
     $('.servicio-select').selectpicker('val', '');
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
