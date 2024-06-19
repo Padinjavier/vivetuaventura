@@ -390,16 +390,16 @@ function fntEditInfo(element,idProducto){
     let request = (window.XMLHttpRequest) ? 
                     new XMLHttpRequest() : 
                     new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Productos/getProducto/'+idProducto;
-    request.open("GET",ajaxUrl,true);
+    let ajaxUrl = base_url + '/Productos/getProducto/' + idProducto;
+    request.open("GET", ajaxUrl, true);
     request.send();
     request.onreadystatechange = function(){
         if(request.readyState == 4 && request.status == 200){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                console.log(objData.data.Salida)
-                console.log(objData.data.detalle_salida)
+                console.log(objData.data.Salida);
+                console.log(objData.data.detalle_salida);
 
                 document.querySelector('#idSalida').value = objData.data.Salida.idsalida;
                 $('#listCodVenta').selectpicker('val', objData.data.Salida.idventa);
@@ -409,27 +409,28 @@ function fntEditInfo(element,idProducto){
                 $('#listEstPago').selectpicker('val', objData.data.Salida.pago);
                 $('#listEstPago').selectpicker('render');
 
-                // falta logica del boton si tiene datos en persona externa entonces el boton debe de activarse y debe de mostrar datos borrados para no guardar cierre esta ventana
-                // externoBtn.click();
-                document.querySelector('#myCheckbox').click();
-                document.querySelector('#txtNombre').value = objData.data.Salida.persona_externa;
-                document.querySelector('#txtdescripcion').value = objData.data.Salida.descripcion;
-
-                
+                if(objData.data.Salida.persona_externa) {
+                    if(!document.querySelector('#externo').checked) {
+                        document.querySelector('#externo').click();
+                    }
+                    document.querySelector('#txtNombre').value = objData.data.Salida.persona_externa;
+                    document.querySelector('#txtdescripcion').value = objData.data.Salida.descripcion;
+                } else {
+                    if(document.querySelector('#externo').checked) {
+                        document.querySelector('#externo').click();
+                    }
+                }
 
                 let cantidadDatos = objData.data.detalle_salida.length;
-                // Hacer clic en el botón para agregar nuevos grupos
                 for (let i = 0; i < cantidadDatos; i++) {
                     btnAgregar.click();
                 }     
                 $('#modalFormProductos').modal('show');
-                    // Ejecutar la asignación de datos después de un retraso
-                    setTimeout(function() {
-                        asignarDatos(objData.data.detalle_venta);
-                    }, 2000); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
-// continuas el llenado 
-            }else{
-                swal("Error", objData.msg , "error");
+                setTimeout(function() {
+                    asignarDatos(objData.data.detalle_venta);
+                }, 2000);
+            } else {
+                swal("Error", objData.msg, "error");
             }
         }
     }
