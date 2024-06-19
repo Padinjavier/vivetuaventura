@@ -168,19 +168,18 @@
 			// Consulta para obtener los datos básicos de la salida
 			$sql = "SELECT s.idsalida,
 						   s.codigo_venta,
+						   v.idventa,
 						   s.personaid,
-						   CASE 
-							   WHEN p.nombres IS NOT NULL AND p.apellidos IS NOT NULL THEN CONCAT(p.nombres, ' ', p.apellidos)
-							   WHEN p.nombres IS NOT NULL THEN p.nombres
-							   WHEN p.apellidos IS NOT NULL THEN p.apellidos
-							   ELSE s.persona_externa
-						   END AS nombre_completo,
+						    COALESCE(CONCAT(p.nombres, ' ', p.apellidos), p.nombres, p.apellidos, s.persona_externa) AS nombre_completo,
+       						COALESCE(CONCAT(p.nombres, ' ', p.apellidos), p.nombres, p.apellidos) AS nombres_apellidos,
+       					   s.persona_externa,
 						   s.descripcion,
 						   DATE_FORMAT(s.datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
 						   s.pago,
 						   s.status 
 					FROM salida s 
 					LEFT JOIN persona p ON s.personaid = p.idpersona
+					INNER JOIN venta v ON s.codigo_venta = v.codigo_venta
 					WHERE s.idsalida = $this->idSalida";
 		
 			$requestSalida = $this->select($sql);

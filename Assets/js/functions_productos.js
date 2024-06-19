@@ -279,63 +279,7 @@ window.addEventListener('load', function() {
 
 
 
-function fntEditInfo(element,idProducto){
-    rowTable = element.parentNode.parentNode.parentNode;
-    document.querySelector('#titleModal').innerHTML ="Actualizar Producto";
-    document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
-    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
-    document.querySelector('#btnText').innerHTML ="Actualizar";
-    let request = (window.XMLHttpRequest) ? 
-                    new XMLHttpRequest() : 
-                    new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Productos/getProducto/'+idProducto;
-    request.open("GET",ajaxUrl,true);
-    request.send();
-    request.onreadystatechange = function(){
-        if(request.readyState == 4 && request.status == 200){
-            let objData = JSON.parse(request.responseText);
-            if(objData.status)
-            {
-                let htmlImage = "";
-                let objProducto = objData.data;
-                document.querySelector("#idProducto").value = objProducto.idproducto;
-                document.querySelector("#txtNombre").value = objProducto.nombre;
-                document.querySelector("#txtDescripcion").value = objProducto.descripcion;
-                document.querySelector("#txtCodigo").value = objProducto.codigo;
-                document.querySelector("#txtPrecio").value = objProducto.precio;
-                document.querySelector("#txtStock").value = objProducto.stock;
-                document.querySelector("#txtfecha").value = objProducto.fecha_v;//agregamos fecha
-                document.querySelector("#listCategoria").value = objProducto.categoriaid;
-                document.querySelector("#listStatus").value = objProducto.status;
-                tinymce.activeEditor.setContent(objProducto.descripcion); 
-                $('#listCategoria').selectpicker('render');
-                $('#listStatus').selectpicker('render');
-                fntBarcode();
 
-
-
-                if(objProducto.images.length > 0){
-                    let objProductos = objProducto.images;
-                    for (let p = 0; p < objProductos.length; p++) {
-                        let key = Date.now()+p;
-                        htmlImage +=`<div id="div${key}">
-                            <div class="prevImage">
-                            <img src="${objProductos[p].url_image}"></img>
-                            </div>
-                            <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].img}">
-                            <i class="fas fa-trash-alt"></i></button></div>`;
-                    }
-                }
-                document.querySelector("#containerImages").innerHTML = htmlImage; 
-                document.querySelector("#divBarCode").classList.remove("notblock");
-                document.querySelector("#containerGallery").classList.remove("notblock");           
-                $('#modalFormProductos').modal('show');
-            }else{
-                swal("Error", objData.msg , "error");
-            }
-        }
-    }
-}
 
 function fntDelInfo(idProducto){
     swal({
@@ -437,6 +381,61 @@ function fntDelInfo(idProducto){
 
 
 
+function fntEditInfo(element,idProducto){
+    rowTable = element.parentNode.parentNode.parentNode;
+    document.querySelector('#titleModal').innerHTML ="Actualizar Salida";
+    document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnText').innerHTML ="Actualizar";
+    let request = (window.XMLHttpRequest) ? 
+                    new XMLHttpRequest() : 
+                    new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Productos/getProducto/'+idProducto;
+    request.open("GET",ajaxUrl,true);
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            let objData = JSON.parse(request.responseText);
+            if(objData.status)
+            {
+                console.log(objData.data.Salida)
+                console.log(objData.data.detalle_salida)
+
+                document.querySelector('#idSalida').value = objData.data.Salida.idsalida;
+                $('#listCodVenta').selectpicker('val', objData.data.Salida.idventa);
+                $('#listCodVenta').selectpicker('render');
+                $('#listNombres').selectpicker('val', objData.data.Salida.personaid);
+                $('#listNombres').selectpicker('render');
+                $('#listEstPago').selectpicker('val', objData.data.Salida.pago);
+                $('#listEstPago').selectpicker('render');
+
+                // falta logica del boton si tiene datos en persona externa entonces el boton debe de activarse y debe de mostrar datos borrados para no guardar cierre esta ventana
+                // externoBtn.click();
+                document.querySelector('#myCheckbox').click();
+                document.querySelector('#txtNombre').value = objData.data.Salida.persona_externa;
+                document.querySelector('#txtdescripcion').value = objData.data.Salida.descripcion;
+
+                
+
+                let cantidadDatos = objData.data.detalle_salida.length;
+                // Hacer clic en el botón para agregar nuevos grupos
+                for (let i = 0; i < cantidadDatos; i++) {
+                    btnAgregar.click();
+                }     
+                $('#modalFormProductos').modal('show');
+                    // Ejecutar la asignación de datos después de un retraso
+                    setTimeout(function() {
+                        asignarDatos(objData.data.detalle_venta);
+                    }, 2000); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
+// continuas el llenado 
+            }else{
+                swal("Error", objData.msg , "error");
+            }
+        }
+    }
+}
+
+
 
 
 function fntViewInfo(idSalida){
@@ -455,10 +454,10 @@ function fntViewInfo(idSalida){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                let htmlImage = "";
-                let estadoProducto = objData.data.status == 1 ? 
-                 '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;">Listo</span>': 
-                 '<span style="color: white; background-color: red; padding: 5px; border-radius: 3px;">Falta</span>';
+                
+                let estadoProducto = objData.data.Salida.pago == 1 ? 
+                 '<span style="color: white; background-color:  red; padding: 5px; border-radius: 3px;"> Falta'+ objData.data.Salida.pago +'</span>': 
+                 '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;"> Listo'+ objData.data.Salida.pago +'</span>';
 
                 servicios =""
                 cantidad =""
@@ -584,6 +583,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     fntListCategorias();

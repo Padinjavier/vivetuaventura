@@ -50,9 +50,9 @@
 					// Determinar el estado de pago
 					$pagoStatus = '';
 					if ($arrData[$i]['pago'] == 1) {
-						$pagoStatus = '<span style="color: white; background-color: red; padding: 5px; border-radius: 3px;">Falta</span>';
+						$pagoStatus = '<span style="color: white; background-color: red; padding: 5px; border-radius: 3px;">Falta'.$arrData[$i]['pago'].'</span>';
 					} elseif ($arrData[$i]['pago'] == 2) {
-						$pagoStatus = '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;">Listo</span>';
+						$pagoStatus = '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;">Listo'.$arrData[$i]['pago'].'</span>';
 					}
 
 					// Asignar el estado de pago al arreglo de datos
