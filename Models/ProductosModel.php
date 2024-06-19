@@ -3,6 +3,7 @@
 	class ProductosModel extends Mysql
 	{
 		private $intIdProducto;
+		private $idSalida;
 		private $strNombre;
 		private $strDescripcion;
 		private $intCodigo;
@@ -24,21 +25,26 @@
 		{
 			parent::__construct();
 		}
-
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		
 		public function selectProductos(){
 			$sql = "SELECT s.idsalida,
 							s.codigo_venta,
 							s.personaid,
-							p.nombres,
-							p.apellidos,
-							s.persona_externa,
-							 DATE_FORMAT(s.datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
+							CASE 
+								WHEN p.nombres IS NOT NULL AND p.apellidos IS NOT NULL THEN CONCAT(p.nombres, ' ', p.apellidos)
+								WHEN p.nombres IS NOT NULL THEN p.nombres
+								WHEN p.apellidos IS NOT NULL THEN p.apellidos
+								ELSE s.persona_externa
+							END AS nombre_completo,
+							DATE_FORMAT(s.datecreated, '%d-%m-%Y | %h:%i:%s %p') AS datecreated,
 							s.pago,
 							s.status 
-					FROM salida s 
-					INNER JOIN persona p
-					ON s.personaid = p.idpersona
-					WHERE s.status != 0 ";
+						FROM salida s 
+						LEFT JOIN persona p ON s.personaid = p.idpersona
+						WHERE s.status != 0";
 					$request = $this->select_all($sql);
 			return $request;
 		}
@@ -83,6 +89,9 @@
 		}
 		return $return;
 	}
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		
 
 		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $strfecha, string $ruta, int $status){
@@ -130,26 +139,77 @@
 	        return $return;
 		}
 
-		public function selectProducto(int $idproducto){
-			$this->intIdProducto = $idproducto;
-			$sql = "SELECT p.idproducto,
-							p.codigo,
-							p.nombre,
-							p.descripcion,
-							p.precio,
-							p.stock,
-							p.fecha_v,
-							p.categoriaid,
-							c.nombre as categoria,
-							p.status
-					FROM producto p
-					INNER JOIN categoria c
-					ON p.categoriaid = c.idcategoria
-					WHERE idproducto = $this->intIdProducto";
-			$request = $this->select($sql);
+		// public function selectProducto(int $idSalida){
+		// 	$this->idSalida = $idSalida;
+		// 	$sql = "SELECT s.idsalida,
+		// 					s.codigo_venta,
+		// 					s.personaid,
+		// 					CASE 
+		// 						WHEN p.nombres IS NOT NULL AND p.apellidos IS NOT NULL THEN CONCAT(p.nombres, ' ', p.apellidos)
+		// 						WHEN p.nombres IS NOT NULL THEN p.nombres
+		// 						WHEN p.apellidos IS NOT NULL THEN p.apellidos
+		// 						ELSE s.persona_externa
+		// 					END AS nombre_completo,
+		// 					s.descripcion,
+		// 					DATE_FORMAT(s.datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
+		// 					s.pago,
+		// 					s.status 
+		// 				FROM salida s 
+		// 				LEFT JOIN persona p ON s.personaid = p.idpersona
+		// 				INNER JOIN detalle_salida
+		// 				WHERE s.idsalida = $this->idSalida";
+		// 	$request = $this->select($sql);
+		// 	return $request;
+		// }
+		public function selectProducto(int $idSalida)
+		{
+			$this->idSalida = $idSalida;
+			
+			// Consulta para obtener los datos básicos de la salida
+			$sql = "SELECT s.idsalida,
+						   s.codigo_venta,
+						   s.personaid,
+						   CASE 
+							   WHEN p.nombres IS NOT NULL AND p.apellidos IS NOT NULL THEN CONCAT(p.nombres, ' ', p.apellidos)
+							   WHEN p.nombres IS NOT NULL THEN p.nombres
+							   WHEN p.apellidos IS NOT NULL THEN p.apellidos
+							   ELSE s.persona_externa
+						   END AS nombre_completo,
+						   s.descripcion,
+						   DATE_FORMAT(s.datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
+						   s.pago,
+						   s.status 
+					FROM salida s 
+					LEFT JOIN persona p ON s.personaid = p.idpersona
+					WHERE s.idsalida = $this->idSalida";
+		
+			$requestSalida = $this->select($sql);
+		
+			// Consulta para obtener los detalles de la salida
+			if (!empty($requestSalida)) {
+				$codigo_venta = $requestSalida['codigo_venta'];
+				$sql_detalle = "SELECT ds.iddetalle_salida,
+									   ds.idsalida,
+									   ds.idservicio,
+									   ds.cantidad,
+									   s.nombre AS nombre_servicio
+								FROM detalle_salida AS ds
+								INNER JOIN servicio AS s ON ds.idservicio = s.idservicio
+								WHERE ds.idsalida = $this->idSalida";
+		
+				$requestDetalle = $this->select_all($sql_detalle);
+				$request = array('Salida' => $requestSalida, 'detalle_salida' => $requestDetalle);
+			}
+	
 			return $request;
-
 		}
+		
+
+
+
+
+
+
 
 		public function insertImage(int $idproducto, string $imagen){
 			$this->intIdProducto = $idproducto;

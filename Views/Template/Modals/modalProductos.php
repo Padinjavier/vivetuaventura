@@ -110,34 +110,26 @@
               <td id="celNombre"></td>
             </tr>
             <tr>
-              <td>Precio:</td>
-              <td id="celPrecio"></td>
-            </tr>
-            <tr>
-              <td>Stock:</td>
-              <td id="celStock"></td>
-            </tr>
-            <tr>
-              <td>Fecha vencimiento:</td>
-              <td id="celFecha_v"></td>
-            </tr>
-            <tr>
-              <td>Categoría:</td>
-              <td id="celCategoria"></td>
-            </tr>
-            <tr>
-              <td>Status:</td>
-              <td id="celStatus"></td>
+              <td>Estado de pago::</td>
+              <td id="celEstadoPago"></td>
             </tr>
             <tr>
               <td>Descripción:</td>
               <td id="celDescripcion"></td>
             </tr>
             <tr>
-              <td>Fotos de referencia:</td>
-              <td id="celFotos">
-              </td>
+              <td>Tipo de servicion:</td>
+              <td id="celTipoServicios"></td>
             </tr>
+            <tr>
+              <td>Cantidad:</td>
+              <td id="celCantidad"></td>
+            </tr>
+            <tr>
+              <td>Status:</td>
+              <td id="celFecha"></td>
+            </tr>
+           
           </tbody>
         </table>
       </div>

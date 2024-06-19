@@ -24,7 +24,9 @@
 			$this->views->getView($this,"productos",$data);
 		}
 
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		public function getProductos()
 		{
 			if($_SESSION['permisosMod']['r']){
@@ -34,16 +36,16 @@
 					$btnEdit = '';
 					$btnDelete = '';
 
-					// Obtener nombres, apellidos y persona_externa
-					$nombres = isset($arrData[$i]['nombres']) ? trim($arrData[$i]['nombres']) : '';
-					$apellidos = isset($arrData[$i]['apellidos']) ? trim($arrData[$i]['apellidos']) : '';
-					$persona_externa = isset($arrData[$i]['persona_externa']) ? trim($arrData[$i]['persona_externa']) : '';
+					// // Obtener nombres, apellidos y persona_externa
+					// $nombres = isset($arrData[$i]['nombres']) ? trim($arrData[$i]['nombres']) : '';
+					// $apellidos = isset($arrData[$i]['apellidos']) ? trim($arrData[$i]['apellidos']) : '';
+					// $persona_externa = isset($arrData[$i]['persona_externa']) ? trim($arrData[$i]['persona_externa']) : '';
 		
-					// Concatenar nombres, apellidos y persona_externa
-					$nombreCompleto = implode(' ', array_filter([$nombres, $apellidos, $persona_externa]));
+					// // Concatenar nombres, apellidos y persona_externa
+					// $nombreCompleto = implode(' ', array_filter([$nombres, $apellidos, $persona_externa]));
 		
-					// Asignar el nombre completo al arreglo de datos
-					$arrData[$i]['nombre_completo'] = $nombreCompleto;
+					// // Asignar el nombre completo al arreglo de datos
+					// $arrData[$i]['nombre_completo'] = $nombreCompleto;
 		
 					// Determinar el estado de pago
 					$pagoStatus = '';
@@ -71,9 +73,7 @@
 			}
 			die();
 		}
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 		public function setProducto(){
 			if($_POST){
 				// if(empty($_POST['idSalida']) || empty($_POST['CodVenta']) || empty($_POST['idNombre']) || empty($_POST['Nombreexterno'])  || empty($_POST['descripcion']) || empty($_POST['Pago']) || empty($_POST['servicios']) )
@@ -131,31 +131,31 @@
 			die();
 		}
 
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		public function getProducto($idproducto){
+
+		public function getProducto($idSalida){
 			if($_SESSION['permisosMod']['r']){
-				$idproducto = intval($idproducto);
-				if($idproducto > 0){
-					$arrData = $this->model->selectProducto($idproducto);
-					if(empty($arrData)){
-						$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
-					}else{
-						$arrImg = $this->model->selectImages($idproducto);
-						if(count($arrImg) > 0){
-							for ($i=0; $i < count($arrImg); $i++) { 
-								$arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
-							}
-						}
-						$arrData['images'] = $arrImg;
+				$idSalida = intval($idSalida);
+				if($idSalida > 0){
+					$arrData = $this->model->selectProducto($idSalida);
+					$arrResponse = array(); // Inicializa $arrResponse aquí
+					if (empty($arrData)) {
+						$arrResponse = array("status" => false, "msg" => "Datos no disponibles.");
+					} else {
 						$arrResponse = array('status' => true, 'data' => $arrData);
 					}
-					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				
+				} else {
+					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos error.');
 				}
+				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 			}
 			die();
 		}
+	
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 		public function setImage(){
 			if($_POST){
