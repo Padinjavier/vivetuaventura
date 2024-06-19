@@ -25,8 +25,6 @@
 		}
 
 		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		public function getProductos()
 		{
 			if($_SESSION['permisosMod']['r']){
@@ -77,67 +75,58 @@
 			}
 			die();
 		}
-
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		public function setProducto(){
 			if($_POST){
-				if(empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) ||empty($_POST['txtPrecio']) || empty($_POST['txtfecha'])  || empty($_POST['listStatus']) )
+				// if(empty($_POST['idSalida']) || empty($_POST['CodVenta']) || empty($_POST['idNombre']) || empty($_POST['Nombreexterno'])  || empty($_POST['descripcion']) || empty($_POST['Pago']) || empty($_POST['servicios']) )
+				if(empty($_POST['CodVenta']) || empty($_POST['idNombre'])  || empty($_POST['Pago']) || empty($_POST['servicios']) )
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{
 					
-					$idProducto = intval($_POST['idProducto']);
-					$strNombre = strClean($_POST['txtNombre']);
-					$strDescripcion = strClean($_POST['txtDescripcion']);
-					$strCodigo = strClean($_POST['txtCodigo']);
-					$intCategoriaId = intval($_POST['listCategoria']);
-					$strPrecio = strClean($_POST['txtPrecio']);
-					$intStock = intval($_POST['txtStock']);
-					$strfecha = strClean($_POST['txtfecha']);
-					$intStatus = intval($_POST['listStatus']);
+					$idSalida = isset($_POST['idSalida']) ? strClean($_POST['idSalida']) : '';
+					$CodVenta = isset($_POST['CodVenta']) ? strClean($_POST['CodVenta']) : '';
+					$idNombre = isset($_POST['idNombre']) ? strClean($_POST['idNombre']) : '';
+					$Pago = isset($_POST['Pago']) ? strClean($_POST['Pago']) : '';
+					$Nombreexterno = isset($_POST['Nombreexterno']) ? strClean($_POST['Nombreexterno']) : '';
+					$descripcion = isset($_POST['descripcion']) ? strClean($_POST['descripcion']) : '';
+					$servicios = isset($_POST['servicios']) ? json_decode($_POST['servicios'], true) : [];
 					$request_producto = "";
 
-					$ruta = strtolower(clear_cadena($strNombre));
-					$ruta = str_replace(" ","-",$ruta);
 
-					if($idProducto == 0)
+					if(empty($idVenta))
 					{
 						$option = 1;
 						if($_SESSION['permisosMod']['w']){
-							$request_producto = $this->model->insertProducto($strNombre, 
-																		$strDescripcion, 
-																		$strCodigo, 
-																		$intCategoriaId,
-																		$strPrecio, 
-																		$intStock, 
-																		$strfecha, 
-																		$ruta,
-																		$intStatus );
+							$request_producto = $this->model->insertProducto($CodVenta, 
+																		$idNombre, 
+																		$Nombreexterno,
+																		$descripcion, 
+																		$Pago, 
+																		$servicios);
 						}
 					}else{
 						$option = 2;
 						if($_SESSION['permisosMod']['u']){
-							$request_producto = $this->model->updateProducto($idProducto,
-																		$strNombre,
-																		$strDescripcion, 
-																		$strCodigo, 
-																		$intCategoriaId,
-																		$strPrecio, 
-																		$intStock, 
-																		$strfecha, 
-																		$ruta,
-																		$intStatus);
+							$request_producto = $this->model->updateProducto($idSalida,
+																		$CodVenta,
+																		$idNombre, 
+																		$Pago, 
+																		$Nombreexterno,
+																		$descripcion, 
+																		$servicios);
 						}
 					}
 					if($request_producto > 0 )
 					{
 						if($option == 1){
-							$arrResponse = array('status' => true, 'idproducto' => $request_producto, 'msg' => 'Datos guardados correctamente.');
+							$arrResponse = array('status' => true, 'action' => 'insert', 'msg' => 'Datos de la salida guardados correctamente.');
 						}else{
-							$arrResponse = array('status' => true, 'idproducto' => $idProducto, 'msg' => 'Datos Actualizados correctamente.');
+							$arrResponse = array('status' => true, 'action' => 'edit', 'msg' => 'Datos Actualizados correctamente.');
 						}
-					}else if($request_producto == 'exist'){
-						$arrResponse = array('status' => false, 'msg' => '¡Atención! ya existe un producto con el Código Ingresado.');		
-					}else{
+					}else {
 						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
 					}
 				}
@@ -146,6 +135,9 @@
 			die();
 		}
 
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		public function getProducto($idproducto){
 			if($_SESSION['permisosMod']['r']){
 				$idproducto = intval($idproducto);

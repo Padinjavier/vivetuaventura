@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
             <form id="formProductos" name="formProductos" class="form-horizontal">
-              <input type="hidden" id="idProducto" name="idProducto" value="">
+              <input type="hidden" id="idSalida" name="idSalida" value="">
               <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -48,11 +48,11 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="listNombre">Nombres</label>
-                            <input class="form-control" id="txtNombre" name="txtNombre" type="text" required="">
+                            <input class="form-control" id="txtNombre" name="txtNombre" type="text" disabled>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="descripcion">Descripción (Opcional)</label>
-                            <input class="form-control" id="txtdescripcion" name="txtdescripcion" type="text" placeholder="Ingrese una descripción">
+                            <input class="form-control" id="txtdescripcion" name="txtdescripcion" type="text" placeholder="Ingrese una descripción" disabled>
                         </div>
                     </div>
                     <div class="lotessalida">

@@ -72,112 +72,102 @@ tableProductos = $('#tableProductos').dataTable( {
 });
 window.addEventListener('load', function() {
     if(document.querySelector("#formProductos")){
-        let formProductos = document.querySelector("#formProductos");
-        formProductos.onsubmit = function(e) {
+        let formVenta = document.querySelector("#formProductos");
+        formVenta.onsubmit = function (e) {
             e.preventDefault();
-            let strNombre = document.querySelector('#txtNombre').value;
-            let intCodigo = document.querySelector('#txtCodigo').value;
-            let strPrecio = document.querySelector('#txtPrecio').value;
-            let intStock = document.querySelector('#txtStock').value;
-            let strfecha = document.querySelector('#txtfecha').value;
-            let intStatus = document.querySelector('#listStatus').value;
-            if(strNombre == '' || intCodigo == '' || strPrecio == '' || intStock == ''|| strfecha == '' )
-            {
-                swal("Atención", "Todos los campos son obligatorios." , "error");
+            let idSalida = document.querySelector('#idSalida').innerText;
+            let CodVenta = document.querySelector('#listCodVenta').options[document.querySelector('#listCodVenta').selectedIndex].text;
+            // let CodVenta = document.querySelector('#listCodVenta').value;
+            let idNombre = document.querySelector('#listNombres').value;
+            let Pago = document.querySelector('#listEstPago').value;
+            let Nombreexterno = document.querySelector('#txtNombre').innerText;
+            let descripcion = document.querySelector('#txtdescripcion').innerText;
+            
+            // Obtener datos de los servicios
+            let servicios = [];
+            document.querySelectorAll("tr.detalle-salida-row").forEach(row => {
+                let selectServicio = row.querySelector("select.servicio-select");
+                let cantidad = row.querySelector("input.cantidad").value;
+                // let precio = row.querySelector("input.precio").value;
+                // let precioTotal = row.querySelector("input.precio_total").value;
+        
+                if (selectServicio && selectServicio.value !== '' && cantidad !== '' ) {
+                    let nombreServicio = selectServicio.options[selectServicio.selectedIndex].text;
+                    let idServicio = selectServicio.value;
+                    servicios.push({
+                        idServicio: idServicio,
+                        servicio: nombreServicio,
+                        cantidad: parseFloat(cantidad)
+                    });
+                }
+            });
+        
+           console.log(idSalida)
+           console.log(CodVenta)
+           console.log(idNombre)
+           console.log(Pago)
+           console.log(Nombreexterno)
+           console.log(descripcion)
+        
+            // Imprimir servicios
+            if (servicios.length > 0) {
+                console.log("Servicios:", servicios);
+            }
+        
+            // // Verificar campos obligatorios
+            if (CodVenta == '' || servicios == '') {
+                swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
                 return false;
             }
-            if(intCodigo.length < 5){
-                swal("Atención", "El código debe ser mayor que 5 dígitos." , "error");
-                return false;
-            }
+        
             divLoading.style.display = "flex";
-            tinyMCE.triggerSave();
-            let request = (window.XMLHttpRequest) ? 
-                            new XMLHttpRequest() : 
-                            new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Productos/setProducto'; 
-            let formData = new FormData(formProductos);
-            request.open("POST",ajaxUrl,true);
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url + '/Productos/setProducto';
+            let formData = new FormData();
+            
+            // Agregar datos al formData
+            formData.append('idSalida', idSalida);
+            formData.append('CodVenta', CodVenta);
+            formData.append('idNombre', idNombre);
+            formData.append('Pago', Pago);
+            formData.append('Nombreexterno', Nombreexterno);
+            formData.append('descripcion', descripcion);
+            formData.append('servicios', JSON.stringify(servicios));
+        
+            request.open("POST", ajaxUrl, true);
             request.send(formData);
-            request.onreadystatechange = function(){
-                if(request.readyState == 4 && request.status == 200){
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                  console.log(request)
+                  console.log(request.responseText)
                     let objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
-                        swal("", objData.msg ,"success");
-                        document.querySelector("#idProducto").value = objData.idproducto;
-                        document.querySelector("#containerGallery").classList.remove("notblock");
-
-                        if(rowTable == ""){
-                            // agregado para ocultar fomrulario
-                            $('#modalFormProductos').modal('hide');
-                            tableProductos.api().ajax.reload();
+                    if (objData.status) {
+                      console.log(objData)
+                      console.log(objData.data)
+                      if(rowTable == ""){
+                        tableProductos.api().ajax.reload();
+                      } else {
+                        tableProductos.api().ajax.reload();
+                      }
+        
+                        $('#modalFormProductos').modal("hide");
+                        formVenta.reset();
+                        if(objData.action=="insert"){
+                          swal("Guardado", objData.msg ,"success");
                         }else{
-                           htmlStatus = intStatus == 1 ? 
-                            '<span class="badge badge-success">Activo</span>' : 
-                            '<span class="badge badge-danger">Inactivo</span>';
-                                           
-                         
-                            // Convierte la cadena de fecha a objeto Date
-                            var fechaVencimiento = new Date(strfecha);
-                            // Obtiene la fecha actual
-                            var fechaActual = new Date();
-                            // Calcula la diferencia en milisegundos entre la fecha de vencimiento y la fecha actual
-                            var diferenciaMilisegundos = fechaVencimiento - fechaActual;
-                            // Calcula la diferencia en días
-                            var diasParaVencer = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24));
-                            // Aplica estilos según la diferencia en días
-                            var fechaConEstilo;
-                            if (diasParaVencer <= 0) {
-                                // Producto vencido
-                                fechaConEstilo = '<span class="badge badge-danger">' + strfecha + '</span>';
-                            } else if (diasParaVencer <= 10) {
-                                // Faltan menos de 10 días para vencer
-                                fechaConEstilo = '<span class="badge badge-warning">' + strfecha + '</span>';
-                            } else {
-                                // Más de 10 días para vencer
-                                fechaConEstilo = '<span class="badge badge-success">' + strfecha + '</span>';
-                            }
-                            rowTable.cells[1].textContent = intCodigo;
-                            rowTable.cells[2].textContent = strNombre;
-                            rowTable.cells[3].textContent = intStock;
-                            rowTable.cells[4].textContent = smony+strPrecio;
-                            rowTable.cells[5].innerHTML = fechaConEstilo;
-                            rowTable.cells[6].innerHTML =  htmlStatus;
-                            rowTable = "";
-                            // agregado para ocultar fomrulario
-                            $('#modalFormProductos').modal('hide');
+                            swal("Actualizado", objData.msg ,"success");
                         }
-                    }else{
-                        swal("Error", objData.msg , "error");
+                    } else {
+                        swal("Error", objData.msg, "error");
                     }
                 }
                 divLoading.style.display = "none";
                 return false;
+              }
             }
-        }
-    }
+          }
+},false);
 
-    if(document.querySelector(".btnAddImage")){
-       let btnAddImage =  document.querySelector(".btnAddImage");
-       btnAddImage.onclick = function(e){
-        let key = Date.now();
-        let newElement = document.createElement("div");
-        newElement.id= "div"+key;
-        newElement.innerHTML = `
-            <div class="prevImage"></div>
-            <input type="file" name="foto" id="img${key}" class="inputUploadfile">
-            <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload "></i></label>
-            <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')"><i class="fas fa-trash-alt"></i></button>`;
-        document.querySelector("#containerImages").appendChild(newElement);
-        document.querySelector("#div"+key+" .btnUploadfile").click();
-        fntInputFile();
-       }
-    }
-
-    fntInputFile();
-    
-}, false);
 
 if(document.querySelector("#txtCodigo")){
     let inputCodigo = document.querySelector("#txtCodigo");
@@ -488,6 +478,7 @@ function fntPrintBarcode(area){
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const btnAgregar = document.getElementById("btnAgregar");
     const dynamicFields = document.getElementById("dynamicFields");
@@ -507,6 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function addNewServicioRow(response) {
         const newRow = document.createElement("tr");
+      newRow.classList.add("detalle-salida-row");
         newRow.innerHTML = `
             <td>
                 <select class="form-control selectpicker servicio-select" name="listServicio[]" required="" data-live-search="true">
@@ -545,6 +537,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const externoBtn = document.getElementById("externo");
     const listNombres = document.getElementById("listNombres");
     const listEstPago = document.getElementById("listEstPago");
+    const txtNombre = document.getElementById("txtNombre");
+    const txtdescripcion = document.getElementById("txtdescripcion");
 
     externoBtn.addEventListener("click", function () {
         if (listNombres.disabled) {
@@ -556,26 +550,31 @@ document.addEventListener("DOMContentLoaded", function () {
             listEstPago.disabled = false;
             listEstPago.setAttribute("required", "");
             $(listEstPago).selectpicker("refresh");
+
+            // Desactivar inputs
+            txtNombre.disabled = true;
+            txtNombre.value = ""; // Limpiar el valor del input
+            txtdescripcion.disabled = true;
+            txtdescripcion.value = ""; // Limpiar el valor del input
+
         } else {
             // Desactivar selects
             listNombres.disabled = true;
             listNombres.removeAttribute("required");
-            listNombres.value = ""; // Clear the selected value
-            $(listNombres).selectpicker("refresh"); // Refresh the Bootstrap select
+            listNombres.value = ""; // Limpiar el valor seleccionado
+            $(listNombres).selectpicker("refresh");
 
             listEstPago.disabled = true;
             listEstPago.removeAttribute("required");
-            listEstPago.value = "1"; // Clear the selected value
-            $(listEstPago).selectpicker("refresh"); // Refresh the Bootstrap select
+            listEstPago.value = "1"; // Establecer valor por defecto si es necesario
+            $(listEstPago).selectpicker("refresh");
+
+            // Activar inputs
+            txtNombre.disabled = false;
+            txtdescripcion.disabled = false;
         }
     });
 });
-
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", function() {
     fntListCategorias();
@@ -619,7 +618,7 @@ function fntListNombres(){
 function openModal()
 {
     rowTable = "";
-    document.querySelector('#idProducto').value ="";
+    document.querySelector('#idSalida').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";

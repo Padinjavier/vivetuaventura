@@ -13,6 +13,12 @@
 		private $intStatus;
 		private $strRuta;
 		private $strImagen;
+		private $CodVenta;
+		private $idNombre;
+		private $Pago;
+		private $Nombreexterno;
+		private $descripcion;
+		private $servicios;
 
 		public function __construct()
 		{
@@ -36,49 +42,42 @@
 					WHERE p.status != 0 ";
 					$request = $this->select_all($sql);
 			return $request;
-		}	
-
-		public function insertProducto(string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock,string $strfecha, string $ruta, int $status){
-			$this->strNombre = $nombre;
-			$this->strDescripcion = $descripcion;
-			$this->intCodigo = $codigo;
-			$this->intCategoriaId = $categoriaid;
-			$this->strPrecio = $precio;
-			$this->intStock = $stock;
-			$this->strfecha = $strfecha;
-			$this->strRuta = $ruta;
-			$this->intStatus = $status;
-			$return = 0;
-			$sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}'";
-			$request = $this->select_all($sql);
-			if(empty($request))
-			{
-				$query_insert  = "INSERT INTO producto(categoriaid,
-														codigo,
-														nombre,
-														descripcion,
-														precio,
-														stock,
-														fecha_v,
-														ruta,
-														status) 
-								  VALUES(?,?,?,?,?,?,?,?,?)";
-	        	$arrData = array($this->intCategoriaId,
-        						$this->intCodigo,
-        						$this->strNombre,
-        						$this->strDescripcion,
-        						$this->strPrecio,
-        						$this->intStock,
-        						$this->strfecha,
-        						$this->strRuta,
-        						$this->intStatus);
-	        	$request_insert = $this->insert($query_insert,$arrData);
-	        	$return = $request_insert;
-			}else{
-				$return = "exist";
-			}
-	        return $return;
 		}
+
+	public function insertProducto($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
+	{
+		$query_insert = "INSERT INTO salida(codigo_venta, personaid, persona_externa, descripcion, pago) 
+									  VALUES(?,?,?,?,?)";
+		$arrData = array($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago);
+		$request_insert = $this->insert($query_insert, $arrData);
+		// Verificar si la inserción en salida fue exitosa
+		if ($request_insert > 0) {
+			// Obtener el último ID de salida insertado
+			$query_IdSalida = "SELECT idsalida FROM salida ORDER BY idsalida DESC LIMIT 1;";
+			$ultimoIsSalida = $this->select($query_IdSalida);
+
+			if ($ultimoIsSalida) {
+				$idsalida = $ultimoIsSalida['idsalida'];
+
+				foreach ($servicios as $servicio) {
+					$idservicio = $servicio['idServicio'];
+					$cantidad = $servicio['cantidad'];
+					$sqlDetalleVenta = "INSERT INTO detalle_salida (idsalida, idservicio, cantidad)
+												VALUES (?, ?, ?)";
+					$arrDataDetalleVenta = array($idsalida, $idservicio, $cantidad);
+					$request = $this->insert($sqlDetalleVenta, $arrDataDetalleVenta);
+				}
+				$return = $request;
+
+			} else {
+				$return = $ultimoIsSalida;
+			}
+		} else {
+			$return = $request_insert;
+		}
+		return $return;
+	}
+		
 
 		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $strfecha, string $ruta, int $status){
 			$this->intIdProducto = $idproducto;
