@@ -26,26 +26,32 @@
 		}
 
 		public function selectProductos(){
-			$sql = "SELECT p.idproducto,
-							p.codigo,
-							p.nombre,
-							p.descripcion,
-							p.categoriaid,
-							c.nombre as categoria,
-							p.precio,
-							p.stock,
-							p.fecha_v,
-							p.status 
-					FROM producto p 
-					INNER JOIN categoria c
-					ON p.categoriaid = c.idcategoria
-					WHERE p.status != 0 ";
+			$sql = "SELECT s.idsalida,
+							s.codigo_venta,
+							s.personaid,
+							p.nombres,
+							p.apellidos,
+							s.persona_externa,
+							 DATE_FORMAT(s.datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
+							s.pago,
+							s.status 
+					FROM salida s 
+					INNER JOIN persona p
+					ON s.personaid = p.idpersona
+					WHERE s.status != 0 ";
 					$request = $this->select_all($sql);
 			return $request;
 		}
 
 	public function insertProducto($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
 	{
+		// Asignar null a las variables si están vacías
+		$CodVenta = !empty($CodVenta) ? $CodVenta : null;
+		$idNombre = !empty($idNombre) ? $idNombre : null;
+		$Nombreexterno = !empty($Nombreexterno) ? $Nombreexterno : null;
+		$descripcion = !empty($descripcion) ? $descripcion : null;
+		$Pago = !empty($Pago) ? $Pago : null;
+
 		$query_insert = "INSERT INTO salida(codigo_venta, personaid, persona_externa, descripcion, pago) 
 									  VALUES(?,?,?,?,?)";
 		$arrData = array($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago);

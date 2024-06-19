@@ -34,40 +34,36 @@
 					$btnEdit = '';
 					$btnDelete = '';
 
-					//fecha vencimiento
-					// Calcula la diferencia en días entre la fecha de vencimiento y la fecha actual
-					$diferencia_dias = strtotime($arrData[$i]['fecha_v']) - strtotime(date("Y-m-d"));
-					$dias_para_vencer = floor($diferencia_dias / (60 * 60 * 24));
-
-					// Aplica estilos según la diferencia en días
-					if ($dias_para_vencer <= 0) {
-						// Producto vencido
-						$arrData[$i]['fecha_v'] = "<span class='badge badge-danger'>" . $arrData[$i]['fecha_v'] . "</span>";
-					} elseif ($dias_para_vencer <= 10) {
-						// Faltan menos de 10 días para vencer
-						$arrData[$i]['fecha_v'] = "<span class='badge badge-warning'>" . $arrData[$i]['fecha_v'] . "</span>";
-					} else {
-						// Más de 10 días para vencer
-						$arrData[$i]['fecha_v'] = '<span class="badge badge-success">' . $arrData[$i]['fecha_v'] . '</span>';
+					// Obtener nombres, apellidos y persona_externa
+					$nombres = isset($arrData[$i]['nombres']) ? trim($arrData[$i]['nombres']) : '';
+					$apellidos = isset($arrData[$i]['apellidos']) ? trim($arrData[$i]['apellidos']) : '';
+					$persona_externa = isset($arrData[$i]['persona_externa']) ? trim($arrData[$i]['persona_externa']) : '';
+		
+					// Concatenar nombres, apellidos y persona_externa
+					$nombreCompleto = implode(' ', array_filter([$nombres, $apellidos, $persona_externa]));
+		
+					// Asignar el nombre completo al arreglo de datos
+					$arrData[$i]['nombre_completo'] = $nombreCompleto;
+		
+					// Determinar el estado de pago
+					$pagoStatus = '';
+					if ($arrData[$i]['pago'] == 1) {
+						$pagoStatus = '<span style="color: white; background-color: red; padding: 5px; border-radius: 3px;">Falta</span>';
+					} elseif ($arrData[$i]['pago'] == 2) {
+						$pagoStatus = '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;">Listo</span>';
 					}
 
-					//stado
-					if($arrData[$i]['status'] == 1)
-					{
-						$arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
-					}else{
-						$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
-					}
-
-					$arrData[$i]['precio'] = SMONEY.' '.formatMoney($arrData[$i]['precio']);
+					// Asignar el estado de pago al arreglo de datos
+					$arrData[$i]['pago_status'] = $pagoStatus;
+				
 					if($_SESSION['permisosMod']['r']){
-						$btnView = '<button class="btn btn-info btn-sm btnView " onClick="fntViewInfo('.$arrData[$i]['idproducto'].')" title="Ver producto"><i class="far fa-eye"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm btnView " onClick="fntViewInfo('.$arrData[$i]['idsalida'].')" title="Ver producto"><i class="far fa-eye"></i></button>';
 					}
 					if($_SESSION['permisosMod']['u']){
-						$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit" onClick="fntEditInfo(this,'.$arrData[$i]['idproducto'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
+						$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit" onClick="fntEditInfo(this,'.$arrData[$i]['idsalida'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
 					}
 					if($_SESSION['permisosMod']['d']){	
-						$btnDelete = '<button class="btn btn-danger btn-sm btnDel" onClick="fntDelInfo('.$arrData[$i]['idproducto'].')" title="Eliminar producto"><i class="far fa-trash-alt"></i></button>';
+						$btnDelete = '<button class="btn btn-danger btn-sm btnDel" onClick="fntDelInfo('.$arrData[$i]['idsalida'].')" title="Eliminar producto"><i class="far fa-trash-alt"></i></button>';
 					}
 					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 				}
@@ -81,9 +77,9 @@
 		public function setProducto(){
 			if($_POST){
 				// if(empty($_POST['idSalida']) || empty($_POST['CodVenta']) || empty($_POST['idNombre']) || empty($_POST['Nombreexterno'])  || empty($_POST['descripcion']) || empty($_POST['Pago']) || empty($_POST['servicios']) )
-				if(empty($_POST['CodVenta']) || empty($_POST['idNombre'])  || empty($_POST['Pago']) || empty($_POST['servicios']) )
+				if(empty($_POST['CodVenta']) || empty($_POST['servicios']) )
 				{
-					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+					$arrResponse = array("status" => false, "msg" => 'Faltan datos.');
 				}else{
 					
 					$idSalida = isset($_POST['idSalida']) ? strClean($_POST['idSalida']) : '';

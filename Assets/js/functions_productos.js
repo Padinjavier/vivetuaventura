@@ -17,16 +17,16 @@ tableProductos = $('#tableProductos').dataTable( {
         "dataSrc":""
     },
     "columns":[
-        {"data":"idproducto"},
-        {"data":"codigo"},
-        {"data":"nombre"},
-        {"data":"stock"},
-        {"data":"precio"},
+        {"data":"idsalida"},
+        {"data":"codigo_venta"},
+        {"data":"nombre_completo"},
+        {"data":"datecreated"},
+        {"data":"pago_status"},
         {"data":"options"}
     ],
     "columnDefs": [
                     { 'className': "textcenter", "targets": [ 3 ] },
-                    { 'className': "textright", "targets": [ 4 ] },
+                    { 'className': "textcenter", "targets": [ 4 ] },
                     { 'className': "textcenter", "targets": [ 5 ] }
                   ],       
     'dom': 'lBfrtip',
@@ -80,8 +80,8 @@ window.addEventListener('load', function() {
             // let CodVenta = document.querySelector('#listCodVenta').value;
             let idNombre = document.querySelector('#listNombres').value;
             let Pago = document.querySelector('#listEstPago').value;
-            let Nombreexterno = document.querySelector('#txtNombre').innerText;
-            let descripcion = document.querySelector('#txtdescripcion').innerText;
+            let Nombreexterno = document.querySelector('#txtNombre').value;
+            let descripcion = document.querySelector('#txtdescripcion').value;
             
             // Obtener datos de los servicios
             let servicios = [];
@@ -619,16 +619,18 @@ function openModal()
 {
     rowTable = "";
     document.querySelector('#idSalida').value ="";
+    document.querySelector('#txtNombre').value ="";
+    document.querySelector('#txtdescripcion').value ="";
+    $('#listCodVenta').selectpicker('val', '');
+    $('#listNombres').selectpicker('val', '');
+    $('#listEstPago').selectpicker('val', '');
+    $('.servicio-select').selectpicker('val', '');
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
     document.querySelector('#titleModal').innerHTML = "Nueva Salida";
     document.querySelector("#formProductos").reset();
-    // document.querySelector("#divBarCode").classList.add("show");//con error
-    // document.querySelector("#containerGallery").classList.add("show");//con error
-    // document.querySelector("#containerImages").innerHTML = "";
     $('#modalFormProductos').modal('show');
-
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
