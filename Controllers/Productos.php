@@ -92,7 +92,7 @@
 					$request_producto = "";
 
 
-					if(empty($idVenta))
+					if(empty($idSalida))
 					{
 						$option = 1;
 						if($_SESSION['permisosMod']['w']){
@@ -109,9 +109,9 @@
 							$request_producto = $this->model->updateProducto($idSalida,
 																		$CodVenta,
 																		$idNombre, 
-																		$Pago, 
 																		$Nombreexterno,
 																		$descripcion, 
+																		$Pago, 
 																		$servicios);
 						}
 					}
@@ -123,7 +123,7 @@
 							$arrResponse = array('status' => true, 'action' => 'edit', 'msg' => 'Datos Actualizados correctamente.');
 						}
 					}else {
-						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
+						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos. -> ' . json_encode($option));
 					}
 				}
 				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);

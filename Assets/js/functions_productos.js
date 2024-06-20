@@ -78,7 +78,7 @@ window.addEventListener('load', function() {
         let formVenta = document.querySelector("#formProductos");
         formVenta.onsubmit = function (e) {
             e.preventDefault();
-            let idSalida = document.querySelector('#idSalida').innerText;
+            let idSalida = document.querySelector('#idSalida').value;
             let CodVenta = document.querySelector('#listCodVenta').options[document.querySelector('#listCodVenta').selectedIndex].text;
             // let CodVenta = document.querySelector('#listCodVenta').value;
             let idNombre = document.querySelector('#listNombres').value;
@@ -91,8 +91,6 @@ window.addEventListener('load', function() {
             document.querySelectorAll("tr.detalle-salida-row").forEach(row => {
                 let selectServicio = row.querySelector("select.servicio-select");
                 let cantidad = row.querySelector("input.cantidad").value;
-                // let precio = row.querySelector("input.precio").value;
-                // let precioTotal = row.querySelector("input.precio_total").value;
         
                 if (selectServicio && selectServicio.value !== '' && cantidad !== '' ) {
                     let nombreServicio = selectServicio.options[selectServicio.selectedIndex].text;
@@ -382,6 +380,13 @@ function fntDelInfo(idProducto){
 
 
 function fntEditInfo(element,idProducto){
+
+      // Eliminar elementos del grupo de servicio pero debe dejar al menos uno
+  let detalleVentaRows = document.querySelectorAll('.detalle-salida-row');
+  for (let i = 0; i < detalleVentaRows.length; i++) {
+      detalleVentaRows[i].remove();
+  }
+
     rowTable = element.parentNode.parentNode.parentNode;
     document.querySelector('#titleModal').innerHTML ="Actualizar Salida";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
@@ -427,15 +432,36 @@ function fntEditInfo(element,idProducto){
                 }     
                 $('#modalFormProductos').modal('show');
                 setTimeout(function() {
-                    asignarDatos(objData.data.detalle_venta);
-                }, 2000);
+                    asignarDatos(objData.data.detalle_salida);
+                }, 1500);
             } else {
                 swal("Error", objData.msg, "error");
             }
         }
     }
 }
-
+function asignarDatos(detalleSalida) {
+    let cantidadDatos = detalleSalida.length;
+    // Asignar los datos a los grupos respectivos
+    let grupos = document.querySelectorAll(".detalle-salida-row");
+  
+    for (let i = 0; i < cantidadDatos; i++) {
+        let datosLote = detalleSalida[i];
+        let grupoActual = grupos[i];
+        if (grupoActual) {
+            let servicioSelect = grupoActual.querySelector("#selectSalida");
+            if (servicioSelect) {
+                servicioSelect.value = datosLote.idservicio;
+                $(servicioSelect).selectpicker('refresh');
+            }
+  
+            let cantidadInput = grupoActual.querySelector(".cantidad");
+            if (cantidadInput) {
+                cantidadInput.value = datosLote.cantidad;
+            }
+          }
+      }
+  }
 
 
 
@@ -510,7 +536,7 @@ document.addEventListener("DOMContentLoaded", function () {
       newRow.classList.add("detalle-salida-row");
         newRow.innerHTML = `
             <td>
-                <select class="form-control selectpicker servicio-select" name="listServicio[]" required="" data-live-search="true">
+                <select class="form-control selectpicker servicio-select" id="selectSalida" name="listServicio[]" required="" data-live-search="true">
                     ${response[0]}
                 </select>
             </td>

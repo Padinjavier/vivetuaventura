@@ -92,54 +92,53 @@
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	public function updateProducto($idSalida, $CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
+	{
+		// Asignar null a las variables si están vacías
+		$request =0;
+		$idSalida = !empty($idSalida) ? $idSalida : null;
+		$CodVenta = !empty($CodVenta) ? $CodVenta : null;
+		$idNombre = !empty($idNombre) ? $idNombre : null;
+		$Nombreexterno = !empty($Nombreexterno) ? $Nombreexterno : null;
+		$descripcion = !empty($descripcion) ? $descripcion : null;
+		$Pago = !empty($Pago) ? $Pago : null;
+		$return = 0;
 		
+			$sql = "UPDATE salida 
+							SET codigo_venta = ?, 
+								personaid = ?, 
+								persona_externa = ?, 
+								descripcion = ?, 
+								pago = ? 
+							WHERE idsalida = ?";
+					$arrData = array($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $idSalida);
+					$requestupdatesalida = $this->update($sql, $arrData);
+					
+			if ($requestupdatesalida) {
 
-		public function updateProducto(int $idproducto, string $nombre, string $descripcion, int $codigo, int $categoriaid, string $precio, int $stock, string $strfecha, string $ruta, int $status){
-			$this->intIdProducto = $idproducto;
-			$this->strNombre = $nombre;
-			$this->strDescripcion = $descripcion;
-			$this->intCodigo = $codigo;
-			$this->intCategoriaId = $categoriaid;
-			$this->strPrecio = $precio;
-			$this->intStock = $stock;
-			$this->strfecha = $strfecha;
-			$this->strRuta = $ruta;
-			$this->intStatus = $status;
-			$return = 0;
-			$sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}' AND idproducto != $this->intIdProducto ";
-			$request = $this->select_all($sql);
-			if(empty($request))
-			{
-				$sql = "UPDATE producto 
-						SET categoriaid=?,
-							codigo=?,
-							nombre=?,
-							descripcion=?,
-							precio=?,
-							stock=?,
-							fecha_v=?,
-							ruta=?,
-							status=? 
-						WHERE idproducto = $this->intIdProducto ";
-				$arrData = array($this->intCategoriaId,
-        						$this->intCodigo,
-        						$this->strNombre,
-        						$this->strDescripcion,
-        						$this->strPrecio,
-        						$this->intStock,
-								$this->strfecha,
-        						$this->strRuta,
-        						$this->intStatus);
+				// Eliminar los detalles de venta existentes
+				$sqlDeleteDetalle = "DELETE FROM detalle_salida WHERE idsalida = '" . $idSalida . "'";
+				$this->delete($sqlDeleteDetalle);
 
-	        	$request = $this->update($sql,$arrData);
-	        	$return = $request;
-			}else{
-				$return = "exist";
-			}
-	        return $return;
+				foreach ($servicios as $servicio) {
+					$idservicio = $servicio['idServicio'];
+					$cantidad = $servicio['cantidad'];
+					$sqlDetalleVenta = "INSERT INTO detalle_salida (idsalida, idservicio, cantidad)
+										VALUES (?,?,?)";
+					$arrDataDetalleVenta = array($idSalida,$idservicio, $cantidad,);
+					$this->update($sqlDetalleVenta, $arrDataDetalleVenta);
+				}
+			return true;
+			} else {
+				
+			
+			return false;
 		}
+	}
 
-		// public function selectProducto(int $idSalida){
+	// public function selectProducto(int $idSalida){
 		// 	$this->idSalida = $idSalida;
 		// 	$sql = "SELECT s.idsalida,
 		// 					s.codigo_venta,
@@ -186,11 +185,12 @@
 		
 			// Consulta para obtener los detalles de la salida
 			if (!empty($requestSalida)) {
-				$codigo_venta = $requestSalida['codigo_venta'];
+				// $codigo_venta = $requestSalida['codigo_venta'];
 				$sql_detalle = "SELECT ds.iddetalle_salida,
 									   ds.idsalida,
 									   ds.idservicio,
 									   ds.cantidad,
+									   s.idservicio,
 									   s.nombre AS nombre_servicio
 								FROM detalle_salida AS ds
 								INNER JOIN servicio AS s ON ds.idservicio = s.idservicio
