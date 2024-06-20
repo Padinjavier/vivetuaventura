@@ -103,16 +103,16 @@ window.addEventListener('load', function() {
                 }
             });
         
-           console.log(idSalida)
-           console.log(CodVenta)
-           console.log(idNombre)
-           console.log(Pago)
-           console.log(Nombreexterno)
-           console.log(descripcion)
+           //console.log(idSalida)
+           //console.log(CodVenta)
+           //console.log(idNombre)
+           //console.log(Pago)
+           //console.log(Nombreexterno)
+           //console.log(descripcion)
         
             // Imprimir servicios
             if (servicios.length > 0) {
-                console.log("Servicios:", servicios);
+                //console.log("Servicios:", servicios);
             }
         
             // // Verificar campos obligatorios
@@ -139,12 +139,12 @@ window.addEventListener('load', function() {
             request.send(formData);
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
-                  console.log(request)
-                  console.log(request.responseText)
+                  //console.log(request)
+                  //console.log(request.responseText)
                     let objData = JSON.parse(request.responseText);
                     if (objData.status) {
-                      console.log(objData)
-                      console.log(objData.data)
+                      //console.log(objData)
+                      //console.log(objData.data)
                       if(rowTable == ""){
                         tableProductos.api().ajax.reload();
                       } else {
@@ -168,116 +168,6 @@ window.addEventListener('load', function() {
             }
           }
 },false);
-// -----------------------------------------------------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------
-
-
-// if(document.querySelector("#txtCodigo")){
-//     let inputCodigo = document.querySelector("#txtCodigo");
-//     inputCodigo.onkeyup = function() {
-//         if(inputCodigo.value.length >= 5){
-//             document.querySelector('#divBarCode').classList.remove("notblock");
-//             fntBarcode();
-//        }else{
-//             document.querySelector('#divBarCode').classList.add("notblock");
-//        }
-//     };
-// }
-
-// tinymce.init({
-// 	selector: '#txtDescripcion',
-// 	width: "100%",
-//     height: 400,    
-//     statubar: true,
-//     plugins: [
-//         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
-//         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-//         "save table contextmenu directionality emoticons template paste textcolor"
-//     ],
-//     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
-// });
-
-// function fntInputFile(){
-//     let inputUploadfile = document.querySelectorAll(".inputUploadfile");
-//     inputUploadfile.forEach(function(inputUploadfile) {
-//         inputUploadfile.addEventListener('change', function(){
-//             let idProducto = document.querySelector("#idProducto").value;
-//             let parentId = this.parentNode.getAttribute("id");
-//             let idFile = this.getAttribute("id");            
-//             let uploadFoto = document.querySelector("#"+idFile).value;
-//             let fileimg = document.querySelector("#"+idFile).files;
-//             let prevImg = document.querySelector("#"+parentId+" .prevImage");
-//             let nav = window.URL || window.webkitURL;
-//             if(uploadFoto !=''){
-//                 let type = fileimg[0].type;
-//                 let name = fileimg[0].name;
-//                 if(type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png'){
-//                     prevImg.innerHTML = "Archivo no válido";
-//                     uploadFoto.value = "";
-//                     return false;
-//                 }else{
-//                     let objeto_url = nav.createObjectURL(this.files[0]);
-//                     prevImg.innerHTML = `<img class="loading" src="${base_url}/Assets/images/loading.svg" >`;
-
-//                     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-//                     let ajaxUrl = base_url+'/Productos/setImage'; 
-//                     let formData = new FormData();
-//                     formData.append('idproducto',idProducto);
-//                     formData.append("foto", this.files[0]);
-//                     request.open("POST",ajaxUrl,true);
-//                     request.send(formData);
-//                     request.onreadystatechange = function(){
-//                         if(request.readyState != 4) return;
-//                         if(request.status == 200){
-//                             let objData = JSON.parse(request.responseText);
-//                             if(objData.status){
-//                                 prevImg.innerHTML = `<img src="${objeto_url}">`;
-//                                 document.querySelector("#"+parentId+" .btnDeleteImage").setAttribute("imgname",objData.imgname);
-//                                 document.querySelector("#"+parentId+" .btnUploadfile").classList.add("notblock");
-//                                 document.querySelector("#"+parentId+" .btnDeleteImage").classList.remove("notblock");
-//                             }else{
-//                                 swal("Error", objData.msg , "error");
-//                             }
-//                         }
-//                     }
-
-//                 }
-//             }
-
-//         });
-//     });
-// }
-
-// function fntDelItem(element){
-//     let nameImg = document.querySelector(element+' .btnDeleteImage').getAttribute("imgname");
-//     let idProducto = document.querySelector("#idProducto").value;
-//     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-//     let ajaxUrl = base_url+'/Productos/delFile'; 
-
-//     let formData = new FormData();
-//     formData.append('idproducto',idProducto);
-//     formData.append("file",nameImg);
-//     request.open("POST",ajaxUrl,true);
-//     request.send(formData);
-//     request.onreadystatechange = function(){
-//         if(request.readyState != 4) return;
-//         if(request.status == 200){
-//             let objData = JSON.parse(request.responseText);
-//             if(objData.status)
-//             {
-//                 let itemRemove = document.querySelector(element);
-//                 itemRemove.parentNode.removeChild(itemRemove);
-//             }else{
-//                 swal("", objData.msg , "error");
-//             }
-//         }
-//     }
-// }
-
-
-
-
 
 function fntDelInfo(idProducto){
     swal({
@@ -301,8 +191,8 @@ function fntDelInfo(idProducto){
             request.send(strData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    console.log(request);
-                    console.log(request.responseText);
+                    //console.log(request);
+                    //console.log(request.responseText);
                     let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
@@ -318,61 +208,6 @@ function fntDelInfo(idProducto){
     });
 
 }
-
-
-
-// function fntBarcode(){
-//     let codigo = document.querySelector("#txtCodigo").value;
-//     JsBarcode("#barcode", codigo);
-// }
-
-// function fntPrintBarcode(area){
-//     let elemntArea = document.querySelector(area);
-//     let vprint = window.open(' ', 'popimpr', 'height=400,width=600');
-//     vprint.document.write(elemntArea.innerHTML );
-//     vprint.document.close();
-//     vprint.print();
-//     vprint.close();
-// }
-// -----------------------------------------------------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -405,8 +240,8 @@ function fntEditInfo(element,idProducto){
             let objData = JSON.parse(request.responseText);
             if(objData.status)
             {
-                console.log(objData.data.Salida);
-                console.log(objData.data.detalle_salida);
+                //console.log(objData.data.Salida);
+                //console.log(objData.data.detalle_salida);
 
                 document.querySelector('#idSalida').value = objData.data.Salida.idsalida;
                 $('#listCodVenta').selectpicker('val', objData.data.Salida.idventa);
@@ -477,8 +312,8 @@ function fntViewInfo(idSalida){
     request.onreadystatechange = function(){
         if(request.readyState == 4 && request.status == 200){
 
-            console.log(request)
-            console.log(request.responseText)
+            //console.log(request)
+            //console.log(request.responseText)
 
             let objData = JSON.parse(request.responseText);
             if(objData.status)
@@ -584,10 +419,6 @@ document.addEventListener("DOMContentLoaded", function () {
             listNombres.setAttribute("required", "");
             $(listNombres).selectpicker("refresh");
 
-            // listEstPago.disabled = false;
-            // listEstPago.setAttribute("required", "");
-            // $(listEstPago).selectpicker("refresh");
-
             // Desactivar inputs
             txtNombre.disabled = true;
             txtNombre.value = ""; // Limpiar el valor del input
@@ -600,11 +431,6 @@ document.addEventListener("DOMContentLoaded", function () {
             listNombres.removeAttribute("required");
             listNombres.value = ""; // Limpiar el valor seleccionado
             $(listNombres).selectpicker("refresh");
-
-            // listEstPago.disabled = true;
-            // listEstPago.removeAttribute("required");
-            // listEstPago.value = "1"; // Establecer valor por defecto si es necesario
-            // $(listEstPago).selectpicker("refresh");
 
             // Activar inputs
             txtNombre.disabled = false;
@@ -671,7 +497,3 @@ function openModal()
     document.querySelector("#formProductos").reset();
     $('#modalFormProductos').modal('show');
 }
-
-// ----------------------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------------

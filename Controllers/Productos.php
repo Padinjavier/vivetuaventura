@@ -24,9 +24,6 @@
 			$this->views->getView($this,"productos",$data);
 		}
 
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		public function getProductos()
 		{
 			if($_SESSION['permisosMod']['r']){
@@ -36,17 +33,6 @@
 					$btnEdit = '';
 					$btnDelete = '';
 
-					// // Obtener nombres, apellidos y persona_externa
-					// $nombres = isset($arrData[$i]['nombres']) ? trim($arrData[$i]['nombres']) : '';
-					// $apellidos = isset($arrData[$i]['apellidos']) ? trim($arrData[$i]['apellidos']) : '';
-					// $persona_externa = isset($arrData[$i]['persona_externa']) ? trim($arrData[$i]['persona_externa']) : '';
-		
-					// // Concatenar nombres, apellidos y persona_externa
-					// $nombreCompleto = implode(' ', array_filter([$nombres, $apellidos, $persona_externa]));
-		
-					// // Asignar el nombre completo al arreglo de datos
-					// $arrData[$i]['nombre_completo'] = $nombreCompleto;
-		
 					// Determinar el estado de pago
 					$pagoStatus = '';
 					if ($arrData[$i]['pago'] == 1) {
@@ -152,53 +138,6 @@
 			die();
 		}
 	
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-		public function setImage(){
-			if($_POST){
-				if(empty($_POST['idproducto'])){
-					$arrResponse = array('status' => false, 'msg' => 'Error de dato.');
-				}else{
-					$idProducto = intval($_POST['idproducto']);
-					$foto      = $_FILES['foto'];
-					$imgNombre = 'pro_'.md5(date('d-m-Y H:i:s')).'.jpg';
-					$request_image = $this->model->insertImage($idProducto,$imgNombre);
-					if($request_image){
-						$uploadImage = uploadImage($foto,$imgNombre);
-						$arrResponse = array('status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado.');
-					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error de carga.');
-					}
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-			die();
-		}
-
-		public function delFile(){
-			if($_POST){
-				if(empty($_POST['idproducto']) || empty($_POST['file'])){
-					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-				}else{
-					//Eliminar de la DB
-					$idProducto = intval($_POST['idproducto']);
-					$imgNombre  = strClean($_POST['file']);
-					$request_image = $this->model->deleteImage($idProducto,$imgNombre);
-
-					if($request_image){
-						$deleteFile =  deleteFile($imgNombre);
-						$arrResponse = array('status' => true, 'msg' => 'Archivo eliminado');
-					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar');
-					}
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-			die();
-		}
 
 		public function delProducto(){
 			if($_POST){
@@ -217,5 +156,4 @@
 			die();
 		}
 	}
-
  ?>

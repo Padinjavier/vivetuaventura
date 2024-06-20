@@ -1,33 +1,34 @@
-<?php 
+<?php
 
-	class ProductosModel extends Mysql
+class ProductosModel extends Mysql
+{
+	private $intIdProducto;
+	private $idSalida;
+	private $strNombre;
+	private $strDescripcion;
+	private $intCodigo;
+	private $intCategoriaId;
+	private $intPrecio;
+	private $intStock;
+	private $strfecha;
+	private $intStatus;
+	private $strRuta;
+	private $strImagen;
+	private $CodVenta;
+	private $idNombre;
+	private $Pago;
+	private $Nombreexterno;
+	private $descripcion;
+	private $servicios;
+
+	public function __construct()
 	{
-		private $intIdProducto;
-		private $idSalida;
-		private $strNombre;
-		private $strDescripcion;
-		private $intCodigo;
-		private $intCategoriaId;
-		private $intPrecio;
-		private $intStock;
-		private $strfecha;
-		private $intStatus;
-		private $strRuta;
-		private $strImagen;
-		private $CodVenta;
-		private $idNombre;
-		private $Pago;
-		private $Nombreexterno;
-		private $descripcion;
-		private $servicios;
+		parent::__construct();
+	}
 
-		public function __construct()
-		{
-			parent::__construct();
-		}
-
-		public function selectProductos(){
-			$sql = "SELECT s.idsalida,
+	public function selectProductos()
+	{
+		$sql = "SELECT s.idsalida,
 							s.codigo_venta,
 							s.personaid,
 							CASE 
@@ -42,9 +43,9 @@
 						FROM salida s 
 						LEFT JOIN persona p ON s.personaid = p.idpersona
 						WHERE s.status != 0";
-					$request = $this->select_all($sql);
-			return $request;
-		}
+		$request = $this->select_all($sql);
+		return $request;
+	}
 
 	public function insertProducto($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
 	{
@@ -77,7 +78,6 @@
 					$request = $this->insert($sqlDetalleVenta, $arrDataDetalleVenta);
 				}
 				$return = $request;
-
 			} else {
 				$return = $ultimoIsSalida;
 			}
@@ -87,58 +87,52 @@
 		return $return;
 	}
 
-
 	public function updateProducto($idSalida, $CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
 	{
 		// Asignar null a las variables si están vacías
-		$request =0;
+		$request = 0;
 		$idSalida = !empty($idSalida) ? $idSalida : null;
 		$CodVenta = !empty($CodVenta) ? $CodVenta : null;
 		$idNombre = !empty($idNombre) ? $idNombre : null;
 		$Nombreexterno = !empty($Nombreexterno) ? $Nombreexterno : null;
 		$descripcion = !empty($descripcion) ? $descripcion : null;
 		$Pago = !empty($Pago) ? $Pago : null;
-		$return = 0;
-		
-			$sql = "UPDATE salida 
+
+		$sql = "UPDATE salida 
 							SET codigo_venta = ?, 
 								personaid = ?, 
 								persona_externa = ?, 
 								descripcion = ?, 
 								pago = ? 
 							WHERE idsalida = ?";
-					$arrData = array($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $idSalida);
-					$requestupdatesalida = $this->update($sql, $arrData);
-					
-			if ($requestupdatesalida) {
+		$arrData = array($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $idSalida);
+		$requestupdatesalida = $this->update($sql, $arrData);
 
-				// Eliminar los detalles de venta existentes
-				$sqlDeleteDetalle = "DELETE FROM detalle_salida WHERE idsalida = '" . $idSalida . "'";
-				$this->delete($sqlDeleteDetalle);
+		if ($requestupdatesalida) {
+			// Eliminar los detalles de venta existentes
+			$sqlDeleteDetalle = "DELETE FROM detalle_salida WHERE idsalida = '" . $idSalida . "'";
+			$this->delete($sqlDeleteDetalle);
 
-				foreach ($servicios as $servicio) {
-					$idservicio = $servicio['idServicio'];
-					$cantidad = $servicio['cantidad'];
-					$sqlDetalleVenta = "INSERT INTO detalle_salida (idsalida, idservicio, cantidad)
+			foreach ($servicios as $servicio) {
+				$idservicio = $servicio['idServicio'];
+				$cantidad = $servicio['cantidad'];
+				$sqlDetalleVenta = "INSERT INTO detalle_salida (idsalida, idservicio, cantidad)
 										VALUES (?,?,?)";
-					$arrDataDetalleVenta = array($idSalida,$idservicio, $cantidad,);
-					$this->update($sqlDetalleVenta, $arrDataDetalleVenta);
-				}
+				$arrDataDetalleVenta = array($idSalida, $idservicio, $cantidad, );
+				$this->update($sqlDetalleVenta, $arrDataDetalleVenta);
+			}
 			return true;
-			} else {
-				
-			
+		} else {
 			return false;
 		}
 	}
 
 
 	public function selectProducto(int $idSalida)
-		{
-			$this->idSalida = $idSalida;
-			
-			// Consulta para obtener los datos básicos de la salida
-			$sql = "SELECT s.idsalida,
+	{
+		$this->idSalida = $idSalida;
+		// Consulta para obtener los datos básicos de la salida
+		$sql = "SELECT s.idsalida,
 						   s.codigo_venta,
 						   v.idventa,
 						   s.personaid,
@@ -153,13 +147,13 @@
 					LEFT JOIN persona p ON s.personaid = p.idpersona
 					INNER JOIN venta v ON s.codigo_venta = v.codigo_venta
 					WHERE s.idsalida = $this->idSalida";
-		
-			$requestSalida = $this->select($sql);
-		
-			// Consulta para obtener los detalles de la salida
-			if (!empty($requestSalida)) {
-				// $codigo_venta = $requestSalida['codigo_venta'];
-				$sql_detalle = "SELECT ds.iddetalle_salida,
+
+		$requestSalida = $this->select($sql);
+
+		// Consulta para obtener los detalles de la salida
+		if (!empty($requestSalida)) {
+			// $codigo_venta = $requestSalida['codigo_venta'];
+			$sql_detalle = "SELECT ds.iddetalle_salida,
 									   ds.idsalida,
 									   ds.idservicio,
 									   ds.cantidad,
@@ -168,21 +162,21 @@
 								FROM detalle_salida AS ds
 								INNER JOIN servicio AS s ON ds.idservicio = s.idservicio
 								WHERE ds.idsalida = $this->idSalida";
-		
-				$requestDetalle = $this->select_all($sql_detalle);
-				$request = array('Salida' => $requestSalida, 'detalle_salida' => $requestDetalle);
-			}
-	
-			return $request;
-		}
 
-		public function deleteProducto(int $idproducto){
-			$this->intIdProducto = $idproducto;
-			$sql = "UPDATE salida SET status = ? WHERE idsalida = $this->intIdProducto ";
-			$arrData = array(0);
-			$request = $this->update($sql,$arrData);
-			return $request;
+			$requestDetalle = $this->select_all($sql_detalle);
+			$request = array('Salida' => $requestSalida, 'detalle_salida' => $requestDetalle);
 		}
+		return $request;
 	}
 
- ?>
+	public function deleteProducto(int $idproducto)
+	{
+		$this->intIdProducto = $idproducto;
+		$sql = "UPDATE salida SET status = ? WHERE idsalida = $this->intIdProducto ";
+		$arrData = array(0);
+		$request = $this->update($sql, $arrData);
+		return $request;
+	}
+}
+
+?>
