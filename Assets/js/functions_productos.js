@@ -281,8 +281,8 @@ window.addEventListener('load', function() {
 
 function fntDelInfo(idProducto){
     swal({
-        title: "Eliminar Producto",
-        text: "¿Realmente quiere eliminar el producto?",
+        title: "Eliminar Salida",
+        text: "¿Realmente quiere eliminar la Salida?",
         type: "warning",
         showCancelButton: true,
         confirmButtonText: "Si, eliminar!",
@@ -301,6 +301,8 @@ function fntDelInfo(idProducto){
             request.send(strData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
+                    console.log(request);
+                    console.log(request.responseText);
                     let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {

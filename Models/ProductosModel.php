@@ -25,10 +25,7 @@
 		{
 			parent::__construct();
 		}
-	// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		
+
 		public function selectProductos(){
 			$sql = "SELECT s.idsalida,
 							s.codigo_venta,
@@ -89,9 +86,6 @@
 		}
 		return $return;
 	}
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 	public function updateProducto($idSalida, $CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
@@ -138,29 +132,8 @@
 		}
 	}
 
-	// public function selectProducto(int $idSalida){
-		// 	$this->idSalida = $idSalida;
-		// 	$sql = "SELECT s.idsalida,
-		// 					s.codigo_venta,
-		// 					s.personaid,
-		// 					CASE 
-		// 						WHEN p.nombres IS NOT NULL AND p.apellidos IS NOT NULL THEN CONCAT(p.nombres, ' ', p.apellidos)
-		// 						WHEN p.nombres IS NOT NULL THEN p.nombres
-		// 						WHEN p.apellidos IS NOT NULL THEN p.apellidos
-		// 						ELSE s.persona_externa
-		// 					END AS nombre_completo,
-		// 					s.descripcion,
-		// 					DATE_FORMAT(s.datecreated, '%d-%m-%Y | %h:%i:%s %p') as datecreated,
-		// 					s.pago,
-		// 					s.status 
-		// 				FROM salida s 
-		// 				LEFT JOIN persona p ON s.personaid = p.idpersona
-		// 				INNER JOIN detalle_salida
-		// 				WHERE s.idsalida = $this->idSalida";
-		// 	$request = $this->select($sql);
-		// 	return $request;
-		// }
-		public function selectProducto(int $idSalida)
+
+	public function selectProducto(int $idSalida)
 		{
 			$this->idSalida = $idSalida;
 			
@@ -202,49 +175,14 @@
 	
 			return $request;
 		}
-		
-
-
-
-
-
-
-
-		public function insertImage(int $idproducto, string $imagen){
-			$this->intIdProducto = $idproducto;
-			$this->strImagen = $imagen;
-			$query_insert  = "INSERT INTO imagen(productoid,img) VALUES(?,?)";
-	        $arrData = array($this->intIdProducto,
-        					$this->strImagen);
-	        $request_insert = $this->insert($query_insert,$arrData);
-	        return $request_insert;
-		}
-
-		public function selectImages(int $idproducto){
-			$this->intIdProducto = $idproducto;
-			$sql = "SELECT productoid,img
-					FROM imagen
-					WHERE productoid = $this->intIdProducto";
-			$request = $this->select_all($sql);
-			return $request;
-		}
-
-		public function deleteImage(int $idproducto, string $imagen){
-			$this->intIdProducto = $idproducto;
-			$this->strImagen = $imagen;
-			$query  = "DELETE FROM imagen 
-						WHERE productoid = $this->intIdProducto 
-						AND img = '{$this->strImagen}'";
-	        $request_delete = $this->delete($query);
-	        return $request_delete;
-		}
 
 		public function deleteProducto(int $idproducto){
 			$this->intIdProducto = $idproducto;
-			$sql = "UPDATE producto SET status = ? WHERE idproducto = $this->intIdProducto ";
+			$sql = "UPDATE salida SET status = ? WHERE idsalida = $this->intIdProducto ";
 			$arrData = array(0);
 			$request = $this->update($sql,$arrData);
 			return $request;
 		}
 	}
+
  ?>
