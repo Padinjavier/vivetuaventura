@@ -47,24 +47,25 @@ INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `dat
 	(11, 'Golosinas', 'Caramelos, Chicles, otros', 'portada_categoria.png', '2023-11-29 11:55:23', 'golosinas', 1),
 	(12, 'ddd', 'dd', 'portada_categoria.png', '2024-03-28 09:41:54', 'ddd', 1);
 
--- Volcando estructura para tabla agencia.detalle_pedido
-CREATE TABLE IF NOT EXISTS `detalle_pedido` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `pedidoid` bigint NOT NULL,
-  `productoid` bigint NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
-  `cantidad` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pedidoid` (`pedidoid`),
-  KEY `productoid` (`productoid`),
-  CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`pedidoid`) REFERENCES `pedido` (`idpedido`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`productoid`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+-- Volcando estructura para tabla agencia.detalle_salida
+CREATE TABLE IF NOT EXISTS `detalle_salida` (
+  `iddetalle_salida` bigint NOT NULL AUTO_INCREMENT,
+  `idsalida` bigint DEFAULT NULL,
+  `idservicio` bigint DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  PRIMARY KEY (`iddetalle_salida`) USING BTREE,
+  KEY `idsalida` (`idsalida`),
+  KEY `idservicio` (`idservicio`),
+  CONSTRAINT `FK_detalle_salida_salida` FOREIGN KEY (`idsalida`) REFERENCES `salida` (`idsalida`),
+  CONSTRAINT `FK_detalle_salida_servicio` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla agencia.detalle_pedido: ~1 rows (aproximadamente)
-DELETE FROM `detalle_pedido`;
-INSERT INTO `detalle_pedido` (`id`, `pedidoid`, `productoid`, `precio`, `cantidad`) VALUES
-	(1, 30, 22, 12.00, 3);
+-- Volcando datos para la tabla agencia.detalle_salida: ~3 rows (aproximadamente)
+DELETE FROM `detalle_salida`;
+INSERT INTO `detalle_salida` (`iddetalle_salida`, `idsalida`, `idservicio`, `cantidad`) VALUES
+	(5, 2, 3, 3),
+	(6, 2, 4, 4),
+	(9, 3, 2, 8);
 
 -- Volcando estructura para tabla agencia.detalle_venta
 CREATE TABLE IF NOT EXISTS `detalle_venta` (
@@ -78,18 +79,12 @@ CREATE TABLE IF NOT EXISTS `detalle_venta` (
   KEY `idventa` (`codigo_venta`) USING BTREE,
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`codigo_venta`) REFERENCES `venta` (`codigo_venta`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.detalle_venta: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.detalle_venta: ~1 rows (aproximadamente)
 DELETE FROM `detalle_venta`;
 INSERT INTO `detalle_venta` (`iddetalleventa`, `codigo_venta`, `idservicio`, `cantidad`, `precio`) VALUES
-	(66, 'v_5', 5, 14, 1.00),
-	(69, 'v_2', 4, 1, 222.00),
-	(70, 'v_2', 1, 1, 111.00),
-	(71, 'v_1', 3, 9, 9.00),
-	(72, 'v_3', 1, 1, 333.00),
-	(75, 'v_4', 1, 7, 4.00),
-	(76, 'v_4', 2, 2, 1.00);
+	(1, 'v_1', 3, 1, 6.00);
 
 -- Volcando estructura para tabla agencia.modulo
 CREATE TABLE IF NOT EXISTS `modulo` (
@@ -125,9 +120,9 @@ CREATE TABLE IF NOT EXISTS `opciones` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `idpersona` (`personaid`) USING BTREE,
   CONSTRAINT `FK_opciones_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.opciones: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.opciones: ~1 rows (aproximadamente)
 DELETE FROM `opciones`;
 INSERT INTO `opciones` (`id`, `personaid`, `idioma`, `tema`, `formato_moneda`) VALUES
 	(13, 22, 1, 1, 1);
@@ -153,24 +148,24 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   KEY `FK_pedido_producto` (`producto_id`),
   KEY `FK_pedido_reembolso` (`reembolso`),
   CONSTRAINT `FK_pedido_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`),
-  CONSTRAINT `FK_pedido_producto` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`idproducto`),
+  CONSTRAINT `FK_pedido_producto` FOREIGN KEY (`producto_id`) REFERENCES `x_producto` (`idproducto`),
   CONSTRAINT `FK_pedido_reembolso` FOREIGN KEY (`reembolso`) REFERENCES `x_reembolso` (`id`),
   CONSTRAINT `FK_pedido_tipopago` FOREIGN KEY (`tipopagoid`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla agencia.pedido: ~10 rows (aproximadamente)
 DELETE FROM `pedido`;
 INSERT INTO `pedido` (`idpedido`, `referenciacobro`, `idtransaccionpaypal`, `datospaypal`, `personaid`, `fecha`, `costo_envio`, `monto`, `tipopagoid`, `direccion_envio`, `status`, `producto_id`, `reembolso`) VALUES
-	(3, '12', NULL, NULL, 22, '2023-11-15 00:50:52', 5.00, 7.50, 2, '123, aaaa', 'Pendiente', NULL, NULL),
-	(4, NULL, NULL, NULL, 22, '2023-12-06 13:30:58', 5.00, 17.00, 2, 'AV. Lima 123, Quilmana', 'Pendiente', NULL, NULL),
-	(6, NULL, NULL, NULL, 28, '2023-12-06 17:28:13', 5.00, 8.00, 2, 'Jr. Agusto B. Leguía N453, Quilmana - Cañete', 'Pendiente', NULL, NULL),
-	(8, NULL, NULL, NULL, 28, '2023-12-06 18:10:32', 5.00, 12.50, 2, 'Jr. Agusto B. Leguia N 403, quimana', 'Pendiente', NULL, NULL),
-	(9, NULL, NULL, NULL, 22, '2023-12-12 23:07:35', 5.00, 6.50, 3, 'ewe, weew', 'Pendiente', NULL, NULL),
-	(10, NULL, NULL, NULL, 22, '2023-12-16 10:42:04', 5.00, 20.90, 2, '123, e', 'Pendiente', NULL, NULL),
-	(11, NULL, NULL, NULL, 22, '2023-12-19 10:07:54', 5.00, 6.50, 2, 'f, f', 'Pendiente', NULL, NULL),
-	(12, NULL, NULL, NULL, 22, '2023-12-22 00:38:17', 5.00, 6.50, 2, '111111f, 2222', 'Pendiente', NULL, NULL),
-	(13, '12', NULL, NULL, 22, '2023-12-23 23:18:52', 5.00, 6.50, 2, '111111v, 2222', 'Entregado', NULL, NULL),
-	(30, 'completa', NULL, NULL, 28, '2023-12-06 17:40:11', 5.00, 6.50, 2, 'Jr. Agusto B. Leguia N 403, Quilmana', 'Completo', 1, NULL);
+	(3, '12', NULL, '1', 22, '2023-11-15 00:50:52', 5.00, 7.50, 2, '123, aaaa', 'Pendiente', NULL, NULL),
+	(4, NULL, NULL, '1', 22, '2023-12-06 13:30:58', 5.00, 17.00, 2, 'AV. Lima 123, Quilmana', 'Pendiente', NULL, NULL),
+	(6, NULL, NULL, '1', 28, '2023-12-06 17:28:13', 5.00, 8.00, 2, 'Jr. Agusto B. Leguía N453, Quilmana - Cañete', 'Pendiente', NULL, NULL),
+	(7, 'completa', NULL, '1', 28, '2023-12-06 17:40:11', 5.00, 6.50, 2, 'Jr. Agusto B. Leguia N 403, Quilmana', 'Completo', NULL, NULL),
+	(8, NULL, NULL, '1', 28, '2023-12-06 18:10:32', 5.00, 12.50, 2, 'Jr. Agusto B. Leguia N 403, quimana', 'Pendiente', NULL, NULL),
+	(9, NULL, NULL, '1', 22, '2023-12-12 23:07:35', 5.00, 6.50, 3, 'ewe, weew', 'Pendiente', NULL, NULL),
+	(10, NULL, NULL, '1', 22, '2023-12-16 10:42:04', 5.00, 20.90, 2, '123, e', 'Pendiente', NULL, NULL),
+	(11, NULL, NULL, '1', 22, '2023-12-19 10:07:54', 5.00, 6.50, 2, 'f, f', 'Pendiente', NULL, NULL),
+	(12, NULL, NULL, '1', 22, '2023-12-22 00:38:17', 5.00, 6.50, 2, '111111f, 2222', 'Pendiente', NULL, NULL),
+	(13, '12', NULL, '1', 22, '2023-12-23 23:18:52', 5.00, 6.50, 2, '111111v, 2222', 'Entregado', NULL, NULL);
 
 -- Volcando estructura para tabla agencia.permisos
 CREATE TABLE IF NOT EXISTS `permisos` (
@@ -261,15 +256,15 @@ INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `t
 	(2, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@gmail.com', '1a5376ad727d65213a79f3108541cf95012969a0d3064f108b5dd6e7f8c19b89', NULL, NULL, 2, '2023-11-29 10:57:56', 1, NULL, NULL, NULL),
 	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', 1, '111111', '2222', NULL),
 	(24, 'JUAN LLOCYA', 'Juan Manuel', 'Llocya Castro', 918313532, 'jllocya@system32.shop', '', 'sssssss', NULL, NULL, '2023-11-29 11:03:25', 0, NULL, NULL, 1),
-	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', 'kkkkkkk', NULL, NULL, '2023-12-06 17:27:31', 0, NULL, NULL, 1),
+	(28, '72014145', 'Alex', 'Huasasquiche', 946454569, 'ahuasasquiche@gmail.com', '', NULL, NULL, NULL, '2023-12-06 17:27:31', 0, NULL, NULL, 1),
 	(29, '74199532', 'Javier Padin UNDC', 'Padin Flores', 9171893004, '2002010167@undc.edu.pe', '', NULL, NULL, NULL, '2023-12-16 10:41:03', 0, 'Av Lima', 'Quilmana', 1),
 	(30, '4444444444', 'FRANK', 'GALAGER', 99999999, 'FRANK@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'lima', NULL, 3, '2024-05-12 23:57:54', 1, NULL, NULL, NULL),
 	(56, '75486524', 'JHON VIGNEY', 'ROMERO MELCHOR', 918313532, 'javierpadin6w61@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 08:34:47', 1, NULL, NULL, 20),
 	(57, '23232323', 'Jeanettis Mariel', 'CHAVEZ SANCHEZ', 910089718, 'javierpad23in661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 08:39:53', 1, NULL, NULL, 21),
 	(58, '2323234', 'Juanggiii', 'Herrera', 111111111111111, 'javiegggrpadin661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 08:40:10', 1, NULL, NULL, 22),
-	(59, '666', 'NANCY YANINA', 'MAZA SUAREZ', 910089718, 'javierpa66din661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 09:25:41', 0, NULL, NULL, 22),
-	(60, '72014148', 'AZALIA ABIGAIL', 'CONTRERAS BRAVO', 946454569, 'javiderpadin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:20:49', 0, NULL, NULL, 1),
-	(61, '74199534', 'RICHARD CESAR ALEXANDER', 'SANCHEZ LOPEZ', 946454573, 'javier11paeedin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:28:45', 0, NULL, NULL, 1),
+	(59, '666', 'NANCY YANINA', 'MAZA SUAREZ', 910089718, 'javierpa66din661@gmail.com', NULL, NULL, NULL, NULL, '2024-05-25 09:25:41', 1, NULL, NULL, 22),
+	(60, '72014148', 'AZALIA ABIGAIL', 'CONTRERAS BRAVO', 946454569, 'javiderpadin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:20:49', 1, NULL, NULL, 1),
+	(61, '74199534', 'RICHARD CESAR ALEXANDER', 'SANCHEZ LOPEZ', 946454573, 'javier11paeedin661@gmail.com', NULL, NULL, NULL, NULL, '2024-06-09 19:28:45', 1, NULL, NULL, 1),
 	(62, '72014141', 'JOSE ALEJANDRO', 'LA ROSA HUASASQUICHE', 946454569, 'javi1erpad1in661@gmail.com', NULL, '1111111', NULL, 3, '2024-06-09 21:59:26', 1, NULL, NULL, NULL),
 	(63, '74199539', 'BRANDOLEE VANDAMME', 'JARA PRINCIPE', 946454569, 'j666avie55rpadin661@gmail.com', NULL, 'peru', NULL, 3, '2024-06-09 22:03:34', 1, NULL, NULL, NULL),
 	(64, '72014144', 'Lunes', 'Huasasquiche', 946454569, 'javierpa44444din661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, 2, '2024-06-10 00:20:37', 1, NULL, NULL, NULL),
@@ -297,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
 -- Volcando datos para la tabla agencia.producto: ~169 rows (aproximadamente)
 DELETE FROM `producto`;
 INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `fecha_v`, `imagen`, `datecreated`, `ruta`, `status`) VALUES
-	(1, 1, '2417984565', 'Chaqueta Azul', '<p>a</p>', 100.00, 50, '2023-12-30', NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 1),
+	(1, 1, '2417984565', 'Chaqueta Azul', '<p>a</p>', 100.00, 50, '2023-12-30', NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 0),
 	(2, 1, '456879878', 'Reloj', '<p>b</p>', 200.00, 100, '2023-10-03', NULL, '2021-08-20 03:14:10', 'reloj', 0),
 	(3, 5, '4658798787', 'Pack Shampoo y Acondicionador Dove Reconstrucción Completa Frasco 400ml', '', 28.00, 12, '2023-12-16', NULL, '2021-08-21 00:48:21', 'pack-shampoo-y-acondicionador-dove-reconstruccion-completa-frasco-400ml', 1),
 	(4, 1, '113333', 'dd', 'd', 2.50, 5, '2023-11-10', NULL, '2023-11-08 23:22:14', 'dd', 0),
@@ -494,15 +489,39 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idrolusuario`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.rol_usuario: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.rol_usuario: ~5 rows (aproximadamente)
 DELETE FROM `rol_usuario`;
 INSERT INTO `rol_usuario` (`idrolusuario`, `nombrerolusuario`, `descripcion`, `status`) VALUES
 	(1, 'Administrador', 'Acceso a todo el sistema', 1),
 	(2, 'Supervisor', 'Supervisor de tiendas', 1),
 	(3, 'Cliente', 'Clientes en general', 1),
-	(4, 'Vendedor', 'Operador de tienda', 1);
+	(4, 'Vendor', 'Operador de tienda', 1),
+	(13, 'secretaria', 'secretaria de la tienda 1', 1);
+
+-- Volcando estructura para tabla agencia.salida
+CREATE TABLE IF NOT EXISTS `salida` (
+  `idsalida` bigint NOT NULL AUTO_INCREMENT,
+  `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `personaid` bigint DEFAULT NULL,
+  `persona_externa` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `descripcion` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datecreated` datetime DEFAULT CURRENT_TIMESTAMP,
+  `pago` int NOT NULL DEFAULT '0',
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idsalida`),
+  KEY `codigo_venta` (`codigo_venta`),
+  KEY `personaid` (`personaid`),
+  CONSTRAINT `FK_salida_codigo_venta` FOREIGN KEY (`codigo_venta`) REFERENCES `venta` (`codigo_venta`),
+  CONSTRAINT `FK_salidas_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla agencia.salida: ~2 rows (aproximadamente)
+DELETE FROM `salida`;
+INSERT INTO `salida` (`idsalida`, `codigo_venta`, `personaid`, `persona_externa`, `descripcion`, `datecreated`, `pago`, `status`) VALUES
+	(2, 'v_1', 57, NULL, NULL, '2024-06-20 00:12:54', 2, 1),
+	(3, 'v_1', NULL, 'juan', 'lunes', '2024-06-20 00:59:08', 1, 1);
 
 -- Volcando estructura para tabla agencia.servicio
 CREATE TABLE IF NOT EXISTS `servicio` (
@@ -534,9 +553,9 @@ CREATE TABLE IF NOT EXISTS `tipopago` (
   `tipopago` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.tipopago: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.tipopago: ~258 rows (aproximadamente)
 DELETE FROM `tipopago`;
 INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
 	(1, 'PayPal', 1),
@@ -545,13 +564,264 @@ INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
 	(4, 'Cheque', 1),
 	(5, 'Despósito Bancario', 1),
 	(6, 'Yape', 1),
-	(7, 'Plin', 1);
+	(7, 'Plin', 1),
+	(8, 'Transferencia Interbancaria', 1),
+	(9, 'Depósito en Cuenta', 1),
+	(10, 'Pago en Efectivo', 1),
+	(11, 'Tarjeta de Débito', 1),
+	(12, 'Tarjeta de Crédito', 1),
+	(13, 'Yape', 1),
+	(14, 'Plin', 1),
+	(15, 'Transferencia CCI', 1),
+	(16, 'Pago Móvil', 1),
+	(17, 'Cheque', 1),
+	(18, 'Letra de Cambio', 1),
+	(19, 'Orden de Pago', 1),
+	(20, 'Giro Bancario', 1),
+	(21, 'Vale Vista', 1),
+	(22, 'Pago con Código QR', 1),
+	(23, 'Pago con Token', 1),
+	(24, 'Pago con NFC', 1),
+	(25, 'Domiciliación Bancaria', 1),
+	(26, 'Pago por Ventanilla', 1),
+	(27, 'Pago por Agente', 1),
+	(28, 'Pago por Cajero Automático', 1),
+	(29, 'Pago por Internet Banking', 1),
+	(30, 'Cargo Automático', 1),
+	(31, 'Bono de Vales', 1),
+	(32, 'Tarjeta Alimentaria', 1),
+	(33, 'Tarjeta Prepago', 1),
+	(34, 'Tarjeta Regalo', 1),
+	(35, 'Transferencia Interbancaria', 1),
+	(36, 'Depósito en Cuenta', 1),
+	(37, 'Pago en Efectivo', 1),
+	(38, 'Tarjeta de Débito', 1),
+	(39, 'Tarjeta de Crédito', 1),
+	(40, 'Yape', 1),
+	(41, 'Plin', 1),
+	(42, 'Transferencia CCI', 1),
+	(43, 'Pago Móvil', 1),
+	(44, 'Cheque', 1),
+	(45, 'Letra de Cambio', 1),
+	(46, 'Orden de Pago', 1),
+	(47, 'Giro Bancario', 1),
+	(48, 'Vale Vista', 1),
+	(49, 'Pago con Código QR', 1),
+	(50, 'Pago con Token', 1),
+	(51, 'Pago con NFC', 1),
+	(52, 'Domiciliación Bancaria', 1),
+	(53, 'Pago por Ventanilla', 1),
+	(54, 'Pago por Agente', 1),
+	(55, 'Pago por Cajero Automático', 1),
+	(56, 'Pago por Internet Banking', 1),
+	(57, 'Cargo Automático', 1),
+	(58, 'Bono de Vales', 1),
+	(59, 'Tarjeta Alimentaria', 1),
+	(60, 'Tarjeta Prepago', 1),
+	(61, 'Tarjeta Regalo', 1),
+	(62, 'Pago con PayPal', 1),
+	(63, 'Pago con Western Union', 1),
+	(64, 'Pago con MoneyGram', 1),
+	(65, 'Pago con PagoEfectivo', 1),
+	(66, 'Pago con SafetyPay', 1),
+	(67, 'Pago con Culqi', 1),
+	(68, 'Pago con BIM', 1),
+	(69, 'Pago con LUKITA', 1),
+	(70, 'Pago con BBVA Wallet', 1),
+	(71, 'Pago con Interbank APP', 1),
+	(72, 'Pago con Scotiabank APP', 1),
+	(73, 'Pago con Credinka Móvil', 1),
+	(74, 'Pago con Banca por Teléfono', 1),
+	(75, 'Pago con Google Pay', 1),
+	(76, 'Pago con Apple Pay', 1),
+	(77, 'Pago con Visa Checkout', 1),
+	(78, 'Pago con Masterpass', 1),
+	(79, 'Pago con Diners Club Pay', 1),
+	(80, 'Pago con American Express SafeKey', 1),
+	(81, 'Pago con PagoLink', 1),
+	(82, 'Pago con ACH', 1),
+	(83, 'Pago con Paynet', 1),
+	(84, 'Pago con OXXO', 1),
+	(85, 'Pago con Tarjeta Codensa', 1),
+	(86, 'Pago con Efecty', 1),
+	(87, 'Pago con Nequi', 1),
+	(88, 'Pago con PSE', 1),
+	(89, 'Pago con Baloto', 1),
+	(90, 'Pago con DaviPlata', 1),
+	(91, 'Pago con Redeban', 1),
+	(92, 'Pago con Bancolombia App', 1),
+	(93, 'Pago con Movii', 1),
+	(94, 'Pago con AV Villas', 1),
+	(95, 'Pago con Coopcentral', 1),
+	(96, 'Pago con Colpatria', 1),
+	(97, 'Pago con Grupo Aval', 1),
+	(98, 'Pago con Banco Agrario', 1),
+	(99, 'Pago con Banco de Bogotá', 1),
+	(100, 'Pago con Banco de Occidente', 1),
+	(101, 'Pago con Banco Popular', 1),
+	(102, 'Pago con Bancoomeva', 1),
+	(103, 'Pago con Bancolombia', 1),
+	(104, 'Pago con Citibank', 1),
+	(105, 'Pago con Itaú', 1),
+	(106, 'Pago con Scotiabank Colpatria', 1),
+	(107, 'Pago con Caja Social', 1),
+	(108, 'Pago con Bancoomeva', 1),
+	(109, 'Pago con Banco Santander', 1),
+	(110, 'Pago con Banco Pichincha', 1),
+	(111, 'Pago con Banco Caja Social', 1),
+	(112, 'Pago con Banco Falabella', 1),
+	(113, 'Pago con Banco GNB Sudameris', 1),
+	(114, 'Pago con Banco CorpBanca', 1),
+	(115, 'Pago con Banco Coopcentral', 1),
+	(116, 'Pago con Banco Popular', 1),
+	(117, 'Pago con Banco Finandina', 1),
+	(118, 'Pago con Banco W', 1),
+	(119, 'Pago con Banco Falabella', 1),
+	(120, 'Pago con Banco Bogotá', 1),
+	(121, 'Pago con Banco de Occidente', 1),
+	(122, 'Pago con Banco Colpatria', 1),
+	(123, 'Pago con Banco Itaú', 1),
+	(124, 'Pago con Banco Pichincha', 1),
+	(125, 'Pago con Banco Caja Social', 1),
+	(126, 'Pago con Banco GNB Sudameris', 1),
+	(127, 'Pago con Banco AV Villas', 1),
+	(128, 'Pago con Banco Santander', 1),
+	(129, 'Pago con Banco CorpBanca', 1),
+	(130, 'Pago con Banco de Bogotá', 1),
+	(131, 'Pago con Banco Popular', 1),
+	(132, 'Pago con Banco Falabella', 1),
+	(133, 'Pago con Banco Finandina', 1),
+	(134, 'Pago con Banco de Occidente', 1),
+	(135, 'Pago con Banco Caja Social', 1),
+	(136, 'Pago con Banco Pichincha', 1),
+	(137, 'Pago con Banco GNB Sudameris', 1),
+	(138, 'Pago con Banco AV Villas', 1),
+	(139, 'Pago con Banco Santander', 1),
+	(140, 'Pago con Banco CorpBanca', 1),
+	(141, 'Pago con Banco de Bogotá', 1),
+	(142, 'Transferencia Interbancaria', 1),
+	(143, 'Depósito en Cuenta', 1),
+	(144, 'Pago en Efectivo', 1),
+	(145, 'Tarjeta de Débito', 1),
+	(146, 'Tarjeta de Crédito', 1),
+	(147, 'Yape', 1),
+	(148, 'Plin', 1),
+	(149, 'Transferencia CCI', 1),
+	(150, 'Pago Móvil', 1),
+	(151, 'Cheque', 1),
+	(152, 'Letra de Cambio', 1),
+	(153, 'Orden de Pago', 1),
+	(154, 'Giro Bancario', 1),
+	(155, 'Vale Vista', 1),
+	(156, 'Pago con Código QR', 1),
+	(157, 'Pago con Token', 1),
+	(158, 'Pago con NFC', 1),
+	(159, 'Domiciliación Bancaria', 1),
+	(160, 'Pago por Ventanilla', 1),
+	(161, 'Pago por Agente', 1),
+	(162, 'Pago por Cajero Automático', 1),
+	(163, 'Pago por Internet Banking', 1),
+	(164, 'Cargo Automático', 1),
+	(165, 'Bono de Vales', 1),
+	(166, 'Tarjeta Alimentaria', 1),
+	(167, 'Tarjeta Prepago', 1),
+	(168, 'Tarjeta Regalo', 1),
+	(169, 'Pago con PayPal', 1),
+	(170, 'Pago con Western Union', 1),
+	(171, 'Pago con MoneyGram', 1),
+	(172, 'Pago con PagoEfectivo', 1),
+	(173, 'Pago con SafetyPay', 1),
+	(174, 'Pago con Culqi', 1),
+	(175, 'Pago con BIM', 1),
+	(176, 'Pago con LUKITA', 1),
+	(177, 'Pago con BBVA Wallet', 1),
+	(178, 'Pago con Interbank APP', 1),
+	(179, 'Pago con Scotiabank APP', 1),
+	(180, 'Pago con Credinka Móvil', 1),
+	(181, 'Pago con Banca por Teléfono', 1),
+	(182, 'Pago con Google Pay', 1),
+	(183, 'Pago con Apple Pay', 1),
+	(184, 'Pago con Visa Checkout', 1),
+	(185, 'Pago con Masterpass', 1),
+	(186, 'Pago con Diners Club Pay', 1),
+	(187, 'Pago con American Express SafeKey', 1),
+	(188, 'Pago con PagoLink', 1),
+	(189, 'Pago con ACH', 1),
+	(190, 'Pago con Paynet', 1),
+	(191, 'Pago con OXXO', 1),
+	(192, 'Pago con Tarjeta Codensa', 1),
+	(193, 'Pago con Efecty', 1),
+	(194, 'Pago con Nequi', 1),
+	(195, 'Pago con PSE', 1),
+	(196, 'Pago con Baloto', 1),
+	(197, 'Pago con DaviPlata', 1),
+	(198, 'Pago con Redeban', 1),
+	(199, 'Pago con Bancolombia App', 1),
+	(200, 'Pago con Movii', 1),
+	(201, 'Pago con AV Villas', 1),
+	(202, 'Pago con Coopcentral', 1),
+	(203, 'Pago con Colpatria', 1),
+	(204, 'Pago con Grupo Aval', 1),
+	(205, 'Pago con Banco Agrario', 1),
+	(206, 'Pago con Banco de Bogotá', 1),
+	(207, 'Pago con Banco de Occidente', 1),
+	(208, 'Pago con Banco Popular', 1),
+	(209, 'Pago con Bancoomeva', 1),
+	(210, 'Pago con Bancolombia', 1),
+	(211, 'Pago con Citibank', 1),
+	(212, 'Pago con Itaú', 1),
+	(213, 'Pago con Scotiabank Colpatria', 1),
+	(214, 'Pago con Caja Social', 1),
+	(215, 'Pago con Bancoomeva', 1),
+	(216, 'Pago con Banco Santander', 1),
+	(217, 'Pago con Banco Pichincha', 1),
+	(218, 'Pago con Banco Caja Social', 1),
+	(219, 'Pago con Banco Falabella', 1),
+	(220, 'Pago con Banco GNB Sudameris', 1),
+	(221, 'Pago con Banco CorpBanca', 1),
+	(222, 'Pago con Banco Coopcentral', 1),
+	(223, 'Pago con Banco Popular', 1),
+	(224, 'Pago con Banco Finandina', 1),
+	(225, 'Pago con Banco W', 1),
+	(226, 'Pago con Banco Falabella', 1),
+	(227, 'Pago con Banco Bogotá', 1),
+	(228, 'Pago con Banco de Occidente', 1),
+	(229, 'Pago con Banco Colpatria', 1),
+	(230, 'Pago con Banco Itaú', 1),
+	(231, 'Pago con Banco Pichincha', 1),
+	(232, 'Pago con Banco Caja Social', 1),
+	(233, 'Pago con Banco GNB Sudameris', 1),
+	(234, 'Pago con Banco AV Villas', 1),
+	(235, 'Pago con Banco Santander', 1),
+	(236, 'Pago con Banco CorpBanca', 1),
+	(237, 'Pago con Banco de Bogotá', 1),
+	(238, 'Pago con Banco Popular', 1),
+	(239, 'Pago con Banco Falabella', 1),
+	(240, 'Pago con Banco Finandina', 1),
+	(241, 'Pago con Banco de Occidente', 1),
+	(242, 'Pago con Banco Caja Social', 1),
+	(243, 'Pago con Banco Pichincha', 1),
+	(244, 'Pago con Banco GNB Sudameris', 1),
+	(245, 'Pago con Banco AV Villas', 1),
+	(246, 'Pago con Banco Santander', 1),
+	(247, 'Pago con Banco CorpBanca', 1),
+	(248, 'Pago con Banco de Bogotá', 1),
+	(249, 'Pago con Alipay', 1),
+	(250, 'Pago con WeChat Pay', 1),
+	(251, 'Pago con UnionPay', 1),
+	(252, 'Pago con JCB', 1),
+	(253, 'Pago con Discover Card', 1),
+	(254, 'Pago con American Express', 1),
+	(255, 'Pago con Diners Club', 1),
+	(256, 'Pago con Maestro', 1),
+	(257, 'Pago con Visa Electron', 1),
+	(258, 'Pago con MasterCard', 1);
 
 -- Volcando estructura para tabla agencia.venta
 CREATE TABLE IF NOT EXISTS `venta` (
   `idventa` bigint NOT NULL AUTO_INCREMENT,
   `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT (now()),
+  `datecreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `idvendedor` bigint NOT NULL,
   `dni_cliente` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `idtipopago` bigint NOT NULL,
@@ -563,35 +833,12 @@ CREATE TABLE IF NOT EXISTS `venta` (
   KEY `codigo_venta` (`codigo_venta`) USING BTREE,
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idvendedor`) REFERENCES `persona` (`idpersona`),
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.venta: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.venta: ~1 rows (aproximadamente)
 DELETE FROM `venta`;
 INSERT INTO `venta` (`idventa`, `codigo_venta`, `datecreated`, `idvendedor`, `dni_cliente`, `idtipopago`, `total`, `status`) VALUES
-	(25, 'v_1', '2024-06-11 16:41:38', 22, '72014141', 1, 81.00, 1),
-	(27, 'v_2', '2024-06-11 17:33:06', 22, '72014141', 3, 333.00, 1),
-	(28, 'v_3', '2024-06-10 18:45:06', 22, '4444444444', 1, 333.00, 1),
-	(29, 'v_4', '2024-06-11 18:46:52', 22, '72014141', 2, 30.00, 1),
-	(30, 'v_5', '2024-06-11 18:49:57', 22, '72014141', 1, 14.00, 1);
-
--- Volcando estructura para tabla agencia.venta_persona
-CREATE TABLE IF NOT EXISTS `venta_persona` (
-  `idventapersona` bigint NOT NULL AUTO_INCREMENT,
-  `idventa` bigint NOT NULL,
-  `idpersona` bigint NOT NULL,
-  `idrolempleado` bigint NOT NULL,
-  `es_cargador` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idventapersona`) USING BTREE,
-  KEY `idventa` (`idventa`) USING BTREE,
-  KEY `idpersona` (`idpersona`) USING BTREE,
-  KEY `idrolempleado` (`idrolempleado`) USING BTREE,
-  CONSTRAINT `venta_persona_ibfk_1` FOREIGN KEY (`idventa`) REFERENCES `venta` (`idventa`),
-  CONSTRAINT `venta_persona_ibfk_2` FOREIGN KEY (`idpersona`) REFERENCES `persona` (`idpersona`),
-  CONSTRAINT `venta_persona_ibfk_3` FOREIGN KEY (`idrolempleado`) REFERENCES `rol_empleado` (`idrolempleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla agencia.venta_persona: ~0 rows (aproximadamente)
-DELETE FROM `venta_persona`;
+	(1, 'v_1', '2024-06-18 18:12:17', 22, '4444444444', 2, 6.00, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

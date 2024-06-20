@@ -251,6 +251,7 @@ function fntEditInfo(element,idProducto){
                 $('#listEstPago').selectpicker('val', objData.data.Salida.pago);
                 $('#listEstPago').selectpicker('render');
 
+                // arreglas esto 
                 if(objData.data.Salida.persona_externa) {
                     if(!document.querySelector('#externo').checked) {
                         document.querySelector('#externo').click();
@@ -405,6 +406,8 @@ document.addEventListener("DOMContentLoaded", function () {
     loadInitialSelectOptions(addNewServicioRow);
 });
 
+
+// arreglas esto 
 document.addEventListener("DOMContentLoaded", function () {
     const externoBtn = document.getElementById("externo");
     const listNombres = document.getElementById("listNombres");
