@@ -9,6 +9,7 @@ $detalle = $data['detalle'];
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="<?= media(); ?>/images/favicon.ico">
 	<title>Factura</title>
 	<style>
 		table {
@@ -116,11 +117,7 @@ $detalle = $data['detalle'];
 			<tr>
 				<td>Nombre:</td>
 				<td><?= $cliente['nombres'] . ' ' . $cliente['apellidos'] ?></td>
-				<td>Dirección:</td>
-				<td><?= $cliente['hotel'] ?></td>
-			</tr>
-			<tr>
-			<td class="wd10">Correo:</td>
+				<td class="wd10">Correo:</td>
 			<td class="wd40"><?= $cliente['email_user'] ?></td>
 			</tr>
 		</tbody>
