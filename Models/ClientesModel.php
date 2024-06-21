@@ -20,7 +20,7 @@ class ClientesModel extends Mysql
 		parent::__construct();
 	}	
 
-	public function insertCliente(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, int $tipoid, string $strHotel, ){
+	public function insertCliente(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, int $tipoid, string $strHotel){
 
 		$this->strIdentificacion = $identificacion;
 		$this->strNombre = $nombre;

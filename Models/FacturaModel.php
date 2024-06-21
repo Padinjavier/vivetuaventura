@@ -39,6 +39,7 @@ class FacturaModel extends Mysql
 				$codventa = $requestPedido['codigo_venta'];
 				$sql_detalle = "SELECT s.idservicio,
 											s.nombre as servicio,
+											s.precio as precioreal,
 											dv.precio,
 											dv.cantidad
 									FROM detalle_venta dv

@@ -38,7 +38,7 @@
                 <ul class="treeview-menu">
                     <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/empleados">
                             Empleados</a></li>
-                    <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesempleados">
+                    <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesEmpleados">
                             Roles</a></li>
                 </ul>
             </li>
@@ -61,7 +61,7 @@
                 <ul class="treeview-menu">
                 <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/usuarios">
                             Usuarios</a></li>
-                    <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesusuarios">
+                    <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesUsuarios">
                             Permisos</a></li>
                 </ul>
             </li>

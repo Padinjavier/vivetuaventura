@@ -16,8 +16,6 @@
 
 
 -- Volcando estructura de base de datos para agencia
-CREATE DATABASE IF NOT EXISTS `agencia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `agencia`;
 
 -- Volcando estructura para tabla agencia.categoria
 CREATE TABLE IF NOT EXISTS `categoria` (

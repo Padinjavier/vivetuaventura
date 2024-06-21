@@ -86,7 +86,7 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
     <?php } ?>
     <?php if (!empty ($_SESSION['permisos'][5]['r'])) { ?>
       <div class="m-2">
-        <a href="<?= base_url() ?>/pedidos" class="linkw">
+        <a href="<?= base_url() ?>/ventas" class="linkw">
           <div class="widget-small danger coloured-icon shadow p-2 pt-3" style="display: flex;
     flex-direction: column;
     align-items: center;

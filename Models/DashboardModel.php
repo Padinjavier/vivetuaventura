@@ -19,7 +19,7 @@
 			return $total;
 		}
 		public function cantProductos(){
-			$sql = "SELECT COUNT(*) as total FROM servicio WHERE status != 0 ";
+			$sql = "SELECT COUNT(*) as total FROM salida WHERE status != 0 ";
 			$request = $this->select($sql);
 			$total = $request['total']; 
 			return $total;

@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <input type="number" class="form-control precio" value="0.00" min="0">
           </td>
           <td>
-              <input type="number" class="form-control descuento" value="0.00" min="0" readonly>
+              <input type="number" class="form-control descuento" value="0.00" min="0">
           </td>
           <td>
               <input type="number" class="form-control precio_total" value="0.00" min="0" readonly>
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
               </div>
           </td>
           <td>
-              <input type="hidden" class="form-control precio_db" readonly>
+              <input type="number" class="form-control precio_db" readonly>
           </td>
       `;
       tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila

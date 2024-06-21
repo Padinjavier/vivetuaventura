@@ -123,19 +123,21 @@ $detalle = $data['detalle'];
 		</tbody>
 	</table>
 	<br>
-	<!-- <p><?php 
-			$subtotal = 0;
+	<!-- esto es mio mi test para ver datos  -->
+	<p><?php 
+			$subtotalreal = 0;
 	foreach ($detalle as $servicio) {
 
-		echo($servicio['servicio']);
-		$importe = $servicio['precio'] * $servicio['cantidad'];
-		$subtotal = $subtotal + $importe;
+		// echo($servicio['servicio']);
+		$importereal = $servicio['precioreal'] * $servicio['cantidad'];
+		$subtotalreal = $subtotalreal + $importereal;
 	}
-    echo json_encode($detalle, JSON_PRETTY_PRINT);
-	echo(SMONEY . ' ' . formatMoney($subtotal));
-	echo(SMONEY . ' ' . formatMoney($orden['total']));
+	echo($subtotalreal);
+    // echo json_encode($detalle, JSON_PRETTY_PRINT);
+	// echo(SMONEY . ' ' . formatMoney($subtotal));
+	// echo(SMONEY . ' ' . formatMoney($orden['total']));
 	
-?></p> -->
+?></p>
 	<table class="tbl-detalle m-1" style="border: 10px solid red;">
 		<thead>
 			<tr>
@@ -168,7 +170,7 @@ $detalle = $data['detalle'];
 			<tr>
 				<td></td>
 				<td colspan="3" class="text-right">Sub Total:</td>
-				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
+				<td class="text-right"><?= SMONEY . ' ' . formatMoney($subtotal); ?></td>
 			</tr>
 			<tr>
 				<td></td>
