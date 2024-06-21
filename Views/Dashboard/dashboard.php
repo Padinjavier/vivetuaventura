@@ -1,6 +1,6 @@
 <?php
 headerAdmin($data);
-chat($data);
+// chat($data);
 // Configurar la zona horaria
 date_default_timezone_set('America/Lima');
 // Obtener el nombre del día de la semana en español
@@ -28,14 +28,15 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
       </div>
       <div class="col-12 ">
         <div class="mb-3">
-          <p class="font-weight-bold">Te damos la bienvenida, <span class="text-primary">
-              <?= $_SESSION['userData']['nombres']; ?>
+          <p class="font-weight-bold h4">¡Te damos la bienvenida, <span class="text-primary">
+              <?= $_SESSION['userData']['nombres']; ?>!
             </span></p>
         </div>
       </div>
       <div class="col-12 ">
         <div class="mb-3 mr-4">
-          <p>Que tengas un bonito día de trabajo, recuerda realizar los registros correctamente y ser feliz.</p>
+          <p class="">Nos alegra tenerte en nuestro sistema web de ventas. Gracias a tu experiencia y dedicación, juntos haremos realidad las aventuras de nuestros clientes.<br>
+          ¡A vender aventuras inolvidables! Atte. El equipo de "Vive tu aventura"</p>
         </div>
       </div>
     </div>
@@ -110,9 +111,9 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
                   <tr>
                       <th>#</th>
                       <th>Cliente</th>
-                      <th>Estado</th>
+                      <th>Tipo Pago</th>
                       <th class="text-right">Monto</th>
-                      <th></th>
+                      <!-- <th></th> -->
                   </tr>
               </thead>
               <tbody>
@@ -121,11 +122,12 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
                   foreach ($data['lastOrders'] as $pedido) {
                       ?>
                       <tr>
-                          <td><?= $pedido['idpedido'] ?></td>
+                          <td><?= $pedido['idventa'] ?></td>
                           <td><?= $pedido['nombre'] ?></td>
-                          <td><?= $pedido['status'] ?></td>
-                          <td class="text-right"><?= SMONEY . " " . formatMoney($pedido['monto']) ?></td>
-                          <td><a href="<?= base_url() ?>/pedidos/orden/<?= $pedido['idpedido'] ?>" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                          <td><?= $pedido['tipopago'] ?></td>
+                          <td class="text-right"><?= SMONEY . " " . formatMoney($pedido['total']) ?></td>
+                          <!-- <td><a href="<?= base_url() ?>/pedidos/orden/<?= $pedido['idventa'] ?>" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a></td> -->
+                          <!-- <td><a  class="btn btn-secondary btn-sm  btnViewEmpleado" href="<?= base_url()?>./factura/generarFactura/<?= $pedido['idventa'] ?>" target="_blanck"  title="Ver PDF Venta"><i class="bi bi-filetype-pdf"></i></a></td> -->
                       </tr>
                       <?php 
                   }

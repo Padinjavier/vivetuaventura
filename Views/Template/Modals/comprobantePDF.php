@@ -167,15 +167,23 @@ $detalle = $data['detalle'];
 		<tfoot>
 			<tr>
 				<td></td>
+				<td colspan="3" class="text-right">Sub Total:</td>
+				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="3" class="text-right">Descuento:</td>
+				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
+			</tr>
+			<tr>
+				<td></td>
 				<td colspan="3" class="text-right">Total:</td>
 				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
 			</tr>
 		</tfoot>
 	</table>
 	<div class="text-center ">
-		<p class="noboleta">Nota: Este documento no es un comprobante fiscal.<br>
-		Es una nota de venta para el control interno de la agencia.<br>
-		Si tienes preguntas sobre tu pedido, por favor ponte en contacto con nosotros</p>
+		<p class="noboleta">Esta guía de boleta sirve para el control interno de la agencia.</p>
 		<h4>¡Gracias por tu eleccion!</h4>
 	</div>
 </body>

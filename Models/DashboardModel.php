@@ -25,54 +25,60 @@
 			return $total;
 		}
 		public function cantPedidos(){
-			$rolid = $_SESSION['userData']['idrolusuario'];
-			$idUser = $_SESSION['userData']['idpersona'];
-			$where = "";
-			if($rolid == RCLIENTES ){
-				$where = " WHERE personaid = ".$idUser;
-			}
+			// $rolid = $_SESSION['userData']['idrolusuario'];
+			// $idUser = $_SESSION['userData']['idpersona'];
+			// $where = "";
+			// if($rolid == RCLIENTES ){
+			// 	$where = " WHERE personaid = ".$idUser;
+			// }
 
-			$sql = "SELECT COUNT(*) as total FROM pedido ".$where;
+			// $sql = "SELECT COUNT(*) as total FROM pedido ".$where;
+			$sql = "SELECT COUNT(*) as total FROM venta WHERE status = 1";
 			$request = $this->select($sql);
 			$total = $request['total']; 
 			return $total;
 		}
 		public function lastOrders(){
-			$rolid = $_SESSION['userData']['idrolusuario'];
-			$idUser = $_SESSION['userData']['idpersona'];
-			$where = "";
-			if($rolid == RCLIENTES ){
-				$where = " WHERE p.personaid = ".$idUser;
-			}
+			// $rolid = $_SESSION['userData']['idrolusuario'];
+			// $idUser = $_SESSION['userData']['idpersona'];
+			// $where = "";
+			// if($rolid == RCLIENTES ){
+			// 	$where = " WHERE p.personaid = ".$idUser;
+			// }
 
-			$sql = "SELECT p.idpedido, CONCAT(pr.nombres,' ',pr.apellidos) as nombre, p.monto, p.status 
-					FROM pedido p
-					INNER JOIN persona pr
-					ON p.personaid = pr.idpersona
-					$where
-					ORDER BY p.idpedido DESC LIMIT 10 ";
+			$sql = "SELECT v.idventa, 
+							CONCAT(pr.nombres,' ',pr.apellidos) as nombre, 
+							v.total, 
+							v.status,
+							tp.tipopago
+									FROM venta v
+									INNER JOIN persona pr ON v.dni_cliente = pr.identificacion
+									INNER JOIN tipopago tp ON v.idtipopago = tp.idtipopago
+									ORDER BY v.idventa DESC LIMIT 10 ";
 			$request = $this->select_all($sql);
 			return $request;
 		}	
 		public function selectPagosMes(int $anio, int $mes){
 
-			$sql = "SELECT p.tipopagoid, tp.tipopago, COUNT(p.tipopagoid) as cantidad, SUM(p.monto) as total 
-					FROM pedido p 
-					INNER JOIN tipopago tp 
-					ON p.tipopagoid = tp.idtipopago 
-					WHERE MONTH(p.fecha) = $mes AND YEAR(p.fecha) = $anio GROUP BY tipopagoid";
+			$sql = "SELECT v.idtipopago, 
+						tp.tipopago, 
+						COUNT(v.idtipopago) as cantidad, 
+						SUM(v.total) as total 
+					FROM venta v
+					INNER JOIN tipopago tp ON v.idtipopago = tp.idtipopago
+					WHERE MONTH(v.datecreated) = $mes AND YEAR(v.datecreated) = $anio GROUP BY v.idtipopago;";
 			$pagos = $this->select_all($sql);
 			$meses = Meses();
 			$arrData = array('anio' => $anio, 'mes' => $meses[intval($mes-1)], 'tipospago' => $pagos );
 			return $arrData;
 		}
 		public function selectVentasMes(int $anio, int $mes){
-			$rolid = $_SESSION['userData']['idrolusuario'];
-			$idUser = $_SESSION['userData']['idpersona'];
-			$where = "";
-			if($rolid == RCLIENTES ){
-				$where = " AND personaid = ".$idUser;
-			}
+			// $rolid = $_SESSION['userData']['idrolusuario'];
+			// $idUser = $_SESSION['userData']['idpersona'];
+			// $where = "";
+			// if($rolid == RCLIENTES ){
+			// 	$where = " AND personaid = ".$idUser;
+			// }
 
 			$totalVentasMes = 0;
 			$arrVentaDias = array();
@@ -81,9 +87,14 @@
 			for ($i=0; $i < $dias ; $i++) { 
 				$date = date_create($anio."-".$mes."-".$n_dia);
 				$fechaVenta = date_format($date,"Y-m-d");
-				$sql = "SELECT DAY(fecha) AS dia, COUNT(idpedido) AS cantidad, SUM(monto) AS total 
-						FROM pedido 
-						WHERE DATE(fecha) = '$fechaVenta' AND status = 'Completo' ".$where;
+				$sql = "SELECT DAY(v.datecreated) AS dia, 
+								COUNT(v.idventa) AS cantidad, 
+								SUM(v.total) AS total 
+									FROM venta v
+									WHERE DATE(v.datecreated) = '$fechaVenta' AND v.status = 1";
+				// $sql = "SELECT DAY(fecha) AS dia, COUNT(idpedido) AS cantidad, SUM(monto) AS total 
+				// 		FROM pedido 
+				// 		WHERE DATE(fecha) = '$fechaVenta' AND status = 'Completo' ".$where;
 				$ventaDia = $this->select($sql);
 				$ventaDia['dia'] = $n_dia;
 				$ventaDia['total'] = $ventaDia['total'] == "" ? 0 : $ventaDia['total'];
