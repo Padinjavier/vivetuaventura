@@ -17,7 +17,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtIdentificacion">Identificación</label>
-              <input type="text"  data-type="dni" maxlength="8" oninput="validarIdentificacion()" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
+              <input type="text"  data-type="dni" maxlength="8" class="form-control valid validDNI" id="txtIdentificacion" name="txtIdentificacion" required>
 
               <script>
                 var txtIdentificacion = document.getElementById("txtIdentificacion");
@@ -56,7 +56,7 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtTelefono">Teléfono</label>
-              <input type="number" data-type="telefono" min="900000000" max="999999999" maxlength="9" oninput="validarEntrada(this)" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required=""
+              <input type="number" data-type="telefono" min="900000000" max="999999999" maxlength="9" class="form-control valid validPhoneNumber" id="txtTelefono" name="txtTelefono" required=""
                 onkeypress="return controlTag(event);">
             </div>
             <div class="form-group col-md-6">
