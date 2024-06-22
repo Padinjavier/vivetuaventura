@@ -82,6 +82,7 @@ formVenta.onsubmit = function (e) {
         let selectServicio = row.querySelector("select.servicio-select");
         let cantidad = row.querySelector("input.cantidad").value;
         let precio = row.querySelector("input.precio").value;
+        let descuento = row.querySelector("input.descuento").value;
         let precioTotal = row.querySelector("input.precio_total").value;
 
         if (selectServicio && selectServicio.value !== '' && cantidad !== '' && precio !== '') {
@@ -92,6 +93,7 @@ formVenta.onsubmit = function (e) {
                 servicio: nombreServicio,
                 cantidad: parseFloat(cantidad),
                 precio: parseFloat(precio),
+                descuento: parseFloat(descuento),
                 precioTotal: parseFloat(precioTotal)
             });
         }
@@ -258,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
               </div>
           </td>
           <td>
-              <input type="number" class="form-control precio_db" readonly>
+              <input type="hidden" class="form-control precio_db" readonly>
           </td>
       `;
       tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila
@@ -280,6 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const selectElement = row.querySelector(".servicio-select");
       const cantidadInput = row.querySelector(".cantidad");
       const precioInput = row.querySelector(".precio");
+      const descuentoInput = row.querySelector(".descuento");
 
       selectElement.addEventListener("change", function () {
           cal_precio_db(row);
@@ -293,6 +296,20 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       precioInput.addEventListener("input", function () {
+          calculateRow(row);
+          sumarPreciosTotales();
+      });
+      
+      descuentoInput.addEventListener("input", function () {
+            const precio = parseFloat(precioInput.value) || 0;
+            let descuento = parseFloat(descuentoInput.value) || 0;
+
+            if (descuento > precio) {
+                descuento = precio;
+                descuentoInput.value = descuento.toFixed(2);
+                alert("El descuento no puede ser mayor que el precio.");
+            }
+
           calculateRow(row);
           sumarPreciosTotales();
       });
@@ -318,30 +335,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // funciones publicas
 function cal_precio_db(row) {
-  var buttonElement = row.querySelector('.btn.dropdown-toggle.btn-light');
-  var buttonTitle = buttonElement.getAttribute('title');
-  var decimalNumber = buttonTitle.match(/\d+\.\d+/);
-  var precioDb = decimalNumber ? decimalNumber[0] : 0;
-  row.querySelector(".precio_db").value = precioDb;
+  var buttonElement = row.querySelector('.precio').value;
+  row.querySelector(".precio_db").value = buttonElement;
 }
 
+// calcula el precio total por fila 
 function calculateRow(row) {
+  cal_precio_db(row);
   const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
   const precio = parseFloat(row.querySelector(".precio").value) || 0;
+  const descuento = parseFloat(row.querySelector(".descuento").value) || 0;
   const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
 
-  const precioTotal = cantidad * precio;
-  const precioDbTotal = cantidad * precioDb;
+cant_precio= cantidad*precio;
+cant_descuento = cantidad * descuento;
+total= cant_precio -cant_descuento;
+  if((total)<0){
+    row.querySelector(".precio_total").value = precioTotal.toFixed(2);
 
-  let descuento = precioDbTotal - precioTotal;
-  if (descuento < 0) {
-      descuento = 0;
-  }
-
-  row.querySelector(".precio_total").value = precioTotal.toFixed(2);
-  row.querySelector(".descuento").value = descuento.toFixed(2);
+}else{
+    row.querySelector(".precio_total").value = total.toFixed(2);
+}
 }
 
+// calcula precios totales del sub total descuento total total 
 function sumarPreciosTotales() {
   let subtotal = 0;
   let totalDescuento = 0;
@@ -457,6 +474,10 @@ function asignarDatos(detalleVenta) {
           let precioInput = grupoActual.querySelector(".precio");
           if (precioInput) {
               precioInput.value = datosLote.precio;
+            }
+          let descuentoInput = grupoActual.querySelector(".descuento");
+          if (descuentoInput) {
+            descuentoInput.value = datosLote.descuento;
             }
 
             // Llamar a las funciones necesarias para calcular y sumar precios

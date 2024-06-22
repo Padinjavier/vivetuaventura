@@ -48,7 +48,7 @@
                                             <th style="width:10%">Descuento</th>
                                             <th style="width:10%">Precio Total</th>
                                             <th style="width:5%"></th>
-                                            <th style="width:10%"></th>
+                                            <th style="width:0%"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="tblDetalleVenta">

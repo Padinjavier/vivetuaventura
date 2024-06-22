@@ -14,9 +14,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
--- Volcando estructura de base de datos para agencia
-
 -- Volcando estructura para tabla agencia.categoria
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` bigint NOT NULL AUTO_INCREMENT,
@@ -56,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `detalle_salida` (
   KEY `idservicio` (`idservicio`),
   CONSTRAINT `FK_detalle_salida_salida` FOREIGN KEY (`idsalida`) REFERENCES `salida` (`idsalida`),
   CONSTRAINT `FK_detalle_salida_servicio` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.detalle_salida: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.detalle_salida: ~2 rows (aproximadamente)
 DELETE FROM `detalle_salida`;
 INSERT INTO `detalle_salida` (`iddetalle_salida`, `idsalida`, `idservicio`, `cantidad`) VALUES
 	(5, 2, 3, 3),
@@ -71,18 +68,21 @@ CREATE TABLE IF NOT EXISTS `detalle_venta` (
   `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `idservicio` bigint NOT NULL,
   `cantidad` int NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
+  `precio` decimal(20,2) NOT NULL,
+  `descuento` decimal(20,2) DEFAULT NULL,
   PRIMARY KEY (`iddetalleventa`) USING BTREE,
   KEY `idservicio` (`idservicio`) USING BTREE,
   KEY `idventa` (`codigo_venta`) USING BTREE,
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`codigo_venta`) REFERENCES `venta` (`codigo_venta`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.detalle_venta: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.detalle_venta: ~3 rows (aproximadamente)
 DELETE FROM `detalle_venta`;
-INSERT INTO `detalle_venta` (`iddetalleventa`, `codigo_venta`, `idservicio`, `cantidad`, `precio`) VALUES
-	(1, 'v_1', 3, 1, 6.00);
+INSERT INTO `detalle_venta` (`iddetalleventa`, `codigo_venta`, `idservicio`, `cantidad`, `precio`, `descuento`) VALUES
+	(3, 'v_1', 3, 1, 5.00, NULL),
+	(4, 'v_1', 4, 1, 13.00, NULL),
+	(5, 'v_2', 2, 1, 10.00, 2.00);
 
 -- Volcando estructura para tabla agencia.modulo
 CREATE TABLE IF NOT EXISTS `modulo` (
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `opciones` (
   CONSTRAINT `FK_opciones_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.opciones: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.opciones: ~0 rows (aproximadamente)
 DELETE FROM `opciones`;
 INSERT INTO `opciones` (`id`, `personaid`, `idioma`, `tema`, `formato_moneda`) VALUES
 	(13, 22, 1, 1, 1);
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   CONSTRAINT `FK_persona_rol_empleado` FOREIGN KEY (`rolidempleado`) REFERENCES `rol_empleado` (`idrolempleado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.persona: ~16 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.persona: ~14 rows (aproximadamente)
 DELETE FROM `persona`;
 INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `hotel`, `token`, `rolid`, `datecreated`, `status`, `direccion`, `ciudad`, `rolidempleado`) VALUES
 	(2, '73621360', 'Jeanettis Mariel', 'Luyo Correa', 910089718, 'jluyo@gmail.com', '1a5376ad727d65213a79f3108541cf95012969a0d3064f108b5dd6e7f8c19b89', NULL, NULL, 2, '2023-11-29 10:57:56', 1, NULL, NULL, NULL),
@@ -489,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `rol_usuario` (
   PRIMARY KEY (`idrolusuario`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.rol_usuario: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.rol_usuario: ~4 rows (aproximadamente)
 DELETE FROM `rol_usuario`;
 INSERT INTO `rol_usuario` (`idrolusuario`, `nombrerolusuario`, `descripcion`, `status`) VALUES
 	(1, 'Administrador', 'Acceso a todo el sistema', 1),
@@ -542,8 +542,8 @@ INSERT INTO `servicio` (`idservicio`, `nombre`, `descripcion`, `precio`, `portad
 	(3, 'Tirolesa y parques de aventuras aéreas', 'Desafía la gravedad y disfruta de la adrenalina en recorridos por el aire entre árboles.', 5.00, 'portada_servicio.png', '2024-05-13 19:46:32', 'tirolesa_y_parques_de_aventuras_aereas', 1),
 	(4, 'Tours extremos y de adrenalina', 'Experimenta emociones fuertes con actividades como rapel, bungee jumping y más.', 10.00, 'img_ee5da223d41a457c75108adb998ca63c.jpg', '2024-05-13 19:46:32', 'tours-extremos-y-de-adrenalina', 1),
 	(5, 'Tours de naturaleza y vida silvestre', 'Descubre la diversidad natural y observa animales en su hábitat natural.', 10.00, 'img_bc833529de8d9b1871ec7e7756efda97.jpg', '2024-05-13 19:46:32', 'tours-de-naturaleza-y-vida-silvestre', 1),
-	(6, 'aaaa', 'kkkkkkkk', 17.30, 'portada_servicio.png', '2024-05-18 12:01:02', 'aaaa', 0),
-	(7, 'www', 'wwwwwwsss', 23.00, 'portada_servicio.png', '2024-06-10 01:09:56', 'www', 0);
+	(6, 'aaaa', 'kkkkkkkk', 17.30, 'portada_servicio.png', '2024-05-18 12:01:02', 'aaaa', 1),
+	(7, 'www', 'wwwwwwsss', 23.00, 'portada_servicio.png', '2024-06-10 01:09:56', 'www', 1);
 
 -- Volcando estructura para tabla agencia.tipopago
 CREATE TABLE IF NOT EXISTS `tipopago` (
@@ -819,7 +819,7 @@ INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
 CREATE TABLE IF NOT EXISTS `venta` (
   `idventa` bigint NOT NULL AUTO_INCREMENT,
   `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime DEFAULT CURRENT_TIMESTAMP,
+  `datecreated` datetime DEFAULT (now()),
   `idvendedor` bigint NOT NULL,
   `dni_cliente` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `idtipopago` bigint NOT NULL,
@@ -831,12 +831,13 @@ CREATE TABLE IF NOT EXISTS `venta` (
   KEY `codigo_venta` (`codigo_venta`) USING BTREE,
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idvendedor`) REFERENCES `persona` (`idpersona`),
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
--- Volcando datos para la tabla agencia.venta: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla agencia.venta: ~2 rows (aproximadamente)
 DELETE FROM `venta`;
 INSERT INTO `venta` (`idventa`, `codigo_venta`, `datecreated`, `idvendedor`, `dni_cliente`, `idtipopago`, `total`, `status`) VALUES
-	(1, 'v_1', '2024-06-18 18:12:17', 22, '4444444444', 2, 6.00, 1);
+	(1, 'v_1', '2024-06-18 00:00:00', 22, '4444444444', 187, 13.00, 1),
+	(2, 'v_2', '2024-06-21 22:25:56', 22, '4444444444', 4, 8.00, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

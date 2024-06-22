@@ -42,6 +42,7 @@ class VentasModel extends Mysql
 										dv.idservicio,
 										dv.cantidad,
 										dv.precio,
+										dv.descuento,
 										s.nombre
 								FROM detalle_venta AS dv
 								INNER JOIN 
@@ -71,10 +72,11 @@ class VentasModel extends Mysql
 				$idservicio = $servicio['id'];
 				$cantidad = $servicio['cantidad'];
 				$precio = $servicio['precio'];
+				$descuento = $servicio['descuento'];
 
-				$sqlDetalleVenta = "INSERT INTO detalle_venta (codigo_venta, idservicio, cantidad, precio)
-										VALUES (?, ?, ?, ?)";
-				$arrDataDetalleVenta = array($codigoVenta, $idservicio, $cantidad, $precio);
+				$sqlDetalleVenta = "INSERT INTO detalle_venta (codigo_venta, idservicio, cantidad, precio, descuento)
+										VALUES (?, ?, ?, ?, ?)";
+				$arrDataDetalleVenta = array($codigoVenta, $idservicio, $cantidad, $precio, $descuento);
 				$this->insert($sqlDetalleVenta, $arrDataDetalleVenta);
 			}
 
@@ -118,10 +120,11 @@ class VentasModel extends Mysql
 				$idservicio = $servicio['id'];
 				$cantidad = $servicio['cantidad'];
 				$precio = $servicio['precio'];
+				$descuento = $servicio['descuento'];
 
-				$sqlDetalleVenta = "INSERT INTO detalle_venta (codigo_venta, idservicio, cantidad, precio)
-										VALUES (?, ?, ?, ?)";
-				$arrDataDetalleVenta = array($idVenta, $idservicio, $cantidad, $precio);
+				$sqlDetalleVenta = "INSERT INTO detalle_venta (codigo_venta, idservicio, cantidad, precio, descuento)
+										VALUES (?, ?, ?, ?, ?)";
+				$arrDataDetalleVenta = array($idVenta, $idservicio, $cantidad, $precio, $descuento);
 				$this->insert($sqlDetalleVenta, $arrDataDetalleVenta);
 			}
 
