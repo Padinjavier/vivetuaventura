@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                       <label class="control-label">Precio</label>
-                      <input class="form-control" id="txtPrecio" name="txtPrecio" type="number"  min="0" step="0.10"  placeholder="Precio Servicio" required="">
+                      <input type="number" data-type="precio" class="form-control" id="txtPrecio" name="txtPrecio"  min="0" step="1"  placeholder="Precio Servicio" required="">
                     </div>
                     <div class="form-group">
                         <label for="exampleSelect1">Estado</label>

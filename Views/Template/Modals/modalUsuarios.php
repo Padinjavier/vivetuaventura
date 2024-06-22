@@ -16,7 +16,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="txtIdentificacion">Identificación</label>
-                  <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
+                  <input type="text"  data-type="dni" maxlength="8" oninput="validarIdentificacion()"  class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="txtNombre">Nombres</label>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="txtTelefono">Teléfono</label>
-                  <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
+                  <input type="number" data-type="telefono" min="900000000" max="999999999" oninput="validarEntrada(this)"  class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
                 </div>
               </div>
               <div class="form-row">
