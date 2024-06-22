@@ -35,7 +35,7 @@
 			//dep($data['pagosMes']);exit;
 			$data['ventasMDia'] = $this->model->selectVentasMes($anio,$mes);
 			//dep($data['ventasMDia']);exit;
-			$data['ventasAnio'] = $this->model->selectVentasAnio($anio);
+			// $data['ventasAnio'] = $this->model->selectVentasAnio($anio);
 			//dep($data['ventasAnio']);exit;
 			if( $_SESSION['userData']['idrolusuario'] == RCLIENTES ){
 				$this->views->getView($this,"dashboardCliente",$data);
@@ -70,16 +70,16 @@
 				die();
 			}
 		}
-		public function ventasAnio(){
-			if($_POST){
-				$grafica = "ventasAnio";
-				$anio = intval($_POST['anio']);
-				$pagos = $this->model->selectVentasAnio($anio);
-				$script = getFile("Template/Modals/graficas",$pagos);
-				echo $script;
-				die();
-			}
-		}
+		// public function ventasAnio(){
+		// 	if($_POST){
+		// 		$grafica = "ventasAnio";
+		// 		$anio = intval($_POST['anio']);
+		// 		$pagos = $this->model->selectVentasAnio($anio);
+		// 		$script = getFile("Template/Modals/graficas",$pagos);
+		// 		echo $script;
+		// 		die();
+		// 	}
+		// }
 
 	}
  ?>

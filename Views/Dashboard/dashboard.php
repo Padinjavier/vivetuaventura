@@ -265,7 +265,11 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
   //     type: 'column'
   //   },
   //   title: {
-  //     text: 'Ventas del año <?= $data['ventasAnio']['anio'] ?> '
+  //     text: 'Ventas del año 
+  <?php
+  // $data['ventasAnio']['anio']  
+  
+  ?> 
   //   },
   //   subtitle: {
   //     text: 'Esdística de ventas por mes'

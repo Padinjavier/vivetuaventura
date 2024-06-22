@@ -106,32 +106,32 @@
 			$arrData = array('anio' => $anio, 'mes' => $meses[intval($mes-1)], 'total' => $totalVentasMes,'ventas' => $arrVentaDias );
 			return $arrData;
 		}
-		public function selectVentasAnio(int $anio){
-			$arrMVentas = array();
-			$arrMeses = Meses();
-			for ($i=1; $i <= 12; $i++) { 
-				$arrData = array('anio'=>'','no_mes'=>'','mes'=>'','venta'=>'');
-				$sql = "SELECT $anio AS anio, $i AS mes, SUM(monto) AS venta 
-						FROM pedido 
-						WHERE MONTH(fecha)= $i AND YEAR(fecha) = $anio AND status = 'Completo' 
-						GROUP BY MONTH(fecha) ";
-				$ventaMes = $this->select($sql);
-				$arrData['mes'] = $arrMeses[$i-1];
-				if(empty($ventaMes)){
-					$arrData['anio'] = $anio;
-					$arrData['no_mes'] = $i;
-					$arrData['venta'] = 0;
-				}else{
-					$arrData['anio'] = $ventaMes['anio'];
-					$arrData['no_mes'] = $ventaMes['mes'];
-					$arrData['venta'] = $ventaMes['venta'];
-				}
-				array_push($arrMVentas, $arrData);
-				# code...
-			}
-			$arrVentas = array('anio' => $anio, 'meses' => $arrMVentas);
-			return $arrVentas;
-		}
+		// public function selectVentasAnio(int $anio){
+		// 	$arrMVentas = array();
+		// 	$arrMeses = Meses();
+		// 	for ($i=1; $i <= 12; $i++) { 
+		// 		$arrData = array('anio'=>'','no_mes'=>'','mes'=>'','venta'=>'');
+		// 		$sql = "SELECT $anio AS anio, $i AS mes, SUM(monto) AS venta 
+		// 				FROM pedido 
+		// 				WHERE MONTH(fecha)= $i AND YEAR(fecha) = $anio AND status = 'Completo' 
+		// 				GROUP BY MONTH(fecha) ";
+		// 		$ventaMes = $this->select($sql);
+		// 		$arrData['mes'] = $arrMeses[$i-1];
+		// 		if(empty($ventaMes)){
+		// 			$arrData['anio'] = $anio;
+		// 			$arrData['no_mes'] = $i;
+		// 			$arrData['venta'] = 0;
+		// 		}else{
+		// 			$arrData['anio'] = $ventaMes['anio'];
+		// 			$arrData['no_mes'] = $ventaMes['mes'];
+		// 			$arrData['venta'] = $ventaMes['venta'];
+		// 		}
+		// 		array_push($arrMVentas, $arrData);
+		// 		# code...
+		// 	}
+		// 	$arrVentas = array('anio' => $anio, 'meses' => $arrMVentas);
+		// 	return $arrVentas;
+		// }
 		public function productosTen(){
 			$sql = "SELECT * FROM servicio WHERE status = 1 ORDER BY idservicio DESC LIMIT 10 ";
 			$request = $this->select_all($sql);
