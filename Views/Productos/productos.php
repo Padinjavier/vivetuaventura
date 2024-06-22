@@ -1,6 +1,6 @@
 <?php 
     headerAdmin($data); 
-    getModal('modalProductos',$data);
+    getModal('modalSalidas',$data);
 ?>
     <main class="app-content">
       <div class="app-title">
@@ -21,7 +21,7 @@
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered w-100" id="tableProductos">
+                    <table class="table table-hover table-bordered w-100" id="tableSalidas">
                       <thead>
                         <tr>
                           <th>ID</th>
@@ -29,8 +29,6 @@
                           <th>Nombre</th>
                           <th>Fecha</th>
                           <th>Estado de pago</th>
-                          <!-- <th>Fecha vencimiento</th> -->
-                          <!-- <th>Estado</th> -->
                           <th>Acciones</th>
                         </tr>
                       </thead>

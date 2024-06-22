@@ -1,5 +1,5 @@
 <!-- Modal Salida-->
-<div class="modal fade" id="modalFormProductos" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalFormSalidas" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-            <form id="formProductos" name="formProductos" class="form-horizontal">
+            <form id="formSalidas" name="formSalidas" class="form-horizontal">
               <input type="number" id="idSalida" name="idSalida" value="">
               <div class="row">
                 <div class="col-md-12">
@@ -89,11 +89,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalViewProducto" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalViewSalida" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Datos del Producto</h5>
+        <h5 class="modal-title" id="titleModal">Datos de la Salida</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

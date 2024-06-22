@@ -2,14 +2,14 @@
 // -----------------------------------------------------------------------------------------------------------------------
 // -----------------------------------------------------------------------------------------------------------------------
 document.write(`<script src="${base_url}/Assets/js/plugins/JsBarcode.all.min.js"></script>`);
-let tableProductos;
+let tableSalidas;
 let rowTable = "";
 $(document).on('focusin', function(e) {
     if ($(e.target).closest(".tox-dialog").length) {
         e.stopImmediatePropagation();
     }
 });
-tableProductos = $('#tableProductos').dataTable( {
+tableSalidas = $('#tableSalidas').dataTable( {
     "aProcessing":true,
     "aServerSide":true,
     "language": {
@@ -74,9 +74,9 @@ tableProductos = $('#tableProductos').dataTable( {
     "order":[[0,"desc"]]  
 });
 window.addEventListener('load', function() {
-    if(document.querySelector("#formProductos")){
-        let formVenta = document.querySelector("#formProductos");
-        formVenta.onsubmit = function (e) {
+    if(document.querySelector("#formSalidas")){
+        let formSalidas = document.querySelector("#formSalidas");
+        formSalidas.onsubmit = function (e) {
             e.preventDefault();
             let idSalida = document.querySelector('#idSalida').value;
             let CodVenta = document.querySelector('#listCodVenta').options[document.querySelector('#listCodVenta').selectedIndex].text;
@@ -146,13 +146,13 @@ window.addEventListener('load', function() {
                       //console.log(objData)
                       //console.log(objData.data)
                       if(rowTable == ""){
-                        tableProductos.api().ajax.reload();
+                        tableSalidas.api().ajax.reload();
                       } else {
-                        tableProductos.api().ajax.reload();
+                        tableSalidas.api().ajax.reload();
                       }
         
-                        $('#modalFormProductos').modal("hide");
-                        formVenta.reset();
+                        $('#modalFormSalidas').modal("hide");
+                        formSalidas.reset();
                         if(objData.action=="insert"){
                           swal("Guardado", objData.msg ,"success");
                         }else{
@@ -197,7 +197,7 @@ function fntDelInfo(idProducto){
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableProductos.api().ajax.reload();
+                        tableSalidas.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }
@@ -268,7 +268,7 @@ function fntEditInfo(element,idProducto){
                 for (let i = 0; i < cantidadDatos; i++) {
                     btnAgregar.click();
                 }     
-                $('#modalFormProductos').modal('show');
+                $('#modalFormSalidas').modal('show');
                 setTimeout(function() {
                     asignarDatos(objData.data.detalle_salida);
                 }, 1500);
@@ -343,7 +343,7 @@ function fntViewInfo(idSalida){
                 document.querySelector("#celFecha").innerHTML = objData.data.Salida.datecreated;
                
 
-                $('#modalViewProducto').modal('show');
+                $('#modalViewSalida').modal('show');
 
             }else{
                 swal("Error", objData.msg , "error");
@@ -497,6 +497,6 @@ function openModal()
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
     document.querySelector('#titleModal').innerHTML = "Nueva Salida";
-    document.querySelector("#formProductos").reset();
-    $('#modalFormProductos').modal('show');
+    document.querySelector("#formSalidas").reset();
+    $('#modalFormSalidas').modal('show');
 }
