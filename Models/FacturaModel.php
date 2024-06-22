@@ -41,7 +41,8 @@ class FacturaModel extends Mysql
 											s.nombre as servicio,
 											s.precio as precioreal,
 											dv.precio,
-											dv.cantidad
+											dv.cantidad,
+											dv.descuento
 									FROM detalle_venta dv
 									INNER JOIN servicio s
 									ON dv.idservicio = s.idservicio

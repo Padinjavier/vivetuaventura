@@ -77,7 +77,8 @@ $detalle = $data['detalle'];
 		.tbl-detalle tfoot td {
 			padding: 5px;
 		}
-		p.noboleta{
+
+		p.noboleta {
 			color: #c6c9cb;
 		}
 	</style>
@@ -92,14 +93,22 @@ $detalle = $data['detalle'];
 				</td>
 				<td class="text-center wd33">
 					<h4><strong><?= NOMBRE_EMPESA ?></strong></h4>
-					<p><?= DIRECCION ?> <br>
-						Teléfono: <?= TELEMPRESA ?> <br>
-						Email: <?= EMAIL_EMPRESA ?></p>
 				</td>
 				<td class="text-right wd33">
-					<p>No. Orden <strong><?= $orden['codigo_venta'] ?></strong><br>
-						Fecha: <?= $orden['fecha'] ?> <br>
-						Método Pago: <?= $orden['tipopago'] ?> <br>
+				</td>
+			</tr>
+			<tr>
+				<td class="wd33">
+					<p><?= DIRECCION ?> <br><br>
+						Teléfono: <?= TELEMPRESA ?> <br><br>
+						Email: <?= EMAIL_EMPRESA ?></p>
+				</td>
+				<td class="text-center wd33">
+				</td>
+				<td class="text-right wd33">
+					<p>No. Orden <strong><?= $orden['codigo_venta'] ?></strong><br><br>
+						Fecha: <?= $orden['fecha'] ?> <br><br>
+						Método Pago: <?= $orden['tipopago'] ?>
 					</p>
 				</td>
 			</tr>
@@ -115,69 +124,82 @@ $detalle = $data['detalle'];
 				<td class="wd40"><?= $cliente['telefono'] ?></td>
 			</tr>
 			<tr>
-				<td>Nombre:</td>
+				<td class="wd20">Nombre:</td>
 				<td><?= $cliente['nombres'] . ' ' . $cliente['apellidos'] ?></td>
-				<td class="wd10">Correo:</td>
-			<td class="wd40"><?= $cliente['email_user'] ?></td>
+				<td class="wd20">Correo electrónico:</td>
+				<!-- <td class="wd40"><?= $cliente['email_user'] ?></td> -->
+				<td class="wd2">alex.huasasquichesoto@gmail.com</td>
 			</tr>
 		</tbody>
 	</table>
 	<br>
 	<!-- esto es mio mi test para ver datos  -->
-	<p><?php 
-			$subtotalreal = 0;
-	foreach ($detalle as $servicio) {
+	<p>
+		<?php
+		$subtotalreal = 0;
+		foreach ($detalle as $servicio) {
 
-		// echo($servicio['servicio']);
-		$importereal = $servicio['precioreal'] * $servicio['cantidad'];
-		$subtotalreal = $subtotalreal + $importereal;
-	}
-	echo($subtotalreal);
-    // echo json_encode($detalle, JSON_PRETTY_PRINT);
-	// echo(SMONEY . ' ' . formatMoney($subtotal));
-	// echo(SMONEY . ' ' . formatMoney($orden['total']));
-	
-?></p>
-	<table class="tbl-detalle m-1" style="border: 10px solid red;">
+			// echo($servicio['servicio']);
+			$importereal = $servicio['precioreal'] * $servicio['cantidad'];
+			$subtotalreal = $subtotalreal + $importereal;
+		}
+		// echo($subtotalreal);
+		// echo json_encode($detalle, JSON_PRETTY_PRINT);
+		// echo(SMONEY . ' ' . formatMoney($subtotal));
+		// echo(SMONEY . ' ' . formatMoney($orden['total']));
+		
+		?>
+	</p>
+	<table class="tbl-detalle m-1">
 		<thead>
-			<tr>
-				<th class="wd10">N°</th>
-				<th class="wd55">Descripción</th>
-				<th class="wd10 text-right">Precio</th>
-				<th class="wd10 text-center">Cantidad</th>
-				<th class="wd15 text-right">Importe</th>
+			<tr style="text-align: center;">
+				<th style="width:4%">#</th>
+				<th style="width:45%">Tipo de servicio</th>
+				<th style="width:12%">Cantidad</th>
+				<th style="width:12%">Precio</th>
+				<th style="width:12%">Descuento</th>
+				<th style="width:15%">Precio Total</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody style="text-align: center;">
 			<?php
 			$subtotal = 0;
-			$i=0;
+			$descuentototal = 0;
+			$i = 0;
 			foreach ($detalle as $servicio) {
 				$importe = $servicio['precio'] * $servicio['cantidad'];
 				$subtotal = $subtotal + $importe;
+
+				$importe2 = $servicio['descuento'] * $servicio['cantidad'];
+				$descuentototal = $descuentototal + $importe2;
+				
 				$i++;
 				?>
 				<tr>
 					<td><?= $i ?></td>
 					<td><?= $servicio['servicio'] ?></td>
-					<td class="text-right"><?= SMONEY . ' ' . formatMoney($servicio['precio']) ?></td>
 					<td class="text-center"><?= $servicio['cantidad'] ?></td>
-					<td class="text-right"><?= SMONEY . ' ' . formatMoney($importe) ?></td>
+					<td class="text-center"><?= SMONEY . ' ' . formatMoney($servicio['precio']) ?></td>
+					<td class="text-center"><?= SMONEY . ' ' . formatMoney($servicio['descuento']) ?></td>
+					<td class="text-center"><?= SMONEY . ' ' . formatMoney($orden['total']) ?></td>
 				</tr>
-			<?php  }	?>
+			<?php } ?>
 		</tbody>
 		<tfoot>
 			<tr>
+				<td></td>
 				<td></td>
 				<td colspan="3" class="text-right">Sub Total:</td>
 				<td class="text-right"><?= SMONEY . ' ' . formatMoney($subtotal); ?></td>
 			</tr>
 			<tr>
 				<td></td>
+				<td></td>
 				<td colspan="3" class="text-right">Descuento:</td>
-				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
+				<td class="text-right"><?= SMONEY . ' ' . formatMoney($descuentototal); ?></td>
 			</tr>
 			<tr>
+				<td></td>
 				<td></td>
 				<td colspan="3" class="text-right">Total:</td>
 				<td class="text-right"><?= SMONEY . ' ' . formatMoney($orden['total']); ?></td>
