@@ -16,7 +16,7 @@ tableSalidas = $('#tableSalidas').dataTable( {
         "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
     },
     "ajax":{
-        "url": " "+base_url+"/Productos/getSalidas",
+        "url": " "+base_url+"/Salidas/getSalidas",
         "dataSrc":""
     },
     "columns":[
@@ -123,7 +123,7 @@ window.addEventListener('load', function() {
         
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url + '/Productos/setSalida';
+            let ajaxUrl = base_url + '/Salidas/setSalida';
             let formData = new FormData();
             
             // Agregar datos al formData
@@ -184,7 +184,7 @@ function fntDelInfo(idSalida){
         if (isConfirm) 
         {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Productos/delSalida';
+            let ajaxUrl = base_url+'/Salidas/delSalida';
             let strData = "idSalida="+idSalida;
             request.open("POST",ajaxUrl,true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -232,7 +232,7 @@ function fntEditInfo(element,idSalida){
     let request = (window.XMLHttpRequest) ? 
                     new XMLHttpRequest() : 
                     new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url + '/Productos/getSalida/' + idSalida;
+    let ajaxUrl = base_url + '/Salidas/getSalida/' + idSalida;
     request.open("GET", ajaxUrl, true);
     request.send();
     request.onreadystatechange = function(){
@@ -307,7 +307,7 @@ function fntViewInfo(idSalida){
     let request = (window.XMLHttpRequest) ? 
                     new XMLHttpRequest() : 
                     new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Productos/getSalida/'+idSalida;
+    let ajaxUrl = base_url+'/Salidas/getSalida/'+idSalida;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){

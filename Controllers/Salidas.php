@@ -1,5 +1,5 @@
 <?php 
-	class Productos extends Controllers{
+	class Salidas extends Controllers{
 		public function __construct()
 		{
 			parent::__construct();
@@ -12,7 +12,7 @@
 			getPermisos(MPRODUCTOS);
 		}
 
-		public function Productos()
+		public function Salidas()
 		{
 			if(empty($_SESSION['permisosMod']['r'])){
 				header("Location:".base_url().'/dashboard');
@@ -21,7 +21,7 @@
 			$data['page_title'] = "Salidas <small> </small>";
 			$data['page_name'] = "salidas";
 			$data['page_functions_js'] = "functions_salidas.js";
-			$this->views->getView($this,"productos",$data);
+			$this->views->getView($this,"salidas",$data);
 		}
 
 		public function getSalidas()

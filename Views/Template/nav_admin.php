@@ -79,7 +79,7 @@
                                 Venta</a></li>
                     <?php } ?>
                     <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
-                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/productos">
+                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/salidas">
                                 Salida</a></li>
                     <?php } ?>
                     <?php if (!empty($_SESSION['permisos'][8]['r'])) { ?>

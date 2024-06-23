@@ -1,6 +1,6 @@
 <?php
 
-class ProductosModel extends Mysql
+class SalidasModel extends Mysql
 {
 	private $idSalida;
 	private $strNombre;
