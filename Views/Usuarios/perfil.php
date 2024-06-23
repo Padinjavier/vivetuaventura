@@ -63,23 +63,29 @@
             <form id="formDataFiscal" name="formDataFiscal">
               <div class="row mb-4">
                 <div class="col-md-6">
-                  <label>Identificación Tributaria</label>
-                  <input class="form-control" type="text" id="txtNit" name="txtNit" value="<?= $_SESSION['userData']['nit']; ?>">
+                  <label>Identificación Tributaria próximamente</label>
+                  <input class="form-control" type="text" id="txtNit" name="txtNit" placeholder="próximamente" value="<?php
+                  //  $_SESSION['userData']['nit']; 
+                   ?>">
                 </div>
                 <div class="col-md-6">
-                  <label>Nombre fiscal</label>
-                  <input class="form-control" type="text" id="txtNombreFiscal" name="txtNombreFiscal" value="<?= $_SESSION['userData']['nombrefiscal']; ?>" >
+                  <label>Nombre fiscal próximamente</label>
+                  <input class="form-control" type="text" id="txtNombreFiscal" name="txtNombreFiscal" placeholder="próximamente" value=" <?php
+                  //  $_SESSION['userData']['nombrefiscal']; 
+                   ?>" >
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 mb-4">
-                  <label>Dirección fiscal</label>
-                  <input class="form-control" type="text" id="txtDirFiscal" name="txtDirFiscal" value="<?= $_SESSION['userData']['direccionfiscal']; ?>">
+                  <label>Dirección fiscal próximamente</label>
+                  <input class="form-control" type="text" id="txtDirFiscal" name="txtDirFiscal" placeholder="próximamente" value="<?php
+                  //  $_SESSION['userData']['direccionfiscal']; 
+                   ?>">
                 </div>
               </div>
               <div class="row mb-10">
                 <div class="col-md-12">
-                  <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i> Guardar</button>
+                  <!-- <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i> Guardar</button> -->
                 </div>
               </div>
             </form>
