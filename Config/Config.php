@@ -18,7 +18,7 @@ const DB_PASSWORD = "javier20";
 const DB_CHARSET = "utf8";
 
 //Para envío de correo
-const ENVIRONMENT = 0; // Local: 0, Produccón: 1;
+const ENVIRONMENT = 1; // Local: 0, Produccón: 1;
 
 //Deliminadores decimal y millar Ej. 24,1989.00
 const SPD = ".";
@@ -40,9 +40,9 @@ const SECRET = "";
 
 //Datos envio de correo
 const NOMBRE_REMITENTE = "Vive tu aventura";
-const EMAIL_REMITENTE = "no-reply@tecomsis.com";
+const EMAIL_REMITENTE = "marketch@marketchamorro.shop"; //correo del host siempre caambia si cambias de host
 const NOMBRE_EMPESA = "Vive tu aventura";
-const WEB_EMPRESA = "www.system32.com";
+const WEB_EMPRESA = "www.marketchamorro.shop"; //url de la pagina
 
 const DESCRIPCION = "Un negocio familiar que ofrece variedad de productos, calidad y a buen precio.";
 const SHAREDHASH = "TiendaVirtual";

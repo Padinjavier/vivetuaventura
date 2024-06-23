@@ -83,7 +83,7 @@
 												 'msg' => 'Se ha enviado un email a tu cuenta de correo para cambiar tu contraseña.');
 							}else{
 								$arrResponse = array('status' => false, 
-												 'msg' => 'No es posible realizar el proceso, intenta más tarde.' );
+												 'msg' => 'No es posible realizar el proceso, intenta más tarde.envio' );
 							}
 						}else{
 							$arrResponse = array('status' => false, 
