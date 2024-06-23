@@ -2,7 +2,6 @@
 
 class ProductosModel extends Mysql
 {
-	private $intIdProducto;
 	private $idSalida;
 	private $strNombre;
 	private $strDescripcion;
@@ -26,7 +25,7 @@ class ProductosModel extends Mysql
 		parent::__construct();
 	}
 
-	public function selectProductos()
+	public function selectSalidas()
 	{
 		$sql = "SELECT s.idsalida,
 							s.codigo_venta,
@@ -47,7 +46,7 @@ class ProductosModel extends Mysql
 		return $request;
 	}
 
-	public function insertProducto($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
+	public function insertSalida($CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
 	{
 		// Asignar null a las variables si están vacías
 		$CodVenta = !empty($CodVenta) ? $CodVenta : null;
@@ -87,7 +86,7 @@ class ProductosModel extends Mysql
 		return $return;
 	}
 
-	public function updateProducto($idSalida, $CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
+	public function updateSalida($idSalida, $CodVenta, $idNombre, $Nombreexterno, $descripcion, $Pago, $servicios)
 	{
 		// Asignar null a las variables si están vacías
 		$request = 0;
@@ -128,7 +127,7 @@ class ProductosModel extends Mysql
 	}
 
 
-	public function selectProducto(int $idSalida)
+	public function selectSalida(int $idSalida)
 	{
 		$this->idSalida = $idSalida;
 		// Consulta para obtener los datos básicos de la salida
@@ -169,10 +168,10 @@ class ProductosModel extends Mysql
 		return $request;
 	}
 
-	public function deleteProducto(int $idproducto)
+	public function deleteSalida(int $idsalida)
 	{
-		$this->intIdProducto = $idproducto;
-		$sql = "UPDATE salida SET status = ? WHERE idsalida = $this->intIdProducto ";
+		$this->idSalida = $idsalida;
+		$sql = "UPDATE salida SET status = ? WHERE idsalida = $this->idSalida ";
 		$arrData = array(0);
 		$request = $this->update($sql, $arrData);
 		return $request;

@@ -19,15 +19,15 @@
 			}
 			$data['page_tag'] = "Salidas";
 			$data['page_title'] = "Salidas <small> </small>";
-			$data['page_name'] = "productos";
+			$data['page_name'] = "salidas";
 			$data['page_functions_js'] = "functions_productos.js";
 			$this->views->getView($this,"productos",$data);
 		}
 
-		public function getProductos()
+		public function getSalidas()
 		{
 			if($_SESSION['permisosMod']['r']){
-				$arrData = $this->model->selectProductos();
+				$arrData = $this->model->selectSalidas();
 				for ($i=0; $i < count($arrData); $i++) {
 					$btnView = '';
 					$btnEdit = '';
@@ -45,13 +45,13 @@
 					$arrData[$i]['pago_status'] = $pagoStatus;
 				
 					if($_SESSION['permisosMod']['r']){
-						$btnView = '<button class="btn btn-info btn-sm btnView " onClick="fntViewInfo('.$arrData[$i]['idsalida'].')" title="Ver producto"><i class="far fa-eye"></i></button>';
+						$btnView = '<button class="btn btn-info btn-sm btnView " onClick="fntViewInfo('.$arrData[$i]['idsalida'].')" title="Ver salida"><i class="far fa-eye"></i></button>';
 					}
 					if($_SESSION['permisosMod']['u']){
-						$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit" onClick="fntEditInfo(this,'.$arrData[$i]['idsalida'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
+						$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit" onClick="fntEditInfo(this,'.$arrData[$i]['idsalida'].')" title="Editar salida"><i class="fas fa-pencil-alt"></i></button>';
 					}
 					if($_SESSION['permisosMod']['d']){	
-						$btnDelete = '<button class="btn btn-danger btn-sm btnDel" onClick="fntDelInfo('.$arrData[$i]['idsalida'].')" title="Eliminar producto"><i class="far fa-trash-alt"></i></button>';
+						$btnDelete = '<button class="btn btn-danger btn-sm btnDel" onClick="fntDelInfo('.$arrData[$i]['idsalida'].')" title="Eliminar salida"><i class="far fa-trash-alt"></i></button>';
 					}
 					$arrData[$i]['options'] = '<div class="text-center" style="display:flex; flex-direction:row; justify-content:space-evenly; gap:10px;">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
 				}
@@ -60,7 +60,7 @@
 			die();
 		}
 	
-		public function setProducto(){
+		public function setSalida(){
 			if($_POST){
 				// if(empty($_POST['idSalida']) || empty($_POST['CodVenta']) || empty($_POST['idNombre']) || empty($_POST['Nombreexterno'])  || empty($_POST['descripcion']) || empty($_POST['Pago']) || empty($_POST['servicios']) )
 				if(empty($_POST['CodVenta']) || empty($_POST['servicios']) )
@@ -75,14 +75,14 @@
 					$Nombreexterno = isset($_POST['Nombreexterno']) ? strClean($_POST['Nombreexterno']) : '';
 					$descripcion = isset($_POST['descripcion']) ? strClean($_POST['descripcion']) : '';
 					$servicios = isset($_POST['servicios']) ? json_decode($_POST['servicios'], true) : [];
-					$request_producto = "";
+					$request_salida = "";
 
 
 					if(empty($idSalida))
 					{
 						$option = 1;
 						if($_SESSION['permisosMod']['w']){
-							$request_producto = $this->model->insertProducto($CodVenta, 
+							$request_salida = $this->model->insertSalida($CodVenta, 
 																		$idNombre, 
 																		$Nombreexterno,
 																		$descripcion, 
@@ -92,7 +92,7 @@
 					}else{
 						$option = 2;
 						if($_SESSION['permisosMod']['u']){
-							$request_producto = $this->model->updateProducto($idSalida,
+							$request_salida = $this->model->updateSalida($idSalida,
 																		$CodVenta,
 																		$idNombre, 
 																		$Nombreexterno,
@@ -101,7 +101,7 @@
 																		$servicios);
 						}
 					}
-					if($request_producto > 0 )
+					if($request_salida > 0 )
 					{
 						if($option == 1){
 							$arrResponse = array('status' => true, 'action' => 'insert', 'msg' => 'Datos de la salida guardados correctamente.');
@@ -118,11 +118,11 @@
 		}
 
 
-		public function getProducto($idSalida){
+		public function getSalida($idSalida){
 			if($_SESSION['permisosMod']['r']){
 				$idSalida = intval($idSalida);
 				if($idSalida > 0){
-					$arrData = $this->model->selectProducto($idSalida);
+					$arrData = $this->model->selectSalida($idSalida);
 					$arrResponse = array(); // Inicializa $arrResponse aquí
 					if (empty($arrData)) {
 						$arrResponse = array("status" => false, "msg" => "Datos no disponibles.");
@@ -139,16 +139,16 @@
 		}
 	
 
-		public function delProducto(){
+		public function delSalida(){
 			if($_POST){
 				if($_SESSION['permisosMod']['d']){
-					$intIdproducto = intval($_POST['idProducto']);
-					$requestDelete = $this->model->deleteProducto($intIdproducto);
+					$intIdsalida = intval($_POST['idSalida']);
+					$requestDelete = $this->model->deleteSalida($intIdsalida);
 					if($requestDelete)
 					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto');
+						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado la salida');
 					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el producto.');
+						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar la salida.');
 					}
 					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 				}

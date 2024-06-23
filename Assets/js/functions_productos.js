@@ -16,7 +16,7 @@ tableSalidas = $('#tableSalidas').dataTable( {
         "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
     },
     "ajax":{
-        "url": " "+base_url+"/Productos/getProductos",
+        "url": " "+base_url+"/Productos/getSalidas",
         "dataSrc":""
     },
     "columns":[
@@ -123,7 +123,7 @@ window.addEventListener('load', function() {
         
             divLoading.style.display = "flex";
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url + '/Productos/setProducto';
+            let ajaxUrl = base_url + '/Productos/setSalida';
             let formData = new FormData();
             
             // Agregar datos al formData
@@ -169,7 +169,7 @@ window.addEventListener('load', function() {
           }
 },false);
 
-function fntDelInfo(idProducto){
+function fntDelInfo(idSalida){
     swal({
         title: "Eliminar Salida",
         text: "¿Realmente quiere eliminar la Salida?",
@@ -184,8 +184,8 @@ function fntDelInfo(idProducto){
         if (isConfirm) 
         {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Productos/delProducto';
-            let strData = "idProducto="+idProducto;
+            let ajaxUrl = base_url+'/Productos/delSalida';
+            let strData = "idSalida="+idSalida;
             request.open("POST",ajaxUrl,true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
@@ -216,7 +216,7 @@ function fntDelInfo(idProducto){
 
 
 
-function fntEditInfo(element,idProducto){
+function fntEditInfo(element,idSalida){
 
       // Eliminar elementos del grupo de servicio pero debe dejar al menos uno
   let detalleVentaRows = document.querySelectorAll('.detalle-salida-row');
@@ -232,7 +232,7 @@ function fntEditInfo(element,idProducto){
     let request = (window.XMLHttpRequest) ? 
                     new XMLHttpRequest() : 
                     new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url + '/Productos/getProducto/' + idProducto;
+    let ajaxUrl = base_url + '/Productos/getSalida/' + idSalida;
     request.open("GET", ajaxUrl, true);
     request.send();
     request.onreadystatechange = function(){
@@ -307,7 +307,7 @@ function fntViewInfo(idSalida){
     let request = (window.XMLHttpRequest) ? 
                     new XMLHttpRequest() : 
                     new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Productos/getProducto/'+idSalida;
+    let ajaxUrl = base_url+'/Productos/getSalida/'+idSalida;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
@@ -320,7 +320,7 @@ function fntViewInfo(idSalida){
             if(objData.status)
             {
                 
-                let estadoProducto = objData.data.Salida.pago == 1 ? 
+                let estadoSalida = objData.data.Salida.pago == 1 ? 
                  '<span style="color: white; background-color:  red; padding: 5px; border-radius: 3px;"> Falta'+ objData.data.Salida.pago +'</span>': 
                  '<span style="color: white; background-color: green; padding: 5px; border-radius: 3px;"> Listo'+ objData.data.Salida.pago +'</span>';
 
@@ -336,7 +336,7 @@ function fntViewInfo(idSalida){
                 }
                 document.querySelector("#celCodigo").innerHTML = objData.data.Salida.codigo_venta;
                 document.querySelector("#celNombre").innerHTML = objData.data.Salida.nombre_completo;
-                document.querySelector("#celEstadoPago").innerHTML = estadoProducto;
+                document.querySelector("#celEstadoPago").innerHTML = estadoSalida;
                 document.querySelector("#celDescripcion").innerHTML = objData.data.Salida.descripcion;
                 document.querySelector("#celTipoServicios").innerHTML = servicios;
                 document.querySelector("#celCantidad").innerHTML = Cantidad_total;
