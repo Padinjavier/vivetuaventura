@@ -4,7 +4,7 @@ $parts = explode(" ", $server_info);
 $computer_name = $parts[1];
 $computer_name = gethostname();
 $ip = $_SERVER['SERVER_ADDR'];
-$link = 'http://' . $ip . '/VIVETUAVENTURA';
+$link = 'http://' . $ip . '/agencia';
 define('BASE_URL', $link);
 // const BASE_URL = 'http://localhost/gsm';
 
@@ -70,23 +70,17 @@ const COSTOENVIO = 5;
 //Módulos
 const MDASHBOARD = 1;
 const MEMPLEADOS = 2;
-const MROLEMPLEADO = 3;
-const MCLIENTES = 4;
-const MUSUARIOS = 5;
-const MROLUSUARIO = 6;
-const MVENTAS = 7;
-const MSALIDAS = 8;
-const MSERVICIOS = 9;
+const MCLIENTES = 3;
+const MPRODUCTOS = 4;
+const MPEDIDOS = 5;
+const MSERVICIOS = 6;
+const MSUSCRIPTORES = 7;
+const MDCONTACTOS = 8;
+const MDPAGINAS = 9;
 const MDOPCIONES = 10;
+const MUSUARIOS = 11;
 
-
-//otras vistas que aun estan en construccion
-const MDPAGINAS = 11;
-const MDCONTACTOS = 12;
-const MSUSCRIPTORES = 13;
-
-
-//Páginas en contruccion 
+//Páginas
 const PINICIO = 1;
 const PTIENDA = 2;
 const PCARRITO = 3;
@@ -97,15 +91,14 @@ const PTERMINOS = 7;
 const PSUCURSALES = 8;
 const PERROR = 9;
 
-
-//Roles principales inmodificables
+//Roles
 const RADMINISTRADOR = 1;
 const RSUPERVISOR = 2;
 const RCLIENTES = 3;
 
 const STATUS = array('Completo', 'Aprobado', 'Cancelado', 'Reembolsado', 'Pendiente', 'Entregado');
 
-//Servicios por página cantidad en creaccion 
+//Productos por página cantidad
 const CANTPORDHOME = 10;
 const PROPORPAGINA = 20;
 const PROCATEGORIA = 20;

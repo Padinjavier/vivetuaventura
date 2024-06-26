@@ -20,7 +20,6 @@
         </div>
     </div>
     <ul class="app-menu">
-
         <?php if (!empty($_SESSION['permisos'][1]['r'])) { ?>
             <li>
                 <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
@@ -29,9 +28,7 @@
                 </a>
             </li>
         <?php } ?>
-
-        <!-- empleados rol empleados  -->
-        <?php if (!empty($_SESSION['permisos'][2]['r']) || !empty($_SESSION['permisos'][3]['r'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
             <li class="treeview" id="menu-empleados">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon bi bi-people-fill"></i>
@@ -39,24 +36,14 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-        <!-- empleados  -->
-
-                    <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
                     <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/empleados">
                             Empleados</a></li>
-                    <?php } ?>
-        <!-- rol empleados  -->
-                    <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>
                     <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesEmpleados">
                             Roles</a></li>
-                    <?php } ?>
-                    
                 </ul>
             </li>
-            <?php } ?>
-
-        <!-- clientes  -->
-        <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
+        <?php } ?>
+        <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>
             <li class="treeview" id="menu-clientes">
                 <a class="app-menu__item" href="<?= base_url(); ?>/clientes">
                     <i class="app-menu__icon bi bi-person-fill"></i>
@@ -64,8 +51,7 @@
                 </a>
             </li>
         <?php } ?>
-        <!-- usuarios rol usuarios  -->
-        <?php if (!empty($_SESSION['permisos'][5]['r']) || !empty($_SESSION['permisos'][6]['r'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
             <li class="treeview" id="menu-usuario">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon bi bi-mouse-fill"></i>
@@ -73,23 +59,14 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-        <!-- usuarios  -->
-                <?php if (!empty($_SESSION['permisos'][5]['r'])) { ?>
                 <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/usuarios">
                             Usuarios</a></li>
-                            <?php } ?>
-        <!-- rol usuarios  -->
-                            <?php if (!empty($_SESSION['permisos'][6]['r'])) { ?>              
                     <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/rolesUsuarios">
                             Permisos</a></li>
-                            
-                            <?php } ?>
                 </ul>
             </li>
-            <?php } ?>
-
-        <!-- punto de ventas - ventas- salidas - servicios  -->
-        <?php if (!empty($_SESSION['permisos'][7]['r']) || !empty($_SESSION['permisos'][8]['r']) || !empty($_SESSION['permisos'][9]['r'])) { ?>
+        <?php } ?>
+        <?php if (!empty($_SESSION['permisos'][5]['r']) || !empty($_SESSION['permisos'][6]['r'])) { ?>
             <li class="treeview" id="menu-puntoventa">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
                     <i class="app-menu__icon bi bi-archive-fill"></i>
@@ -97,21 +74,15 @@
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
                 <ul class="treeview-menu">
-        <!-- ventas  -->
-
-                    <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
+                    <?php if (!empty($_SESSION['permisos'][6]['r'])) { ?>
                         <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/ventas">
                                 Venta</a></li>
                     <?php } ?>
-        <!--  salidas   -->
-
-                    <?php if (!empty($_SESSION['permisos'][8]['r'])) { ?>
+                    <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
                         <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/salidas">
                                 Salida</a></li>
                     <?php } ?>
-        <!-- servicios  -->
-
-                    <?php if (!empty($_SESSION['permisos'][9]['r'])) { ?>
+                    <?php if (!empty($_SESSION['permisos'][8]['r'])) { ?>
                         <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/servicios">
                                 Servicios</a></li>
                     <?php } ?>

@@ -12,7 +12,7 @@ class Factura extends Controllers
 			header('Location: ' . base_url() . '/login');
 			die();
 		}
-		getPermisos(MVENTAS);
+		getPermisos(MPEDIDOS);
 	}
 
 	public function generarFactura($idpedido)
