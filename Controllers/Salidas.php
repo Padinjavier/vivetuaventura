@@ -9,7 +9,7 @@
 				header('Location: '.base_url().'/login');
 				die();
 			}
-			getPermisos(MPRODUCTOS);
+			getPermisos(MSALIDAS);
 		}
 
 		public function Salidas()
