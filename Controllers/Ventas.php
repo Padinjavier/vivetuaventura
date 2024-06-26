@@ -11,7 +11,7 @@ class Ventas extends Controllers{
 			header('Location: '.base_url().'/login');
 			die();
 		}
-		getPermisos(MPEDIDOS);
+		getPermisos(MVENTAS);
 	}
 
 	public function Ventas()

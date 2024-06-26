@@ -70,17 +70,23 @@ const COSTOENVIO = 5;
 //Módulos
 const MDASHBOARD = 1;
 const MEMPLEADOS = 2;
-const MCLIENTES = 3;
-const MPRODUCTOS = 4;
-const MPEDIDOS = 5;
-const MSERVICIOS = 6;
-const MSUSCRIPTORES = 7;
-const MDCONTACTOS = 8;
-const MDPAGINAS = 9;
+const MROLEMPLEADO = 3;
+const MCLIENTES = 4;
+const MUSUARIOS = 5;
+const MROLUSUARIO = 6;
+const MVENTAS = 7;
+const MSALIDAS = 8;
+const MSERVICIOS = 9;
 const MDOPCIONES = 10;
-const MUSUARIOS = 11;
 
-//Páginas
+
+//otras vistas que aun estan en construccion
+const MDPAGINAS = 11;
+const MDCONTACTOS = 12;
+const MSUSCRIPTORES = 13;
+
+
+//Páginas en contruccion 
 const PINICIO = 1;
 const PTIENDA = 2;
 const PCARRITO = 3;
@@ -91,14 +97,15 @@ const PTERMINOS = 7;
 const PSUCURSALES = 8;
 const PERROR = 9;
 
-//Roles
+
+//Roles principales inmodificables
 const RADMINISTRADOR = 1;
 const RSUPERVISOR = 2;
 const RCLIENTES = 3;
 
 const STATUS = array('Completo', 'Aprobado', 'Cancelado', 'Reembolsado', 'Pendiente', 'Entregado');
 
-//Productos por página cantidad
+//Servicios por página cantidad en creaccion 
 const CANTPORDHOME = 10;
 const PROPORPAGINA = 20;
 const PROCATEGORIA = 20;

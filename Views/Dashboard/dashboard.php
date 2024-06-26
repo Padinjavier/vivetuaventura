@@ -51,7 +51,7 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
         <div class="col-md-6">
           <div class="row isotope-grid justify-content-around pb-3">
             <!-- conteo de clientes  -->
-            <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>
+            <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
               <div class=" m-2">
                 <a href="<?= base_url() ?>/clientes" class="linkw">
                   <div class="widget-small info coloured-icon shadow  p-2 pt-3 " style="display: flex;
@@ -71,7 +71,7 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
             <?php } ?>
 
             <!-- conteo de salidad  -->
-            <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
+            <?php if (!empty($_SESSION['permisos'][8]['r'])) { ?>
               <div class="m-2">
                 <a href="<?= base_url() ?>/salidas" class="linkw">
                   <div class="widget-small warning coloured-icon shadow p-2 pt-3" style="display: flex;
@@ -91,7 +91,7 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
             <?php } ?>
           <?php } ?>
           <!-- conteo de ventas  -->
-          <?php if (!empty($_SESSION['permisos'][5]['r'])) { ?>
+          <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
             <div class="m-2">
               <a href="<?= base_url() ?>/ventas" class="linkw">
                 <div class="widget-small danger coloured-icon shadow p-2 pt-3" style="display: flex;
@@ -113,7 +113,7 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
 
 
         </div>
-        <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
+        <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
           <p class="tile-title font-weight-bold">Últimas Ventas</p>
           <div class="tile">
             <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
