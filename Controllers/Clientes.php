@@ -38,8 +38,8 @@ class Clientes extends Controllers{
 				$strApellido = ucwords(strClean($_POST['txtApellido']));
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
+				$intTipoId = RCLIENTES;
 				$strhotel = strClean($_POST['txtHotel']);
-				$intTipoId = 3;
 				$request_user = "";
 				if($idUsuario == 0)
 				{
