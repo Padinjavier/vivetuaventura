@@ -37,16 +37,16 @@
                                 </div>
                             </div>
                             <!-- <div class="table-responsive"> -->
-                            <div class="">
-                                <table class="table table-sm">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover  w-100 dataTable no-footer">
                                     <thead>
                                         <tr style="text-align: center;">
                                             <th style="width:5%">#</th>
-                                            <th style="width:35%">Tipo de servicio</th>
+                                            <th style="width:35%">Tipo‎de‎servicio</th>
                                             <th style="width:10%">Cantidad</th>
                                             <th style="width:10%">Precio</th>
                                             <th style="width:10%">Descuento</th>
-                                            <th style="width:10%">Precio Total</th>
+                                            <th style="width:10%">Precio.Total</th>
                                             <th style="width:5%"></th>
                                             <th style="width:0%"></th>
                                         </tr>
@@ -61,9 +61,9 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>
-                                                <span>Sub Total:</span><br>
-                                                <span>Descuento Total:</span><br>
+                                            <td style="text-align: start;">
+                                                <span>Sub.Total:</span><br>
+                                                <span>Descuento.Total:</span><br>
                                                 <span>Total:</span><br>
                                             </td>
                                             <td></td>
