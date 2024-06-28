@@ -1,20 +1,14 @@
 <?php
-$server_info = php_uname();
-$parts = explode(" ", $server_info);
-$computer_name = $parts[1];
-$computer_name = gethostname();
-$ip = $_SERVER['SERVER_ADDR'];
-$link = 'http://' . $ip . '/vivetuaventura';
-define('BASE_URL', $link);
-// const BASE_URL = 'http://localhost/gsm';
 
+const BASE_URL = "https://marketchamorro.shop";
+//const BASE_URL = "https://tecomsis.com";
 //Zona horaria
 date_default_timezone_set('America/Lima');
 //Datos de conexión a Base de Datos
 const DB_HOST = "localhost";
-const DB_NAME = "agencia";
-const DB_USER = "root";
-const DB_PASSWORD = "javier20";
+const DB_NAME = "marketch_marketchamorro";
+const DB_USER = "marketch_amorro";
+const DB_PASSWORD = "chamorrochamorro";
 const DB_CHARSET = "utf8";
 
 //Para envío de correo
