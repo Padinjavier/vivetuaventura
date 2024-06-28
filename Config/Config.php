@@ -1,18 +1,18 @@
 <?php
 
-const BASE_URL = "https://marketchamorro.shop";
+const BASE_URL = "https://vivetuaventuralunahuana.com";
 //const BASE_URL = "https://tecomsis.com";
 //Zona horaria
 date_default_timezone_set('America/Lima');
 //Datos de conexión a Base de Datos
 const DB_HOST = "localhost";
-const DB_NAME = "marketch_marketchamorro";
-const DB_USER = "marketch_amorro";
-const DB_PASSWORD = "chamorrochamorro";
+const DB_NAME = "vivetuav_agencia";
+const DB_USER = "vivetuav_user";
+const DB_PASSWORD = "vivetuaventuralunahuna";
 const DB_CHARSET = "utf8";
 
 //Para envío de correo
-const ENVIRONMENT = 0; // Local: 0, Produccón: 1;
+const ENVIRONMENT = 1; // Local: 0, Produccón: 1;
 
 //Deliminadores decimal y millar Ej. 24,1989.00
 const SPD = ".";
@@ -112,8 +112,8 @@ const PROCATEGORIA = 20;
 const PROBUSCAR = 20;
 
 //REDES SOCIALES
-const FACEBOOK = "https://m.facebook.com/Bodega-Chamorro-104727252150683/";
-const INSTAGRAM = "https://www.instagram.com/tecomsis/";
+const FACEBOOK = "https://www.facebook.com/profile.php?id=100063589661454&locale=es_LA";
+const INSTAGRAM = "https://www.facebook.com/profile.php?id=100063589661454&locale=es_LA";
 
 
 ?>
