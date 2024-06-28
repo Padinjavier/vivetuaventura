@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
             <form id="formSalidas" name="formSalidas" class="form-horizontal">
-              <input type="number" id="idSalida" name="idSalida" value="">
+              <input type="hidden" id="idSalida" name="idSalida" value="">
               <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
