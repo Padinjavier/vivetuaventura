@@ -68,17 +68,30 @@ const METHODENCRIPT = "AES-128-ECB";
 const COSTOENVIO = 5;
 
 //Módulos
+// const MDASHBOARD = 1;
+// const MEMPLEADOS = 2;
+// const MCLIENTES = 3;
+// const MPRODUCTOS = 4;
+// const MPEDIDOS = 5;
+// const MSERVICIOS = 6;
+// const MSUSCRIPTORES = 7;
+// const MDCONTACTOS = 8;
+// const MDPAGINAS = 9;
+// const MDOPCIONES = 10;
+// const MUSUARIOS = 11;
 const MDASHBOARD = 1;
 const MEMPLEADOS = 2;
-const MCLIENTES = 3;
-const MPRODUCTOS = 4;
-const MPEDIDOS = 5;
-const MSERVICIOS = 6;
-const MSUSCRIPTORES = 7;
-const MDCONTACTOS = 8;
-const MDPAGINAS = 9;
+const MROLEMPLEADOS = 3;
+const MCLIENTES = 4;
+const MUSUARIOS = 5;
+const MROLUSUARIOS = 6;
+const MVENTAS = 7;
+const MSALIDAS = 8;
+const MSERVICIOS = 9;
 const MDOPCIONES = 10;
-const MUSUARIOS = 11;
+const MDPAGINAS = 11;
+const MDCONTACTOS = 12;
+const MDSUSCRIPCIONES = 13;
 
 //Páginas
 const PINICIO = 1;

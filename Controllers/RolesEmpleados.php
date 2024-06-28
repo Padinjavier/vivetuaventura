@@ -11,7 +11,7 @@
 				header('Location: '.base_url().'/login');
 				die();
 			}
-			getPermisos(MEMPLEADOS);
+			getPermisos(MROLEMPLEADOS);
 		}
 
 		public function RolesEmpleados()
