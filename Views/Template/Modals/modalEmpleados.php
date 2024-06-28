@@ -30,7 +30,7 @@
                     fetch(
                       "https://apiperu.dev/api/dni/" +
                       dni +
-                      "?api_token=a2d7af3b9a3b5d071e82a1ef543ccea9dbdab217e4f5d3a4177702b37a3b258b"
+                      "?api_token=dec23f93e86189baef7a513b17e780a437f85d5b4d26eb0834a261b2476e67d3"
                     )
                       .then((res) => res.json())
                       .then((data) => {
