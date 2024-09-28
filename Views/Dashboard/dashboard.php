@@ -1,6 +1,9 @@
 <?php
 headerAdmin($data);
-// chat($data);
+
+// getModal('modalClientes',$data);
+getModal('modalChat',$data);
+
 // Configurar la zona horaria
 date_default_timezone_set('America/Lima');
 // Obtener el nombre del día de la semana en español
@@ -68,7 +71,7 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
     <?php } ?>
     <?php if (!empty ($_SESSION['permisos'][4]['r'])) { ?>
       <div class="m-2">
-        <a href="<?= base_url() ?>/productos" class="linkw">
+        <a href="<?= base_url() ?>/salidas" class="linkw">
           <div class="widget-small warning coloured-icon shadow p-2 pt-3" style="display: flex;
     flex-direction: column;
     align-items: center;
@@ -151,8 +154,8 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
           <h3 class="tile-title">Tipo de pagos por mes</h3>
           <div class="dflex">
             <input class="date-picker pagoMes" name="pagoMes" placeholder="Mes y Año">
-            <button type="button" class="btnTipoVentaMes btn btn-info btn-sm" onclick="fntSearchPagos()"> <i
-                class="fas fa-search"></i> </button>
+            <button type="button" class="btnTipoVentaMes btn btn-info btn-sm" onclick="fntSearchPagos()" aria-label="Buscar pagos por mes">
+                <i class="fas fa-search" aria-hidden="true"></i></button>
           </div>
         </div>
         <div id="pagosMesAnio"></div>
@@ -165,9 +168,9 @@ $fecha_formateada = "$nombre_dia, $dia_mes $mes $anio";
         <div class="container-title">
           <h3 class="tile-title">Ventas por mes</h3>
           <div class="dflex">
-            <input class="date-picker ventasMes" name="ventasMes" placeholder="">
-            <button type="button" class="btnVentasMes btn btn-info btn-sm" onclick="fntSearchVMes()"> <i
-                class="fas fa-search"></i> </button>
+            <input class="date-picker ventasMes" name="ventasMes" placeholder="" aria-label="Seleccionar mes para ventas">
+            <button type="button" class="btnVentasMes btn btn-info btn-sm" onclick="fntSearchVMes()"  aria-label="Buscar ventas por mes"> <i
+                class="fas fa-search" aria-hidden="true"></i> </button>
           </div>
         </div>
         <div id="graficaMes"></div>

@@ -1,14 +1,16 @@
 <?php
+$ip = $_SERVER['SERVER_ADDR'];
+$link = 'http://' . $ip . '/vivetuaventura';
+define('BASE_URL', $link);
+// const BASE_URL = 'http://localhost/gsm';
 
-const BASE_URL = "https://vivetuaventuralunahuana.com";
-//const BASE_URL = "https://tecomsis.com";
 //Zona horaria
 date_default_timezone_set('America/Lima');
 //Datos de conexión a Base de Datos
 const DB_HOST = "localhost";
 const DB_NAME = "vivetuav_agencia";
-const DB_USER = "vivetuav_user";
-const DB_PASSWORD = "vivetuaventuralunahuna";
+const DB_USER = "root";
+const DB_PASSWORD = "javier20";
 const DB_CHARSET = "utf8";
 
 //Para envío de correo
