@@ -21,6 +21,21 @@
 					password = '$this->strPassword' and 
 					status != 0 ";
 			$request = $this->select($sql);
+			// Si existe el usuario, iniciamos la conexión
+			if (!empty($request)) {
+				$this->start($request['idpersona']);
+			}
+			return $request;
+		}
+
+		// Método para actualizar el estado de conexión
+		public function start(int $idUsuario) {
+			$uno = 1; // Indicamos que el usuario está conectado
+			// Actualizamos el campo "conexion" a 1 (conectado) para el usuario
+			$sql = "UPDATE persona SET conexion = ? WHERE idpersona = ?";
+			$arrData = array($uno, $idUsuario); // Pasamos el valor de conexión y el ID del usuario
+			// Ejecutamos la consulta de actualización
+			$request = $this->update($sql, $arrData);
 			return $request;
 		}
 

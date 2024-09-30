@@ -14,7 +14,7 @@ class Logout extends Controllers {
         } else {
             session_unset();
             session_destroy();
-            header('location: ' . base_url() . '/login');
+            header('location: ' . base_url() . '/home');
             die();
         }
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
