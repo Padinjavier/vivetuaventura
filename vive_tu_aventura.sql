@@ -16,12 +16,31 @@
 
 
 -- Volcando estructura de base de datos para vivetuav_agencia
-DROP DATABASE IF EXISTS `vivetuav_agencia`;
 CREATE DATABASE IF NOT EXISTS `vivetuav_agencia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `vivetuav_agencia`;
 
+-- Volcando estructura para tabla vivetuav_agencia.categoria
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `idcategoria` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idcategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla vivetuav_agencia.categoria: ~5 rows (aproximadamente)
+DELETE FROM `categoria`;
+INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `datecreated`, `ruta`, `status`) VALUES
+	(1, 'Hombre', 'Artículos de moda', 'img_916c36cd2037f29b0456ab85a1f11ceb.jpg', '2021-08-20 03:04:04', 'hombre', 1),
+	(2, 'Bebidas', 'Gaseosa, refresco, fresco o soda', 'img_90165900d66f0ad48275beb8fe1f3f14.jpg', '2021-08-21 00:47:10', 'bebidas', 1),
+	(3, 'Dulces', 'Productos dulces peruanos', 'img_350eae9b69dd03a7713ebd84b9bcb5f7.jpg', '2023-11-08 22:52:36', 'dulces', 1),
+	(4, 'ss', 'fff', 'img_cc7d26084d5893794aafa18573fd6e85.jpg', '2023-11-13 08:35:25', 'ss', 0),
+	(5, 'Cuidado personal', 'Productos de higiene personal', 'img_57bfd177ac746208efa98657cec3970b.jpg', '2023-11-23 01:15:09', 'cuidado-personal', 1);
+
 -- Volcando estructura para tabla vivetuav_agencia.detalle_salida
-DROP TABLE IF EXISTS `detalle_salida`;
 CREATE TABLE IF NOT EXISTS `detalle_salida` (
   `iddetalle_salida` bigint NOT NULL AUTO_INCREMENT,
   `idsalida` bigint DEFAULT NULL,
@@ -43,7 +62,6 @@ INSERT INTO `detalle_salida` (`iddetalle_salida`, `idsalida`, `idservicio`, `can
 	(11, 4, 1, 8);
 
 -- Volcando estructura para tabla vivetuav_agencia.detalle_venta
-DROP TABLE IF EXISTS `detalle_venta`;
 CREATE TABLE IF NOT EXISTS `detalle_venta` (
   `iddetalleventa` bigint NOT NULL AUTO_INCREMENT,
   `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -56,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `detalle_venta` (
   KEY `idventa` (`codigo_venta`) USING BTREE,
   CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`codigo_venta`) REFERENCES `venta` (`codigo_venta`),
   CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.detalle_venta: ~4 rows (aproximadamente)
 DELETE FROM `detalle_venta`;
@@ -64,10 +82,52 @@ INSERT INTO `detalle_venta` (`iddetalleventa`, `codigo_venta`, `idservicio`, `ca
 	(3, 'v_1', 3, 1, 5.00, NULL),
 	(4, 'v_1', 4, 1, 13.00, NULL),
 	(5, 'v_2', 2, 1, 10.00, 2.00),
-	(6, 'v_3', 1, 1, 10.00, 1.00);
+	(6, 'v_3', 1, 1, 10.00, 1.00),
+	(7, 'v_4', 3, 1, 6.00, 1.00);
+
+-- Volcando estructura para tabla vivetuav_agencia.imagen
+CREATE TABLE IF NOT EXISTS `imagen` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `productoid` bigint NOT NULL,
+  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `productoid` (`productoid`),
+  CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`productoid`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla vivetuav_agencia.imagen: ~28 rows (aproximadamente)
+DELETE FROM `imagen`;
+INSERT INTO `imagen` (`id`, `productoid`, `img`) VALUES
+	(1, 1, 'pro_1018ac4efefe93878b7468ce72c630a3.jpg'),
+	(2, 1, 'pro_f90affec1052d2bf94047cb224d16568.jpg'),
+	(3, 1, 'pro_053da6d3ee7d346b6577ccfef6dac02d.jpg'),
+	(4, 2, 'pro_04e3bbf847b466de4aed691fca982d9d.jpg'),
+	(12, 2, 'pro_bb8108451aa8a21610931110c19fb369.jpg'),
+	(17, 10, 'pro_0b4d61139aaa6a28e022f1e615fe0f17.jpg'),
+	(18, 19, 'pro_9a1de76f11ddb287263ef48cfd71b0a1.jpg'),
+	(19, 20, 'pro_2b81a3a13eae388efa502edb3d6b3273.jpg'),
+	(20, 22, 'pro_8fe9ccbe89eb22626cf5cc85ea8edc57.jpg'),
+	(25, 24, 'pro_4909de454090d31ce6b648eb4bb74b52.jpg'),
+	(28, 3, 'pro_3396200f9dc84d07c971d4054d0f1cbd.jpg'),
+	(29, 25, 'pro_411e4d5d1b3098f47f8baaf4c50854d8.jpg'),
+	(30, 26, 'pro_7747cdcbeb9974d48505e5d7ed0d09c1.jpg'),
+	(31, 27, 'pro_2d2004938ed38a4dea63ea3aa8f43425.jpg'),
+	(32, 28, 'pro_3f52edc06e164e16d75bc573f6ba3655.jpg'),
+	(33, 29, 'pro_a04b6fa70ca62d63f9ad68c15dbf9fe3.jpg'),
+	(34, 30, 'pro_abcd23d4f71f0efa631c28239c3f4429.jpg'),
+	(35, 31, 'pro_eb39235c9e44b12fe20c5cea3cf8b8b7.jpg'),
+	(36, 32, 'pro_fb6a9d9500a65044baef176994f5be27.jpg'),
+	(37, 33, 'pro_efd8de822cc892d87bf8068ac9a5cc3e.jpg'),
+	(38, 34, 'pro_a1e9a795af34ef6c7e5e2fc4ffa2b8be.jpg'),
+	(39, 35, 'pro_a9de604315a3193bc04c5aaf0abb95b9.jpg'),
+	(40, 36, 'pro_cd6dddbc6f5bd01f2e08e0ac31524c52.jpg'),
+	(41, 37, 'pro_a874a7b88eb90b36890ab61a07f6270c.jpg'),
+	(42, 38, 'pro_5c4c627f86e3cdeed78b66253d7d0d93.jpg'),
+	(43, 39, 'pro_6e5ce9bfc83f4713906f2ed02982a5e5.jpg'),
+	(44, 40, 'pro_fdce79c74a32ba9bc9b2c76afd9a6e62.jpg'),
+	(45, 41, 'pro_e5cfb45f0b1e00ee19bd542c44f99e7a.jpg');
 
 -- Volcando estructura para tabla vivetuav_agencia.messages
-DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
   `msg_id` bigint NOT NULL AUTO_INCREMENT,
   `input_msg_id` bigint NOT NULL DEFAULT '0',
@@ -82,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   CONSTRAINT `FK_messages_persona_2` FOREIGN KEY (`output_msg_id`) REFERENCES `persona` (`idpersona`)
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla vivetuav_agencia.messages: ~33 rows (aproximadamente)
+-- Volcando datos para la tabla vivetuav_agencia.messages: ~29 rows (aproximadamente)
 DELETE FROM `messages`;
 INSERT INTO `messages` (`msg_id`, `input_msg_id`, `output_msg_id`, `msg`, `view`, `datecreated`) VALUES
 	(39, 66, 22, 'eee', 0, '2024-08-20 22:23:27'),
@@ -120,7 +180,6 @@ INSERT INTO `messages` (`msg_id`, `input_msg_id`, `output_msg_id`, `msg`, `view`
 	(93, 68, 22, 'así me gustas', 0, '2024-09-27 21:12:33');
 
 -- Volcando estructura para tabla vivetuav_agencia.modulo
-DROP TABLE IF EXISTS `modulo`;
 CREATE TABLE IF NOT EXISTS `modulo` (
   `idmodulo` bigint NOT NULL AUTO_INCREMENT,
   `titulo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -147,7 +206,6 @@ INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 	(13, 'Suscriptores', 'Suscriptores del sitio web', 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.opciones
-DROP TABLE IF EXISTS `opciones`;
 CREATE TABLE IF NOT EXISTS `opciones` (
   `id` int NOT NULL AUTO_INCREMENT,
   `personaid` bigint DEFAULT NULL,
@@ -165,7 +223,6 @@ INSERT INTO `opciones` (`id`, `personaid`, `idioma`, `tema`, `formato_moneda`) V
 	(13, 22, 1, 1, 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.permisos
-DROP TABLE IF EXISTS `permisos`;
 CREATE TABLE IF NOT EXISTS `permisos` (
   `idpermiso` bigint NOT NULL AUTO_INCREMENT,
   `rolid` bigint NOT NULL,
@@ -251,7 +308,6 @@ INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VA
 	(476, 2, 13, 1, 1, 1, 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.persona
-DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `idpersona` bigint NOT NULL AUTO_INCREMENT,
   `identificacion` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
@@ -275,18 +331,108 @@ CREATE TABLE IF NOT EXISTS `persona` (
   KEY `rolidempleado` (`rolidempleado`),
   CONSTRAINT `FK_persona_rol` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrolusuario`),
   CONSTRAINT `FK_persona_rol_empleado` FOREIGN KEY (`rolidempleado`) REFERENCES `rol_empleado` (`idrolempleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.persona: ~4 rows (aproximadamente)
 DELETE FROM `persona`;
 INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `hotel`, `token`, `rolid`, `datecreated`, `direccion`, `ciudad`, `rolidempleado`, `conexion`, `time_conexion`, `status`) VALUES
-	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', '111111', '2222', NULL, 1, '2024-07-20 08:43:31', 1),
+	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', '111111', '2222', NULL, 1, '2024-09-29 22:41:47', 1),
 	(66, '15282867', 'Yuriko', 'Vicente Arbizu', 987654321, 'arbizu@gmail.com', '9dd48242682f9b76b335154407472da5a8305bcec32d974b4913e46441e40906', NULL, NULL, 2, '2024-06-28 00:24:44', NULL, NULL, NULL, 1, '2022-07-20 08:43:35', 1),
 	(67, '15383812', 'Nelson', 'Luyo Yactayo', 940246612, 'yactayo@gmail.com', NULL, 'Hotel las brisas Lun', NULL, 2, '2024-06-28 00:26:04', NULL, NULL, NULL, 1, '2024-07-20 08:43:33', 1),
-	(68, '87654321', 'Keyler', 'Correa Vicente', 958764321, 'correa@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, 2, '2024-06-28 00:27:29', NULL, NULL, NULL, 1, '2023-07-20 08:43:34', 1);
+	(68, '87654321', 'Keyler', 'Correa Vicente', 958764321, 'correa@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', NULL, NULL, 2, '2024-06-28 00:27:29', NULL, NULL, NULL, 1, '2023-07-20 08:43:34', 1),
+	(69, '74199532', 'YUMICO NICOLE', 'ROJAS CASTRO', 917189300, 'javierpadin6g61@gmail.com', NULL, 'qwer', NULL, 3, '2024-09-29 22:39:16', NULL, NULL, NULL, NULL, '2024-09-29 22:39:16', 1),
+	(70, '74199533', 'JUAN ALEXIS', 'HUAYNALAYA VICENTE', 917189300, 'javierpatdin6g61@gmail.com', NULL, 'qwer', NULL, 3, '2024-09-29 22:40:25', NULL, NULL, NULL, NULL, '2024-09-29 22:40:25', 1);
+
+-- Volcando estructura para tabla vivetuav_agencia.post
+CREATE TABLE IF NOT EXISTS `post` (
+  `idpost` bigint NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datecreate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idpost`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla vivetuav_agencia.post: ~9 rows (aproximadamente)
+DELETE FROM `post`;
+INSERT INTO `post` (`idpost`, `titulo`, `contenido`, `portada`, `datecreate`, `ruta`, `status`) VALUES
+	(1, 'Inicio', '<div class="p-t-80"> <h3 class="ltext-103 cl5">Nuestras marcas</h3> </div> <div> <p>Trabajamos con las mejores marcas del mundo ...</p> </div> <div class="row"> <div class="col-md-3"><img src="Assets/images/m1.png" alt="Marca 1" width="110" height="110" /></div> <div class="col-md-3"><img src="Assets/images/m2.png" alt="Marca 2" /></div> <div class="col-md-3"><img src="Assets/images/m3.png" alt="Marca 3" /></div> <div class="col-md-3"><img src="Assets/images/m4.png" alt="Marca 4" /></div> </div>', '', '2021-07-20 02:40:15', 'inicio', 1),
+	(2, 'Tienda', '<p>Contenido p&aacute;gina!</p>', '', '2021-08-06 01:21:27', 'tienda', 1),
+	(3, 'Carrito', '<p>Contenido p&aacute;gina!</p>', '', '2021-08-06 01:21:52', 'carrito', 1),
+	(4, 'Nosotros', '\r\n<section class="bg0 p-t-75 p-b-120"> <div class="container"> <div class="row p-b-148"> <div class="col-md-7 col-lg-8"> <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md"> <h3 class="mtext-111 cl2 p-b-16">Historia</h3> <p class="stext-113 cl6 p-b-26">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat consequat enim, non auctor massa ultrices non. Morbi sed odio massa. Quisque at vehicula tellus, sed tincidunt augue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas varius egestas diam, eu sodales metus scelerisque congue. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas gravida justo eu arcu egestas convallis. Nullam eu erat bibendum, tempus ipsum eget, dictum enim. Donec non neque ut enim dapibus tincidunt vitae nec augue. Suspendisse potenti. Proin ut est diam. Donec condimentum euismod tortor, eget facilisis diam faucibus et. Morbi a tempor elit.</p> <p class="stext-113 cl6 p-b-26">Donec gravida lorem elit, quis condimentum ex semper sit amet. Fusce eget ligula magna. Aliquam aliquam imperdiet sodales. Ut fringilla turpis in vehicula vehicula. Pellentesque congue ac orci ut gravida. Aliquam erat volutpat. Donec iaculis lectus a arcu facilisis, eu sodales lectus sagittis. Etiam pellentesque, magna vel dictum rutrum, neque justo eleifend elit, vel tincidunt erat arcu ut sem. Sed rutrum, turpis ut commodo efficitur, quam velit convallis ipsum, et maximus enim ligula ac ligula.</p> <p class="stext-113 cl6 p-b-26">Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879</p> </div> </div> <div class="col-11 col-md-5 col-lg-4 m-lr-auto"> <div class="how-bor1 "> <div class="hov-img0"><img src="https://www.toppropiedades.cl/imagenes/b_c169u435coeb4457.jpg" alt="IMG" width="500" height="333" /></div> </div> </div> </div> <div class="row"> <div class="order-md-2 col-md-7 col-lg-8 p-b-30"> <div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md"> <h2 class="mtext-111 cl2 p-b-16"><span style="color: #236fa1;">Nuestra Misi&oacute;n</span></h2> <p class="stext-113 cl6 p-b-26">Mauris non lacinia magna. Sed nec lobortis dolor. Vestibulum rhoncus dignissim risus, sed consectetur erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam maximus mauris sit amet odio convallis, in pharetra magna gravida. Praesent sed nunc fermentum mi molestie tempor. Morbi vitae viverra odio. Pellentesque ac velit egestas, luctus arcu non, laoreet mauris. Sed in ipsum tempor, consequat odio in, porttitor ante. Ut mauris ligula, volutpat in sodales in, porta non odio. Pellentesque tempor urna vitae mi vestibulum, nec venenatis nulla lobortis. Proin at gravida ante. Mauris auctor purus at lacus maximus euismod. Pellentesque vulputate massa ut nisl hendrerit, eget elementum libero iaculis.</p> <div class="bor16 p-l-29 p-b-9 m-t-22"> <p class="stext-114 cl6 p-r-40 p-b-11">Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn\'t really do it, they just saw something. It seemed obvious to them after a while.</p> <span class="stext-111 cl8"> - Steve Job&rsquo;s </span></div> </div> </div> <div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30"> <div class="how-bor2"> <div class="hov-img0"><img src="https://scontent.flim2-2.fna.fbcdn.net/v/t39.30808-6/274532992_104770648813010_956727112577712065_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGWiLdPeq2LfqRJGSk6icr95EsvFCasTJLkSy8UJqxMksYNaegsrOHtjcMTCd4mvvyjNd8zTPcpLTVwn2Hm9Tuq&_nc_ohc=aTi-GHppTC8AX_wH2eT&_nc_zt=23&_nc_ht=scontent.flim2-2.fna&oh=00_AfAETPzNQeKjsTHqbhb0F6TOsYdv5oIswMZtrKsnS_IuyA&oe=6563296D" alt="IMG" width="500" height="333" /></div> </div> </div> </div> </div> </section>', 'fototienda.jpg', '2021-08-09 03:09:44', 'nosotros', 1),
+	(5, 'Contacto', '<div class="map"><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.685802352331!2d-90.73646108521129!3d14.559951589828378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85890e74b3771e19%3A0x68ec9eeea79fd9a7!2sEl%20Arco%20de%20Santa%20Catalina!5e0!3m2!1ses!2sgt!4v1624005005655!5m2!1ses!2sgt" width="100%" height="600" allowfullscreen="allowfullscreen" loading="lazy"></iframe></div>', 'tiendachamorro.jpg', '2021-08-09 03:11:08', 'contacto', 1),
+	(6, 'Preguntas frecuentes', '<ol> <li><strong>&iquest;Cu&aacute;l es el tiempo de entrega de los producto? </strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt! Quae doloribus deserunt qui fugit illo nobis ipsum, accusamus eius perferendis beatae culpa molestias!</li> <li><strong>&iquest;C&oacute;mo es la forma de env&iacute;o de los productos?</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur.</li> <li><strong>&iquest;Cu&aacute;l es el tiempo m&aacute;ximo para solicitar un reembolso?</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt!</li> </ol> <p>&nbsp;</p> <p>Otras preguntas</p> <ul> <li><strong>&iquest;Qu&eacute; formas de pago aceptan? </strong><span style="color: #666666; font-family: Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt! Quae doloribus deserunt qui fugit illo nobis ipsum, accusamus eius perferendis beatae culpa molestias!</span></li> </ul>', '', '2021-08-11 01:24:19', 'preguntas-frecuentes', 1),
+	(7, 'Términos y Condiciones', '<p>A continuaci&oacute;n se describen los t&eacute;rmino y condiciones de la Tienda Virtual!</p> <ol> <li>Pol&iacute;tica uno</li> <li>Termino dos</li> <li>Condici&oacute;n tres</li> </ol> <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sunt, corrupti hic aspernatur cumque alias, ipsam omnis iure ipsum, nostrum labore obcaecati natus repellendus consequatur est nemo sapiente dolorem dicta. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi, voluptas, consectetur iusto delectus quaerat ullam nesciunt! Quae doloribus deserunt qui fugit illo nobis ipsum, accusamus eius perferendis beatae culpa molestias!</p>', '', '2021-08-11 01:51:06', 'terminos-y-condiciones', 1),
+	(8, 'Sucursales', '<section class="py-5 text-center"> <div class="container"> <p>Visitanos y obten los mejores precios del mercado, cualquier art&iacute;culo que necestas para vivir mejor</p> <a class="btn btn-info" href="../../tienda_virtual/tienda">VER PRODUCTOS</a></div> </section> <div class="py-5 bg-light"> <div class="container"> <div class="row"> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s1.jpg" alt="Tienda Uno" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s2.jpg" alt="Sucural dos" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s3.jpg" alt="Sucural tres" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> </div> </div> </div>', 'chamorroproductos.jpg', '2021-08-11 02:26:45', 'sucursales', 1),
+	(9, 'Not Found', '<h1>Error 404: P&aacute;gina no encontrada</h1> <p>No se encuentra la p&aacute;gina que ha solicitado.</p>', '', '2021-08-12 02:30:49', 'not-found', 1);
+
+-- Volcando estructura para tabla vivetuav_agencia.producto
+CREATE TABLE IF NOT EXISTS `producto` (
+  `idproducto` bigint NOT NULL AUTO_INCREMENT,
+  `categoriaid` bigint NOT NULL,
+  `codigo` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `precio` decimal(11,2) NOT NULL,
+  `stock` int NOT NULL,
+  `fecha_v` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL DEFAULT '',
+  `imagen` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idproducto`),
+  KEY `categoriaid` (`categoriaid`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`categoriaid`) REFERENCES `categoria` (`idcategoria`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+-- Volcando datos para la tabla vivetuav_agencia.producto: ~41 rows (aproximadamente)
+DELETE FROM `producto`;
+INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `fecha_v`, `imagen`, `datecreated`, `ruta`, `status`) VALUES
+	(1, 1, '2417984565', 'Chaqueta Azul', '<p>a</p>', 100.00, 50, '2023-12-30', NULL, '2021-08-20 03:12:14', 'chaqueta-azul', 1),
+	(2, 1, '456879878', 'Reloj', '<p>b</p>', 200.00, 100, '2023-10-03', NULL, '2021-08-20 03:14:10', 'reloj', 1),
+	(3, 5, '4658798787', 'Pack Shampoo + Acondicionador Dove Reconstrucción Completa Frasco 400ml', '', 28.00, 12, '2023-12-16', NULL, '2021-08-21 00:48:21', 'pack-shampoo-+-acondicionador-dove-reconstruccion-completa-frasco-400ml', 1),
+	(4, 1, '113333', 'dd', 'd', 2.50, 5, '2023-11-10', NULL, '2023-11-08 23:22:14', 'dd', 0),
+	(5, 2, '77517310047085', '20', '<p>er</p>', 2.50, 5, '2023-11-14', NULL, '2023-11-13 09:34:33', '20', 0),
+	(6, 2, '77517310047', '12', '<p>hola</p>', 12.50, 14, '2023-11-25', NULL, '2023-11-13 09:36:04', '12', 0),
+	(7, 2, '77517310047083', 'qqq', '<p>qq</p>', 2.50, 5, '2023-12-02', NULL, '2023-11-13 12:49:18', 'qqq', 0),
+	(8, 1, '7751731005', 'zz', '<p>zz</p>', 2.50, 14, '2023-11-15', NULL, '2023-11-13 12:57:42', 'zz', 0),
+	(9, 1, '7751731007', 'dd', '<p>wwwwwwwwwwwwww</p>', 2.50, 14, '2023-11-24', NULL, '2023-11-13 13:02:05', 'dd', 0),
+	(10, 1, '1234567888', '12', '<p>xxx</p>', 12.50, 14, '2023-11-24', NULL, '2023-11-13 13:09:25', '12', 0),
+	(11, 1, '7751731047466', 'xxxx', '<p>ass</p>', 92.50, 1, '2024-01-01', NULL, '2023-11-13 14:24:47', 'xxxx', 0),
+	(12, 1, '7751731047888', 'qqqqqqqqq', '<p>qqqqqqqqqqqqq</p>', 12.00, 12, '2023-11-06', NULL, '2023-11-19 20:11:44', 'qqqqqqqqq', 0),
+	(13, 1, '123232122312', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '<p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>', 12.00, 12, '2023-11-14', NULL, '2023-11-19 20:16:47', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 0),
+	(14, 1, '43434343', 'bbbbbbbbbbbbbbbb', '<p>bbbbbbbbbbbbbbbb</p>', 12.00, 12, '2023-10-31', NULL, '2023-11-19 20:25:36', 'bbbbbbbbbbbbbbbb', 0),
+	(15, 1, '1221212121', '12211212', '<p>12122121aaaaaa</p>', 2121.00, 211212, '2023-11-20', NULL, '2023-11-19 20:26:35', '12211212', 0),
+	(16, 1, '111111111111', 'aaaaaaaaaaaa', '<p>aaaaaaaaaaaaaaa</p>', 1111.00, 11, '2023-11-14', NULL, '2023-11-19 20:29:18', 'aaaaaaaaaaaa', 0),
+	(17, 1, '111111', '111111111111111111111111111111', '<p>111111111111111</p>', 1.00, 1, '2023-11-21', NULL, '2023-11-19 20:30:05', '111111111111111111111111111111', 0),
+	(18, 1, '222222', '22222222222222222222', '<p>222222222222222</p>', 22.00, 22, '2023-11-21', NULL, '2023-11-19 20:31:19', '22222222222222222222', 0),
+	(19, 1, '12345654', 'inka kola', '<p>gaseosa</p>', 2.50, 12, '2023-11-18', NULL, '2023-11-19 20:40:44', 'inka-kola', 0),
+	(20, 1, '775173104733', 'nuevo', '<p>aaa</p>', 23.00, 23, '2023-11-02', NULL, '2023-11-19 20:49:42', 'nuevo', 0),
+	(21, 1, '12121211', 'qwqwqw', '<p>qwqwq</p>', 78.00, 78, '2023-11-20', NULL, '2023-11-19 20:50:59', 'qwqwqw', 0),
+	(22, 1, '111111111111111112', 'seeee', '<p>eeee</p>', 3.00, 3, '2023-11-14', NULL, '2023-11-19 21:19:24', 'seeee', 0),
+	(23, 1, '1234567', 'aassa', '<p>12</p>', 12.00, 12, '2023-11-21', NULL, '2023-11-19 21:33:52', 'aassa', 0),
+	(24, 1, '1234523676767', '23', '<p>23</p>', 23.00, 23, '2023-11-16', NULL, '2023-11-19 21:44:32', '23', 0),
+	(25, 5, '123456', 'Jabón en Barra Dove Leche de Coco Caja 90gr', '', 3.50, 8, '2023-12-22', NULL, '2023-11-23 01:26:58', 'jabon-en-barra-dove-leche-de-coco-caja-90gr', 1),
+	(26, 5, '23442424', 'Shampoo Head & Shoulders 3 en 1 for Men 700ml', '', 28.90, 12, '2023-12-31', NULL, '2023-11-23 01:28:22', 'shampoo-head-&-shoulders-3-en-1-for-men-700ml', 1),
+	(27, 5, '2323424', 'Cepillo Dental Oral B 1 2 3 x unidad', '', 2.30, 6, '2024-02-24', NULL, '2023-11-23 01:29:32', 'cepillo-dental-oral-b-1-2-3-x-unidad', 1),
+	(28, 5, '345677', 'Jabón en Barra Heno de Pravia Antibacteriano Paquete 150gr', '', 3.80, 8, '2024-01-20', NULL, '2023-11-23 01:30:23', 'jabon-en-barra-heno-de-pravia-antibacteriano-paquete-150gr', 1),
+	(29, 5, '3567788', 'Jabón en Barra Heno de Pravia Original Paquete 150gr', '', 3.80, 9, '2024-02-04', NULL, '2023-11-23 01:31:02', 'jabon-en-barra-heno-de-pravia-original-paquete-150gr', 1),
+	(30, 5, '888644', 'Jabón Liquido Aval Frutos Rojos Antibacterial Frasco 400ml', '', 6.00, 10, '2024-01-28', NULL, '2023-11-23 01:31:37', 'jabon-liquido-aval-frutos-rojos-antibacterial-frasco-400ml', 1),
+	(31, 5, '688899', 'Shampoo Head & Shoulders Manzana Fresh 375ml', '', 17.50, 7, '2024-02-25', NULL, '2023-11-23 01:32:15', 'shampoo-head-&-shoulders-manzana-fresh-375ml', 1),
+	(32, 5, '64332456', 'Shampoo Head & Shoulders 2 en 1 Suave y Manejable 700ml', '', 28.90, 5, '2024-03-30', NULL, '2023-11-23 01:33:23', 'shampoo-head-&-shoulders-2-en-1-suave-y-manejable-700ml', 1),
+	(33, 5, '5535262', 'Shampoo Head & Shoulders for Men Prevención Caída 375ml', '', 17.50, 5, '2024-05-04', NULL, '2023-11-23 01:34:02', 'shampoo-head-&-shoulders-for-men-prevencion-caida-375ml', 1),
+	(34, 5, '8876467', 'Acondicionador Sedal Ceramidas Frasco 340 ml', '', 12.90, 8, '2024-03-24', NULL, '2023-11-23 01:35:26', 'acondicionador-sedal-ceramidas-frasco-340-ml', 1),
+	(35, 5, '8777767', 'Acondicionador Negros Luminosos 340ml', '', 12.90, 12, '2024-03-30', NULL, '2023-11-23 01:36:06', 'acondicionador-negros-luminosos-340ml', 1),
+	(36, 5, '9998899', 'Acondicionador Sedal Restauración instantánea 340 ml', '', 12.90, 6, '2024-11-08', NULL, '2023-11-23 01:37:00', 'acondicionador-sedal-restauracion-instantanea-340-ml', 1),
+	(37, 5, '99999998', 'Jabón Neko Extra Protección x 125 g', '', 4.90, 6, '2024-04-20', NULL, '2023-11-23 01:38:21', 'jabon-neko-extra-proteccion-x-125-g', 1),
+	(38, 5, '99998773', 'Toallas Higiénicas Always Noches Tranquilas Cubierta Seca - Bolsa 8 UN', '', 8.10, 12, '2025-01-04', NULL, '2023-11-23 01:39:11', 'toallas-higienicas-always-noches-tranquilas-cubierta-seca---bolsa-8-un', 1),
+	(39, 5, '86533445', 'Toallas Higiénicas Always Protección Total Cubierta Seca - Bolsa 8 UN', '', 6.50, 9, '2024-10-16', NULL, '2023-11-23 01:39:57', 'toallas-higienicas-always-proteccion-total-cubierta-seca---bolsa-8-un', 1),
+	(40, 5, '5556444', 'Toallas Higiénicas Always Suave Protección Total Ajuste Perfecto - Bolsa 8 UN', '', 4.20, 8, '2024-06-12', NULL, '2023-11-23 01:40:49', 'toallas-higienicas-always-suave-proteccion-total-ajuste-perfecto---bolsa-8-un', 1),
+	(41, 5, '11111111', 'Nosotras Natural Buenas Noches X10unids.', '', 8.90, 5, '2024-06-12', NULL, '2023-11-23 01:41:26', 'nosotras-natural-buenas-noches-x10unids', 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.rol_empleado
-DROP TABLE IF EXISTS `rol_empleado`;
 CREATE TABLE IF NOT EXISTS `rol_empleado` (
   `idrolempleado` bigint NOT NULL AUTO_INCREMENT,
   `nombrerolempleado` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -307,7 +453,6 @@ INSERT INTO `rol_empleado` (`idrolempleado`, `nombrerolempleado`, `descripcion`,
 	(25, 'see', 'eeee', '0000-00-00 00:00:00', 0);
 
 -- Volcando estructura para tabla vivetuav_agencia.rol_usuario
-DROP TABLE IF EXISTS `rol_usuario`;
 CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `idrolusuario` bigint NOT NULL AUTO_INCREMENT,
   `nombrerolusuario` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -326,7 +471,6 @@ INSERT INTO `rol_usuario` (`idrolusuario`, `nombrerolusuario`, `descripcion`, `s
 	(13, 'secretaria', 'secretaria de la tienda 1', 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.salida
-DROP TABLE IF EXISTS `salida`;
 CREATE TABLE IF NOT EXISTS `salida` (
   `idsalida` bigint NOT NULL AUTO_INCREMENT,
   `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -351,7 +495,6 @@ INSERT INTO `salida` (`idsalida`, `codigo_venta`, `personaid`, `persona_externa`
 	(4, 'v_2', NULL, 'jjjjjjjjjj', 'jjjjjjjjjjjjjjj', '2024-06-22 21:41:52', 2, 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.servicio
-DROP TABLE IF EXISTS `servicio`;
 CREATE TABLE IF NOT EXISTS `servicio` (
   `idservicio` bigint NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -374,7 +517,6 @@ INSERT INTO `servicio` (`idservicio`, `nombre`, `descripcion`, `precio`, `portad
 	(5, 'Tours de naturaleza y vida silvestre', 'Descubre la diversidad natural y observa animales en su hábitat natural.', 10.00, 'img_bc833529de8d9b1871ec7e7756efda97.jpg', '2024-05-13 19:46:32', 'tours-de-naturaleza-y-vida-silvestre', 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.tipopago
-DROP TABLE IF EXISTS `tipopago`;
 CREATE TABLE IF NOT EXISTS `tipopago` (
   `idtipopago` bigint NOT NULL AUTO_INCREMENT,
   `tipopago` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -645,7 +787,6 @@ INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
 	(258, 'Pago con MasterCard', 1);
 
 -- Volcando estructura para tabla vivetuav_agencia.venta
-DROP TABLE IF EXISTS `venta`;
 CREATE TABLE IF NOT EXISTS `venta` (
   `idventa` bigint NOT NULL AUTO_INCREMENT,
   `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -661,14 +802,15 @@ CREATE TABLE IF NOT EXISTS `venta` (
   KEY `codigo_venta` (`codigo_venta`) USING BTREE,
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idvendedor`) REFERENCES `persona` (`idpersona`),
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.venta: ~3 rows (aproximadamente)
 DELETE FROM `venta`;
 INSERT INTO `venta` (`idventa`, `codigo_venta`, `datecreated`, `idvendedor`, `dni_cliente`, `idtipopago`, `total`, `status`) VALUES
 	(1, 'v_1', '2024-06-18 00:00:00', 22, '4444444444', 187, 13.00, 1),
 	(2, 'v_2', '2024-06-21 22:25:56', 22, '4444444444', 4, 8.00, 1),
-	(3, 'v_3', '2024-06-26 10:33:26', 64, '4444444444', 6, 9.00, 1);
+	(3, 'v_3', '2024-06-26 10:33:26', 64, '4444444444', 6, 9.00, 1),
+	(4, 'v_4', '2024-09-29 22:40:52', 22, '74199532', 3, 5.00, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
