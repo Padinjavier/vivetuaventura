@@ -108,7 +108,7 @@
 
 		public function getCategoriasFooter(){
 			$sql = "SELECT idcategoria, nombre, descripcion, portada, ruta
-					FROM categoria WHERE  status = 1 AND idcategoria IN (".CAT_FOOTER.")";
+					FROM recuerdos WHERE  status = 1 AND idcategoria IN (".CAT_FOOTER.")";
 			$request = $this->select_all($sql);
 			if(count($request) > 0){
 				for ($c=0; $c < count($request) ; $c++) { 

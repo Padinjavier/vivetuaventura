@@ -89,6 +89,7 @@ const MDOPCIONES = 10;
 const MDPAGINAS = 11;
 const MDCONTACTOS = 12;
 const MDSUSCRIPCIONES = 13;
+const MRECUERDOS = 14;
 
 //Páginas
 const PINICIO = 1;

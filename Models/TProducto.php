@@ -22,7 +22,7 @@ trait TProducto{
 						p.ruta,
 						p.stock
 				FROM producto p 
-				INNER JOIN categoria c
+				INNER JOIN recuerdos c
 				ON p.categoriaid = c.idcategoria
 				WHERE p.status != 0 ORDER BY p.idproducto DESC LIMIT ".CANTPORDHOME;
 				$request = $this->con->select_all($sql);
