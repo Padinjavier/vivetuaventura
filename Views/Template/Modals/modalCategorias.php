@@ -62,7 +62,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modalViewCategoria" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" >
+  <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header header-primary">
         <h5 class="modal-title" id="titleModal">Datos de la categoría</h5>
@@ -71,7 +71,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-responsive">
           <tbody>
             <tr>
               <td>ID:</td>

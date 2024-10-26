@@ -113,7 +113,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   /* Color de texto para el modo día */
   /* Otros colores y estilos para el modo día */
 
-  --HEADERHOVER: #2153f8;
+  --HEADERHOVER: #F9A147;
   --HEADER: #6587f8;
 }
 
@@ -151,6 +151,12 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 [ Slick2 ]*/
 .slick-slide {
   outline: none !important;
+}
+@media (max-width: 993px) {
+  .fotoslunahuana {
+      margin-top: 6.5%;
+      border: 1px solid red;
+  }
 }
 
 
@@ -796,6 +802,17 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   }
 }
 
+@media (min-width: 991px) {
+  .wrap-menu-desktop {
+    background: rgba(255, 255, 255, 0.35);
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 1px );
+-webkit-backdrop-filter: blur( 1px );
+border-radius: 10px;
+border: 1px solid rgba(255, 255, 255, 0.18);
+}
+  
+}
 /*==================================================================
 [ Menu mobile ]*/
 .menu-mobile {
@@ -2284,7 +2301,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .cl11 {
-  color: #f9ba48;
+  color: var(--HEADERHOVER);
 }
 
 .cl12 {

@@ -16,12 +16,12 @@
           <li class="breadcrumb-item"><a href="<?= base_url(); ?>/categorias"><?= $data['page_title'] ?></a></li>
         </ul>
       </div>
-        <div class="row">
+      <div class="row">
             <div class="col-md-12">
               <div class="tile">
                 <div class="tile-body">
                   <div class="table-responsive">
-                    <table class="table table-hover table-bordered" id="tableCategorias">
+                    <table class="table table-hover table-bordered w-100" id="tableCategorias">
                       <thead>
                         <tr>
                           <th>ID</th>

@@ -53,8 +53,8 @@ const EMAIL_PEDIDOS = "chamorrochavezjorge@gmail.com";
 const EMAIL_SUSCRIPCION = "chamorrochavezjorge@gmail.com";
 const EMAIL_CONTACTO = "chamorrochavezjorge@gmail.com";
 
-const CAT_SLIDER = "1,2,3";
-const CAT_BANNER = "4,5,6";
+const CAT_SLIDER = "1,2,3,4,5";
+const CAT_BANNER = "1,2,3,4,5";
 const CAT_FOOTER = "1,2,3,4,5";
 
 //Datos para Encriptar / Desencriptar

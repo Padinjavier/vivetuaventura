@@ -5,8 +5,8 @@ trait TCategoria{
 
 	public function getCategoriasT(string $categorias){
 		$this->con = new Mysql();
-		$sql = "SELECT idcategoria, nombre, descripcion, portada, ruta
-				 FROM recuerdos WHERE status != 0 AND idcategoria IN ($categorias)";
+		$sql = "SELECT idservicio, nombre, descripcion, portada, ruta
+				 FROM servicio WHERE status != 0 AND idservicio IN ($categorias)";
 		$request = $this->con->select_all($sql);
 		if(count($request) > 0){
 			for ($c=0; $c < count($request) ; $c++) { 

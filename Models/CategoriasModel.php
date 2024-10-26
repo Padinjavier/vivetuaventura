@@ -23,12 +23,12 @@
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCategoria}' ";
+			$sql = "SELECT * FROM recuerdos WHERE nombre = '{$this->strCategoria}' ";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO categoria(nombre,descripcion,portada,ruta,status) VALUES(?,?,?,?,?)";
+				$query_insert  = "INSERT INTO recuerdos(nombre,descripcion,portada,ruta,status) VALUES(?,?,?,?,?)";
 	        	$arrData = array($this->strCategoria, 
 								 $this->strDescripcion, 
 								 $this->strPortada,
@@ -44,7 +44,7 @@
 
 		public function selectCategorias()
 		{
-			$sql = "SELECT * FROM categoria 
+			$sql = "SELECT * FROM recuerdos 
 					WHERE status != 0 ";
 			$request = $this->select_all($sql);
 			return $request;
@@ -52,7 +52,7 @@
 
 		public function selectCategoria(int $idcategoria){
 			$this->intIdcategoria = $idcategoria;
-			$sql = "SELECT * FROM categoria
+			$sql = "SELECT * FROM recuerdos
 					WHERE idcategoria = $this->intIdcategoria";
 			$request = $this->select($sql);
 			return $request;
@@ -66,12 +66,12 @@
 			$this->strRuta = $ruta;
 			$this->intStatus = $status;
 
-			$sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCategoria}' AND idcategoria != $this->intIdcategoria";
+			$sql = "SELECT * FROM recuerdos WHERE nombre = '{$this->strCategoria}' AND idcategoria != $this->intIdcategoria";
 			$request = $this->select_all($sql);
 
 			if(empty($request))
 			{
-				$sql = "UPDATE categoria SET nombre = ?, descripcion = ?, portada = ?, ruta = ?, status = ? WHERE idcategoria = $this->intIdcategoria ";
+				$sql = "UPDATE recuerdos SET nombre = ?, descripcion = ?, portada = ?, ruta = ?, status = ? WHERE idcategoria = $this->intIdcategoria ";
 				$arrData = array($this->strCategoria, 
 								 $this->strDescripcion, 
 								 $this->strPortada,
@@ -91,7 +91,7 @@
 			$request = $this->select_all($sql);
 			if(empty($request))
 			{
-				$sql = "UPDATE categoria SET status = ? WHERE idcategoria = $this->intIdcategoria ";
+				$sql = "UPDATE recuerdos SET status = ? WHERE idcategoria = $this->intIdcategoria ";
 				$arrData = array(0);
 				$request = $this->update($sql,$arrData);
 				if($request)
