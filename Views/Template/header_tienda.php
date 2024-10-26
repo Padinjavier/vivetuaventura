@@ -136,7 +136,7 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 							</a>
 						<?php } else { ?>
 							<a href="<?= base_url() ?>/login" class="flex-c-m trans-04 p-lr-25">
-								Iniciar Sesión
+								Iniciar Sesión / Crear cuenta
 							</a>
 						<?php } ?>
 						<div class="flex-c-m trans-04 p-lr-25">
@@ -283,7 +283,7 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 							</a>
 						<?php } else { ?>
 							<a href="<?= base_url() ?>/login" class="flex-c-m trans-04 p-lr-25">
-								Iniciar Sesión
+								Iniciar Sesión / Crear cuenta
 							</a>
 						<?php } ?>
 						<!-- <button class="mode_color_dia botondianoche">
