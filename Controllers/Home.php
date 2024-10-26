@@ -1,8 +1,9 @@
 <?php 
 	require_once("Models/TCategoria.php");
 	require_once("Models/TProducto.php");
+	require_once("Models/TPaginaLink.php");
 	class Home extends Controllers{
-		use TCategoria, TProducto;
+		use TCategoria, TProducto,TPaginaLink;
 		public function __construct()
 		{
 			parent::__construct();
@@ -19,6 +20,7 @@
 			$data['slider'] = $this->getCategoriasT(CAT_SLIDER);
 			$data['banner'] = $this->getCategoriasT(CAT_BANNER);
 			$data['productos'] = $this->getProductosT();
+			$data['PaginasLink'] = $this->getPaginaLink();
 			$this->views->getView($this,"home",$data); 
 		}
 

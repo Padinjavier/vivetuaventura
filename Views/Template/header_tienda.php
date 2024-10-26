@@ -162,12 +162,28 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 					</a>
 
 					<!-- Menu desktop -->
+					<!-- <div class="menu-desktop">
+						<ul class="main-menu">
+						<?php 
+						// // Recorre cada elemento en $data['PaginasLink'] y genera un enlace
+						// foreach ($data['PaginasLink'] as $pagina) { 
+						// 	// Verifica si la página está activa antes de mostrar el enlace
+						// 	if ($pagina['status'] == "1") { 
+						// ?>
+						// 	<li>
+						// 		<a href="<?= base_url() . '/' . $pagina['ruta']; ?>"><?= $pagina['titulo']; ?></a>
+						// 	</li>
+						// <?php 
+						// 	}
+						// } 
+						?>
+						</ul>
+					</div> -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
 								<a href="<?= base_url(); ?>/home">Inicio</a>
 							</li>
-
 							<li>
 								<a href="<?= base_url(); ?>/tienda">Tienda</a>
 							</li>
@@ -334,7 +350,11 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 				<span class="mtext-103 cl2">
 					Tu carrito
 				</span>
-
+				<?php 
+			// for ($i=0; $i < count($arrDataPaginasLink) ; $i++) { 
+			// 	$ruta = $arrDataPaginasLink[$i]['ruta'];
+			echo($arrDataPaginasLink)
+			 ?>
 				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
 					<i class="zmdi zmdi-close"></i>
 				</div>

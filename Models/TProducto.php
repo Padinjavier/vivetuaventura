@@ -87,7 +87,7 @@ trait TProducto{
 		}
 
 		$this->con = new Mysql();
-		$sql_cat = "SELECT idcategoria,nombre,ruta FROM categoria WHERE idcategoria = '{$this->intIdcategoria}'";
+		$sql_cat = "SELECT idservicio,nombre,ruta FROM servicio WHERE idservicio = '{$this->intIdcategoria}'";
 		$request = $this->con->select($sql_cat);
 
 		if(!empty($request)){
