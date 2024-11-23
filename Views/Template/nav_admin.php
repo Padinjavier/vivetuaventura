@@ -122,7 +122,7 @@
         <?php if (!empty($_SESSION['permisos'][7]['r']) || !empty($_SESSION['permisos'][8]['r']) || !empty($_SESSION['permisos'][9]['r'])) { ?>
             <li class="treeview" id="menu-puntoventa">
                 <a class="app-menu__item" href="#" data-toggle="treeview">
-                    <i class="app-menu__icon bi bi-archive-fill"></i>
+                    <i class="app-menu__icon bi bi-globe"></i>
                     <span class="app-menu__label">Sitio Web</span>
                     <i class="treeview-indicator fa fa-angle-right"></i>
                 </a>
@@ -130,16 +130,16 @@
         <!-- recuerdos  -->
 
                     <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
-                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/home">
-                                ver</a></li>
-                    <?php } ?>
-                    <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
-                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/categorias">
-                                Recuerdos</a></li>
+                        <li><a class="treeview-item pl-5" style="" href="<?= base_url(); ?>/home">
+                                Ver sitio web</a></li>
                     <?php } ?>
                     <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
                         <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/paginas">
-                                paginas</a></li>
+                                Paginas</a></li>
+                    <?php } ?>
+                    <?php if (!empty($_SESSION['permisos'][7]['r'])) { ?>
+                        <li><a class="treeview-item pl-5" href="<?= base_url(); ?>/reservas">
+                                Reservas</a></li>
                     <?php } ?>
       
                 </ul>

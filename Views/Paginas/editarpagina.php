@@ -31,11 +31,10 @@
                   <input type="hidden" id="foto_actual" name="foto_actual" value="<?= $fotoActual ?>">
                   <input type="hidden" id="foto_remove" name="foto_remove" value="<?= $fotoRemove; ?>">
 
-                  <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
                   <div class="row">
                     <div class="col-md-10">
                         <div class="form-group">
-                          <label class="control-label">Titulo <span class="required">*</span></label>
+                          <label class="control-label">Titulo</label>
                           <input class="form-control" id="txtTitulo" name="txtTitulo" type="text" value="<?= $data['infoPage']['titulo'] ?>" required="">
                         </div>
                         <div class="form-group">
@@ -49,7 +48,7 @@
                     <div class="col-md-2">
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="listStatus">Estado <span class="required">*</span></label>
+                                <label for="listStatus">Estado</label>
                                 <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
                                   <option value="1">Activo</option>
                                   <option value="2">Inactivo</option>

@@ -4,11 +4,12 @@
   <main class="app-content">    
       <div class="app-title">
         <div>
-            <h1><i class="fas fa-user-tag"></i> <?= $data['page_title'] ?>
-            <?php if($_SESSION['permisosMod']['w']){ ?>
-                <a href="<?= base_url() ?>/paginas/crear" class="btn btn-primary" ><i class="fas fa-plus-circle"></i> Crear página</a>
-            <?php } ?> 
-          </h1> 
+            <h1>
+              <?= $data['page_title'] ?>
+                <?php if($_SESSION['permisosMod']['w']){ ?>
+                <a href="<?= base_url() ?>/paginas/crear" class="btn btn-primary" ><i class="fas fa-plus-circle"></i> Agregar</a>
+              <?php } ?>
+            </h1>
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
