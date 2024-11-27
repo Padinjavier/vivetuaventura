@@ -73,6 +73,8 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 	<link rel="stylesheet" type="text/css" href="<?= media() ?>/tienda/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css">
 	<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<style>@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");</style>
 </head>
 
 <body class="animsition">
@@ -158,7 +160,8 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 
 					<!-- Logo desktop -->
 					<a href="<?= base_url(); ?>" class="logo">
-						<img src="<?= media() ?>/tienda/images/logoChamorro.png" alt="Tienda Virtual">
+						<img src="<?= media() ?>/images/logo.jpg" alt="Tienda Virtual">
+						<p class="text-dark m-0  ml-4">Vive tu aventura</p>
 					</a>
 
 					<!-- Menu desktop -->
@@ -180,7 +183,7 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 						</ul>
 					</div> -->
 					<div class="menu-desktop">
-						<ul class="main-menu">
+						<ul class="main-menu color-">
 							<li class="active-menu">
 								<a href="<?= base_url(); ?>/home">Inicio</a>
 							</li>
@@ -214,7 +217,7 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 						<?php if ($data['page_name'] != "carrito" and $data['page_name'] != "procesarpago") { ?>
 							<div class="cantCarrito icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
 								data-notify="<?= $cantCarrito; ?> ">
-								<i class="zmdi zmdi-shopping-cart"></i>
+								<i class="bi bi-calendar"></i>
 							</div>
 						<?php } ?>
 					</div>
@@ -226,7 +229,7 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
-				<a href="<?= base_url(); ?>"><img src="<?= media() ?>/tienda/images/logoChamorro.png"
+				<a href="<?= base_url(); ?>"><img src="<?= media() ?>/images/logo.jpg"
 						alt="Tienda Virtual"></a>
 			</div>
 

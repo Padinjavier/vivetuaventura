@@ -32,10 +32,10 @@
       <form class="login-form " name="formLogin" id="formLogin" action="">
         <div class="row justify-content-around align-items-center mb-4">
           <div class="text-start">
-            <h4 class="m-7 text-primary">¡Bienvenido de nuevo!</h4>
-            <p class="m-0">Logéate para acceder a la Agencia</p>
+            <h4 class="m-7 ">Te damos la bienvenida</h4>
+            <p class="m-0">Agencia Vive tu aventura Lunahuaná</p>
           </div>
-          <img src="<?= media(); ?>/images/logologin.png" alt="">
+          <img src="<?= media(); ?>/images/logo.jpg" alt="">
         </div>
         <div class="form-group">
           <label class="control-label">Correo</label>

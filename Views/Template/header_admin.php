@@ -17,6 +17,8 @@
   <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/bootstrap-select.min.css">
   <link rel="stylesheet" type="text/css" href="<?= media(); ?>/js/datepicker/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");</style>
   <!-- link de icon boostrap  -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <!-- link de formato fecha   -->
@@ -39,7 +41,7 @@
       <li class="dropdown">
         <a class="app-nav__item d-flex align-items-center justify-content-center p-0 m-0 " href="#"
           data-toggle="dropdown" aria-label="Open Profile Menu" style="width: 50px; height: 100%;">
-          <img src="<?= media(); ?>/images/logologin.png" alt="" class="w-100 p-2">
+          <img src="<?= media(); ?>/images/logo.jpg" alt="" class="w-100 p-2">
         </a>
         <ul class="dropdown-menu settings-menu dropdown-menu-right">
           <li><a class="dropdown-item" href="<?= base_url(); ?>/opciones"><i class="fa fa-cog fa-lg"></i> Settings</a>
