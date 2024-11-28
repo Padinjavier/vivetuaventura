@@ -2147,7 +2147,7 @@ input.num-product::-webkit-inner-spin-button {
 
 /*---------------------------------------------*/
 .block1-txt:hover {
-  background-color: rgba(103, 117, 214, 0.8);
+  background-color: #f78522a4;
 }
 
 .block1-txt:hover .block1-txt-child2 {
@@ -2157,6 +2157,11 @@ input.num-product::-webkit-inner-spin-button {
   -o-transform: scaleX(1);
   transform: scaleX(1);
 }
+
+.bg-orange {
+  background-color: #F37101 !important;
+}
+
 
 .block1-txt:hover .block1-link {
   -webkit-transform: translateY(0%);

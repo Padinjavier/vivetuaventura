@@ -7456,6 +7456,9 @@ a.close.disabled {
 .bg-primary {
   background-color: var(--HEADER) !important;
 }
+.bg-orange {
+  background-color: var(--HEADER) !important;
+}
 
 a.bg-primary:hover,
 a.bg-primary:focus,
