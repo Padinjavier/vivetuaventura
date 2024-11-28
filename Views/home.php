@@ -104,51 +104,52 @@ if (!empty($data['page'])) {
 		</div>
 		<hr>
 		<div class="row isotope-grid" style="background-color: white;">
-			<?php
-			for ($p = 0; $p < count($arrProductos); $p++) {
-				$rutaProducto = $arrProductos[$p]['ruta'];
-				if (count($arrProductos[$p]['images']) > 0) {
-					$portada = $arrProductos[$p]['images'][0]['url_image'];
-				} else {
-					$portada = media() . '/images/uploads/product.png';
-				}
-				?>
-				<!-- <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 p-r-20 p-l-20 isotope-item women" style="border: 1px solid #9b9b9b;"> -->
-				<div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 p-r-20 p-l-20 isotope-item women">
-					<!-- Block2 -->
-					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img src="<?= $portada ?>" alt="<?= $arrProductos[$p]['nombre'] ?>">
-							<a href="<?= base_url() . '/tienda/producto/' . $arrProductos[$p]['idproducto'] . '/' . $rutaProducto; ?>"
-								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-								Ver producto
-							</a>
-						</div>
+		<?php
+			if (!empty($arrProductos)) {
+				for ($p = 0; $p < count($arrProductos); $p++) {
+					$rutaProducto = $arrProductos[$p]['ruta'] ?? 'default-route';
+					$portada = $arrProductos[$p]['portada'] ?? media() . '/images/uploads/product.png';
+					$nombreProducto = $arrProductos[$p]['nombre'] ?? 'Producto desconocido';
+					$precioProducto = $arrProductos[$p]['precio'] ?? 0.0;
+		?>
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 p-r-20 p-l-20 isotope-item women">
+            <div class="block2">
+                <div class="block2-pic hov-img0">
+                    <img src="<?= $portada ?>" alt="<?= $nombreProducto ?>">
+                    <a href="<?= base_url() . '/tienda/producto/' . ($arrProductos[$p]['idservicio'] ?? 0) . '/' . $rutaProducto; ?>"
+                        class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                        Ver producto
+                    </a>
+                </div>
+                <div class="block2-txt flex-w flex-t p-t-14">
+                    <div class="block2-txt-child1 flex-col-l ">
+                        <a href="<?= base_url() . '/tienda/producto/' . ($arrProductos[$p]['idservicio'] ?? 0) . '/' . $rutaProducto; ?>"
+                            class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                            <?= $nombreProducto ?>
+                        </a>
+                        <span class="stext-105 cl3">
+                            <?= SMONEY . formatMoney($precioProducto); ?>
+                        </span>
+                    </div>
+                    <div class="block2-txt-child2 flex-r p-t-3">
+                        <a href="#" id="<?= openssl_encrypt($arrProductos[$p]['idservicio'] ?? 0, METHODENCRIPT, KEY); ?>"
+                            class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 js-addcart-detail
+                            icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11
+                            ">
+                            <i class="zmdi zmdi-shopping-cart"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php
+    }
+} else {
+    echo "<p>No hay productos disponibles.</p>";
+}
+?>
 
-						<div class="block2-txt flex-w flex-t p-t-14">
-							<div class="block2-txt-child1 flex-col-l ">
-								<a href="<?= base_url() . '/tienda/producto/' . $arrProductos[$p]['idproducto'] . '/' . $rutaProducto; ?>"
-									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-									<?= $arrProductos[$p]['nombre'] ?>
-								</a>
 
-								<span class="stext-105 cl3">
-									<?= SMONEY . formatMoney($arrProductos[$p]['precio']); ?>
-								</span>
-							</div>
-
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" id="<?= openssl_encrypt($arrProductos[$p]['idproducto'], METHODENCRIPT, KEY); ?>"
-									class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 js-addcart-detail
-								 icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11
-								 ">
-									<i class="zmdi zmdi-shopping-cart"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			<?php } ?>
 		</div>
 		<!-- Load more -->
 		<div class="flex-c-m flex-w w-full p-t-45">
