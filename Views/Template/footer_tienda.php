@@ -44,29 +44,43 @@
 					</div>
 				</div>
 
-				<div class="col-sm-6 col-lg-4 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-							Inicia sesión
-					</h4>
-
-					<form class="login-form " name="formLogin" id="formLogin" action="">
-						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" id="txtEmail" name="txtEmail" placeholder="Nombre completo" required>
-							<div class="focus-input1 trans-04"></div>
+				<?php if (isset($_SESSION['login'])) { ?>
+						<div class="col-sm-6 col-lg-4 p-b-50">
+							<h4 class="stext-301 cl0 p-b-30">
+								Inicia sesión
+							</h4>
+							<div class="stext-107 cl7 size-201 text-white">
+								Usted ya tiene la sección iniciada.
+							</div>
+							<div class="p-t-18">
+								<a href="<?= base_url() ?>/logout" class="flex-c-m stext-101 cl0 size-103 bg-light bor2 hov-btn2 p-lr-15 trans-04 text-warning">
+									Cerrar sesión
+								</a>
+							</div>
 						</div>
-						<br>
-						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="password" id="txtPassword" name="txtPassword" placeholder="Contraseña" required >
-							<div class="focus-input1 trans-04"></div>
+				<?php } else { ?>
+						<div class="col-sm-6 col-lg-4 p-b-50">
+							<h4 class="stext-301 cl0 p-b-30">
+								Inicia sesión
+							</h4>
+							<form class="login-form " name="formLogin" id="formLogin" action="">
+								<div class="wrap-input1 w-full p-b-4">
+									<input class="input1 bg-none plh1 stext-107 cl7" type="text" id="txtEmail" name="txtEmail" placeholder="Nombre completo" required>
+									<div class="focus-input1 trans-04"></div>
+								</div>
+								<br>
+								<div class="wrap-input1 w-full p-b-4">
+									<input class="input1 bg-none plh1 stext-107 cl7" type="password" id="txtPassword" name="txtPassword" placeholder="Contraseña" required>
+									<div class="focus-input1 trans-04"></div>
+								</div>
+								<div class="p-t-18">
+									<button class="flex-c-m stext-101 cl0 size-103 bg-light bor2 hov-btn2 p-lr-15 trans-04 text-warning">
+										Ingresar
+									</button>
+								</div>
+							</form>
 						</div>
-
-						<div class="p-t-18">
-							<button class="flex-c-m stext-101 cl0 size-103 bg-light bor2 hov-btn2 p-lr-15 trans-04 text-warning">
-								Ingresar
-							</button>
-						</div>
-					</form>
-				</div>
+				<?php } ?>
 			</div>
 
 			<div class="p-t-40">

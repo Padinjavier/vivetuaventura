@@ -127,8 +127,10 @@ if (!empty($data['page'])) {
                             class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                             <?= $nombreProducto ?>
                         </a>
-                        <span class="stext-105 cl3">
-                            <?= SMONEY . formatMoney($precioProducto); ?>
+                        <span class="stext-105 cl11 ">
+							<b>
+								<?= SMONEY . formatMoney($precioProducto); ?>
+							</b>
                         </span>
                     </div>
                     <div class="block2-txt-child2 flex-r p-t-3">
@@ -136,7 +138,7 @@ if (!empty($data['page'])) {
                             class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 js-addcart-detail
                             icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11
                             ">
-                            <i class="zmdi zmdi-shopping-cart"></i>
+                            <i class="bi bi-calendar cl11"></i>
                         </a>
                     </div>
                 </div>

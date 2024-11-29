@@ -14,10 +14,30 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- Volcando estructura para tabla vivetuav_agencia.carrito
+CREATE TABLE IF NOT EXISTS `carrito` (
+  `idcarrito` bigint NOT NULL AUTO_INCREMENT,
+  `idpersona` bigint NOT NULL,
+  `datecreated` datetime NOT NULL,
+  PRIMARY KEY (`idcarrito`),
+  KEY `fk_carrito_persona` (`idpersona`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando estructura de base de datos para vivetuav_agencia
-CREATE DATABASE IF NOT EXISTS `vivetuav_agencia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `vivetuav_agencia`;
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para tabla vivetuav_agencia.detalle_reserva
+CREATE TABLE IF NOT EXISTS `detalle_reserva` (
+  `iddetalle` bigint NOT NULL AUTO_INCREMENT,
+  `idreserva` bigint NOT NULL,
+  `idservicio` bigint NOT NULL,
+  `precio` decimal(11,2) NOT NULL,
+  `cantidad` int NOT NULL,
+  PRIMARY KEY (`iddetalle`),
+  KEY `fk_detalle_reserva_reserva` (`idreserva`),
+  KEY `fk_detalle_reserva_servicio` (`idservicio`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla vivetuav_agencia.detalle_salida
 CREATE TABLE IF NOT EXISTS `detalle_salida` (

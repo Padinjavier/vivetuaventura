@@ -188,21 +188,15 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 								<a href="<?= base_url(); ?>/home">Inicio</a>
 							</li>
 							<li>
-								<a href="<?= base_url(); ?>/tienda">Tienda</a>
-							</li>
-
-							<li>
-								<a href="<?= base_url(); ?>/carrito">Carrito</a>
-							</li>
-
-							<li>
 								<a href="<?= base_url(); ?>/nosotros">Nosotros</a>
 							</li>
-
+							
 							<li>
-								<a href="<?= base_url(); ?>/sucursales">Sucursales</a>
+								<a href="<?= base_url(); ?>/servicio">Servicio</a>
 							</li>
-
+							<li>
+								<a href="<?= base_url(); ?>/reservas">Reservas</a>
+							</li>
 							<li>
 								<a href="<?= base_url(); ?>/contacto">Contacto</a>
 							</li>
