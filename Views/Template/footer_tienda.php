@@ -2,71 +2,67 @@
 		$catFotter = getCatFooter();
 	 ?>
 	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32">
+	<footer class="bg-orange p-t-75 p-b-32">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-lg-4 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
+					<h4 class="stext-301 cl0 p-b-30 ">
 						Categorías
 					</h4>
-					<?php if(count($catFotter) > 0){ ?>
-					<ul>
-						<?php foreach ($catFotter as $cat) { ?>
-						<li class="p-b-10">
-							<a href="<?= base_url() ?>/tienda/categoria/<?= $cat['idcategoria'].'/'.$cat['ruta'] ?>" class="stext-107 cl7 hov-cl1 trans-04">
-								<?= $cat['nombre'] ?>
-							</a>
-						</li>
-						<?php } ?>
+					<ul class="text-white">
+						<li>Deportes de aventura</li>
+						<br>
+						<li>Tours</li>
+						<br>
+						<li>Deportes extremos</li>
 					</ul>
-					<?php } ?>
 				</div>
 
-				<div class="col-sm-6 col-lg-4 p-b-50">
+				<div class="col-sm-6 col-lg-4 p-b-50 text-white">
 					<h4 class="stext-301 cl0 p-b-30">
 						Cotacto
 					</h4>
 
-					<p class="stext-107 cl7 size-201">
+					<p class="stext-107 cl7 size-201 text-white">
 						<?= DIRECCION ?> <br>
 						Tel: <a class="linkFooter" href="tel:<?= TELEMPRESA ?>"><?= TELEMPRESA ?></a><br>
 						Email: <a class="linkFooter" href="mailto:<?= EMAIL_EMPRESA ?>"><?= EMAIL_EMPRESA ?></a>
 					</p>
 
-					<div class="p-t-27">
-						<a href="<?= FACEBOOK ?>" target="_blanck" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-facebook"></i>
-						</a>
-
-						<a href="<?= INSTAGRAM ?>" target="_blanck"  class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+					<div class="p-t-27 ">
+						
+						<a href="<?= INSTAGRAM ?>" target="_blanck"  class="fs-18 cl7 hov-cl1 trans-04 m-r-16 text-white">
 							<i class="fa fa-instagram"></i>
 						</a>
-
-						<a href="https://wa.me/<?= WHATSAPP ?>" target="_blanck"  class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						
+						<a href="https://wa.me/<?= WHATSAPP ?>" target="_blanck"  class="fs-18 cl7 hov-cl1 trans-04 m-r-16 text-white">
 							<i class="fab fa-whatsapp"></i>
+						</a>
+						<a href="<?= FACEBOOK ?>" target="_blanck" class="fs-18 cl7 hov-cl1 trans-04 m-r-16 text-white">
+							<i class="fa fa-facebook"></i>
 						</a>
 					</div>
 				</div>
 
 				<div class="col-sm-6 col-lg-4 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Suscríbete
+							Inicia sesión
 					</h4>
 
-					<form id="frmSuscripcion" name="frmSuscripcion">
+					<form class="login-form " name="formLogin" id="formLogin" action="">
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" id="nombreSuscripcion" name="nombreSuscripcion" placeholder="Nombre completo" required>
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" id="txtEmail" name="txtEmail" placeholder="Nombre completo" required>
 							<div class="focus-input1 trans-04"></div>
 						</div>
 						<br>
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="email" id="emailSuscripcion" name="emailSuscripcion" placeholder="email@example.com" required >
+							<input class="input1 bg-none plh1 stext-107 cl7" type="password" id="txtPassword" name="txtPassword" placeholder="Contraseña" required >
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
 						<div class="p-t-18">
-							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-								Suscribirme
+							<button class="flex-c-m stext-101 cl0 size-103 bg-light bor2 hov-btn2 p-lr-15 trans-04 text-warning">
+								Ingresar
 							</button>
 						</div>
 					</form>
@@ -74,9 +70,9 @@
 			</div>
 
 			<div class="p-t-40">
-				<p class="stext-107 cl6 txt-center">
+				<p class="stext-107 cl6 txt-center text-white">
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					<?= NOMBRE_EMPESA; ?> | <?= WEB_EMPRESA; ?> | <a href="https://colorlib.com" target="_blank">Colorlib</a>
+					<?= NOMBRE_EMPESA; ?> | <?= WEB_EMPRESA; ?>
 					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 				</p>
 			</div>

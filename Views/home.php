@@ -114,10 +114,10 @@ if (!empty($data['page'])) {
 		?>
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-b-45 p-r-20 p-l-20 isotope-item women">
             <div class="block2">
-                <div class="block2-pic hov-img0">
-                    <img src="<?= $portada ?>" alt="<?= $nombreProducto ?>">
+                <div class="block2-pic hov-img0" style="height: 150px;">
+                    <img src="<?= $portada ?>" alt="<?= $nombreProducto ?>" style="height: 100%;">
                     <a href="<?= base_url() . '/tienda/producto/' . ($arrProductos[$p]['idservicio'] ?? 0) . '/' . $rutaProducto; ?>"
-                        class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                        class="block2-btn flex-c-m stext-103 cl2 size-102 bg-orange bor2 hov-btn1 p-lr-15 trans-04">
                         Ver producto
                     </a>
                 </div>
@@ -154,7 +154,7 @@ if (!empty($data['page'])) {
 		<!-- Load more -->
 		<div class="flex-c-m flex-w w-full p-t-45">
 			<a href="<?= base_url() ?>/tienda"
-				class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+				class="flex-c-m stext-101 cl5 size-103 bg-orange bor1 hov-btn1 p-lr-15 trans-04">
 				Ver más
 			</a>
 		</div>

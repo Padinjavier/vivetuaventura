@@ -39,19 +39,19 @@ const SECRET = "";
 const NOMBRE_REMITENTE = "Vive tu aventura";
 const EMAIL_REMITENTE = "marketch@marketchamorro.shop"; //correo del host siempre caambia si cambias de host
 const NOMBRE_EMPESA = "Vive tu aventura";
-const WEB_EMPRESA = "www.marketchamorro.shop"; //url de la pagina
+const WEB_EMPRESA = "www.vivetuaventura.com"; //url de la pagina
 
 const DESCRIPCION = "Un negocio familiar que ofrece variedad de productos, calidad y a buen precio.";
 const SHAREDHASH = "TiendaVirtual";
 
 //Datos Empresa
-const DIRECCION = "Av. Arequipa 600, Quilmaná 15712";
-const TELEMPRESA = "+(51)928378072";
+const DIRECCION = "AJr. Bolivar N° 200";
+const TELEMPRESA = "(+51) 910089718";
 const WHATSAPP = "954149814";
-const EMAIL_EMPRESA = "chamorrochavezjorge@gmail.com";
+const EMAIL_EMPRESA = "vivetuaventura@gmail.com";
 const EMAIL_PEDIDOS = "chamorrochavezjorge@gmail.com";
 const EMAIL_SUSCRIPCION = "chamorrochavezjorge@gmail.com";
-const EMAIL_CONTACTO = "chamorrochavezjorge@gmail.com";
+const EMAIL_CONTACTO = "vivetuaventura@gmail.com";
 
 const CAT_SLIDER = "1,2,3,4,5";
 const CAT_BANNER = "1,2,3,4,5";
