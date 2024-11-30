@@ -99,7 +99,7 @@ const PNOSOTROS = 4;
 const PCONTACTO = 5;
 const PPREGUNTAS = 6;
 const PTERMINOS = 7;
-const PSUCURSALES = 8;
+const PSERVICIO = 8;
 const PERROR = 9;
 
 //Roles
