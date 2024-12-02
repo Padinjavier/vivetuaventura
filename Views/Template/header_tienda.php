@@ -347,11 +347,6 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 				<span class="mtext-103 cl2">
 					Tu carrito
 				</span>
-				<?php 
-			// for ($i=0; $i < count($arrDataPaginasLink) ; $i++) { 
-			// 	$ruta = $arrDataPaginasLink[$i]['ruta'];
-			echo($arrDataPaginasLink)
-			 ?>
 				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
 					<i class="zmdi zmdi-close"></i>
 				</div>

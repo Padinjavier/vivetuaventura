@@ -92,13 +92,13 @@
 				$idproducto = openssl_decrypt($_POST['id'], METHODENCRIPT, KEY);
 				$cantidad = $_POST['cant'];
 				if(is_numeric($idproducto) and is_numeric($cantidad)){
-					$arrInfoProducto = $this->getProductoIDT($idproducto);
+					$arrInfoProducto = $this->getServicioIDT($idproducto);
 					if(!empty($arrInfoProducto)){
 						$arrProducto = array('idproducto' => $idproducto,
 											'producto' => $arrInfoProducto['nombre'],
 											'cantidad' => $cantidad,
 											'precio' => $arrInfoProducto['precio'],
-											'imagen' => $arrInfoProducto['images'][0]['url_image']
+											'imagen' => $arrInfoProducto['portada_url']
 										);
 						if(isset($_SESSION['arrCarrito'])){
 							$on = true;
