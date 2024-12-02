@@ -102,23 +102,80 @@ $infoTerminos = !empty(getInfoPage(PTERMINOS)) ? getInfoPage(PTERMINOS)['conteni
 <div class="container">
 	<div class="row">
 		<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-			<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-l-25 m-r--38 m-lr-0-xl">
+			<div class="bor10 p-lr-20 p-t-30 p-b-40  m-r--38 m-lr-0-xl">
 				<div>
 					<?php
 					if (isset($_SESSION['login'])) {
 						?>
 						<div>
-							<label for="tipopago">Dirección de envío</label>
-							<div class="bor8 bg0 m-b-12">
-								<input id="txtDireccion" class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-									name="state" placeholder="Dirección de envío"
-									value="<?= $_SESSION['userData']['direccion']; ?>">
+						<div class="container mt-4">
+									<!-- Primera fila (3 columnas) -->
+									<div class="row">
+										<!-- Columna 1: N° de celular -->
+										<div class="col-md-4 mb-3">
+											<label for="numeroCelular">N° de celular</label>
+											<input type="text" class="form-control" id="numeroCelular" name="numeroCelular" placeholder="N° de celular" value="<?= $_SESSION['userData']['telefono']; ?>">
+										</div>
+										
+										<!-- Columna 2: Modalidad de pago -->
+										<div class="col-md-4 mb-3">
+											<label>Modalidad de pago</label>
+											<div class="form-check d-flex align-items-center mb-2">
+												<input class="form-check-input me-2" type="radio" id="modalidadYape" name="modalidadPago" value="yape">
+												<label class="form-check-label" for="modalidadYape">Yape</label>
+											</div>
+											<div class="form-check d-flex align-items-center">
+												<input class="form-check-input me-2" type="radio" id="modalidadBCP" name="modalidadPago" value="bcp">
+												<label class="form-check-label" for="modalidadBCP">BCP</label>
+											</div>
+										</div>
+										
+										<!-- Columna 3: Información de pago -->
+										<div class="col-md-4 mb-3">
+											<label for="informacionPago">Información de pago</label>
+											<p>
+												<span>Yape (Yesenia Arbizu): <br>
+													- N° de celular: 910089718</span><br><br>
+												<span>BCP (Yesenia Arbizu): <br>
+												- N° Cuenta: 04-029-958659</span>
+											</p>
+										</div>
+									</div>
+
+									<!-- Segunda fila (3 columnas) -->
+									<div class="row">
+										<!-- Columna 1: Fecha de pago -->
+										<div class="col-md-6 mb-3">
+											<label for="fechaPago">Fecha de pago</label>
+											<input type="date" class="form-control" id="fechaPago" name="fechaPago">
+										</div>
+
+										<!-- Columna 2 y 3: Código de voucher -->
+										<div class="col-md-6 mb-3">
+											<label for="codigoVoucher">Código de voucher</label>
+											<input type="text" class="form-control" id="codigoVoucher" name="codigoVoucher" placeholder="Código de voucher">
+										</div>
+									</div>
+
+									<!-- Tercera fila (3 columnas) -->
+									<div class="row">
+										<!-- Columna 1: Adjuntar voucher -->
+										<div class="col-md-12 mb-3">
+											<label for="adjuntarVoucher">Adjuntar voucher de pago</label>
+											<input type="file" class="form-control" id="adjuntarVoucher" name="adjuntarVoucher" accept=".jpg, .png">
+										</div>
+
+									</div>
+
+									<!-- Cuarta fila (2 columnas) -->
+									<div class="row mt-4">
+										<!-- Columna 1: Botón de reserva -->
+										<div class="col-md-4 mb-3">
+											<button type="submit" class="btn stext-101 cl0 bor13 w-100 bg-orange">Reservar</button>
+										</div>
+									</div>
 							</div>
-							<div class="bor8 bg0 m-b-22">
-								<input id="txtCiudad" class="stext-111 cl8 plh3 size-111 p-lr-15" type="text"
-									name="postcode" placeholder="Ciudad / Estado"
-									value="<?= $_SESSION['userData']['ciudad']; ?>">
-							</div>
+
 						</div>
 					<?php } else { ?>
 
@@ -185,8 +242,8 @@ $infoTerminos = !empty(getInfoPage(PTERMINOS)) ? getInfoPage(PTERMINOS)['conteni
 			</div>
 		</div>
 
-		<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-			<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+		<div class="col-sm-10 col-lg-7 col-xl-4 m-lr-auto m-b-50">
+			<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-40 m-r-40 m-lr-0-xl p-lr-15-sm">
 				<h4 class="mtext-109 cl2 p-b-30">
 					Resumen
 				</h4>
@@ -201,18 +258,6 @@ $infoTerminos = !empty(getInfoPage(PTERMINOS)) ? getInfoPage(PTERMINOS)['conteni
 					<div class="size-209">
 						<span id="subTotalCompra" class="mtext-110 cl2">
 							<?= SMONEY . formatMoney($subtotal) ?>
-						</span>
-					</div>
-
-					<div class="size-208">
-						<span class="stext-110 cl2">
-							Envío:
-						</span>
-					</div>
-
-					<div class="size-209">
-						<span class="mtext-110 cl2">
-							<?= SMONEY . formatMoney(COSTOENVIO) ?>
 						</span>
 					</div>
 				</div>
