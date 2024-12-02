@@ -209,7 +209,7 @@ if (!empty($data['servicio'])) {
 								<a href="<?= base_url(); ?>/servicio">Servicio</a>
 							</li>
 							<li>
-								<a href="<?= base_url(); ?>/reservas">Reservas</a>
+								<a href="<?= base_url(); ?>/carrito">Reservas</a>
 							</li>
 							<li>
 								<a href="<?= base_url(); ?>/contacto">Contacto</a>
