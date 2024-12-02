@@ -113,126 +113,86 @@ trait TProducto{
 		return $request;
 	}
 
-	public function getProductoT(int $idproducto, string $ruta){
+	public function getServicio(int $idservicio, string $ruta){
 		$this->con = new Mysql();
-		$this->intIdProducto = $idproducto;
+		$this->intIdServicio = $idservicio;
 		$this->strRuta = $ruta;
-		$sql = "SELECT p.idproducto,
-						p.codigo,
-						p.nombre,
-						p.descripcion,
-						p.categoriaid,
-						c.nombre as categoria,
-						c.ruta as ruta_categoria,
-						p.precio,
-						p.ruta,
-						p.stock
-				FROM producto p 
-				INNER JOIN categoria c
-				ON p.categoriaid = c.idcategoria
-				WHERE p.status != 0 AND p.idproducto = '{$this->intIdProducto}' AND p.ruta = '{$this->strRuta}' ";
-				$request = $this->con->select($sql);
-				if(!empty($request)){
-					$intIdProducto = $request['idproducto'];
-					$sqlImg = "SELECT img
-							FROM imagen
-							WHERE productoid = $intIdProducto";
-					$arrImg = $this->con->select_all($sqlImg);
-					if(count($arrImg) > 0){
-						for ($i=0; $i < count($arrImg); $i++) { 
-							$arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
-						}
-					}else{
-						$arrImg[0]['url_image'] = media().'/images/uploads/product.png';
-					}
-					$request['images'] = $arrImg;
-				}
+		
+		// Consulta principal para obtener el servicio
+		$sql = "SELECT s.idservicio,
+						s.nombre,
+						s.descripcion,
+						s.precio,
+						s.portada,
+						s.ruta,
+						s.status
+				FROM servicio s
+				WHERE s.status != 0 AND s.idservicio = '{$this->intIdServicio}' AND s.ruta = '{$this->strRuta}'";
+		
+		$request = $this->con->select($sql);
+		
+		if (!empty($request)) {
+			// Se verifica si la imagen (portada) existe
+			if (!empty($request['portada'])) {
+				$request['url_image'] = media() . '/images/uploads/' . $request['portada'];
+			} else {
+				// Si no hay portada, se asigna una imagen por defecto
+				$request['url_image'] = media() . '/images/uploads/product.png';
+			}
+		}
+	
 		return $request;
 	}
+	
+	
+	
 
-	public function getProductosRandom(int $idcategoria, int $cant, string $option){
-		$this->intIdcategoria = $idcategoria;
+	public function getProductosRandom(int $idservicio, int $cant, string $option){
+		$this->intIdServicio = $idservicio;
 		$this->cant = $cant;
 		$this->option = $option;
-
+	
+		// Ajustamos las opciones de ordenamiento
 		if($option == "r"){
 			$this->option = " RAND() ";
 		}else if($option == "a"){
-			$this->option = " idproducto ASC ";
+			$this->option = " idservicio ASC ";
 		}else{
-			$this->option = " idproducto DESC ";
+			$this->option = " idservicio DESC ";
 		}
-
+	
 		$this->con = new Mysql();
-		$sql = "SELECT p.idproducto,
-						p.codigo,
-						p.nombre,
-						p.descripcion,
-						p.categoriaid,
-						c.nombre as categoria,
-						p.precio,
-						p.ruta,
-						p.stock
-				FROM producto p 
-				INNER JOIN categoria c
-				ON p.categoriaid = c.idcategoria
-				WHERE p.status != 0 AND p.categoriaid = $this->intIdcategoria
-				ORDER BY $this->option LIMIT  $this->cant ";
-				$request = $this->con->select_all($sql);
-				if(count($request) > 0){
-					for ($c=0; $c < count($request) ; $c++) { 
-						$intIdProducto = $request[$c]['idproducto'];
-						$sqlImg = "SELECT img
-								FROM imagen
-								WHERE productoid = $intIdProducto";
-						$arrImg = $this->con->select_all($sqlImg);
-						if(count($arrImg) > 0){
-							for ($i=0; $i < count($arrImg); $i++) { 
-								$arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
-							}
-						}
-						$request[$c]['images'] = $arrImg;
-					}
+	
+		// Consulta modificada para trabajar con servicios
+		$sql = "SELECT s.idservicio,
+						s.nombre,
+						s.descripcion,
+						s.precio,
+						s.portada,
+						s.ruta,
+						s.status
+				FROM servicio s
+				WHERE s.status != 0 AND s.idservicio != {$this->intIdServicio}
+				ORDER BY {$this->option} LIMIT {$this->cant}";
+	
+		// Ejecutar consulta
+		$request = $this->con->select_all($sql);
+	
+		if(count($request) > 0){
+			for ($c=0; $c < count($request); $c++) {
+				// Asignar la URL de la imagen (portada)
+				if(!empty($request[$c]['portada'])){
+					$request[$c]['url_image'] = media().'/images/uploads/'.$request[$c]['portada'];
+				} else {
+					$request[$c]['url_image'] = media().'/images/uploads/product.png';  // Imagen predeterminada
 				}
+			}
+		}
+	
 		return $request;
-	}	
+	}
+	
 
-	// public function getServicioIDT(int $idservicio) {
-	// 	// Establecer conexión
-	// 	$this->con = new Mysql();
-	// 	$this->intIdServicio = $idservicio;
-	
-	// 	// Consulta para obtener los detalles del servicio
-	// 	$sql = "SELECT s.idservicio,
-	// 					s.nombre,
-	// 					s.descripcion,
-	// 					s.precio,
-	// 					s.portada,
-	// 					s.ruta,
-	// 					s.status
-	// 			FROM servicio s
-	// 			WHERE s.status != 0 AND s.idservicio = '{$this->intIdServicio}'";
-	
-	// 	// Ejecutar consulta
-	// 	$request = $this->con->select($sql);
-	
-	// 	// Comprobar si se encontró el servicio
-	// 	if (!empty($request)) {
-	// 		// Asignar la URL completa para la imagen (portada)
-	// 		$request['portada_url'] = media() . '/images/uploads/' . $request['portada'];
-	// 		// Si no hay imágenes, puedes dejar la clave "images" vacía o eliminarla si no se necesita
-	// 		$request['images'] = []; // O asigna las imágenes correspondientes si las tienes
-	// 	} else {
-	// 		// Si no hay servicio, asignar una imagen predeterminada y eliminar clave de imágenes
-	// 		$request = [
-	// 			'portada_url' => media() . '/images/uploads/default_service.png',
-	// 			'images' => []
-	// 		];
-	// 	}
-	
-	// 	return $request;
-	// }
-		
 	public function getServicioIDT(int $idservicio) {
 		$this->con = new Mysql();
 		$this->intIdServicio = $idservicio;

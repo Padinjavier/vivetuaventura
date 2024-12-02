@@ -24,14 +24,28 @@ $infoPreguntas = !empty(getInfoPage(PPREGUNTAS)) ? getInfoPage(PPREGUNTAS)['cont
 	$nombreProducto = NOMBRE_EMPESA;
 	$urlWeb = base_url();
 	$urlImg = media() . "/images/portada.jpg";
-	if (!empty($data['producto'])) {
-		//$descripcion = $data['producto']['descripcion'];
-		$descripcion = DESCRIPCION;
-		$nombreProducto = $data['producto']['nombre'];
-		$urlWeb = base_url() . "/tienda/producto/" . $data['producto']['idproducto'] . "/" . $data['producto']['ruta'];
-		$urlImg = $data['producto']['images'][0]['url_image'];
-	}
-	?>
+	
+if (!empty($data['servicio'])) {
+    // Asignar valores a las variables
+    $descripcion = !empty($data['servicio']['descripcion']) ? $data['servicio']['descripcion'] : 'Descripción no disponible';  // Verifica que exista 'descripcion'
+    $nombreServicio = !empty($data['servicio']['nombre']) ? $data['servicio']['nombre'] : 'Nombre no disponible'; // Verifica que exista 'nombre'
+    $urlWeb = base_url() . "/tienda/producto/" . $data['servicio']['idservicio'] . "/" . $data['servicio']['ruta'];
+
+    // Verifica si 'images' existe y tiene al menos un elemento
+    if (!empty($data['servicio']['images']) && isset($data['servicio']['images'][0]['url_image'])) {
+        $urlImg = $data['servicio']['images'][0]['url_image'];  // Obtén la imagen
+    } else {
+        $urlImg = 'ruta/default/image.png';  // Imagen predeterminada si no hay imágenes
+    }
+} else {
+    // Si no hay 'servicio', asigna valores predeterminados
+    $descripcion = 'Descripción no disponible';
+    $nombreServicio = 'Nombre no disponible';
+    $urlWeb = base_url();  // Página principal como fallback
+    $urlImg = 'ruta/default/image.png';  // Imagen predeterminada
+}
+?>
+
 	<meta property="og:locale" content='es_ES' />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="<?= $nombreSitio; ?>" />
