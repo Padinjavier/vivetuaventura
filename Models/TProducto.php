@@ -221,7 +221,49 @@ trait TProducto{
 	
 		return $request;
 	}
-	
+	// Función para guardar el carrito en la base de datos
+public function guardarCarritoEnBD($idpersona, $servicio){
+    // Consulta para insertar los datos en la tabla carrito
+    $sql = "INSERT INTO carrito (idpersona, idservicio, cantidad) 
+            VALUES (?, ?, ?)";
+
+    // Preparar la consulta
+    $this->con = new Mysql();
+    $stmt = $this->con->insert($sql);
+
+    // Vincular los parámetros
+    $stmt->bind_param("iii", $idpersona, $servicio['idservicio'], $servicio['cantidad']);
+
+    // Ejecutar la consulta
+    $stmt->execute();
+
+    // Cerrar la declaración
+    $stmt->close();
+}
+
+	// Función para obtener los detalles del carrito
+public function obtenerCarrito($idpersona){
+    // Consulta para obtener los servicios del carrito y sus detalles, incluyendo el precio actual de la tabla `servicio`
+    $sql = "SELECT c.idcarrito, c.idservicio, c.cantidad, s.nombre, s.precio, s.portada
+            FROM carrito c
+            JOIN servicio s ON c.idservicio = s.idservicio
+            WHERE c.idpersona = ?";
+
+    $this->con = new Mysql();
+    $stmt = $this->con->select($sql);
+    $stmt->bind_param("i", $idpersona);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $carrito = array();
+    while($row = $result->fetch_assoc()){
+        $carrito[] = $row;
+    }
+    $stmt->close();
+
+    return $carrito;
+}
+
 	public function cantProductos($categoria = null){
 		$where = "";
 		if($categoria != null){

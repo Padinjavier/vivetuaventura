@@ -144,12 +144,14 @@ if(document.querySelector("#formRegister")){
     let formRegister = document.querySelector("#formRegister");
     formRegister.onsubmit = function(e) {
         e.preventDefault();
+        let identificacion = document.querySelector('#txtIdentificacion').value;
         let strNombre = document.querySelector('#txtNombre').value;
         let strApellido = document.querySelector('#txtApellido').value;
         let strEmail = document.querySelector('#txtEmailCliente').value;
         let intTelefono = document.querySelector('#txtTelefono').value;
+        let password = document.querySelector('#txtpasscliente').value;
 
-        if(strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' )
+        if(identificacion == '' ||strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == ''|| password == '' )
         {
             swal("Atención", "Todos los campos son obligatorios." , "error");
             return false;
@@ -168,8 +170,11 @@ if(document.querySelector("#formRegister")){
         let formData = new FormData(formRegister);
         request.open("POST",ajaxUrl,true);
         request.send(formData);
+		console.log(formData)
         request.onreadystatechange = function(){
             if(request.readyState == 4 && request.status == 200){
+				console.log(request)
+				console.log(request.responseText)
                 let objData = JSON.parse(request.responseText);
                 if(objData.status)
                 {

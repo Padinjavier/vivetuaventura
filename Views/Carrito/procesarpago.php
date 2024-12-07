@@ -210,26 +210,38 @@ $infoTerminos = !empty(getInfoPage(PTERMINOS)) ? getInfoPage(PTERMINOS)['conteni
 								<form id="formRegister">
 									<div class="row">
 										<div class="col col-md-6 form-group">
+											<label for="txtIdentificacion">Identificacion</label>
+											<input type="text" class="form-control" id="txtIdentificacion"
+												name="txtIdentificacion" required="">
+										</div>
+										<div class="col col-md-6 form-group">
 											<label for="txtNombre">Nombres</label>
 											<input type="text" class="form-control valid validText" id="txtNombre"
 												name="txtNombre" required="">
 										</div>
+									</div>
+									<div class="row">
 										<div class="col col-md-6 form-group">
 											<label for="txtApellido">Apellidos</label>
 											<input type="text" class="form-control valid validText" id="txtApellido"
 												name="txtApellido" required="">
-										</div>
-									</div>
-									<div class="row">
+											</div>
 										<div class="col col-md-6 form-group">
 											<label for="txtTelefono">Teléfono</label>
 											<input type="text" class="form-control valid validNumber" id="txtTelefono"
 												name="txtTelefono" required="" onkeypress="return controlTag(event);">
 										</div>
+									</div>
+									<div class="row">
 										<div class="col col-md-6 form-group">
 											<label for="txtEmailCliente">Email</label>
 											<input type="email" class="form-control valid validEmail" id="txtEmailCliente"
 												name="txtEmailCliente" required="">
+										</div>
+										<div class="col col-md-6 form-group">
+											<label for="txtpasscliente">Contraseña</label>
+											<input type="password" class="form-control " id="txtpasscliente"
+												name="txtpasscliente" required="">
 										</div>
 									</div>
 									<button type="submit" class="btn btn-primary">Regístrate</button>

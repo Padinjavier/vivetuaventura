@@ -3,6 +3,7 @@ require_once("Libraries/Core/Mysql.php");
 trait TCliente{
 	private $con;
 	private $intIdUsuario;
+	private $stridentificacion;
 	private $strNombre;
 	private $strApellido;
 	private $intTelefono;
@@ -12,8 +13,9 @@ trait TCliente{
 	private $intTipoId;
 	private $intIdTransaccion;
 
-	public function insertCliente(string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid){
+	public function insertCliente(int $identificacion,string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid){
 		$this->con = new Mysql();
+		$this->stridentificacion = $identificacion;
 		$this->strNombre = $nombre;
 		$this->strApellido = $apellido;
 		$this->intTelefono = $telefono;
@@ -28,9 +30,10 @@ trait TCliente{
 
 		if(empty($request))
 		{
-			$query_insert  = "INSERT INTO persona(nombres,apellidos,telefono,email_user,password,rolid) 
-							  VALUES(?,?,?,?,?,?)";
-        	$arrData = array($this->strNombre,
+			$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,rolid) 
+							  VALUES(?,?,?,?,?,?,?)";
+        	$arrData = array($this->stridentificacion,
+							$this->strNombre,
     						$this->strApellido,
     						$this->intTelefono,
     						$this->strEmail,

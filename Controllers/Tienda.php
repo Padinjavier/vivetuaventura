@@ -87,62 +87,129 @@
 			
 		
 
+		// public function addCarrito(){
+		// 	if($_POST){
+		// 		//unset($_SESSION['arrCarrito']);exit;
+		// 		$arrCarrito = array();
+		// 		$cantCarrito = 0;
+		// 		$idproducto = openssl_decrypt($_POST['id'], METHODENCRIPT, KEY);
+		// 		$cantidad = $_POST['cant'];
+		// 		if(is_numeric($idproducto) and is_numeric($cantidad)){
+		// 			$arrInfoProducto = $this->getServicioIDT($idproducto);
+		// 			if(!empty($arrInfoProducto)){
+		// 				$arrProducto = array('idproducto' => $idproducto,
+		// 									'producto' => $arrInfoProducto['nombre'],
+		// 									'cantidad' => $cantidad,
+		// 									'precio' => $arrInfoProducto['precio'],
+		// 									'imagen' => $arrInfoProducto['portada_url']
+		// 								);
+		// 				if(isset($_SESSION['arrCarrito'])){
+		// 					$on = true;
+		// 					$arrCarrito = $_SESSION['arrCarrito'];
+		// 					for ($pr=0; $pr < count($arrCarrito); $pr++) {
+		// 						if($arrCarrito[$pr]['idproducto'] == $idproducto){
+		// 							$arrCarrito[$pr]['cantidad'] += $cantidad;
+		// 							$on = false;
+		// 						}
+		// 					}
+		// 					if($on){
+		// 						array_push($arrCarrito,$arrProducto);
+		// 					}
+		// 					$_SESSION['arrCarrito'] = $arrCarrito;
+		// 				}else{
+		// 					array_push($arrCarrito, $arrProducto);
+		// 					$_SESSION['arrCarrito'] = $arrCarrito;
+		// 				}
+
+		// 				foreach ($_SESSION['arrCarrito'] as $pro) {
+		// 					$cantCarrito += $pro['cantidad'];
+		// 				}
+		// 				$htmlCarrito ="";
+		// 				$htmlCarrito = getFile('Template/Modals/modalCarrito',$_SESSION['arrCarrito']);
+		// 				$arrResponse = array("status" => true, 
+		// 									"msg" => '¡Se agrego al corrito!',
+		// 									"cantCarrito" => $cantCarrito,
+		// 									"htmlCarrito" => $htmlCarrito
+		// 								);
+
+		// 			}else{
+		// 				$arrResponse = array("status" => false, "msg" => 'Producto no existente.');
+		// 			}
+		// 		}else{
+		// 			$arrResponse = array("status" => false, "msg" => 'Dato incorrecto.');
+		// 		}
+		// 		echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+		// 	}
+		// 	die();
+		// }
+
 		public function addCarrito(){
 			if($_POST){
-				//unset($_SESSION['arrCarrito']);exit;
 				$arrCarrito = array();
 				$cantCarrito = 0;
-				$idproducto = openssl_decrypt($_POST['id'], METHODENCRIPT, KEY);
+				$idservicio = openssl_decrypt($_POST['id'], METHODENCRIPT, KEY);
 				$cantidad = $_POST['cant'];
-				if(is_numeric($idproducto) and is_numeric($cantidad)){
-					$arrInfoProducto = $this->getServicioIDT($idproducto);
-					if(!empty($arrInfoProducto)){
-						$arrProducto = array('idproducto' => $idproducto,
-											'producto' => $arrInfoProducto['nombre'],
-											'cantidad' => $cantidad,
-											'precio' => $arrInfoProducto['precio'],
-											'imagen' => $arrInfoProducto['portada_url']
-										);
+		
+				if(is_numeric($idservicio) and is_numeric($cantidad)){
+					$arrInfoServicio = $this->getServicioIDT($idservicio);
+					if(!empty($arrInfoServicio)){
+						$arrServicio = array(
+							'idservicio' => $idservicio,
+							'servicio' => $arrInfoServicio['nombre'],
+							'cantidad' => $cantidad,
+							'imagen' => $arrInfoServicio['portada_url']
+						);
+		
 						if(isset($_SESSION['arrCarrito'])){
 							$on = true;
 							$arrCarrito = $_SESSION['arrCarrito'];
 							for ($pr=0; $pr < count($arrCarrito); $pr++) {
-								if($arrCarrito[$pr]['idproducto'] == $idproducto){
+								if($arrCarrito[$pr]['idservicio'] == $idservicio){
 									$arrCarrito[$pr]['cantidad'] += $cantidad;
 									$on = false;
 								}
 							}
 							if($on){
-								array_push($arrCarrito,$arrProducto);
+								array_push($arrCarrito,$arrServicio);
 							}
 							$_SESSION['arrCarrito'] = $arrCarrito;
 						}else{
-							array_push($arrCarrito, $arrProducto);
+							array_push($arrCarrito, $arrServicio);
 							$_SESSION['arrCarrito'] = $arrCarrito;
 						}
-
+		
+						// Si el usuario está logueado, guardamos el carrito en la base de datos
+						if(isset($_SESSION['idpersona']) && $_SESSION['idpersona'] > 0) {
+							foreach ($_SESSION['arrCarrito'] as $servicio) {
+								// Guardamos el servicio en la base de datos con idpersona, idservicio y cantidad
+								$this->guardarCarritoEnBD($_SESSION['idpersona'], $servicio);
+							}
+						}
+		
+						// Contar los artículos en el carrito para mostrar la cantidad
 						foreach ($_SESSION['arrCarrito'] as $pro) {
 							$cantCarrito += $pro['cantidad'];
 						}
-						$htmlCarrito ="";
-						$htmlCarrito = getFile('Template/Modals/modalCarrito',$_SESSION['arrCarrito']);
-						$arrResponse = array("status" => true, 
-											"msg" => '¡Se agrego al corrito!',
-											"cantCarrito" => $cantCarrito,
-											"htmlCarrito" => $htmlCarrito
-										);
-
+		
+						// Generar la vista del carrito
+						$htmlCarrito = getFile('Template/Modals/modalCarrito', $_SESSION['arrCarrito']);
+						$arrResponse = array(
+							"status" => true, 
+							"msg" => '¡Se agregó al carrito!',
+							"cantCarrito" => $cantCarrito,
+							"htmlCarrito" => $htmlCarrito
+						);
 					}else{
-						$arrResponse = array("status" => false, "msg" => 'Producto no existente.');
+						$arrResponse = array("status" => false, "msg" => 'Servicio no existente.');
 					}
 				}else{
 					$arrResponse = array("status" => false, "msg" => 'Dato incorrecto.');
 				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 			}
 			die();
 		}
-
+		
 		public function delCarrito(){
 			if($_POST){
 				$arrCarrito = array();
@@ -221,25 +288,28 @@
 		public function registro(){
 			error_reporting(0);
 			if($_POST){
-				if(empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmailCliente']))
+				if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmailCliente'])|| empty($_POST['txtpasscliente']))
 				{
 					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
 				}else{ 
+					$stridentificacion = ucwords(strClean($_POST['txtIdentificacion']));
 					$strNombre = ucwords(strClean($_POST['txtNombre']));
 					$strApellido = ucwords(strClean($_POST['txtApellido']));
 					$intTelefono = intval(strClean($_POST['txtTelefono']));
 					$strEmail = strtolower(strClean($_POST['txtEmailCliente']));
+					$strPassword = ucwords(strClean($_POST['txtpasscliente']));
 					$intTipoId = RCLIENTES; 
 					$request_user = "";
 					
-					$strPassword =  passGenerator();
 					$strPasswordEncript = hash("SHA256",$strPassword);
-					$request_user = $this->insertCliente($strNombre, 
-														$strApellido, 
-														$intTelefono, 
+
+					$request_user = $this->insertCliente($stridentificacion,
+														$strNombre,
+														$strApellido,
+														$intTelefono,
 														$strEmail,
 														$strPasswordEncript,
-														$intTipoId );
+														$intTipoId);
 					if($request_user > 0 )
 					{
 						$arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
@@ -247,7 +317,7 @@
 						$dataUsuario = array('nombreUsuario' => $nombreUsuario,
 											 'email' => $strEmail,
 											 'password' => $strPassword,
-											 'asunto' => 'Bienvenido a tu tienda en línea');
+											 'asunto' => 'Bienvenido y "VIVE TU AVENTURA" con nosotros en lunahuana city');
 						$_SESSION['idUser'] = $request_user;
 						$_SESSION['login'] = true;
 						$this->login->sessionLogin($request_user);
