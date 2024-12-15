@@ -136,7 +136,6 @@
 			$intIdservicio = intval($idservicio);
 				if($intIdservicio > 0)
 				{
-					
 				$arrData = $this->model->selectServicio($intIdservicio);
 					if(empty($arrData))
 					{
