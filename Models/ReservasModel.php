@@ -54,11 +54,14 @@ class ReservasModel extends Mysql
         return $return;
 	}
 
-	public function selectClientes()
+	public function selectReservas()
 	{
-		$sql = "SELECT idpersona,identificacion,nombres,apellidos,telefono,email_user,status 
-				FROM persona 
-				WHERE rolid = ".RCLIENTES." and status != 0 "; 
+		$sql = "SELECT r.idreserva, r.cod_reserva, r.fecha_pago, r.total, r.status, 
+                   CONCAT(p.nombres,' ',p.apellidos) AS persona, tp.tipopago 
+            FROM reserva r
+            INNER JOIN persona p ON r.idpersona = p.idpersona
+            INNER JOIN tipopago tp ON r.idtipopago = tp.idtipopago
+            WHERE r.status != 0"; 
 		$request = $this->select_all($sql);
 		return $request;
 	}

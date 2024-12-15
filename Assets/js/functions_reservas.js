@@ -10,16 +10,15 @@ document.addEventListener('DOMContentLoaded', function(){
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Clientes/getClientes",
+            "url": " "+base_url+"/Reservas/getReservas",
             "dataSrc":""
         },
         "columns":[
-            {"data":"idpersona"},
-            {"data":"identificacion"},
-            {"data":"nombres"},
-            {"data":"apellidos"},
-            {"data":"email_user"},
-            {"data":"telefono"},
+            {"data":"idreserva"},
+            {"data":"cod_reserva"},
+            {"data":"persona"},
+            {"data":"fecha_pago"},
+            {"data":"status"},
             {"data":"options"}
         ],
         'dom': 'lBfrtip',
@@ -30,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 "titleAttr":"Copiar",
                 "className": "btn btn-secondary",
                 "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
             },{
                 "extend": "excelHtml5",
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 "titleAttr":"Exportar a Excel",
                 "className": "btn btn-success",
                 "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
             },{
                 "extend": "pdfHtml5",
@@ -46,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 "titleAttr":"Exportar a PDF",
                 "className": "btn btn-danger",
                 "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
             },{
                 "extend": "csvHtml5",
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 "titleAttr":"Exportar a CSV",
                 "className": "btn btn-info d-none",
                 "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4, 5] 
+                "columns": [ 0, 1, 2, 3, 4] 
             }
             }
         ],
