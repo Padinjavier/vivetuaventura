@@ -132,30 +132,86 @@ document.addEventListener('DOMContentLoaded', function(){
 }, false);
 
 
-function fntViewInfo(idpersona){
+function fntViewReserva(idreserva) {
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
-    request.open("GET",ajaxUrl,true);
+    let ajaxUrl = base_url + '/Reservas/getReserva/' + idreserva;
+    request.open("GET", ajaxUrl, true);
     request.send();
-    request.onreadystatechange = function(){
-        if(request.readyState == 4 && request.status == 200){
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            console.log(request.responseText);
             let objData = JSON.parse(request.responseText);
-            if(objData.status)
-            {
-                document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
-                document.querySelector("#celNombre").innerHTML = objData.data.nombres;
-                document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
-                document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
-                document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celIde").innerHTML = objData.data.hotel;
-                document.querySelector("#celFechaRegistro").innerHTML = objData.data.datecreated; 
-                $('#modalViewCliente').modal('show');
-            }else{
-                swal("Error", objData.msg , "error");
+            if (objData.status) {
+                // Formatear fecha
+                let fechaISO = objData.data.reserva.fecha_pago;
+                let fechaFormateada = moment(fechaISO).format('YYYY/MM/DD | hh:mm:ss A');
+
+                // Generar texto con los servicios reservados
+                let textoServicios = "<table class='table' style='padding: 0; font-size: 11px;'><thead><tr style='padding: 0;'><th style='padding: 0; text-align: center;'>Deporte</th><th style='padding: 0; text-align: center;'>Cantidad</th><th style='padding: 0; text-align: center;'>Precio Unitario</th><th style='padding: 0; text-align: center;'>Subtotal</th></tr></thead><tbody>";
+                objData.data.detalle_reserva.forEach(servicio => {
+                    let subtotal = parseFloat(servicio.precio) * parseInt(servicio.cantidad);
+                    textoServicios += `<tr style='padding: 0;'>
+                        <td style='padding: 0; text-align: center;'>${String(servicio.servicio)}</td>
+                        <td style='padding: 0; text-align: center;'>${String(servicio.cantidad)}</td>
+                        <td style='padding: 0; text-align: center;'>S/. ${parseFloat(servicio.precio).toFixed(2)}</td>
+                        <td style='padding: 0; text-align: center;'>S/. ${subtotal.toFixed(2)}</td>
+                    </tr>`;
+                });
+                let total = objData.data.reserva.total;
+                textoServicios += `</tbody><tfoot><tr style='padding: 0;'><td colspan="3" style='padding: 0; text-align: center;'><strong>TOTAL</strong></td><td style='padding: 0; text-align: center;'><strong>S/. ${total}</strong></td></tr></tfoot></table>`;
+
+                // Generar estado de pago con estilos dinámicos
+                let estadoPago = "";
+                switch (parseInt(objData.data.reserva.status)) {
+                    case 2:
+                        estadoPago = '<span style="background-color: green; color: white; border-radius: 5px; padding: 5px;">Pago / Aprobado</span>';
+                        break;
+                    case 1:
+                        estadoPago = '<span style="background-color: yellow; color: black; border-radius: 5px; padding: 5px;">Pago / Por Aprobar</span>';
+                        break;
+                    case 3:
+                        estadoPago = '<span style="background-color: red; color: white; border-radius: 5px; padding: 5px;">Pago / Erróneo</span>';
+                        break;
+                    default:
+                        estadoPago = '<span>No definido</span>';
+                }
+
+                // Asignar valores a los elementos del modal
+                document.querySelector("#codreserva").innerHTML = objData.data.reserva.cod_reserva;
+                document.querySelector("#clienNombre").innerHTML = objData.data.reserva.nombres;
+                document.querySelector("#clienApellido").innerHTML = objData.data.reserva.apellidos;
+                document.querySelector("#clienApellido").innerHTML = objData.data.reserva.telefono;
+                document.querySelector("#modopago").innerHTML = objData.data.reserva.tipopago;
+                document.querySelector("#cod_voucher").innerHTML = objData.data.reserva.codigo_voucher;
+                document.querySelector("#stadopago").innerHTML = estadoPago;
+                document.querySelector("#FechaRegistro").innerHTML = fechaFormateada ;
+                document.querySelector("#archivopago").innerHTML = '<div class="img-thumbnail" style="position: relative; display: inline-block;">' +
+                  '<img src="'+objData.data.reserva.captura_voucher+'" id="imgVoucher" style="width: 100px;" alt="Voucher">' +
+                  '<span class="eye-icon" style="position: absolute; top: 0; right: 0; font-size: 20px; cursor: pointer;" onclick="expandImage()">👁️</span>' +
+                  '</div>';
+                document.querySelector("#datalleservicios").innerHTML = textoServicios;
+
+                // Mostrar el modal
+                $('#modalViewReserva').modal('show');
+            } else {
+                swal("Error", objData.msg, "error");
             }
         }
-    }
+    };
 }
+
+// Función para expandir la imagen
+function expandImage() {
+    var imgSrc = document.getElementById("imgVoucher").src;
+    document.getElementById("imgExpanded").style.display = "flex";
+    document.getElementById("imgExpanded").querySelector("img").src = imgSrc;
+}
+
+// Función para cerrar la imagen expandida
+function closeExpandedImage() {
+    document.getElementById("expandedImage").style.display = "none";
+}
+
 
 function fntEditInfo(element, idpersona){
     rowTable = element.parentNode.parentNode.parentNode;

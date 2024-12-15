@@ -1,6 +1,6 @@
 <?php 
     headerAdmin($data); 
-    getModal('modalClientes',$data);
+    getModal('modalReservas',$data);
 ?>
   <main class="app-content">    
       <div class="app-title">

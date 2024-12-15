@@ -52,7 +52,7 @@ class Reservas extends Controllers{
 
 
 				if($_SESSION['permisosMod']['r']){
-					$btnView = '<button class="btn btn-info btn-sm btnView btnViewInfo" onClick="fntViewInfo('.$arrData[$i]['idreserva'].')" title="Ver cliente"><i class="far fa-eye"></i></button>';
+					$btnView = '<button class="btn btn-info btn-sm btnView btnViewInfo" onClick="fntViewReserva('.$arrData[$i]['idreserva'].')" title="Ver cliente"><i class="far fa-eye"></i></button>';
 				}
 				if($_SESSION['permisosMod']['u']){
 					$btnEdit = '<button class="btn btn-primary  btn-sm btnEdit btnEditInfo" onClick="fntEditInfo(this,'.$arrData[$i]['idreserva'].')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
@@ -66,6 +66,26 @@ class Reservas extends Controllers{
 		}
 		die();
 	}
+	public function getReserva(int $idreserva)
+{
+    if ($_SESSION['permisosMod']['r']) {
+        $idreserva = intval($idreserva);
+        if ($idreserva > 0) {
+            $arrData = $this->model->getReservaConDetalle($idreserva);
+            if (empty($arrData)) {
+                $arrResponse = array("status" => false, "msg" => "Datos no disponibles.");
+            } else {
+                // Acceder correctamente al campo captura_voucher dentro de 'reserva'
+                $arrData['reserva']['captura_voucher'] = media().'/tienda/images/reservas/'.$arrData['reserva']['captura_voucher'];
+                
+                // Respuesta exitosa
+                $arrResponse = array('status' => true, 'data' => $arrData);
+            }
+            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        }
+    }
+    die();
+}
 
 	public function getCliente($idpersona){
 		if($_SESSION['permisosMod']['r']){

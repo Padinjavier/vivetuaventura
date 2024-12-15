@@ -65,6 +65,47 @@ class ReservasModel extends Mysql
 		$request = $this->select_all($sql);
 		return $request;
 	}
+    public function getReservaConDetalle(int $idreserva) {
+		$request = array();
+		// Consulta para obtener los datos de la reserva
+		$sqlReserva = "SELECT r.idreserva,
+							  r.cod_reserva, 
+							  r.fecha_pago,
+							  r.codigo_voucher, 
+							  r.total,
+							  r.captura_voucher,
+							  r.status, 
+							  p.nombres,
+							  p.apellidos,
+							  p.telefono,
+							  tp.tipopago
+					   FROM reserva r
+					   INNER JOIN persona p ON r.idpersona = p.idpersona
+					   INNER JOIN tipopago tp ON r.idtipopago = tp.idtipopago
+					   WHERE r.status != 0 AND r.idreserva = $idreserva";
+		$requestReserva = $this->select($sqlReserva);
+		if (!empty($requestReserva)) {
+			// Si se encuentra la reserva, obtener los detalles
+			$cod_reserva = $requestReserva['cod_reserva'];
+			$sqlDetalle = "SELECT dr.iddetalle, 
+								  dr.cod_reserva, 
+								  dr.idservicio, 
+								  dr.precio, 
+								  dr.cantidad, 
+								  s.nombre AS servicio
+						   FROM detalle_reserva dr
+						   INNER JOIN servicio s ON dr.idservicio = s.idservicio
+						   WHERE dr.cod_reserva = '$cod_reserva'";
+			$requestDetalle = $this->select_all($sqlDetalle);
+			// Combinar los resultados en un solo array
+			$request = array(
+				'reserva' => $requestReserva,
+				'detalle_reserva' => $requestDetalle
+			);
+		}
+
+		return $request;
+	}
 
 	public function selectCliente(int $idpersona){
 		$this->intIdUsuario = $idpersona;

@@ -93,31 +93,43 @@
           <tbody>
             <tr>
               <td>Identificación:</td>
-              <td id="celIdentificacion">654654654</td>
+              <td id="codreserva">654654654</td>
             </tr>
             <tr>
               <td>Nombres:</td>
-              <td id="celNombre">Jacob</td>
+              <td id="clienNombre">Jacob</td>
             </tr>
             <tr>
               <td>Apellidos:</td>
-              <td id="celApellido">Jacob</td>
+              <td id="clienApellido">Jacob</td>
             </tr>
             <tr>
               <td>Teléfono:</td>
-              <td id="celTelefono">Larry</td>
+              <td id="clienApellido">Larry</td>
             </tr>
             <tr>
               <td>Correo:</td>
-              <td id="celEmail">Larry</td>
+              <td id="modopago">Larry</td>
             </tr>
             <tr>
               <td>Hotel:</td>
-              <td id="celIde">Larry</td>
+              <td id="cod_voucher">Larry</td>
             </tr>
             <tr>
               <td>Fecha registro:</td>
-              <td id="celFechaRegistro">Larry</td>
+              <td id="stadopago">Larry</td>
+            </tr>
+            <tr>
+              <td>Fecha registro:</td>
+              <td id="FechaRegistro">Larry</td>
+            </tr>
+            <tr>
+              <td>Fecha registro:</td>
+              <td id="archivopago">Larry</td>
+            </tr>
+            <tr>
+              <td>Fecha registro:</td>
+              <td id="datalleservicios">Larry</td>
             </tr>
           </tbody>
         </table>
