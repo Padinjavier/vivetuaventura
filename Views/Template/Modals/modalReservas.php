@@ -91,14 +91,10 @@
                                   <td></td>
                                   <td></td>
                                   <td style="text-align: start;">
-                                      <span>Sub.Total:</span><br>
-                                      <span>Descuento.Total:</span><br>
                                       <span>Total:</span><br>
                                   </td>
                                   <td></td>
                                   <td>
-                                      <span>S/ <span id="gran_sub_total">00.00</span></span><br>
-                                      <span>S/ <span id="gran_descuento">00.00</span></span><br>
                                       <span>S/ <span id="gran_total">00.00</span></span><br>
                                   </td>
                               </tr>

@@ -253,9 +253,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="number" class="form-control precio" value="0.00" min="0">
             </td>
             <td>
-                <input type="number" class="form-control descuento" value="0.00" min="0">
-            </td>
-            <td>
                 <input type="number" class="form-control precio_total" value="0.00" min="0" readonly>
             </td>
             <td>
@@ -286,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectElement = row.querySelector(".servicio-select");
         const cantidadInput = row.querySelector(".cantidad");
         const precioInput = row.querySelector(".precio");
-        const descuentoInput = row.querySelector(".descuento");
+        // const descuentoInpust = row.querySelector(".descuento");
   
         selectElement.addEventListener("change", function () {
             cal_precio_db(row);
@@ -304,19 +301,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sumarPreciosTotales();
         });
         
-        descuentoInput.addEventListener("input", function () {
-              const precio = parseFloat(precioInput.value) || 0;
-              let descuento = parseFloat(descuentoInput.value) || 0;
-  
-              if (descuento > precio) {
-                  descuento = precio;
-                  descuentoInput.value = descuento.toFixed(2);
-                  alert("El descuento no puede ser mayor que el precio.");
-              }
-  
-            calculateRow(row);
-            sumarPreciosTotales();
-        });
+
   
         calculateRow(row);
     }
@@ -457,9 +442,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('#txtEstadoPago').selectpicker('refresh');
                 document.querySelector("#imagenvoucher").value = objData.data.reserva.captura_voucher;
 
-                // document.querySelector("#listClienteid").value = objData.data.reserva.dni_cliente;
-                // $('#listClienteid').selectpicker('refresh');
-        
                 let cantidadDatos = objData.data.detalle_reserva.length;
                 // Hacer clic en el botón para agregar nuevos grupos
                 for (let i = 0; i < cantidadDatos; i++) {
@@ -499,12 +481,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (precioInput) {
                 precioInput.value = datosLote.precio;
               }
-            let descuentoInput = grupoActual.querySelector(".descuento");
-            if (descuentoInput) {
-              descuentoInput.value = datosLote.descuento;
-              }
-
-              // Llamar a las funciones necesarias para calcular y sumar precios
               cal_precio_db(grupoActual);
               calculateRow(grupoActual);
           }
