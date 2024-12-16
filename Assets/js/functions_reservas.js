@@ -216,136 +216,195 @@ function openModal()
 
 
 
-// ------------Servicios--------------
+// // // ---------------Servicios----------
 document.addEventListener("DOMContentLoaded", function () {
     const tblDetalleVenta = document.getElementById("tblDetalleVenta");
     const btnAgregarProducto = document.getElementById("btnAgregarProducto");
   
-    // Cargar datos iniciales de la reserva
-    function loadReservaData(idReserva) {
-      let ajaxUrl = base_url + "/Servicios/getReserva/" + idReserva;
-      let request = new XMLHttpRequest();
-      request.open("GET", ajaxUrl, true);
-      request.send();
-      request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-          let response = JSON.parse(request.responseText);
-          if (response.status) {
-            fillFormInputs(response.data.reserva);
-            fillTableDetails(response.data.detalle);
-          } else {
-            alert(response.msg);
-          }
-        }
-      };
+    function loadInitialSelectOptions() {
+        let ajaxUrl = base_url + "/Servicios/getSelectServicios";
+        let request = new XMLHttpRequest();
+        request.open("GET", ajaxUrl, true);
+        request.send();
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                let response = JSON.parse(request.responseText);
+                addNewProductoRow(response);
+            }
+        };
     }
   
-    // Completar los datos de los inputs
-    function fillFormInputs(reserva) {
-      document.getElementById("txtIdentificacion").value = reserva.codigo_reserva;
-      document.getElementById("txtNombre").value = reserva.nombres;
-      document.getElementById("txtApellido").value = reserva.apellidos;
-      document.getElementById("txtTelefono").value = reserva.telefono;
-      document.getElementById("txtModalidadPago").value = reserva.modalidad_pago;
-      document.getElementById("txtCodigoVoucher").value = reserva.codigo_voucher;
-      document.getElementById("txtEstadoPago").value = reserva.estado_pago;
-      document.getElementById("imagenvoucher").value = reserva.captura_voucher;
-    }
-  
-    // Completar los detalles en la tabla
-    function fillTableDetails(detalle) {
-      detalle.forEach((item, index) => {
+    function addNewProductoRow(response) {
         let newRow = document.createElement("tr");
         newRow.classList.add("detalle-venta-row");
         newRow.innerHTML = `
-          <td style="text-align: center;">
-            <span class="row-number">${index + 1}</span>
-          </td>
-          <td>
-            <select class="form-control selectpicker servicio-select" name="selectServicio" required data-live-search="true">
-              <option value="${item.id_servicio}" selected>${item.nombre_servicio}</option>
-            </select>
-          </td>
-          <td>
-            <input type="number" class="form-control cantidad" value="${item.cantidad}" min="0">
-          </td>
-          <td>
-            <input type="number" class="form-control precio_total" value="${item.total}" min="0" readonly>
-          </td>
-          <td>
-            <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
-          </td>
-          <td>
-            <input type="hidden" class="form-control precio_db" value="${item.precio_unitario}" readonly>
-          </td>
+            <td style="text-align: center;">
+                <span class="row-number"></span>
+            </td>
+            <td>
+                <select class="form-control selectpicker servicio-select" name="selectServicio" id="listservicios" required data-live-search="true">
+                    ${response[0]}
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control cantidad" value="0.00" min="0">
+            </td>
+            <td>
+                <input type="number" class="form-control precio" value="0.00" min="0">
+            </td>
+            <td>
+                <input type="number" class="form-control descuento" value="0.00" min="0">
+            </td>
+            <td>
+                <input type="number" class="form-control precio_total" value="0.00" min="0" readonly>
+            </td>
+            <td>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
+                </div>
+            </td>
+            <td>
+                <input type="hidden" class="form-control precio_db" readonly>
+            </td>
         `;
-        tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild);
+        tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila
   
-        $(newRow).find(".selectpicker").selectpicker("render");
+        $(newRow).find('.selectpicker').selectpicker('render');
+  
         addEventListenersToRow(newRow);
   
         newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
-          newRow.remove();
-          updateRowNumbers();
-          sumarPreciosTotales();
+            newRow.remove();
+            updateRowNumbers();
+            sumarPreciosTotales();
         });
-      });
-      sumarPreciosTotales();
+  
+        updateRowNumbers();
     }
   
     function addEventListenersToRow(row) {
-      const cantidadInput = row.querySelector(".cantidad");
+        const selectElement = row.querySelector(".servicio-select");
+        const cantidadInput = row.querySelector(".cantidad");
+        const precioInput = row.querySelector(".precio");
+        const descuentoInput = row.querySelector(".descuento");
   
-      cantidadInput.addEventListener("input", function () {
+        selectElement.addEventListener("change", function () {
+            cal_precio_db(row);
+            calculateRow(row);
+            sumarPreciosTotales();
+        });
+  
+        cantidadInput.addEventListener("input", function () {
+            calculateRow(row);
+            sumarPreciosTotales();
+        });
+  
+        precioInput.addEventListener("input", function () {
+            calculateRow(row);
+            sumarPreciosTotales();
+        });
+        
+        descuentoInput.addEventListener("input", function () {
+              const precio = parseFloat(precioInput.value) || 0;
+              let descuento = parseFloat(descuentoInput.value) || 0;
+  
+              if (descuento > precio) {
+                  descuento = precio;
+                  descuentoInput.value = descuento.toFixed(2);
+                  alert("El descuento no puede ser mayor que el precio.");
+              }
+  
+            calculateRow(row);
+            sumarPreciosTotales();
+        });
+  
         calculateRow(row);
-        sumarPreciosTotales();
-      });
-  
-      calculateRow(row);
     }
   
     function updateRowNumbers() {
-      let rows = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
-      for (let i = 0; i < rows.length; i++) {
-        let rowNumberElement = rows[i].querySelector(".row-number");
-        rowNumberElement.innerText = i + 1;
-      }
+        let rows = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
+        for (let i = 0; i < rows.length; i++) {
+            let rowNumberElement = rows[i].querySelector(".row-number");
+            rowNumberElement.innerText = i + 1;
+        }
     }
-  
-    function calculateRow(row) {
-      const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
-      const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
-      const total = cantidad * precioDb;
-  
-      row.querySelector(".precio_total").value = total.toFixed(2);
-    }
-  
-    function sumarPreciosTotales() {
-      let subtotal = 0;
-      let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
-  
-      for (let i = 0; i < filas.length; i++) {
-        let fila = filas[i];
-        let precioTotalElement = fila.querySelector(".precio_total");
-        let precioTotal = parseFloat(precioTotalElement.value) || 0;
-        subtotal += precioTotal;
-      }
-  
-      document.getElementById("gran_total").innerText = subtotal.toFixed(2);
-    }
-  
-    // Cargar datos al abrir la página
-    const idReserva = 1; // Reemplazar con el ID dinámico de la reserva
-    loadReservaData(idReserva);
   
     btnAgregarProducto.addEventListener("click", function () {
-      loadReservaData(idReserva); // Agregar productos basados en los datos iniciales
+        loadInitialSelectOptions();
     });
   
-    
-  
+    loadInitialSelectOptions(); // Cargar opciones iniciales al abrir el modal
   });
-  // Fin servicios
+  // fin servicio 
+  
+  // funciones publicas
+  function cal_precio_db(row) {
+    var buttonElement = row.querySelector('.precio').value;
+    row.querySelector(".precio_db").value = buttonElement;
+  }
+  
+  // calcula el precio total por fila 
+  function calculateRow(row) {
+    cal_precio_db(row);
+    const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
+    const precio = parseFloat(row.querySelector(".precio").value) || 0;
+    const descuento = parseFloat(row.querySelector(".descuento").value) || 0;
+    const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
+  
+  cant_precio= cantidad*precio;
+  cant_descuento = cantidad * descuento;
+  total= cant_precio -cant_descuento;
+    if((total)<0){
+      row.querySelector(".precio_total").value = precioTotal.toFixed(2);
+  
+  }else{
+      row.querySelector(".precio_total").value = total.toFixed(2);
+  }
+  }
+  
+  // calcula precios totales del sub total descuento total total 
+  function sumarPreciosTotales() {
+    let subtotal = 0;
+    let totalDescuento = 0;
+    let subtotalreal = 0;
+    let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
+  
+    for (let i = 0; i < filas.length; i++) {
+        let fila = filas[i];
+        // Obtener la cantidad y el precio base
+        let cantidad = parseFloat(fila.querySelector(".cantidad").value) || 0;
+        let precioDB = parseFloat(fila.querySelector(".precio_db").value) || 0;
+  
+        // Calcular el subtotal real del lote actual
+        let subtotalLote = cantidad * precioDB;
+        subtotalreal += subtotalLote;
+  
+        // Sumar precios totales
+        let precioTotalElement = fila.querySelector(".precio_total");
+        let precioTotal = 0;
+        if (precioTotalElement) {
+            precioTotal = parseFloat(precioTotalElement.value) || 0;
+        }
+        subtotal += precioTotal;
+  
+        // Sumar descuentos
+        let descuentoElement = fila.querySelector(".descuento");
+        let descuento = 0;
+        if (descuentoElement) {
+            descuento = parseFloat(descuentoElement.value) || 0;
+        }
+        totalDescuento += descuento;
+    }
+  
+    // Actualizar el total
+    document.getElementById("gran_sub_total").innerText = subtotalreal.toFixed(2);
+    document.getElementById("gran_descuento").innerText = totalDescuento.toFixed(2);
+    document.getElementById("gran_total").innerText = subtotal.toFixed(2);
+  }
+  
+  // fin funciones publicas 
+  
+  
 
   // ------editar venta-----------
   function fntEditInfo(element, idreserva) {
@@ -384,7 +443,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (objData.status) {
 
-
+                console.log(objData.data)
+                console.log(objData.data.detalle_reserva.length)
         
                 document.querySelector("#idVenta").value = objData.data.reserva.idreserva;
                 document.querySelector("#txtcodigoreserva").value = objData.data.reserva.cod_reserva;
@@ -400,28 +460,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 // document.querySelector("#listClienteid").value = objData.data.reserva.dni_cliente;
                 // $('#listClienteid').selectpicker('refresh');
         
-                // let cantidadDatos = objData.data.detalle_venta.length;
-                // // Hacer clic en el botón para agregar nuevos grupos
-                // for (let i = 0; i < cantidadDatos; i++) {
-                //     btnAgregarProducto.click();
-                // }
+                let cantidadDatos = objData.data.detalle_reserva.length;
+                // Hacer clic en el botón para agregar nuevos grupos
+                for (let i = 0; i < cantidadDatos; i++) {
+                    btnAgregarProducto.click();
+                }
                 $('#modalFormCliente').modal('show');
                 // Ejecutar la asignación de datos después de un retraso
-                // setTimeout(function() {
-                //     asignarDatos(objData.data.detalle_venta);
-                // }, 2000); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
+                setTimeout(function() {
+                    asignarDatos(objData.data.detalle_reserva);
+                }, 2000); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
             }
         }
     }
   }
 
-  function asignarDatos(detalleVenta) {
-    let cantidadDatos = detalleVenta.length;
+  function asignarDatos(detallereserva) {
+    let cantidadDatos = detallereserva.length;
     // Asignar los datos a los grupos respectivos
     let grupos = document.querySelectorAll(".detalle-venta-row");
 
     for (let i = 0; i < cantidadDatos; i++) {
-        let datosLote = detalleVenta[i];
+        let datosLote = detallereserva[i];
         let grupoActual = grupos[i];
         if (grupoActual) {
             let servicioSelect = grupoActual.querySelector("#listservicios");
