@@ -238,24 +238,24 @@ document.addEventListener("DOMContentLoaded", function () {
         let newRow = document.createElement("tr");
         newRow.classList.add("detalle-venta-row");
         newRow.innerHTML = `
-            <td style="text-align: center;">
+            <td style="text-align: center;" data="#">
                 <span class="row-number"></span>
             </td>
-            <td>
+            <td data="tipodedeporte">
                 <select class="form-control selectpicker servicio-select" name="selectServicio" id="listservicios" required data-live-search="true">
                     ${response[0]}
                 </select>
             </td>
-            <td>
+            <td data="cantidad">
                 <input type="number" class="form-control cantidad" value="0.00" min="0">
             </td>
-            <td>
+            <td data="precio">
                 <input type="number" class="form-control precio" value="0.00" min="0">
             </td>
-            <td class="d-none">
-                <input type="number" class="form-control sub_total d-none" value="0.00" min="0">
+            <td class="" data="TOTAL">
+                <input type="number" class="form-control sub_total" value="0.00" min="0">
             </td>
-            <td>
+            <td data="botonx">
                 <div class="col-auto">
                     <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
                 </div>
@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (let i = 0; i < filas.length; i++) {
         let fila = filas[i];
-        let precioTotalElement = fila.querySelector(".gran_total");
+        let precioTotalElement = fila.querySelector(".sub_total");
         let precioTotal = 0;
         if (precioTotalElement) {
             precioTotal = parseFloat(precioTotalElement.value) || 0;
@@ -457,4 +457,7 @@ function asignarDatos(detallereserva) {
 
   // ------fin editar venta-----------
   // ------fin editar venta-----------
+  
+
+
   
