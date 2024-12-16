@@ -79,7 +79,7 @@
 </div>
 
 <!-- Modal view -->
-<div class="modal fade" id="modalViewCliente" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalViewReserva" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header header-primary">
@@ -92,7 +92,7 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>Identificación:</td>
+              <td>Código de reserva:</td>
               <td id="codreserva">654654654</td>
             </tr>
             <tr>
@@ -104,19 +104,19 @@
               <td id="clienApellido">Jacob</td>
             </tr>
             <tr>
-              <td>Teléfono:</td>
+              <td>N° de celular:</td>
               <td id="clienApellido">Larry</td>
             </tr>
             <tr>
-              <td>Correo:</td>
+              <td>Modalidad de pago:</td>
               <td id="modopago">Larry</td>
             </tr>
             <tr>
-              <td>Hotel:</td>
+              <td>Código de voucher:</td>
               <td id="cod_voucher">Larry</td>
             </tr>
             <tr>
-              <td>Fecha registro:</td>
+              <td>Estado de pago:</td>
               <td id="stadopago">Larry</td>
             </tr>
             <tr>
@@ -124,11 +124,23 @@
               <td id="FechaRegistro">Larry</td>
             </tr>
             <tr>
-              <td>Fecha registro:</td>
-              <td id="archivopago">Larry</td>
+              <td>Archivo adjuntado:</td>
+              <td id="archivopago">
+                <div class="img-thumbnail" style="position: relative; display: inline-block;">
+                    <img src="" id="imgVoucher" style="width: 100px;" alt="Voucher">
+                    <span class="eye-icon" 
+                      style="position: absolute; top: 0; right: 0; font-size: 20px; cursor: pointer;
+                       border-radius: 100px; background:rgb(243, 113, 1); width: 30px; height: 30px;
+                       display: flex; justify-content: center; align-items: center; color:#ffff" 
+                      onclick="expandImage()">
+                        <i class='far fa-eye'></i>
+                        <i class='bi bi-x-lg d-none'></i>
+                    </span>
+                </div>
+              </td>
             </tr>
             <tr>
-              <td>Fecha registro:</td>
+              <td>Detalle de pago:</td>
               <td id="datalleservicios">Larry</td>
             </tr>
           </tbody>

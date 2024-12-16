@@ -100,7 +100,7 @@ $infoTerminos = !empty(getInfoPage(PTERMINOS)) ? getInfoPage(PTERMINOS)['conteni
 										<!-- Columna 1: Fecha de pago -->
 										<div class="col-md-6 mb-3">
 											<label for="fechaPago">Fecha de pago</label>
-											<input type="date" class="form-control" id="fechaPago" name="fechaPago">
+											<input type="datetime-local" class="form-control" id="fechaPago" name="fechaPago">
 										</div>
 
 										<!-- Columna 2 y 3: Código de voucher -->

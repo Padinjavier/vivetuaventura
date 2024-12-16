@@ -133,6 +133,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 function fntViewReserva(idreserva) {
+    // Restablecer la imagen a su estado inicial
+    expandImage(true);
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url + '/Reservas/getReserva/' + idreserva;
     request.open("GET", ajaxUrl, true);
@@ -175,7 +177,6 @@ function fntViewReserva(idreserva) {
                     default:
                         estadoPago = '<span>No definido</span>';
                 }
-
                 // Asignar valores a los elementos del modal
                 document.querySelector("#codreserva").innerHTML = objData.data.reserva.cod_reserva;
                 document.querySelector("#clienNombre").innerHTML = objData.data.reserva.nombres;
@@ -185,12 +186,8 @@ function fntViewReserva(idreserva) {
                 document.querySelector("#cod_voucher").innerHTML = objData.data.reserva.codigo_voucher;
                 document.querySelector("#stadopago").innerHTML = estadoPago;
                 document.querySelector("#FechaRegistro").innerHTML = fechaFormateada ;
-                document.querySelector("#archivopago").innerHTML = '<div class="img-thumbnail" style="position: relative; display: inline-block;">' +
-                  '<img src="'+objData.data.reserva.captura_voucher+'" id="imgVoucher" style="width: 100px;" alt="Voucher">' +
-                  '<span class="eye-icon" style="position: absolute; top: 0; right: 0; font-size: 20px; cursor: pointer;" onclick="expandImage()">👁️</span>' +
-                  '</div>';
+                document.querySelector("#imgVoucher").src = objData.data.reserva.captura_voucher;
                 document.querySelector("#datalleservicios").innerHTML = textoServicios;
-
                 // Mostrar el modal
                 $('#modalViewReserva').modal('show');
             } else {
@@ -200,16 +197,33 @@ function fntViewReserva(idreserva) {
     };
 }
 
-// Función para expandir la imagen
-function expandImage() {
-    var imgSrc = document.getElementById("imgVoucher").src;
-    document.getElementById("imgExpanded").style.display = "flex";
-    document.getElementById("imgExpanded").querySelector("img").src = imgSrc;
-}
+function expandImage(reset = false) {
+    var divimagen = document.querySelector(".img-thumbnail");
+    var imagen = document.querySelector("#imgVoucher");
+    var ver = document.querySelector(".far.fa-eye");
+    var cerrar = document.querySelector(".bi.bi-x-lg");
+    if (reset) {
+        divimagen.style.cssText = "position: relative;  width: 110px;";
+        imagen.style.cssText = "width: 100px;";
+        ver.classList.remove("d-none");
+        cerrar.classList.add("d-none");
+        console.log("Imagen restablecida");
+        return;
+    }
 
-// Función para cerrar la imagen expandida
-function closeExpandedImage() {
-    document.getElementById("expandedImage").style.display = "none";
+    if (cerrar.classList.contains("d-none")) {
+        divimagen.style.cssText = "position: absolute; display: inline-block; width: 100%; height: 100%; top: 0; bottom: 0; right: 0; left: 0;";
+        imagen.style.cssText = "width: 100%;";
+        console.log("Imagen expandida");
+        ver.classList.toggle("d-none");
+        cerrar.classList.toggle("d-none");
+    } else {
+        divimagen.style.cssText = "position: relative; width: 110px;";
+        imagen.style.cssText = "width: 100px;";
+        console.log("Imagen contraída");
+        ver.classList.toggle("d-none");
+        cerrar.classList.toggle("d-none");
+    }
 }
 
 
