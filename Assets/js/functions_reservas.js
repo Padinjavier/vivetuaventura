@@ -252,33 +252,30 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>
                 <input type="number" class="form-control precio" value="0.00" min="0">
             </td>
-            <td>
-                <input type="number" class="form-control precio_total" value="0.00" min="0" readonly>
+            <td class="d-none">
+                <input type="number" class="form-control sub_total d-none" value="0.00" min="0">
             </td>
             <td>
                 <div class="col-auto">
                     <button type="button" class="btn btn-danger btn-remove-select btn-sm">X</button>
                 </div>
             </td>
-            <td>
-                <input type="hidden" class="form-control precio_db" readonly>
-            </td>
         `;
         tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila
-  
+    
         $(newRow).find('.selectpicker').selectpicker('render');
-  
+    
         addEventListenersToRow(newRow);
-  
+    
         newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
             newRow.remove();
             updateRowNumbers();
             sumarPreciosTotales();
         });
-  
+    
         updateRowNumbers();
     }
-  
+    
     function addEventListenersToRow(row) {
         const selectElement = row.querySelector(".servicio-select");
         const cantidadInput = row.querySelector(".cantidad");
@@ -286,7 +283,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // const descuentoInpust = row.querySelector(".descuento");
   
         selectElement.addEventListener("change", function () {
-            cal_precio_db(row);
             calculateRow(row);
             sumarPreciosTotales();
         });
@@ -323,69 +319,37 @@ document.addEventListener("DOMContentLoaded", function () {
   // fin servicio 
   
   // funciones publicas
-  function cal_precio_db(row) {
-    var buttonElement = row.querySelector('.precio').value;
-    row.querySelector(".precio_db").value = buttonElement;
-  }
+
   
   // calcula el precio total por fila 
   function calculateRow(row) {
-    cal_precio_db(row);
     const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
     const precio = parseFloat(row.querySelector(".precio").value) || 0;
-    const descuento = parseFloat(row.querySelector(".descuento").value) || 0;
-    const precioDb = parseFloat(row.querySelector(".precio_db").value) || 0;
-  
-  cant_precio= cantidad*precio;
-  cant_descuento = cantidad * descuento;
-  total= cant_precio -cant_descuento;
-    if((total)<0){
-      row.querySelector(".precio_total").value = precioTotal.toFixed(2);
-  
-  }else{
-      row.querySelector(".precio_total").value = total.toFixed(2);
-  }
-  }
+
+    const total = cantidad * precio;
+    document.querySelector(".sub_total").value = total.toFixed(2);
+}
+
   
   // calcula precios totales del sub total descuento total total 
   function sumarPreciosTotales() {
     let subtotal = 0;
-    let totalDescuento = 0;
-    let subtotalreal = 0;
     let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
-  
+
     for (let i = 0; i < filas.length; i++) {
         let fila = filas[i];
-        // Obtener la cantidad y el precio base
-        let cantidad = parseFloat(fila.querySelector(".cantidad").value) || 0;
-        let precioDB = parseFloat(fila.querySelector(".precio_db").value) || 0;
-  
-        // Calcular el subtotal real del lote actual
-        let subtotalLote = cantidad * precioDB;
-        subtotalreal += subtotalLote;
-  
-        // Sumar precios totales
-        let precioTotalElement = fila.querySelector(".precio_total");
+        let precioTotalElement = fila.querySelector(".gran_total");
         let precioTotal = 0;
         if (precioTotalElement) {
             precioTotal = parseFloat(precioTotalElement.value) || 0;
         }
         subtotal += precioTotal;
-  
-        // Sumar descuentos
-        let descuentoElement = fila.querySelector(".descuento");
-        let descuento = 0;
-        if (descuentoElement) {
-            descuento = parseFloat(descuentoElement.value) || 0;
-        }
-        totalDescuento += descuento;
     }
-  
+
     // Actualizar el total
-    document.getElementById("gran_sub_total").innerText = subtotalreal.toFixed(2);
-    document.getElementById("gran_descuento").innerText = totalDescuento.toFixed(2);
     document.getElementById("gran_total").innerText = subtotal.toFixed(2);
-  }
+}
+
   
   // fin funciones publicas 
   
@@ -457,9 +421,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function asignarDatos(detallereserva) {
+// Cuando cargues los datos del servidor
+function asignarDatos(detallereserva) {
     let cantidadDatos = detallereserva.length;
-    // Asignar los datos a los grupos respectivos
     let grupos = document.querySelectorAll(".detalle-venta-row");
 
     for (let i = 0; i < cantidadDatos; i++) {
@@ -467,10 +431,10 @@ document.addEventListener("DOMContentLoaded", function () {
         let grupoActual = grupos[i];
         if (grupoActual) {
             let servicioSelect = grupoActual.querySelector("#listservicios");
-            if (servicioSelect) {
-                servicioSelect.value = datosLote.idservicio;
-                $(servicioSelect).selectpicker('refresh');
-            }
+             if (servicioSelect) {
+              servicioSelect.value = datosLote.idservicio;
+              $(servicioSelect).selectpicker('refresh');
+          }
 
             let cantidadInput = grupoActual.querySelector(".cantidad");
             if (cantidadInput) {
@@ -480,14 +444,17 @@ document.addEventListener("DOMContentLoaded", function () {
             let precioInput = grupoActual.querySelector(".precio");
             if (precioInput) {
                 precioInput.value = datosLote.precio;
-              }
-              cal_precio_db(grupoActual);
-              calculateRow(grupoActual);
-          }
-      }
-      // Sumar precios totales después de asignar todos los datos
-      sumarPreciosTotales();
-  }
+            }
+            
+            // Calcular y actualizar el total por fila
+            calculateRow(grupoActual);
+        }
+    }
+
+    // Sumar precios totales después de asignar todos los datos
+    sumarPreciosTotales();
+}
+
   // ------fin editar venta-----------
   // ------fin editar venta-----------
   

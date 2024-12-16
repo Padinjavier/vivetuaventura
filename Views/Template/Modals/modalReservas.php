@@ -73,12 +73,12 @@
                       <table class="table table-sm table-hover  w-100 dataTable no-footer">
                           <thead>
                               <tr style="text-align: center;">
-                                  <th style="width:5%">#</th>
-                                  <th style="width:35%">Tipo‎de‎servicio</th>
-                                  <th style="width:10%">Cantidad</th>
-                                  <th style="width:10%">Total</th>
-                                  <th style="width:5%"></th>
-                                  <th style="width:0%"></th>
+                                  <th style="width:10%">#</th>
+                                  <th style="width:40%">Tipo‎de‎servicio</th>
+                                  <th style="width:20%">Cantidad</th>
+                                  <th style="width:20%">Total</th>
+                                  <th style="width:0%" class="d-none hidden"></th>
+                                  <th style="width:10%"></th>
                               </tr>
                           </thead>
                           <tbody id="tblDetalleVenta">
@@ -93,7 +93,6 @@
                                   <td style="text-align: start;">
                                       <span>Total:</span><br>
                                   </td>
-                                  <td></td>
                                   <td>
                                       <span>S/ <span id="gran_total">00.00</span></span><br>
                                   </td>
