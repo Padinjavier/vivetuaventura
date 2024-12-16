@@ -66,6 +66,12 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 
 
+    
+    
+
+
+
+
 }, false);
 
 
@@ -253,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <input type="number" class="form-control precio" value="0.00" min="0">
             </td>
             <td class="" data="TOTAL">
-                <input type="number" class="form-control sub_total" value="0.00" min="0">
+                <input type="number" class="form-control sub_total" value="0.00" min="0" readonly>
             </td>
             <td data="botonx">
                 <div class="col-auto">
@@ -280,7 +286,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectElement = row.querySelector(".servicio-select");
         const cantidadInput = row.querySelector(".cantidad");
         const precioInput = row.querySelector(".precio");
-        // const descuentoInpust = row.querySelector(".descuento");
   
         selectElement.addEventListener("change", function () {
             calculateRow(row);
@@ -296,10 +301,8 @@ document.addEventListener("DOMContentLoaded", function () {
             calculateRow(row);
             sumarPreciosTotales();
         });
-        
-
   
-        calculateRow(row);
+        calculateRow(row); // Inicializar cálculo de fila
     }
   
     function updateRowNumbers() {
@@ -316,22 +319,20 @@ document.addEventListener("DOMContentLoaded", function () {
   
     loadInitialSelectOptions(); // Cargar opciones iniciales al abrir el modal
   });
-  // fin servicio 
   
-  // funciones publicas
-
-  
-  // calcula el precio total por fila 
+  // Calcula el precio total por fila
   function calculateRow(row) {
     const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
     const precio = parseFloat(row.querySelector(".precio").value) || 0;
-
     const total = cantidad * precio;
-    document.querySelector(".sub_total").value = total.toFixed(2);
-}
-
+    
+    const subTotalInput = row.querySelector(".sub_total");
+    if (subTotalInput) {
+        subTotalInput.value = total.toFixed(2); // Asignar el total calculado a la celda correspondiente
+    }
+  }
   
-  // calcula precios totales del sub total descuento total total 
+  // Calcula los precios totales del subtotal y gran total
   function sumarPreciosTotales() {
     let subtotal = 0;
     let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
@@ -346,9 +347,9 @@ document.addEventListener("DOMContentLoaded", function () {
         subtotal += precioTotal;
     }
 
-    // Actualizar el total
+    // Actualizar el gran total
     document.getElementById("gran_total").innerText = subtotal.toFixed(2);
-}
+  }
 
   
   // fin funciones publicas 
@@ -421,8 +422,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-// Cuando cargues los datos del servidor
-function asignarDatos(detallereserva) {
+
+  // Función para asignar los datos cuando se edita una reserva
+  function asignarDatos(detallereserva) {
     let cantidadDatos = detallereserva.length;
     let grupos = document.querySelectorAll(".detalle-venta-row");
 
@@ -431,10 +433,10 @@ function asignarDatos(detallereserva) {
         let grupoActual = grupos[i];
         if (grupoActual) {
             let servicioSelect = grupoActual.querySelector("#listservicios");
-             if (servicioSelect) {
-              servicioSelect.value = datosLote.idservicio;
-              $(servicioSelect).selectpicker('refresh');
-          }
+            if (servicioSelect) {
+                servicioSelect.value = datosLote.idservicio;
+                $(servicioSelect).selectpicker('refresh');
+            }
 
             let cantidadInput = grupoActual.querySelector(".cantidad");
             if (cantidadInput) {
@@ -446,6 +448,11 @@ function asignarDatos(detallereserva) {
                 precioInput.value = datosLote.precio;
             }
             
+            let subTotal = grupoActual.querySelector(".sub_total");
+            if (subTotal) {
+                subTotal.value = (datosLote.cantidad * datosLote.precio).toFixed(2);
+            }
+            
             // Calcular y actualizar el total por fila
             calculateRow(grupoActual);
         }
@@ -454,7 +461,6 @@ function asignarDatos(detallereserva) {
     // Sumar precios totales después de asignar todos los datos
     sumarPreciosTotales();
 }
-
   // ------fin editar venta-----------
   // ------fin editar venta-----------
   
