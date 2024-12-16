@@ -204,9 +204,18 @@ if (document.querySelector("#datosreserva")) {
             return false;
         }
 
-        let formData = new FormData(datosreserva);
-        formData.append("adjuntarVoucher", adjuntarVoucher);
-
+         // Crear un nuevo nombre para el archivo
+		 let nombreOriginal = adjuntarVoucher.name; // Nombre original del archivo
+		 let extension = nombreOriginal.split('.').pop(); // Obtener la extensión del archivo
+		 let nuevoNombre = `${numeroCelular}_${codigoVoucher}_${nombreOriginal}`; // Nuevo nombre
+ 
+		 // Crear un nuevo archivo con el nombre personalizado
+		 let nuevoArchivo = new File([adjuntarVoucher], nuevoNombre, { type: adjuntarVoucher.type });
+ 
+		 let formData = new FormData(datosreserva);
+		 formData.delete("adjuntarVoucher"); // Eliminar el archivo original del FormData
+		 formData.append("adjuntarVoucher", nuevoArchivo); // Agregar el archivo con el nuevo nombre
+ 
         let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         let ajaxUrl = base_url + '/Reservas/guardarReserva'; 
         request.open("POST", ajaxUrl, true);
