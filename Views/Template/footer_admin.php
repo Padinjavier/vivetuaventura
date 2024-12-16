@@ -29,7 +29,6 @@
     <script src="<?= media();?>/js/datepicker/jquery-ui.min.js"></script>
     <script type="text/javascript" src="<?= media();?>/js/functions_admin.js"></script>
     <script src="<?= media(); ?>/js/<?= $data['page_functions_js']; ?>"></script>
-    <script src="<?= media(); ?>/js/daynight_mode.js"></script> <!-- para cargar el js de temas  -->
 
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <!-- chat  -->
