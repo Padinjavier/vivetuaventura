@@ -86,59 +86,6 @@ class Reservas extends Controllers{
     }
     die();
 }
-
-	public function getCliente($idpersona){
-		if($_SESSION['permisosMod']['r']){
-			$idusuario = intval($idpersona);
-			if($idusuario > 0)
-			{
-				$arrData = $this->model->selectCliente($idusuario);
-				if(empty($arrData))
-				{
-					$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
-				}else{
-					$arrResponse = array('status' => true, 'data' => $arrData);
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-		}
-		die();
-	}
-
-	public function delCliente()
-	{
-		if($_POST){
-			if($_SESSION['permisosMod']['d']){
-				$intIdpersona = intval($_POST['idUsuario']);
-				$requestDelete = $this->model->deleteCliente($intIdpersona);
-				if($requestDelete)
-				{
-					$arrResponse = array('status' => true, 'msg' => 'Datos del cliente eliminado correctamente.');
-				}else{
-					$arrResponse = array('status' => false, 'msg' => 'Error al eliminar al cliente.');
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-		}
-		die();
-	}
-
-
-	public function getlistclientes() {
-		$htmlOptions = '<option value="">Seleccione una opción</option>';
-		$arrData = $this->model->selectClientes();
-		if (count($arrData) > 0) {
-			foreach ($arrData as $row) {
-				$htmlOptions .= '<option value="'.htmlspecialchars($row['identificacion']).'">'.htmlspecialchars($row['nombres']).' '.htmlspecialchars($row['apellidos']).'</option>';
-			}
-		}
-		echo $htmlOptions;
-		die();
-	}
-
-
-
-
 	public function guardarReserva() {
 		if ($_POST) {
 			if (empty($_POST['numeroCelular']) || empty($_POST['modalidadPago']) || empty($_POST['fechaPago']) || empty($_POST['codigoVoucher'])) {

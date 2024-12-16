@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modalFormCliente" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg" >
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
         <h5 class="modal-title" id="titleModal">Nuevo Usuario</h5>
@@ -8,71 +8,111 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-            <form id="formCliente" name="formCliente" class="form-horizontal">
-              <input type="hidden" id="idUsuario" name="idUsuario" value="">
-              <p class="text-primary">Recuerda: Todos los campos son obligatorios.</p>
+      <div class="modal-body p-lg-5">
+        <form id="formReserva" name="formReserva" class="form-horizontal">
+          <input type="hidden" id="idVenta" name="idVenta" value="">
 
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="txtIdentificacion">Identificación</label>
-                  <input type="text" data-type="dni" maxlength="8"  class="form-control   valid validDNI" id="txtIdentificacion" name="txtIdentificacion" required="">
-                </div>
-              </div>
-              <div class="form-row">
-                <script>
-                var txtIdentificacion = document.getElementById("txtIdentificacion");
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="txtcodigoreserva">Código de reserva</label>
+              <input type="text" disabled class="form-control  " id="txtcodigoreserva" name="txtcodigoreserva" required="" style="width: 100%;">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="txtNombre">Nombres</label>
+              <input type="text" disabled class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="txtApellido">Apellidos</label>
+              <input type="text" disabled class="form-control valid validText" id="txtApellido" name="txtApellido" required="">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="txtTelefono">N° de celular:</label>
+              <input type="number" disabled  class="form-control valid validPhoneNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="txtModalidadPago">Modalidad de pago:</label>
+              <input type="text" disabled class="form-control" id="txtModalidadPago" name="txtModalidadPago" style="width: 100%;">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="txtCodigoVoucher">Código de voucher:</label>
+              <input type="text" disabled class="form-control" id="txtCodigoVoucher" name="txtCodigoVoucher" style="width: 100%;">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="txtEstadoPago">Estado de pago:</label>
+                <select class="form-control" id="txtEstadoPago" name="txtEstadoPago" style="width: 100%;">
+                  <option value="0">No definido</option>
+                  <option value="1">Pago / Por Aprobar</option>
+                  <option value="2">Pago / Aprobado</option>
+                  <option value="3">Pago / Erróneo</option>
+                </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <p>Archivo adjuntado:</p>
+              <input type="text" disabled class="form-control valid" id="imagenvoucher" name="imagenvoucher" required="" style="width: 100%;">
+            </div>
+          </div>
+          <section>
+              <div class="card-body p-0">
+                  <div class="row mb-3">
+                      <div class="col-6">
+                          <h4>Detalle de venta</h4>
+                      </div>
+                      <div class="col-6 d-flex justify-content-end ">
+                          <button class="btn btn-primary btn-sm" type="button" id="btnAgregarProducto"><i
+                                  class="fas fa-plus-circle" aria-hidden="true"></i> Agregar</button>
+                      </div>
+                  </div>
+                  <!-- <div class="table-responsive"> -->
+                  <div class="table-responsive">
+                      <table class="table table-sm table-hover  w-100 dataTable no-footer">
+                          <thead>
+                              <tr style="text-align: center;">
+                                  <th style="width:5%">#</th>
+                                  <th style="width:35%">Tipo‎de‎servicio</th>
+                                  <th style="width:10%">Cantidad</th>
+                                  <th style="width:10%">Total</th>
+                                  <th style="width:5%"></th>
+                                  <th style="width:0%"></th>
+                              </tr>
+                          </thead>
+                          <tbody id="tblDetalleVenta">
+                              <script>
+                                  // se crean en automatico con el JS 
+                              </script>    
 
-                txtIdentificacion.addEventListener("input", function () {
-                  var dni = txtIdentificacion.value;
+                              <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td style="text-align: start;">
+                                      <span>Sub.Total:</span><br>
+                                      <span>Descuento.Total:</span><br>
+                                      <span>Total:</span><br>
+                                  </td>
+                                  <td></td>
+                                  <td>
+                                      <span>S/ <span id="gran_sub_total">00.00</span></span><br>
+                                      <span>S/ <span id="gran_descuento">00.00</span></span><br>
+                                      <span>S/ <span id="gran_total">00.00</span></span><br>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
 
-                  // Verificar si el valor tiene 8 dígitos
-                  if (dni.length === 8 && !isNaN(dni)) {
-                    fetch(
-                      "https://apiperu.dev/api/dni/" +
-                      dni +
-                      "?api_token=a2d7af3b9a3b5d071e82a1ef543ccea9dbdab217e4f5d3a4177702b37a3b258b"
-                    )
-                      .then((res) => res.json())
-                      .then((data) => {
-                        document.getElementById("txtNombre").value = data.data.nombres;
-                        document.getElementById("txtApellido").value = data.data.apellido_paterno + " " + data.data.apellido_materno;
-                      });
-                  }
-                });
-              </script>
-                <div class="form-group col-md-6">
-                  <label for="txtNombre">Nombres</label>
-                  <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txtApellido">Apellidos</label>
-                  <input type="text" class="form-control valid validText" id="txtApellido" name="txtApellido" required="">
-                </div>
+                  </div>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="txtTelefono">Teléfono</label>
-                  <input type="number" data-type="telefono" min="900000000" max="999999999" maxlength="9" class="form-control valid validPhoneNumber" id="txtTelefono" name="txtTelefono" required="" onkeypress="return controlTag(event);">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txtEmail">Correo</label>
-                  <input type="email" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label>Nombre de hotel (Opcional)</label>
-                  <input class="form-control" type="text" id="txtHotel" name="txtHotel">
-                </div>
-              </div>
-             <div class="form-row">
-             </div>
-              <div class="tile-footer">
-                <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
-              </div>
-            </form>
+          </section>
+          <div class="tile-footer">
+            <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-success" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cerrar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
