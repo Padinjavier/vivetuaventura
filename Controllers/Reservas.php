@@ -136,6 +136,66 @@ class Reservas extends Controllers{
 		die();
 	}
 
+
+
+
+	public function guardarReserva() {
+		if ($_POST) {
+			if (empty($_POST['numeroCelular']) || empty($_POST['modalidadPago']) || empty($_POST['fechaPago']) || empty($_POST['codigoVoucher'])) {
+				$arrResponse = array("status" => false, "msg" => "Todos los campos son obligatorios.");
+			} else {
+				$numeroCelular = strClean($_POST['numeroCelular']);
+				$modalidadPago = strClean($_POST['modalidadPago']);
+				$fechaPago = $_POST['fechaPago'];
+				$codigoVoucher = strClean($_POST['codigoVoucher']);
+				$capturaVoucher = $_FILES['adjuntarVoucher']['name'];
+	
+				$idPersona = $_SESSION['userData']['idpersona']; // Supongamos que ya está en sesión
+				$idTipoPago = ($modalidadPago == 'yape') ? 6 : 8; // 6 = Yape, 8 = BCP
+				$total = 0.00; // Se puede calcular según el detalle
+	
+				// Subir voucher
+				$uploadDir = "assets/tienda/images/reservas/";
+				$filePath = $uploadDir . $capturaVoucher;
+	
+				if (!file_exists($uploadDir)) {
+					mkdir($uploadDir, 0777, true); // Crear directorio si no existe
+				}
+				move_uploaded_file($_FILES['adjuntarVoucher']['tmp_name'], $filePath);
+	
+				// Insertar reserva
+				$codReserva = rand(1000, 9999); // Generar código único
+				$status = 1; // Reserva activa
+				$idReserva = $this->model->insertReserva($codReserva, $idPersona, $idTipoPago, $fechaPago, $total, $codigoVoucher, $capturaVoucher, $status);
+	
+				if ($idReserva > 0) {
+					// Insertar detalles de la reserva
+					
+					$detalles = $_SESSION['arrCarrito']; // Asume que viene un array de servicios
+					foreach ($detalles as $detalle) {
+						$idServicio = $detalle['idproducto'];
+						$cantidad = intval($detalle['cantidad']);
+						$precio = floatval($detalle['precio']);
+						$this->model->insertDetalleReserva($codReserva, $idServicio, $precio, $cantidad);
+						$total += $precio * $cantidad;
+					}
+	
+					// Actualizar el total en la reserva
+					$this->model->updateTotalReserva($idReserva, $total);
+	
+					$arrResponse = array("status" => true, "msg" => "Reserva registrada correctamente.");
+				} else {
+					$arrResponse = array("status" => false, "msg" => "No se pudo registrar la reserva.");
+				}
+			}
+			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+		}
+		// Borrar los datos de la variable de sesión 'arrCarrito'
+		unset($_SESSION['arrCarrito']);
+		die();
+	}
+	
+
 }
 
 ?>

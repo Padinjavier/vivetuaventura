@@ -189,6 +189,48 @@ if(document.querySelector("#formRegister")){
     }
 }
 
+if (document.querySelector("#datosreserva")) {
+    let datosreserva = document.querySelector("#datosreserva");
+    datosreserva.onsubmit = function (e) {
+        e.preventDefault();
+        let numeroCelular = document.querySelector('#numeroCelular').value;
+        let modalidadPago = document.querySelector('input[name="modalidadPago"]:checked')?.value;
+        let fechaPago = document.querySelector('#fechaPago').value;
+        let codigoVoucher = document.querySelector('#codigoVoucher').value;
+        let adjuntarVoucher = document.querySelector('#adjuntarVoucher').files[0];
+
+        if (!numeroCelular || !modalidadPago || !fechaPago || !codigoVoucher || !adjuntarVoucher) {
+            swal("Atención", "Todos los campos son obligatorios.", "error");
+            return false;
+        }
+
+        let formData = new FormData(datosreserva);
+        formData.append("adjuntarVoucher", adjuntarVoucher);
+
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url + '/Reservas/guardarReserva'; 
+        request.open("POST", ajaxUrl, true);
+        request.send(formData);
+
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+				console.log(request.responseText)
+                let objData = JSON.parse(request.responseText);
+                if (objData.status) {
+                    swal("Éxito", objData.msg, "success").then(() => {
+                        window.location.reload(false);
+                    });
+                } else {
+                    swal("Error", objData.msg, "error");
+                }
+            }
+        }
+    }
+}
+
+
+
+
 if (document.querySelector(".methodpago")) {
   let optmetodo = document.querySelectorAll(".methodpago");
   optmetodo.forEach(function (optmetodo) {

@@ -269,6 +269,13 @@
 			die();
 		}
 
+
+
+		
+
+
+
+
 		public function procesarVenta(){
 			if($_POST){
 				$idtransaccionpaypal = NULL;
