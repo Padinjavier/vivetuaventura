@@ -55,7 +55,10 @@
           <div class="form-row">
             <div class="form-group col-md-12">
               <p>Archivo adjuntado:</p>
-              <input type="text" disabled class="form-control valid" id="imagenvoucher" name="imagenvoucher" required="" style="width: 100%;">
+              <a href="" 
+                id="imagenvoucher" 
+                class="form-control valid" 
+                target="_blank">Ver archivo</a>
             </div>
           </div>
           <section>

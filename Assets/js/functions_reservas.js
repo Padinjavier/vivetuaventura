@@ -486,7 +486,7 @@ function fntEditInfo(element, idreserva) {
                 document.querySelector("#txtCodigoVoucher").value = objData.data.reserva.codigo_voucher;
                 document.querySelector("#txtEstadoPago").value = estadoPago;
                 $('#txtEstadoPago').selectpicker('refresh');
-                document.querySelector("#imagenvoucher").value = objData.data.reserva.captura_voucher;
+                document.querySelector("#imagenvoucher").href = objData.data.reserva.captura_voucher;
 
                 let cantidadDatos = objData.data.detalle_reserva.length;
                 // Hacer clic en el botón para agregar nuevos grupos
