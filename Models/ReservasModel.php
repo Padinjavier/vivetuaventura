@@ -161,30 +161,34 @@ class ReservasModel extends Mysql
 
 
 	public function insertReserva(string $codReserva, int $idPersona, int $idTipoPago, string $fechaPago, float $total, string $codigoVoucher, string $capturaVoucher, int $status) {
-		$this->con = new Mysql(); // Inicializar conexión
 		$query_insert = "INSERT INTO reserva (cod_reserva, idpersona, idtipopago, fecha_pago, total, codigo_voucher, captura_voucher, status) 
 						 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		$arrData = array($codReserva, $idPersona, $idTipoPago, $fechaPago, $total, $codigoVoucher, $capturaVoucher, $status);
-		$request_insert = $this->con->insert($query_insert, $arrData);
+		$request_insert = $this->insert($query_insert, $arrData);
 		return $request_insert;
 	}
 	
 	public function insertDetalleReserva(int $codReserva, int $idServicio, float $precio, int $cantidad) {
-		$this->con = new Mysql(); // Inicializar conexión
 		$query_insert = "INSERT INTO detalle_reserva (cod_reserva, idservicio, precio, cantidad) 
 						 VALUES (?, ?, ?, ?)";
 		$arrData = array($codReserva, $idServicio, $precio, $cantidad);
-		$request_insert = $this->con->insert($query_insert, $arrData);
+		$request_insert = $this->insert($query_insert, $arrData);
 		return $request_insert;
 	}
 	
-	public function updateTotalReserva(int $idReserva, float $total) {
-		$this->con = new Mysql(); // Inicializar conexión
-		$query_update = "UPDATE reserva SET total = ? WHERE idreserva = ?";
-		$arrData = array($total, $idReserva);
-		$request_update = $this->con->update($query_update, $arrData);
+	public function updateTotalReserva(int $idReserva, float $total, int $stadopago) {
+		$query_update = "UPDATE reserva SET total = ?, status = ? WHERE idreserva = ?";
+		$arrData = array($total, $stadopago, $idReserva);
+		$request_update = $this->update($query_update, $arrData);
 		return $request_update;
 	}
+	public function deleteDetalleReserva(int $codReserva) {
+		$query_delete = "DELETE FROM detalle_reserva WHERE cod_reserva = $codReserva";
+		$request_delete = $this->delete($query_delete);
+		
+		return $request_delete;
+	}
+	
 	
 }
 

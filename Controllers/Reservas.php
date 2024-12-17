@@ -94,34 +94,37 @@ public function guardarReserva() {
         } else {
             // Obtener datos del formulario
             $idReserva = isset($_POST['idReserva']) ? intval($_POST['idReserva']) : 0; // Verificar si existe idReserva
-            $numeroCelular = strClean($_POST['numeroCelular']);
+            $codreserva = strClean($_POST['codreserva']);
             $modalidadPago = strClean($_POST['modalidadPago']);
             $fechaPago = $_POST['fechaPago'];
             $codigoVoucher = strClean($_POST['codigoVoucher']);
-            $capturaVoucher = $_FILES['adjuntarVoucher']['name'];
+            $stadopago = strClean($_POST['stadopago']);
+            $serviciosReservados = json_decode($_POST['serviciosReservados'], true); // Decodificar JSON
 
-            $idPersona = $_SESSION['userData']['idpersona'];
-            $idTipoPago = ($modalidadPago == 'yape') ? 6 : 8; // 6 = Yape, 8 = BCP
             $total = 0.00;
 
-            // Subir voucher
-            $uploadDir = "assets/tienda/images/reservas/";
-            $filePath = $uploadDir . $capturaVoucher;
-
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true); // Crear directorio si no existe
-            }
-            move_uploaded_file($_FILES['adjuntarVoucher']['tmp_name'], $filePath);
-
             if ($idReserva == 0) {
+                // Crear nueva reserva
+                $capturaVoucher = $_FILES['adjuntarVoucher']['name'];
+                $idPersona = $_SESSION['userData']['idpersona'];
+                $idTipoPago = ($modalidadPago == 'yape') ? 6 : 8; // 6 = Yape, 8 = BCP
+
+                // Subir voucher
+                $uploadDir = "assets/tienda/images/reservas/";
+                $filePath = $uploadDir . $capturaVoucher;
+
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true); // Crear directorio si no existe
+                }
+                move_uploaded_file($_FILES['adjuntarVoucher']['tmp_name'], $filePath);
+
                 // Insertar nueva reserva
                 $codReserva = rand(1000, 9999); // Generar código único
-                $status = 1; // Reserva activa
-                $idReserva = $this->model->insertReserva($codReserva, $idPersona, $idTipoPago, $fechaPago, $total, $codigoVoucher, $capturaVoucher, $status);
+                $stadopago = 1; // Reserva activa
+                $idReserva = $this->model->insertReserva($codReserva, $idPersona, $idTipoPago, $fechaPago, $total, $codigoVoucher, $capturaVoucher, $stadopago);
 
                 if ($idReserva > 0) {
-                    $detalles = $_SESSION['arrCarrito']; // Asume que viene un array de servicios
-                    foreach ($detalles as $detalle) {
+                    foreach ($serviciosReservados as $detalle) {
                         $idServicio = $detalle['idproducto'];
                         $cantidad = intval($detalle['cantidad']);
                         $precio = floatval($detalle['precio']);
@@ -129,7 +132,7 @@ public function guardarReserva() {
                         $total += $precio * $cantidad;
                     }
                     // Actualizar el total de la reserva
-                    $this->model->updateTotalReserva($idReserva, $total);
+                    $this->model->updateTotalReserva($idReserva, $total, $stadopago);
 
                     $arrResponse = array("status" => true, "msg" => "Reserva registrada correctamente.");
                 } else {
@@ -137,12 +140,21 @@ public function guardarReserva() {
                 }
             } else {
                 // Actualizar reserva existente
-                $updateReserva = $this->model->updateTotalReserva($idReserva, $total); // Actualizar el total si aplica
-                if ($updateReserva) {
-                    $arrResponse = array("status" => true, "msg" => "Reserva actualizada correctamente.");
-                } else {
-                    $arrResponse = array("status" => false, "msg" => "No se pudo actualizar la reserva.");
+                $this->model->deleteDetalleReserva($codreserva); // Eliminar detalles anteriores
+
+                // Insertar nuevos detalles usando serviciosReservados
+                foreach ($serviciosReservados as $detalle) {
+                    $idServicio = $detalle['id'];
+                    $cantidad = intval($detalle['cantidad']);
+                    $precio = floatval($detalle['precio']);
+                    $this->model->insertDetalleReserva($codreserva, $idServicio, $precio, $cantidad);
+                    $total += $precio * $cantidad;
                 }
+
+                // Actualizar el total de la reserva
+                $this->model->updateTotalReserva($idReserva, $total, $stadopago);
+
+                $arrResponse = array("status" => true, "msg" => "Reserva actualizada correctamente.");
             }
         }
         echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
@@ -151,6 +163,7 @@ public function guardarReserva() {
     unset($_SESSION['arrCarrito']);
     die();
 }
+
 
 	
 

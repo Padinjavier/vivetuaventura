@@ -66,7 +66,102 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 
 
+    if (document.querySelector("#formReserva")) {
+        let formReserva = document.querySelector("#formReserva");
+        formReserva.onsubmit = function (e) {
+            e.preventDefault();
+            let idReserva = document.querySelector('#idVenta').value;
+            let fechaPago = document.querySelector('#fechaPago').value;
+            let codreserva = document.querySelector('#txtcodigoreserva').value;
+            let nombres = document.querySelector('#txtNombre').value;
+            let apellidos = document.querySelector('#txtApellido').value;
+            let numeroCelular = document.querySelector('#txtTelefono').value;
+            let modalidadPago = document.querySelector('#txtModalidadPago').value;
+            let codigoVoucher = document.querySelector('#txtCodigoVoucher').value;
+            let stadopago = document.querySelector('#txtEstadoPago').value;
+            let totalReserva = document.querySelector('#gran_total').value;
+            // Obtener datos de los servicios reservados
+            let serviciosReservados = [];
+            document.querySelectorAll("tr.detalle-venta-row").forEach(row => {
+                let selectServicio = row.querySelector("#listservicios");
+                let cantidad = row.querySelector("input.cantidad").value;
+                let precio = row.querySelector("input.precio").value;
+                let sub_total = row.querySelector("input.sub_total").value;
     
+                if (selectServicio && selectServicio.value !== '' && cantidad !== '' && precio !== '') {
+                    let nombreServicio = selectServicio.options[selectServicio.selectedIndex].text;
+                    let idServicio = selectServicio.value;
+                    serviciosReservados.push({
+                        id: idServicio,
+                        servicio: nombreServicio,
+                        cantidad: parseFloat(cantidad),
+                        precio: parseFloat(precio),
+                        sub_total: parseFloat(sub_total)
+                    });
+                }
+            });
+    
+            console.log("id reserva"+idReserva);
+            console.log("id pago"+stadopago);
+            // Imprimir servicios reservados
+            if (serviciosReservados.length > 0) {
+                console.log("Servicios Reservados:", serviciosReservados);
+            }
+            // Verificar campos obligatorios
+            if (idReserva === '' || stadopago === '' || serviciosReservados.length === 0 || totalReserva === '') {
+                swal("Atención", "Todos los campos obligatorios deben ser llenados.", "error");
+                return false;
+            }
+            divLoading.style.display = "flex";
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url + '/Reservas/guardarReserva';
+            let formData = new FormData();
+            // Agregar datos al formData
+            formData.append('idReserva', idReserva);
+            formData.append('fechaPago', fechaPago);
+            console.log(codreserva)
+            formData.append('codreserva', codreserva);
+            formData.append('nombres', nombres);
+            formData.append('apellidos', apellidos);
+            formData.append('numeroCelular', numeroCelular);
+            formData.append('modalidadPago', modalidadPago);
+            formData.append('codigoVoucher', codigoVoucher);
+            formData.append('stadopago', stadopago);
+            formData.append('serviciosReservados', JSON.stringify(serviciosReservados));
+            console.log(serviciosReservados)
+            formData.append('totalReserva', totalReserva);
+            request.open("POST", ajaxUrl, true);
+            request.send(formData);
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    console.log(request);
+                    console.log(request.responseText);
+                    let objData = JSON.parse(request.responseText);
+                    if (objData.status) {
+                        console.log(objData);
+                        console.log(objData.data);
+                        if (rowTable == "") {
+                            tableClientes.api().ajax.reload();
+                        } else {
+                            tableClientes.api().ajax.reload();
+                        }
+    
+                        $('#modalFormCliente').modal("hide");
+                        formReserva.reset();
+                        if (objData.action === "insert") {
+                            swal("Guardado", objData.msg, "success");
+                        } else {
+                            swal("Actualizado", objData.msg, "success");
+                        }
+                    } else {
+                        swal("Error", objData.msg, "error");
+                    }
+                }
+                divLoading.style.display = "none";
+                return false;
+            };
+        };
+    }  
     
 
 
@@ -393,10 +488,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (objData.status) {
 
-                console.log(objData.data)
-                console.log(objData.data.detalle_reserva.length)
+                // console.log(objData.data)
+                // console.log(objData.data.detalle_reserva.length)
         
                 document.querySelector("#idVenta").value = objData.data.reserva.idreserva;
+                document.querySelector("#fechaPago").value = objData.data.reserva.fecha_pago;
                 document.querySelector("#txtcodigoreserva").value = objData.data.reserva.cod_reserva;
                 document.querySelector("#txtNombre").value = objData.data.reserva.nombres;
                 document.querySelector("#txtApellido").value = objData.data.reserva.apellidos;
