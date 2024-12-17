@@ -10,8 +10,8 @@
       </div>
       <div class="modal-body p-lg-5">
         <form id="formReserva" name="formReserva" class="form-horizontal">
-          <input type="" id="idVenta" name="idVenta" value="">
-          <input type="" id="fechaPago" name="fechaPago" value="">
+          <input type="hidden" id="idVenta" name="idVenta" value="">
+          <input type="hidden" id="fechaPago" name="fechaPago" value="">
 
           <div class="form-row">
             <div class="form-group col-md-12">

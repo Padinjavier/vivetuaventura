@@ -1,69 +1,67 @@
-let tableClientes; 
+let tableClientes;
 let rowTable = "";
 let divLoading = document.querySelector("#divLoading");
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
 
-    tableClientes = $('#tableClientes').dataTable( {
-        "aProcessing":true,
-        "aServerSide":true,
+    tableClientes = $('#tableClientes').dataTable({
+        "aProcessing": true,
+        "aServerSide": true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
-        "ajax":{
-            "url": " "+base_url+"/Reservas/getReservas",
-            "dataSrc":""
+        "ajax": {
+            "url": " " + base_url + "/Reservas/getReservas",
+            "dataSrc": ""
         },
-        "columns":[
-            {"data":"idreserva"},
-            {"data":"cod_reserva"},
-            {"data":"persona"},
-            {"data":"fecha_pago"},
-            {"data":"status"},
-            {"data":"options"}
+        "columns": [
+            { "data": "idreserva" },
+            { "data": "cod_reserva" },
+            { "data": "persona" },
+            { "data": "fecha_pago" },
+            { "data": "status" },
+            { "data": "options" }
         ],
         'dom': 'lBfrtip',
         'buttons': [
             {
                 "extend": "copyHtml5",
                 "text": "<i class='far fa-copy'></i> Copiar",
-                "titleAttr":"Copiar",
+                "titleAttr": "Copiar",
                 "className": "btn btn-secondary",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
-            },{
+                "exportOptions": {
+                    "columns": [0, 1, 2, 3, 4]
+                }
+            }, {
                 "extend": "excelHtml5",
                 "text": "<i class='bi bi-file-earmark-excel'></i> Excel",
-                "titleAttr":"Exportar a Excel",
+                "titleAttr": "Exportar a Excel",
                 "className": "btn btn-success",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
-            },{
+                "exportOptions": {
+                    "columns": [0, 1, 2, 3, 4]
+                }
+            }, {
                 "extend": "pdfHtml5",
                 "text": "<i class='bi bi-filetype-pdf'></i> Pdf",
-                "titleAttr":"Exportar a PDF",
+                "titleAttr": "Exportar a PDF",
                 "className": "btn btn-danger",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
-            },{
+                "exportOptions": {
+                    "columns": [0, 1, 2, 3, 4]
+                }
+            }, {
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Exportar a CSV",
+                "titleAttr": "Exportar a CSV",
                 "className": "btn btn-info d-none",
-                "exportOptions": { 
-                "columns": [ 0, 1, 2, 3, 4] 
-            }
+                "exportOptions": {
+                    "columns": [0, 1, 2, 3, 4]
+                }
             }
         ],
-        "resonsieve":"true",
+        "resonsieve": "true",
         "bDestroy": true,
         "iDisplayLength": 10,
-        "order":[[0,"desc"]]  
+        "order": [[0, "desc"]]
     });
-
-	
 
 
     if (document.querySelector("#formReserva")) {
@@ -87,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 let cantidad = row.querySelector("input.cantidad").value;
                 let precio = row.querySelector("input.precio").value;
                 let sub_total = row.querySelector("input.sub_total").value;
-    
+
                 if (selectServicio && selectServicio.value !== '' && cantidad !== '' && precio !== '') {
                     let nombreServicio = selectServicio.options[selectServicio.selectedIndex].text;
                     let idServicio = selectServicio.value;
@@ -100,9 +98,9 @@ document.addEventListener('DOMContentLoaded', function(){
                     });
                 }
             });
-    
-            console.log("id reserva"+idReserva);
-            console.log("id pago"+stadopago);
+
+            console.log("id reserva" + idReserva);
+            console.log("id pago" + stadopago);
             // Imprimir servicios reservados
             if (serviciosReservados.length > 0) {
                 console.log("Servicios Reservados:", serviciosReservados);
@@ -145,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         } else {
                             tableClientes.api().ajax.reload();
                         }
-    
+
                         $('#modalFormCliente').modal("hide");
                         formReserva.reset();
                         if (objData.action === "insert") {
@@ -161,12 +159,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 return false;
             };
         };
-    }  
-    
-
-
-
-
+    }
 }, false);
 
 
@@ -223,7 +216,7 @@ function fntViewReserva(idreserva) {
                 document.querySelector("#modopago").innerHTML = objData.data.reserva.tipopago;
                 document.querySelector("#cod_voucher").innerHTML = objData.data.reserva.codigo_voucher;
                 document.querySelector("#stadopago").innerHTML = estadoPago;
-                document.querySelector("#FechaRegistro").innerHTML = fechaFormateada ;
+                document.querySelector("#FechaRegistro").innerHTML = fechaFormateada;
                 document.querySelector("#imgVoucher").src = objData.data.reserva.captura_voucher;
                 document.querySelector("#datalleservicios").innerHTML = textoServicios;
                 // Mostrar el modal
@@ -265,7 +258,7 @@ function expandImage(reset = false) {
 }
 
 
-function fntDelInfo(idpersona){
+function fntDelInfo(idpersona) {
     swal({
         title: "Eliminar Cliente",
         text: "¿Realmente quiere eliminar al cliente?",
@@ -275,25 +268,23 @@ function fntDelInfo(idpersona){
         cancelButtonText: "No, cancelar!",
         closeOnConfirm: false,
         closeOnCancel: true
-    }, function(isConfirm) {
-        
-        if (isConfirm) 
-        {
+    }, function (isConfirm) {
+
+        if (isConfirm) {
             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Clientes/delCliente';
-            let strData = "idUsuario="+idpersona;
-            request.open("POST",ajaxUrl,true);
+            let ajaxUrl = base_url + '/Clientes/delCliente';
+            let strData = "idUsuario=" + idpersona;
+            request.open("POST", ajaxUrl, true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
-            request.onreadystatechange = function(){
-                if(request.readyState == 4 && request.status == 200){
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
                     let objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
-                        swal("Eliminado", objData.msg , "success");
+                    if (objData.status) {
+                        swal("Eliminado", objData.msg, "success");
                         tableClientes.api().ajax.reload();
-                    }else{
-                        swal("Atención!", objData.msg , "error");
+                    } else {
+                        swal("Atención!", objData.msg, "error");
                     }
                 }
             }
@@ -303,25 +294,22 @@ function fntDelInfo(idpersona){
 
 }
 
-function openModal()
-{
+function openModal() {
     rowTable = "";
-    document.querySelector('#idUsuario').value ="";
+    document.querySelector('#idUsuario').value = "";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
-    document.querySelector('#btnText').innerHTML ="Guardar";
+    document.querySelector('#btnText').innerHTML = "Guardar";
     document.querySelector('#titleModal').innerHTML = "Nuevo Cliente";
     document.querySelector("#formCliente").reset();
     $('#modalFormCliente').modal('show');
 }
 
-
-
 // // // ---------------Servicios----------
 document.addEventListener("DOMContentLoaded", function () {
     const tblDetalleVenta = document.getElementById("tblDetalleVenta");
     const btnAgregarProducto = document.getElementById("btnAgregarProducto");
-  
+
     function loadInitialSelectOptions() {
         let ajaxUrl = base_url + "/Servicios/getSelectServicios";
         let request = new XMLHttpRequest();
@@ -334,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
     }
-  
+
     function addNewProductoRow(response) {
         let newRow = document.createElement("tr");
         newRow.classList.add("detalle-venta-row");
@@ -363,43 +351,43 @@ document.addEventListener("DOMContentLoaded", function () {
             </td>
         `;
         tblDetalleVenta.insertBefore(newRow, tblDetalleVenta.lastElementChild); // Insertar antes de la última fila
-    
+
         $(newRow).find('.selectpicker').selectpicker('render');
-    
+
         addEventListenersToRow(newRow);
-    
+
         newRow.querySelector(".btn-remove-select").addEventListener("click", function () {
             newRow.remove();
             updateRowNumbers();
             sumarPreciosTotales();
         });
-    
+
         updateRowNumbers();
     }
-    
+
     function addEventListenersToRow(row) {
         const selectElement = row.querySelector(".servicio-select");
         const cantidadInput = row.querySelector(".cantidad");
         const precioInput = row.querySelector(".precio");
-  
+
         selectElement.addEventListener("change", function () {
             calculateRow(row);
             sumarPreciosTotales();
         });
-  
+
         cantidadInput.addEventListener("input", function () {
             calculateRow(row);
             sumarPreciosTotales();
         });
-  
+
         precioInput.addEventListener("input", function () {
             calculateRow(row);
             sumarPreciosTotales();
         });
-  
+
         calculateRow(row); // Inicializar cálculo de fila
     }
-  
+
     function updateRowNumbers() {
         let rows = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
         for (let i = 0; i < rows.length; i++) {
@@ -407,28 +395,28 @@ document.addEventListener("DOMContentLoaded", function () {
             rowNumberElement.innerText = i + 1;
         }
     }
-  
+
     btnAgregarProducto.addEventListener("click", function () {
         loadInitialSelectOptions();
     });
-  
+
     loadInitialSelectOptions(); // Cargar opciones iniciales al abrir el modal
-  });
-  
-  // Calcula el precio total por fila
-  function calculateRow(row) {
+});
+
+// Calcula el precio total por fila
+function calculateRow(row) {
     const cantidad = parseFloat(row.querySelector(".cantidad").value) || 0;
     const precio = parseFloat(row.querySelector(".precio").value) || 0;
     const total = cantidad * precio;
-    
+
     const subTotalInput = row.querySelector(".sub_total");
     if (subTotalInput) {
         subTotalInput.value = total.toFixed(2); // Asignar el total calculado a la celda correspondiente
     }
-  }
-  
-  // Calcula los precios totales del subtotal y gran total
-  function sumarPreciosTotales() {
+}
+
+// Calcula los precios totales del subtotal y gran total
+function sumarPreciosTotales() {
     let subtotal = 0;
     let filas = tblDetalleVenta.getElementsByClassName("detalle-venta-row");
 
@@ -444,29 +432,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Actualizar el gran total
     document.getElementById("gran_total").innerText = subtotal.toFixed(2);
-  }
+}
 
-  
-  // fin funciones publicas 
-  
-  
 
-  // ------editar venta-----------
-  function fntEditInfo(element, idreserva) {
-  
+// fin funciones publicas 
+
+
+
+// ------editar venta-----------
+function fntEditInfo(element, idreserva) {
+
     // Eliminar elementos del grupo de servicio pero debe dejar al menos uno
     let detalleVentaRows = document.querySelectorAll('.detalle-venta-row');
     for (let i = 0; i < detalleVentaRows.length; i++) {
         detalleVentaRows[i].remove();
     }
 
-    rowTable = element.parentNode.parentNode.parentNode; 
+    rowTable = element.parentNode.parentNode.parentNode;
     // document.querySelector('.viewcodigoventa').classList.remove("d-none");
     document.querySelector('#titleModal').innerHTML = "Gestionar Reserva";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnText').innerHTML = "Guardar";
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    let ajaxUrl = base_url + '/Reservas/getReserva/'+idreserva;
+    let ajaxUrl = base_url + '/Reservas/getReserva/' + idreserva;
     request.open("GET", ajaxUrl, true);
     request.send();
     request.onreadystatechange = function () {
@@ -474,23 +462,20 @@ document.addEventListener("DOMContentLoaded", function () {
             let objData = JSON.parse(request.responseText);
             let estadoPago = "";
             switch (parseInt(objData.data.reserva.status)) {
-              case 2:
-                estadoPago = '2'; // Pago / Aprobado
-                break;
-              case 1:
-                estadoPago = '1'; // Pago / Por Aprobar
-                break;
-              case 3:
-                estadoPago = '3'; // Pago / Erróneo
-                break;
-              default:
-                estadoPago = '0'; // No definido
+                case 2:
+                    estadoPago = '2'; // Pago / Aprobado
+                    break;
+                case 1:
+                    estadoPago = '1'; // Pago / Por Aprobar
+                    break;
+                case 3:
+                    estadoPago = '3'; // Pago / Erróneo
+                    break;
+                default:
+                    estadoPago = '0'; // No definido
             }
             if (objData.status) {
 
-                // console.log(objData.data)
-                // console.log(objData.data.detalle_reserva.length)
-        
                 document.querySelector("#idVenta").value = objData.data.reserva.idreserva;
                 document.querySelector("#fechaPago").value = objData.data.reserva.fecha_pago;
                 document.querySelector("#txtcodigoreserva").value = objData.data.reserva.cod_reserva;
@@ -510,17 +495,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 $('#modalFormCliente').modal('show');
                 // Ejecutar la asignación de datos después de un retraso
-                setTimeout(function() {
+                setTimeout(function () {
                     asignarDatos(objData.data.detalle_reserva);
                 }, 2000); // Esperar 0.15 segundos 1 segundo = 1000 (ajustar si es necesario)
             }
         }
     }
-  }
+}
 
 
-  // Función para asignar los datos cuando se edita una reserva
-  function asignarDatos(detallereserva) {
+// Función para asignar los datos cuando se edita una reserva
+function asignarDatos(detallereserva) {
     let cantidadDatos = detallereserva.length;
     let grupos = document.querySelectorAll(".detalle-venta-row");
 
@@ -543,23 +528,18 @@ document.addEventListener("DOMContentLoaded", function () {
             if (precioInput) {
                 precioInput.value = datosLote.precio;
             }
-            
+
             let subTotal = grupoActual.querySelector(".sub_total");
             if (subTotal) {
                 subTotal.value = (datosLote.cantidad * datosLote.precio).toFixed(2);
             }
-            
+
             // Calcular y actualizar el total por fila
             calculateRow(grupoActual);
         }
     }
-
     // Sumar precios totales después de asignar todos los datos
     sumarPreciosTotales();
 }
-  // ------fin editar venta-----------
-  // ------fin editar venta-----------
-  
-
-
-  
+// ------fin editar venta-----------
+// ------fin editar venta-----------
