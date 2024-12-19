@@ -14,74 +14,17 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Volcando estructura para tabla vivetuav_agencia.detalle_reserva
-CREATE TABLE IF NOT EXISTS `detalle_reserva` (
-  `iddetalle` bigint NOT NULL AUTO_INCREMENT,
-  `cod_reserva` varchar(100) NOT NULL,
-  `idservicio` bigint NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
-  `cantidad` int NOT NULL,
-  PRIMARY KEY (`iddetalle`),
-  KEY `fk_detalle_reserva_reserva` (`cod_reserva`) USING BTREE,
-  KEY `FK_detalle_reserva_servicio` (`idservicio`),
-  CONSTRAINT `FK_detalle_reserva_reserva` FOREIGN KEY (`cod_reserva`) REFERENCES `reserva` (`cod_reserva`),
-  CONSTRAINT `FK_detalle_reserva_servicio` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb3;
-
 -- Volcando datos para la tabla vivetuav_agencia.detalle_reserva: ~2 rows (aproximadamente)
 INSERT INTO `detalle_reserva` (`iddetalle`, `cod_reserva`, `idservicio`, `precio`, `cantidad`) VALUES
 	(66, 'R_5575', 4, 10.00, 1),
 	(67, 'R_5575', 5, 24.00, 2);
 
--- Volcando estructura para tabla vivetuav_agencia.detalle_salida
-CREATE TABLE IF NOT EXISTS `detalle_salida` (
-  `iddetalle_salida` bigint NOT NULL AUTO_INCREMENT,
-  `idsalida` bigint DEFAULT NULL,
-  `idservicio` bigint DEFAULT NULL,
-  `cantidad` int DEFAULT NULL,
-  PRIMARY KEY (`iddetalle_salida`) USING BTREE,
-  KEY `idsalida` (`idsalida`),
-  KEY `idservicio` (`idservicio`),
-  CONSTRAINT `FK_detalle_salida_salida` FOREIGN KEY (`idsalida`) REFERENCES `salida` (`idsalida`),
-  CONSTRAINT `FK_detalle_salida_servicio` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- Volcando datos para la tabla vivetuav_agencia.detalle_salida: ~0 rows (aproximadamente)
-
--- Volcando estructura para tabla vivetuav_agencia.detalle_venta
-CREATE TABLE IF NOT EXISTS `detalle_venta` (
-  `iddetalleventa` bigint NOT NULL AUTO_INCREMENT,
-  `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `idservicio` bigint NOT NULL,
-  `cantidad` int NOT NULL,
-  `precio` decimal(20,2) NOT NULL,
-  `descuento` decimal(20,2) DEFAULT NULL,
-  PRIMARY KEY (`iddetalleventa`) USING BTREE,
-  KEY `idservicio` (`idservicio`) USING BTREE,
-  KEY `idventa` (`codigo_venta`) USING BTREE,
-  CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`codigo_venta`) REFERENCES `venta` (`codigo_venta`),
-  CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`idservicio`) REFERENCES `servicio` (`idservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.detalle_venta: ~2 rows (aproximadamente)
 INSERT INTO `detalle_venta` (`iddetalleventa`, `codigo_venta`, `idservicio`, `cantidad`, `precio`, `descuento`) VALUES
 	(1, 'v_1', 4, 1, 1.00, 0.00),
 	(2, 'v_1', 4, 2, 2.00, 0.00);
-
--- Volcando estructura para tabla vivetuav_agencia.messages
-CREATE TABLE IF NOT EXISTS `messages` (
-  `msg_id` bigint NOT NULL AUTO_INCREMENT,
-  `input_msg_id` bigint NOT NULL DEFAULT '0',
-  `output_msg_id` bigint NOT NULL DEFAULT (0),
-  `msg` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `view` int DEFAULT '1',
-  `datecreated` datetime DEFAULT (now()),
-  PRIMARY KEY (`msg_id`) USING BTREE,
-  KEY `output_msg_id` (`output_msg_id`),
-  KEY `input _msg_id` (`input_msg_id`) USING BTREE,
-  CONSTRAINT `FK_messages_persona` FOREIGN KEY (`input_msg_id`) REFERENCES `persona` (`idpersona`),
-  CONSTRAINT `FK_messages_persona_2` FOREIGN KEY (`output_msg_id`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.messages: ~33 rows (aproximadamente)
 INSERT INTO `messages` (`msg_id`, `input_msg_id`, `output_msg_id`, `msg`, `view`, `datecreated`) VALUES
@@ -119,15 +62,6 @@ INSERT INTO `messages` (`msg_id`, `input_msg_id`, `output_msg_id`, `msg`, `view`
 	(92, 68, 22, 'no importa', 0, '2024-09-27 21:12:29'),
 	(93, 68, 22, 'así me gustas', 0, '2024-09-27 21:12:33');
 
--- Volcando estructura para tabla vivetuav_agencia.modulo
-CREATE TABLE IF NOT EXISTS `modulo` (
-  `idmodulo` bigint NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idmodulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
 -- Volcando datos para la tabla vivetuav_agencia.modulo: ~14 rows (aproximadamente)
 INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 	(1, 'Dashboard', 'Dashboard', 1),
@@ -145,37 +79,9 @@ INSERT INTO `modulo` (`idmodulo`, `titulo`, `descripcion`, `status`) VALUES
 	(13, 'Suscriptores', 'Suscriptores del sitio web', 1),
 	(14, 'recuerdos', 'recuerdos de deportes', 1);
 
--- Volcando estructura para tabla vivetuav_agencia.opciones
-CREATE TABLE IF NOT EXISTS `opciones` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `personaid` bigint DEFAULT NULL,
-  `idioma` int DEFAULT NULL,
-  `tema` int DEFAULT NULL,
-  `formato_moneda` int DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idpersona` (`personaid`) USING BTREE,
-  CONSTRAINT `FK_opciones_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
 -- Volcando datos para la tabla vivetuav_agencia.opciones: ~1 rows (aproximadamente)
 INSERT INTO `opciones` (`id`, `personaid`, `idioma`, `tema`, `formato_moneda`) VALUES
 	(13, 22, 1, 1, 1);
-
--- Volcando estructura para tabla vivetuav_agencia.permisos
-CREATE TABLE IF NOT EXISTS `permisos` (
-  `idpermiso` bigint NOT NULL AUTO_INCREMENT,
-  `rolid` bigint NOT NULL,
-  `moduloid` bigint NOT NULL,
-  `r` int NOT NULL DEFAULT '0',
-  `w` int NOT NULL DEFAULT '0',
-  `u` int NOT NULL DEFAULT '0',
-  `d` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idpermiso`),
-  KEY `moduloid` (`moduloid`),
-  KEY `rolid` (`rolid`) USING BTREE,
-  CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrolusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `permisos_ibfk_2` FOREIGN KEY (`moduloid`) REFERENCES `modulo` (`idmodulo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=481 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.permisos: ~66 rows (aproximadamente)
 INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VALUES
@@ -246,34 +152,7 @@ INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VA
 	(476, 2, 13, 1, 1, 1, 1),
 	(480, 1, 14, 1, 1, 1, 1);
 
--- Volcando estructura para tabla vivetuav_agencia.persona
-CREATE TABLE IF NOT EXISTS `persona` (
-  `idpersona` bigint NOT NULL AUTO_INCREMENT,
-  `identificacion` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `nombres` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `apellidos` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `telefono` bigint NOT NULL,
-  `email_user` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `password` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `hotel` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `rolid` bigint DEFAULT NULL,
-  `datecreated` datetime NOT NULL DEFAULT (now()),
-  `direccion` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `ciudad` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `rolidempleado` bigint DEFAULT NULL,
-  `conexion` int DEFAULT NULL,
-  `time_conexion` datetime DEFAULT (now()),
-  `img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idpersona`),
-  KEY `rolid` (`rolid`),
-  KEY `rolidempleado` (`rolidempleado`),
-  CONSTRAINT `FK_persona_rol` FOREIGN KEY (`rolid`) REFERENCES `rol_usuario` (`idrolusuario`),
-  CONSTRAINT `FK_persona_rol_empleado` FOREIGN KEY (`rolidempleado`) REFERENCES `rol_empleado` (`idrolempleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla vivetuav_agencia.persona: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla vivetuav_agencia.persona: ~8 rows (aproximadamente)
 INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `hotel`, `token`, `rolid`, `datecreated`, `direccion`, `ciudad`, `rolidempleado`, `conexion`, `time_conexion`, `img`, `status`) VALUES
 	(22, '74199531', 'Javier Antonio', 'Padin Flores', 917189300, 'javierpadin661@gmail.com', 'afad7b36d11a0e2c7b30ec3a16c9077d8e2c4117f282f257790bd9f70641d840', 'ID tributo javier', '0b29bd63a450601e8de9-46a10d5e89d9c8d8010f-34f01ff7f4adc772e209-2598a10910d6573c55cd', 1, '2023-11-10 03:11:09', '111111', '2222', NULL, 1, '2024-12-15 18:26:35', NULL, 1),
 	(66, '15282867', 'Yuriko', 'Vicente Arbizu', 987654321, 'arbizu@gmail.com', '9dd48242682f9b76b335154407472da5a8305bcec32d974b4913e46441e40906', NULL, NULL, 2, '2024-06-28 00:24:44', NULL, NULL, NULL, 1, '2022-07-20 08:43:35', NULL, 1),
@@ -285,18 +164,6 @@ INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `t
 	(72, NULL, 'Jorr', 'Souza Silva', 3121286800, 'teste@exemplo.us', '4bfd3aaad5e0c1c0bdaee0f0fe22d2aea14d97facb56edd18fbde21be00ae4bf', NULL, NULL, 3, '2024-12-04 12:18:34', NULL, NULL, NULL, 0, '2024-12-04 12:20:34', NULL, 1),
 	(73, '74199532', 'Javier', 'Padin Flores', 917189300, '2002010167@undc.edu.pe', '963fd552f8e309aa3619d7203521569c48edea49e39595a364844947b1a552c6', NULL, NULL, 3, '2024-12-04 15:45:11', NULL, NULL, NULL, NULL, '2024-12-04 15:45:11', NULL, 1);
 
--- Volcando estructura para tabla vivetuav_agencia.post
-CREATE TABLE IF NOT EXISTS `post` (
-  `idpost` bigint NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `datecreate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idpost`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
 -- Volcando datos para la tabla vivetuav_agencia.post: ~7 rows (aproximadamente)
 INSERT INTO `post` (`idpost`, `titulo`, `contenido`, `portada`, `datecreate`, `ruta`, `status`) VALUES
 	(1, 'Inicio', '<div class="p-t-80"> <h2 class="ltext-103 cl5" style="text-align: center; line-height: 1;">Nuestros certificados</h2> <h6 style="text-align: center; line-height: 1;">&nbsp;</h6> <h6 style="text-align: center; line-height: 1;">Trabajamos en tu seguridad y bienestar</h6> <p>&nbsp;</p> <h6 style="text-align: center;"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSOBQkO7IsIuxk2V_ImedM6KTR9WZDvjqD_DBlp-yc6VCcv9m-q" alt="" width="200" height="200" />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSA6AfdsKru3Wwj7AfVThXLp19zInLb8Me93623eCXp-1Rjlkj0" alt="" width="200" height="200" />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7VOFlJi69dYKlurKumxPErC5OHUbHm_eW0p1BQA7spuKh4dWd" alt="" width="200" height="200" />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCyIWR6B3dW7lkLeQtWKVdUGZH8SL4smWCatO8akC1GgGORUNX" alt="" width="200" height="200" /></h6> <p style="text-align: center;">&nbsp;</p> </div>', '', '2021-07-20 02:40:15', 'inicio', 1),
@@ -307,18 +174,6 @@ INSERT INTO `post` (`idpost`, `titulo`, `contenido`, `portada`, `datecreate`, `r
 	(6, 'Sucursales', '<section class="py-5 text-center"> <div class="container"> <p>Visitanos y obten los mejores precios del mercado, cualquier art&iacute;culo que necestas para vivir mejor</p> <a class="btn btn-info" href="../../tienda_virtual/tienda">VER PRODUCTOS</a></div> </section> <div class="py-5 bg-light"> <div class="container"> <div class="row"> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s1.jpg" alt="Tienda Uno" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s2.jpg" alt="Sucural dos" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> <div class="col-md-4"> <div class="card mb-4 box-shadow hov-img0"><img src="https://abelosh.com/tienda_virtual/Assets/images/s3.jpg" alt="Sucural tres" width="100%" height="100%" /> <div class="card-body"> <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat necessitatibus eligendi, soluta ipsa natus, at earum qui enim, illum doloremque, accusantium autem nemo est esse nulla neque eaque repellendus amet.</p> <p>Direcci&oacute;n: Antigua Gautemala <br />Tel&eacute;fono: 4654645 <br />Correo: info@abelosh.com</p> </div> </div> </div> </div> </div> </div>', 'chamorroproductos.jpg', '2021-08-11 02:26:45', 'sucursales', 0),
 	(7, 'Not Found', '<h1>Error 404: P&aacute;gina no encontrada</h1> <p>No se encuentra la p&aacute;gina que ha solicitado.</p>', '', '2021-08-12 02:30:49', 'not-found', 1);
 
--- Volcando estructura para tabla vivetuav_agencia.recuerdos
-CREATE TABLE IF NOT EXISTS `recuerdos` (
-  `idcategoria` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idcategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
 -- Volcando datos para la tabla vivetuav_agencia.recuerdos: ~5 rows (aproximadamente)
 INSERT INTO `recuerdos` (`idcategoria`, `nombre`, `descripcion`, `portada`, `datecreated`, `ruta`, `status`) VALUES
 	(1, 'Turismo en Lunahuaná', 'Desestrésate con los diversos servicios que te ofrecemos, como: Canotaje, cuatrimotos, canopy, juegos en el aire.\n \n¡En Vive tu aventura Lunahuaná, la diversión está asegurada!', 'img_2511bcd62f49051305f870c1f1fe2ba1.jpg', '2021-08-20 03:04:04', 'hombre', 1),
@@ -327,38 +182,9 @@ INSERT INTO `recuerdos` (`idcategoria`, `nombre`, `descripcion`, `portada`, `dat
 	(4, 'Turismo en Lunahuaná', 'Desestrésate con los diversos servicios que te ofrecemos, como: Canotaje, cuatrimotos, canopy, juegos en el aire.\n \n¡En Vive tu aventura Lunahuaná, la diversión está asegurada!', 'img_153b54f2d49cb4b7938f04bad2983c3d.jpg', '2023-11-13 08:35:25', 'ss', 1),
 	(5, 'Deportes de aventura', 'Desestrésate con los diversos servicios que te ofrecemos, como: Canotaje, cuatrimotos, canopy, juegos en el aire.\n \n¡En Vive tu aventura Lunahuaná, la diversión está asegurada!', 'img_2b1769b3c296dc978827a686bf4037a9.jpg', '2023-11-23 01:15:09', 'cuidado-personal', 1);
 
--- Volcando estructura para tabla vivetuav_agencia.reserva
-CREATE TABLE IF NOT EXISTS `reserva` (
-  `idreserva` bigint NOT NULL AUTO_INCREMENT,
-  `cod_reserva` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `idpersona` bigint NOT NULL,
-  `idtipopago` bigint NOT NULL,
-  `fecha_pago` datetime NOT NULL,
-  `total` decimal(11,2) NOT NULL,
-  `codigo_voucher` varchar(255) DEFAULT NULL,
-  `captura_voucher` varchar(255) DEFAULT NULL,
-  `status` int NOT NULL,
-  PRIMARY KEY (`idreserva`) USING BTREE,
-  KEY `cod_reserva` (`cod_reserva`),
-  KEY `idtipopago` (`idtipopago`),
-  KEY `FK_reserva_persona` (`idpersona`),
-  CONSTRAINT `FK_reserva_persona` FOREIGN KEY (`idpersona`) REFERENCES `persona` (`idpersona`),
-  CONSTRAINT `FK_reserva_tipopago` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 -- Volcando datos para la tabla vivetuav_agencia.reserva: ~1 rows (aproximadamente)
 INSERT INTO `reserva` (`idreserva`, `cod_reserva`, `idpersona`, `idtipopago`, `fecha_pago`, `total`, `codigo_voucher`, `captura_voucher`, `status`) VALUES
 	(20, 'R_5575', 22, 6, '2024-12-15 00:00:00', 58.00, 'qwerf', '917189300_qwerf_2024-12-10 08_27_15-Window.png', 1);
-
--- Volcando estructura para tabla vivetuav_agencia.rol_empleado
-CREATE TABLE IF NOT EXISTS `rol_empleado` (
-  `idrolempleado` bigint NOT NULL AUTO_INCREMENT,
-  `nombrerolempleado` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idrolempleado`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.rol_empleado: ~6 rows (aproximadamente)
 INSERT INTO `rol_empleado` (`idrolempleado`, `nombrerolempleado`, `descripcion`, `datecreated`, `status`) VALUES
@@ -369,15 +195,6 @@ INSERT INTO `rol_empleado` (`idrolempleado`, `nombrerolempleado`, `descripcion`,
 	(24, 'sww', 'wwwwwrrrwww', '0000-00-00 00:00:00', 0),
 	(25, 'see', 'eeee', '0000-00-00 00:00:00', 0);
 
--- Volcando estructura para tabla vivetuav_agencia.rol_usuario
-CREATE TABLE IF NOT EXISTS `rol_usuario` (
-  `idrolusuario` bigint NOT NULL AUTO_INCREMENT,
-  `nombrerolusuario` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idrolusuario`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
 -- Volcando datos para la tabla vivetuav_agencia.rol_usuario: ~5 rows (aproximadamente)
 INSERT INTO `rol_usuario` (`idrolusuario`, `nombrerolusuario`, `descripcion`, `status`) VALUES
 	(1, 'Administrador', 'Acceso a todo el sistema', 1),
@@ -386,37 +203,7 @@ INSERT INTO `rol_usuario` (`idrolusuario`, `nombrerolusuario`, `descripcion`, `s
 	(4, 'Vendor', 'Operador de tienda', 1),
 	(13, 'secretaria', 'secretaria de la tienda 1', 1);
 
--- Volcando estructura para tabla vivetuav_agencia.salida
-CREATE TABLE IF NOT EXISTS `salida` (
-  `idsalida` bigint NOT NULL AUTO_INCREMENT,
-  `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `personaid` bigint DEFAULT NULL,
-  `persona_externa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `descripcion` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci DEFAULT NULL,
-  `datecreated` datetime DEFAULT CURRENT_TIMESTAMP,
-  `pago` int NOT NULL DEFAULT '0',
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idsalida`),
-  KEY `codigo_venta` (`codigo_venta`),
-  KEY `personaid` (`personaid`),
-  CONSTRAINT `FK_salida_codigo_venta` FOREIGN KEY (`codigo_venta`) REFERENCES `venta` (`codigo_venta`),
-  CONSTRAINT `FK_salidas_persona` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla vivetuav_agencia.salida: ~0 rows (aproximadamente)
-
--- Volcando estructura para tabla vivetuav_agencia.servicio
-CREATE TABLE IF NOT EXISTS `servicio` (
-  `idservicio` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `precio` decimal(20,2) DEFAULT NULL,
-  `portada` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ruta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idservicio`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+-- Volcando datos para la tabla vivetuav_agencia.salida: ~1 rows (aproximadamente)
 
 -- Volcando datos para la tabla vivetuav_agencia.servicio: ~5 rows (aproximadamente)
 INSERT INTO `servicio` (`idservicio`, `nombre`, `descripcion`, `precio`, `portada`, `datecreated`, `ruta`, `status`) VALUES
@@ -425,14 +212,6 @@ INSERT INTO `servicio` (`idservicio`, `nombre`, `descripcion`, `precio`, `portad
 	(3, 'Canopy', 'Una experiencia emocionante que consiste en deslizarse por cables tensados a gran altura, disfrutando vistas panorámicas del valle y la naturaleza.', 5.00, 'img_8c94e5767cd3c73d4e9195bb7918763c.jpg', '2024-05-13 19:46:32', 'canopy', 1),
 	(4, 'Cuatrimoto', 'Aventuras en vehículos todoterreno que permiten recorrer los paisajes de Lunahuaná, explorando caminos rurales, campos y montañas.', 10.00, 'img_55aaabf0c1575ac5535cfd0927b637b2.jpg', '2024-05-13 19:46:32', 'cuatrimoto', 1),
 	(5, 'Canotaje', 'Consiste en descender el río Cañete en botes inflables, desafiando rápidos de diversos niveles de dificultad. Ideal para quienes buscan adrenalina y contacto con la naturaleza.', 10.00, 'img_2dd047b329096c32d5e3f5fa888977e5.jpg', '2024-05-13 19:46:32', 'canotaje', 1);
-
--- Volcando estructura para tabla vivetuav_agencia.tipopago
-CREATE TABLE IF NOT EXISTS `tipopago` (
-  `idtipopago` bigint NOT NULL AUTO_INCREMENT,
-  `tipopago` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- Volcando datos para la tabla vivetuav_agencia.tipopago: ~8 rows (aproximadamente)
 INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
@@ -445,25 +224,7 @@ INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
 	(7, 'Plin', 1),
 	(8, 'Transferencia BCP', 1);
 
--- Volcando estructura para tabla vivetuav_agencia.venta
-CREATE TABLE IF NOT EXISTS `venta` (
-  `idventa` bigint NOT NULL AUTO_INCREMENT,
-  `codigo_venta` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `datecreated` datetime DEFAULT (now()),
-  `idvendedor` bigint NOT NULL,
-  `dni_cliente` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `idtipopago` bigint NOT NULL,
-  `total` decimal(20,2) DEFAULT NULL,
-  `status` int DEFAULT '1',
-  PRIMARY KEY (`idventa`) USING BTREE,
-  KEY `idvendedor` (`idvendedor`) USING BTREE,
-  KEY `idtipopago` (`idtipopago`) USING BTREE,
-  KEY `codigo_venta` (`codigo_venta`) USING BTREE,
-  CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idvendedor`) REFERENCES `persona` (`idpersona`),
-  CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`idtipopago`) REFERENCES `tipopago` (`idtipopago`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
-
--- Volcando datos para la tabla vivetuav_agencia.venta: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla vivetuav_agencia.venta: ~0 rows (aproximadamente)
 INSERT INTO `venta` (`idventa`, `codigo_venta`, `datecreated`, `idvendedor`, `dni_cliente`, `idtipopago`, `total`, `status`) VALUES
 	(5, 'v_1', '2024-12-15 15:12:02', 22, '74199533', 1, 5.00, 1);
 
