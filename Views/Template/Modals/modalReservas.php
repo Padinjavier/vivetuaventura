@@ -144,7 +144,7 @@
             </tr>
             <tr>
               <td>N° de celular:</td>
-              <td id="clienApellido">Larry</td>
+              <td id="clientelefono">Larry</td>
             </tr>
             <tr>
               <td>Modalidad de pago:</td>

@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Agregar datos al formData
             formData.append('idReserva', idReserva);
             formData.append('fechaPago', fechaPago);
-            console.log(codreserva)
             formData.append('codreserva', codreserva);
             formData.append('nombres', nombres);
             formData.append('apellidos', apellidos);
@@ -193,32 +192,55 @@ function fntViewReserva(idreserva) {
                 let total = objData.data.reserva.total;
                 textoServicios += `</tbody><tfoot><tr style='padding: 0;'><td colspan="3" style='padding: 0; text-align: center;'><strong>TOTAL</strong></td><td style='padding: 0; text-align: center;'><strong>S/. ${total}</strong></td></tr></tfoot></table>`;
 
-                // Generar estado de pago con estilos dinámicos
-                let estadoPago = "";
-                switch (parseInt(objData.data.reserva.status)) {
-                    case 2:
-                        estadoPago = '<span style="background-color: green; color: white; border-radius: 5px; padding: 5px;">Pago / Aprobado</span>';
-                        break;
-                    case 1:
-                        estadoPago = '<span style="background-color: yellow; color: black; border-radius: 5px; padding: 5px;">Pago / Por Aprobar</span>';
-                        break;
-                    case 3:
-                        estadoPago = '<span style="background-color: red; color: white; border-radius: 5px; padding: 5px;">Pago / Erróneo</span>';
-                        break;
-                    default:
-                        estadoPago = '<span>No definido</span>';
-                }
-                // Asignar valores a los elementos del modal
-                document.querySelector("#codreserva").innerHTML = objData.data.reserva.cod_reserva;
-                document.querySelector("#clienNombre").innerHTML = objData.data.reserva.nombres;
-                document.querySelector("#clienApellido").innerHTML = objData.data.reserva.apellidos;
-                document.querySelector("#clienApellido").innerHTML = objData.data.reserva.telefono;
-                document.querySelector("#modopago").innerHTML = objData.data.reserva.tipopago;
-                document.querySelector("#cod_voucher").innerHTML = objData.data.reserva.codigo_voucher;
-                document.querySelector("#stadopago").innerHTML = estadoPago;
-                document.querySelector("#FechaRegistro").innerHTML = fechaFormateada;
-                document.querySelector("#imgVoucher").src = objData.data.reserva.captura_voucher;
-                document.querySelector("#datalleservicios").innerHTML = textoServicios;
+// Generar texto con los servicios reservados
+let textoServicioswsp = "Servicios reservados:\n";
+objData.data.detalle_reserva.forEach(servicio => {
+    let subtotal = parseFloat(servicio.precio) * parseInt(servicio.cantidad);
+    textoServicioswsp += `- ${String(servicio.servicio)}: ${String(servicio.cantidad)} x S/. ${parseFloat(servicio.precio).toFixed(2)} = S/. ${subtotal.toFixed(2)}\n`;
+});
+let totalwsp = objData.data.reserva.total;
+textoServicioswsp += `\nTOTAL: S/. ${totalwsp}`;
+
+// Generar mensaje para WhatsApp
+let telefono = objData.data.reserva.telefono;
+let codReserva = objData.data.reserva.cod_reserva;
+let codigoVoucher = objData.data.reserva.codigo_voucher;
+let fechaReserva = fechaFormateada;
+let tipoPago = objData.data.reserva.tipopago;
+let mensaje = `Hola, te escribimos de parte de Vive Tu Aventura. Este es un mensaje automático para confirmar tu reserva.\n\nDetalles de la reserva:\n\nFecha de registro: ${fechaReserva}\nCódigo de reserva: ${codReserva}\nCódigo de voucher: ${codigoVoucher}\n\n${textoServicioswsp}\n\nMétodo de pago: ${tipoPago}\n\nPor favor, confírmanos si realizaste esta reserva respondiendo este mensaje. Esto nos ayudará a coordinar cualquier detalle adicional o resolver dudas sobre tu pago.\n\nGracias por elegirnos. Estamos atentos a tu respuesta.`;
+
+// Generar enlace a WhatsApp
+let whatsappLink = `<a href="https://wa.me/51${telefono}?text=${encodeURIComponent(mensaje)}" id="chatwsp" target="_blank">Enviar mensaje por WhatsApp ${telefono}</a>`;
+
+
+            // Generar estado de pago con estilos dinámicos
+            let estadoPago = "";
+            switch (parseInt(objData.data.reserva.status)) {
+                case 2:
+                    estadoPago = '<span style="background-color: green; color: white; border-radius: 5px; padding: 5px;">Pago / Aprobado</span>';
+                    break;
+                case 1:
+                    estadoPago = '<span style="background-color: yellow; color: black; border-radius: 5px; padding: 5px;">Pago / Por Aprobar</span>';
+                    break;
+                case 3:
+                    estadoPago = '<span style="background-color: red; color: white; border-radius: 5px; padding: 5px;">Pago / Erróneo</span>';
+                    break;
+                default:
+                    estadoPago = '<span>No definido</span>';
+            }
+
+            // Asignar valores a los elementos del modal
+            document.querySelector("#codreserva").innerHTML = objData.data.reserva.cod_reserva;
+            document.querySelector("#clienNombre").innerHTML = objData.data.reserva.nombres;
+            document.querySelector("#clienApellido").innerHTML = objData.data.reserva.apellidos;
+            // document.querySelector("#clientelefono").innerHTML = objData.data.reserva.telefono;
+            document.querySelector("#clientelefono").innerHTML = whatsappLink;
+            document.querySelector("#modopago").innerHTML = objData.data.reserva.tipopago;
+            document.querySelector("#cod_voucher").innerHTML = objData.data.reserva.codigo_voucher;
+            document.querySelector("#stadopago").innerHTML = estadoPago;
+            document.querySelector("#FechaRegistro").innerHTML = fechaFormateada;
+            document.querySelector("#imgVoucher").src = objData.data.reserva.captura_voucher;
+            document.querySelector("#datalleservicios").innerHTML = textoServicios;
                 // Mostrar el modal
                 $('#modalViewReserva').modal('show');
             } else {

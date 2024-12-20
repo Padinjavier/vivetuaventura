@@ -95,12 +95,13 @@ class Reservas extends Controllers
             } else {
                 // Obtener datos del formulario
                 $idReserva = isset($_POST['idReserva']) ? intval($_POST['idReserva']) : 0; // Verificar si existe idReserva
-                $codreserva = strClean($_POST['codreserva']);
+                $codreserva = !empty($_POST['codreserva']) ? strClean($_POST['codreserva']) : 0;
                 $modalidadPago = strClean($_POST['modalidadPago']);
                 $fechaPago = $_POST['fechaPago'];
                 $codigoVoucher = strClean($_POST['codigoVoucher']);
-                $stadopago = strClean($_POST['stadopago']);
-                $serviciosReservados = json_decode($_POST['serviciosReservados'], true); // Decodificar JSON
+                $stadopago = !empty($_POST['stadopago']) ? strClean($_POST['stadopago']) : 0;
+                // $serviciosReservados = json_decode($_POST['serviciosReservados'], true); // Decodificar JSON
+                $serviciosReservados = !empty($_POST['serviciosReservados']) ? json_decode($_POST['serviciosReservados'], true) : $_SESSION['arrCarrito'];
                 $total = 0.00;
 
                 if ($idReserva == 0) {
@@ -108,7 +109,7 @@ class Reservas extends Controllers
                     $ultimoCodigo = $this->model->getUltimoCodigoReserva(); // Consulta a la base de datos
                     if ($ultimoCodigo) {
                         // Extraer la parte numérica del código (después del guion bajo "_")
-                        $codigoNumerico = intval(explode("_", $ultimoCodigo['codreserva'])[1]);
+                        $codigoNumerico = intval(explode("_", $ultimoCodigo['cod_reserva'])[1]);
                         $nuevoCodigoNumerico = $codigoNumerico + 1; // Incrementar en 1
                     } else {
                         // Si no existe ninguna reserva, iniciar en 1
@@ -131,7 +132,7 @@ class Reservas extends Controllers
                     // Insertar nueva reserva
                     $stadopago = 1; // Reserva activa
                     $idReserva = $this->model->insertReserva($codReserva, $idPersona, $idTipoPago, $fechaPago, $total, $codigoVoucher, $capturaVoucher, $stadopago);
-
+                   
                     if ($idReserva > 0) {
                         foreach ($serviciosReservados as $detalle) {
                             $idServicio = $detalle['idproducto'];
