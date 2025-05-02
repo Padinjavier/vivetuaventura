@@ -1,23 +1,29 @@
-<?php 
-	
-	class Controllers
-	{
-		public function __construct()
-		{
-			$this->views = new Views();
-			$this->loadModel();
-		}
+<?php
+// Libraries/Core/Controllers.php
 
-		public function loadModel()
-		{
-			//HomeModel.php
-			$model = get_class($this)."Model";
-			$routClass = "Models/".$model.".php";
-			if(file_exists($routClass)){
-				require_once($routClass);
-				$this->model = new $model();
-			}
-		}
-	}
+class Controllers
+{
+    /** @var Views Instancia del motor de vistas */
+    protected Views $views;
 
- ?>
+    /** @var object|null Instancia del modelo cargado */
+    protected ?object $model = null;
+
+    public function __construct()
+    {
+        $this->views = new Views();
+        $this->loadModel();
+    }
+
+    protected function loadModel(): void
+    {
+        // HomeModel → Models/HomeModel.php
+        $model      = get_class($this) . 'Model';
+        $routeClass = "Models/{$model}.php";
+
+        if (is_file($routeClass)) {
+            require_once $routeClass;
+            $this->model = new $model();
+        }
+    }
+}
