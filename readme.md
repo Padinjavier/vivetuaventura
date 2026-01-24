@@ -1,7 +1,7 @@
 # 🌄 Vive Tu Aventura – Sistema de Gestión de Ventas y Reservas
 
 ![Vista previa del sistema](./preview.png)
-
+![Vista previa del sistema](./preview2.png)
 ## 📌 Descripción del Sistema
 **Vive Tu Aventura** es un sistema web desarrollado para una agencia de turismo de aventura, orientado a la digitalización y automatización del proceso de ventas, reservas y control operativo del negocio.
 
